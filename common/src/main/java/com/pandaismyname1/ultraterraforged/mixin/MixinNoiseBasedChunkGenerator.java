@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -44,26 +46,29 @@ class MixinNoiseBasedChunkGenerator {
 	@Final
     private Holder<NoiseGeneratorSettings> settings;
 	
-	@Inject(at = @At("HEAD"), method = "buildSurface", require = 1)
-    public void buildSurface$HEAD(WorldGenRegion worldGenRegion, StructureManager structureManager, RandomState randomState, ChunkAccess chunkAccess, CallbackInfo callback) {
-		SurfaceRegion.set(worldGenRegion);
-		GeneratorContext generatorContext;
-		if((Object) randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
-			// the water of rivers and lakes above the sea, so the surface is built under it
-			RaisedWater.fill(chunkAccess, generatorContext);
-		}
+
+    // Wrap the complete surface call so a thrown exception cannot leave a
+    // previous world's WorldGenRegion in this thread-local.
+    @WrapMethod(method = "buildSurface")
+    private void ultraterraforged$scopedSurface(WorldGenRegion region,
+            StructureManager structures, RandomState randomState,
+            ChunkAccess chunk, Operation<Void> original) {
+        GeneratorContext context = (Object) randomState instanceof UTFRandomState utf
+            ? utf.generatorContext() : null;
+        if (context == null) {
+            original.call(region, structures, randomState, chunk);
+            return;
+        }
+        SurfaceRegion.set(region);
+        try {
+            RaisedWater.fill(chunk, context);
+            original.call(region, structures, randomState, chunk);
+            context.caveFeatures.carve(chunk);
+        } finally {
+            SurfaceRegion.set(null);
+        }
     }
-	
-	@Inject(at = @At("TAIL"), method = "buildSurface", require = 1)
-    public void buildSurface$TAIL(WorldGenRegion worldGenRegion, StructureManager structureManager, RandomState randomState, ChunkAccess chunkAccess, CallbackInfo callback) {
-		SurfaceRegion.set(null);
-		GeneratorContext generatorContext;
-		if((Object) randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
-			// caves shaped by the land, carved into the finished surface
-			generatorContext.caveFeatures.carve(chunkAccess);
-		}
-    }
-	
+
 	@Redirect(
 		at = @At(
 			value = "INVOKE",

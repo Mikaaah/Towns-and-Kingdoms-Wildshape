@@ -1,6 +1,13 @@
 package com.pandaismyname1.ultraterraforged.world.worldgen.cave;
 
 import org.jetbrains.annotations.Nullable;
+import java.util.BitSet;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import net.minecraft.core.QuartPos;
+import net.minecraft.resources.ResourceLocation;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
@@ -36,6 +43,11 @@ public final class CaveCarving {
 	private final int[] ground = new int[256];
 	private final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 	private final Cell cell = new Cell();
+    private final BitSet carvedAir = new BitSet();
+    // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
+    private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
+    private static final boolean ALEX_CAVES_LOADED =
+        com.pandaismyname1.ultraterraforged.platform.ModLoaderUtil.isLoaded("alexscaves");
 	// the chunk around this one that ground last read from its tile, or null if its tile wasn't there
 	@Nullable
 	private Tile.Chunk near;
@@ -143,6 +155,7 @@ public final class CaveCarving {
 	 * Hollows out a single block, as hollow does.
 	 */
 	public void clear(int x, int y, int z, int water) {
+        if (this.isAlexCavesBiome(x, y, z)) return;
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);
 		if (state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
@@ -150,8 +163,11 @@ public final class CaveCarving {
 		}
 		BlockState fill = y <= water ? WATER : AIR;
 		if (state != fill) {
-			this.chunk.setBlockState(this.pos, fill, false);
-		}
+            if (fill == AIR && !state.isAir() && y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
+                this.carvedAir.set(((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX));
+            }
+            this.chunk.setBlockState(this.pos, fill, false);
+        }
 	}
 
 	/**
@@ -186,7 +202,7 @@ public final class CaveCarving {
 					if (state.isAir() || state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
 						continue;
 					}
-					this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
+					if (!this.isAlexCavesBiome(x, y, z)) this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
 				}
 			}
 		}
@@ -204,6 +220,7 @@ public final class CaveCarving {
 	}
 
 	public void set(int x, int y, int z, BlockState state) {
+        if (this.isAlexCavesBiome(x, y, z)) return;
 		this.chunk.setBlockState(this.pos.set(x, y, z), state, false);
 	}
 
@@ -211,6 +228,78 @@ public final class CaveCarving {
 	public boolean contains(int x, int z) {
 		return x >= this.minX && z >= this.minZ && x < this.minX + 16 && z < this.minZ + 16;
 	}
+
+
+    /**
+     * Optional native protection for Alex's Caves biomes. Requires no hard
+     * dependency or class loading from Alex's Caves, on either loader.
+     */
+    private boolean isAlexCavesBiome(int x, int y, int z) {
+        if (!ALEX_CAVES_LOADED) return false;
+        int qx=QuartPos.fromBlock(x), qy=QuartPos.fromBlock(y), qz=QuartPos.fromBlock(z);
+        long key = net.minecraft.core.BlockPos.asLong(qx, qy, qz);
+        Boolean cached = this.protectedBiomeCache.get(key);
+        if (cached != null) return cached;
+        boolean protectedBiome = this.chunk.getNoiseBiome(qx, qy, qz).unwrapKey()
+            .map(biome -> "alexscaves".equals(biome.location().getNamespace())).orElse(false);
+        this.protectedBiomeCache.put(key, protectedBiome);
+        return protectedBiome;
+    }
+
+    /** Reconcile newly carved air connected to water sources at buildSurface.
+     * Disconnected dry cave systems stay dry. Flood cannot rise above the
+     * adjacent source water block. Chunk edges are marked for fluid processing.
+     */
+    public void reconcileWater() {
+        if (this.carvedAir.isEmpty()) return;
+        int len = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
+        int[] highestWater = new int[len];
+        Arrays.fill(highestWater, Integer.MIN_VALUE);
+        BitSet filled = new BitSet();
+        ArrayDeque<Long> pending = new ArrayDeque<>();
+        for (int bit=this.carvedAir.nextSetBit(0); bit>=0; bit=this.carvedAir.nextSetBit(bit+1)) {
+            int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
+            int ceiling = Integer.MIN_VALUE;
+            if (y+1 < this.chunk.getMaxBuildHeight() && this.isWater(x,y+1,z)) ceiling=y+1;
+            if (x>this.minX && this.isWater(x-1,y,z)) ceiling=Math.max(ceiling,y);
+            if (x<this.minX+15 && this.isWater(x+1,y,z)) ceiling=Math.max(ceiling,y);
+            if (z>this.minZ && this.isWater(x,y,z-1)) ceiling=Math.max(ceiling,y);
+            if (z<this.minZ+15 && this.isWater(x,y,z+1)) ceiling=Math.max(ceiling,y);
+            if (ceiling>=y) pending.addLast(packWater(bit,ceiling));
+        }
+        while(!pending.isEmpty()) {
+            long candidate=pending.removeFirst();
+            int bit=(int)candidate, ceiling=(int)(candidate>>>32);
+            if(bit<0 || bit>=len || highestWater[bit]>=ceiling) continue;
+            int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
+            if(y>ceiling || this.isAlexCavesBiome(x,y,z)) continue;
+            BlockState state=this.chunk.getBlockState(this.pos.set(x,y,z));
+            if(!state.isAir() && !filled.get(bit)) continue;
+            highestWater[bit]=ceiling;
+            if(state.isAir()) {
+                this.chunk.setBlockState(this.pos, WATER, false);
+                filled.set(bit);
+                if(x==this.minX || x==this.minX+15 || z==this.minZ || z==this.minZ+15) {
+                    this.chunk.markPosForPostprocessing(this.pos);
+                }
+            }
+            if((bit&15)>0) pending.addLast(packWater(bit-1,ceiling));
+            if((bit&15)<15) pending.addLast(packWater(bit+1,ceiling));
+            if(((bit>>>4)&15)>0) pending.addLast(packWater(bit-16,ceiling));
+            if(((bit>>>4)&15)<15) pending.addLast(packWater(bit+16,ceiling));
+            if(y>this.bottom) pending.addLast(packWater(bit-256,ceiling));
+            if(y<ceiling && y+1<this.chunk.getMaxBuildHeight()) pending.addLast(packWater(bit+256,ceiling));
+        }
+    }
+
+    private static long packWater(int bit, int ceiling) {
+        return ((long)ceiling<<32) | (bit & 0xFFFFFFFFL);
+    }
+
+    private boolean isWater(int x,int y,int z) {
+        return this.chunk.getBlockState(this.pos.set(x,y,z)).getFluidState()
+            .is(net.minecraft.tags.FluidTags.WATER);
+    }
 
 	/**
 	 * What lines a cave, which may vary from block to block.
