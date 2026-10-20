@@ -1,0 +1,31 @@
+name: Import pristine UltraTerraForged 1.21.1
+on:
+  push:
+    paths:
+      - '.github/workflows/import-upstream-1211.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch exact upstream 1.21.1 commit
+        run: |
+          set -euo pipefail
+          git remote add upstream https://github.com/Pandaismyname1/ultraterraforged.git
+          git fetch --depth=1 upstream 0e85a9a3a04726d78b5835e3d73d76bd2de41215
+          test "$(git rev-parse FETCH_HEAD)" = "0e85a9a3a04726d78b5835e3d73d76bd2de41215"
+          echo "Verified upstream commit: $(git rev-parse FETCH_HEAD)"
+          echo "Upstream files: $(git ls-tree -r --name-only FETCH_HEAD | wc -l)"
+      - name: Replace bootstrap with pristine upstream source
+        run: |
+          set -euo pipefail
+          git push --force origin FETCH_HEAD:refs/heads/main
+          echo "Imported pristine upstream commit to main."
