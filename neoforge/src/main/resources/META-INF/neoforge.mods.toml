@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[1,)"
-license="MIT"
+license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Pandaismyname1/ultraterraforged/issues"
 
 [[mods]]
@@ -18,6 +18,9 @@ config="ultraterraforged-common.mixins.json"
 
 [[mixins]]
 config="ultraterraforged-neoforge.mixins.json"
+
+[[mixins]]
+config="ultraterraforged-alex-caves.mixins.json"
 
 [[dependencies.ultraterraforged]]
     modId="neoforge"
@@ -37,5 +40,12 @@ config="ultraterraforged-neoforge.mixins.json"
     modId="terrablender"
     type="optional"
     versionRange="[4.1.0.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ultraterraforged]]
+    modId="alexscaves"
+    type="optional"
+    versionRange="[2.0.10,2.0.11)"
     ordering="AFTER"
     side="BOTH"

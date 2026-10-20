@@ -8,6 +8,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
@@ -21,8 +23,12 @@ import com.pandaismyname1.ultraterraforged.server.UTFMinecraftServer;
 @Mod(UTFCommon.MOD_ID)
 public class UTFNeoForge {
 
-    public UTFNeoForge(IEventBus modBus) {
+    public UTFNeoForge(IEventBus modBus, ModContainer modContainer) {
     	UTFCommon.bootstrap();
+        // No Alex classes are initialized unless the optional mod is installed.
+        if (ModList.get().isLoaded("alexscaves")) {
+            new com.pandaismyname1.ultraterraforged.neoforge.compat.alexscaves.TerraforgedAlexCavesFix(modContainer);
+        }
 
     	modBus.addListener(UTFNeoForge::gatherData);
     	NeoForge.EVENT_BUS.addListener(UTFNeoForge::addReloadListeners);
