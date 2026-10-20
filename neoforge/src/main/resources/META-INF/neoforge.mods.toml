@@ -5,13 +5,13 @@ issueTrackerURL="https://github.com/Mikaaah/ultraterraforged-personal/issues"
 
 [[mods]]
 modId="ultraterraforged"
-displayName="UltraTerraForged"
+displayName="TNKTerraForged"
 version="${version}"
-authors="pandaismyname1 (original); Mikaaah (community fork)"
+authors="Mikaaah (TNKTerraForged); pandaismyname1 (UltraTerraForged original)"
 credits="A continuation of ReTerraForged by raccoonman, Steveplays28 and EdoEquin0x, itself a continuation of TerraForged by dags and Won-Ton"
 logoFile="logo.png"
 displayURL="https://github.com/Mikaaah/ultraterraforged-personal"
-description='''Realistic, configurable terrain: continents, mountain ranges, rivers that follow the land, coasts, caves and sea floors worth exploring. A continuation of ReTerraForged and TerraForged.'''
+description='''TNK3-focused overworld terrain generation built from UltraTerraForged, ReTerraForged and TerraForged. Massive caves and modded structure safeguards.'''
 
 [[mixins]]
 config="ultraterraforged-common.mixins.json"
