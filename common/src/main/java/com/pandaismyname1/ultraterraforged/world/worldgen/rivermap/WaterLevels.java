@@ -148,7 +148,7 @@ public final class WaterLevels {
         for (int i=blocks.length-2; i>=0; i--) {
             int lowestSafeLevel = Math.max(levels.waterY, (int) Math.ceil((lowest[i]-gorge)*levels.worldHeight));
             int preferred = blocks[i+1] + MAX_FALL_PER_REACH;
-            if (blocks[i]>preferred) blocks[i]=Math.max(lowestSafeLevel, preferred);
+            if (blocks[i]>preferred) blocks[i]=Math.min(blocks[i], Math.max(lowestSafeLevel, preferred));
         }
     }
 
