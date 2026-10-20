@@ -1,16 +1,16 @@
 modLoader="javafml"
 loaderVersion="[1,)"
 license="GPL-3.0-only"
-issueTrackerURL="https://github.com/Pandaismyname1/ultraterraforged/issues"
+issueTrackerURL="https://github.com/Mikaaah/ultraterraforged-personal/issues"
 
 [[mods]]
 modId="ultraterraforged"
 displayName="UltraTerraForged"
 version="${version}"
-authors="pandaismyname1"
+authors="pandaismyname1 (original); Mikaaah (community fork)"
 credits="A continuation of ReTerraForged by raccoonman, Steveplays28 and EdoEquin0x, itself a continuation of TerraForged by dags and Won-Ton"
 logoFile="logo.png"
-displayURL="https://github.com/Pandaismyname1/ultraterraforged"
+displayURL="https://github.com/Mikaaah/ultraterraforged-personal"
 description='''Realistic, configurable terrain: continents, mountain ranges, rivers that follow the land, coasts, caves and sea floors worth exploring. A continuation of ReTerraForged and TerraForged.'''
 
 [[mixins]]
