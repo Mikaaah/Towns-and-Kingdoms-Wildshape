@@ -5,7 +5,7 @@
 - **Giant cavern connectivity:** add deterministic, winding passages between neighboring active giant caverns, without dependency on the order in which chunks generate.
 - **Cavern altitude weighting:** use block-space sea level for mountain weighting rather than comparing block elevation with a normalized water level.
 - **Built-in caves:** reduce the spaghetti, noodle, regular/deep carver and ravine densities across six shipped presets; user-defined presets are not modified.
-- **Cross-chunk fluid work:** replace boxed flood-queue positions with a primitive long FIFO and 4-byte water ceilings with 2-byte bottom-relative ceilings, cutting temporary allocations in locally repaired chunks. True cross-chunk aquifer connectivity still requires live tests.
+- **Cross-chunk fluid work:** use a primitive long flood queue and 2-byte bottom-relative ceilings, and only allocate the flood-height table when a water-connected cave is actually discovered. Dry cave chunks avoid this allocation entirely. True cross-chunk aquifer connectivity still requires live tests.
 
 ### Memory and reliability
 - **Normal tile generation:** release pooled tile arrays when any async worker or filter fails; wait until all workers finish before closing.
