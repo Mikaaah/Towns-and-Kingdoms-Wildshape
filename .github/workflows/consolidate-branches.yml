@@ -1,0 +1,43 @@
+name: Consolidate version branches
+on:
+  push:
+    branches: [neoforge-1.21.1]
+    paths: ['.github/workflows/consolidate-branches.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set NeoForge 1.21.1 as default when permitted
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo "Current default: $(gh api repos/$GITHUB_REPOSITORY --jq .default_branch)"
+          if gh api --method PATCH "repos/$GITHUB_REPOSITORY" -f default_branch=neoforge-1.21.1 --silent; then
+            echo "Default branch changed to neoforge-1.21.1"
+          else
+            echo "::warning::GitHub Actions token cannot change the repository default. The owner must select neoforge-1.21.1 under Settings > General > Default branch, then rerun this job to delete main."
+          fi
+      - name: Remove merged or superseded development branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for name in             audit/1.21.1-baseline             fix/1.21.1-caverns-ui-stability             fix/1.21.1-performance-followup             fix/complete-1211-audit-water-alex             fix/complete-audit-water-alex-caves             test/alex-enabled-server-smoke             work/20261020-cave-cache-final; do
+            if git ls-remote --heads origin "refs/heads/$name" | grep -q .; then
+              git push origin --delete "$name" || echo "::warning::Could not delete $name"
+            fi
+          done
+          actual="$(gh api "repos/$GITHUB_REPOSITORY" --jq .default_branch)"
+          if [ "$actual" = neoforge-1.21.1 ]; then
+            git push origin --delete main || echo "::warning::Could not delete main"
+          else
+            echo "::warning::Retaining main: it is still the default branch."
+          fi
+          echo "Remaining branches:"
+          git ls-remote --heads origin
