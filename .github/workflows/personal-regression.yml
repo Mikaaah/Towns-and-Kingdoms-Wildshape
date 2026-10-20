@@ -1,7 +1,7 @@
 name: UTF Personal Regression Tests
 on:
   push:
-    branches: [fix/1.21.1-caverns-ui-stability]
+    branches: [fix/1.21.1-caverns-ui-stability, fix/1.21.1-performance-followup]
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,7 +19,7 @@ jobs:
       - name: Run affected core tests
         run: |
           chmod +x gradlew
-          ./gradlew :common:test --tests '*MassiveCavernTest' --tests '*PresetOptionsTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' -Putf.perfMods=false --no-daemon --stacktrace
+          ./gradlew :common:test --tests '*LazyCallableTest' --tests '*SiteCacheTest' --tests '*MassiveCavernTest' --tests '*PresetOptionsTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' -Putf.perfMods=false --no-daemon --stacktrace
       - name: Build distributable releases with exact dependency version
         env:
           RELEASE: 'true'
