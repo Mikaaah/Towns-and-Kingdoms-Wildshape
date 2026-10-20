@@ -1,4 +1,5 @@
 name: Consolidate version branches
+# Run once after both loader branches have been created.
 on:
   push:
     branches: [neoforge-1.21.1]
