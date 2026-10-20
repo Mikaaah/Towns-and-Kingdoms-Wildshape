@@ -1,4 +1,26 @@
 # UltraTerraForged Personal — development changelog
+## 2026-10-20 — Cave networks, failed-tile recovery and repository cleanup
+
+### World generation
+- **Giant cavern connectivity:** add deterministic, winding passages between neighboring active giant caverns, without dependency on the order in which chunks generate.
+- **Cavern altitude weighting:** use block-space sea level for mountain weighting rather than comparing block elevation with a normalized water level.
+- **Built-in caves:** reduce the spaghetti, noodle, regular/deep carver and ravine densities across six shipped presets; user-defined presets are not modified.
+- **Cross-chunk fluid work:** replace boxed flood-queue positions with a primitive long FIFO and 4-byte water ceilings with 2-byte bottom-relative ceilings, cutting temporary allocations in locally repaired chunks. True cross-chunk aquifer connectivity still requires live tests.
+
+### Memory and reliability
+- **Normal tile generation:** release pooled tile arrays when any async worker or filter fails; wait until all workers finish before closing.
+- **Failed tile caching:** remove failed tile entries so later requests can retry generation rather than reusing a completed exceptional future indefinitely.
+- **Idle scheduler:** disable scheduled polling for caches configured with infinite lifetime (such as active tile caches).
+- **Regression:** add an asynchronous tile-failure retry JUnit test.
+
+### Presentation and repository
+- Rewrite README to describe actual fork features, supported loaders, credit and compatibility.
+- Consolidate development branches to NeoForge/Fabric 1.21.1 editions, retaining only necessary repository administration branch(es) if GitHub permissions prevent changing the default.
+
+**Validation:** source compilation and targeted tests are required; geometry, fluid seams, Alex's Caves coexistence and user input still require actual Minecraft-world checks. Build results do not constitute a performance benchmark.
+
+---
+
 ## 2026-10-20 — Audit completion implementation
 
 ### High-priority world generation
@@ -55,5 +77,5 @@
 ### Validation and scope
 - These modifications affect newly generated chunks, **not existing terrain**.
 - Initial regression coverage: existing cave/river/option tests and new targeted cavern roof tests; real-world visual checking and mod compatibility tests remain necessary.
-- **Not yet integrated:** Alex's Caves standalone compat implementation, invasive aquifer/cross-chunk flood repair, unsafe global cache lifecycle rewrites, and speculative terrain re-profiling. These need separate, reproducible tests before merging.
+- **Integrated in later audit work:** optional NeoForge Alex's Caves source compatibility and cache lifecycle fixes. Cross-chunk aquifer behavior still requires testing in full Minecraft worlds.
 - The existing `1.0.2+1.21.1` mod version is intentionally preserved in the test branch for dependencies that pin the version.

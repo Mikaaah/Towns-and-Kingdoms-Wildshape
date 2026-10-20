@@ -31,7 +31,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.CONTINENT_CENTER, 512, 64, 63, -54)
 			), 
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 1024, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, SurfaceSettings.Erosion.DEFAULT_SNOW_ASPECT)),
-			new CaveSettings(0.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.14285715F, 0.07F, 0.01F, true, true),
+			new CaveSettings(0.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, true, true),
 			new ClimateSettings(
 				new RangeValue(0, 6, 2, 0.0F, 0.98F, 0.05F), 
 				new RangeValue(0, 6, 1, 0.0F, 1.0F, 0.0F), 
@@ -79,7 +79,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.CONTINENT_CENTER, 320, 64, 63, -54)
 			), 
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 140, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, 0)),
-			new CaveSettings(0.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.14285715F, 0.07F, 0.02F, true, false),
+			new CaveSettings(0.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, true, false),
 			new ClimateSettings(
 				new RangeValue(0, 6, 2, 0.0F, 0.98F, 0.05F), 
 				new RangeValue(0, 6, 1, 0.0F, 1.0F, 0.0F), 
@@ -127,7 +127,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.WORLD_ORIGIN, 320, 64, 63, -54)
 			), 
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 140, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, 0)),
-			new CaveSettings(1.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.15F, 0.07F, 0.021F, true, false),
+			new CaveSettings(1.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, true, false),
 			new ClimateSettings(
 				new RangeValue(0, 4, 1, 0.0F, 0.98F, 0.05F), 
 				new RangeValue(0, 5, 1, 0.0F, 1.0F, 0.0F), 
@@ -175,7 +175,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.CONTINENT_CENTER, 320, 64, 63, -54)
 			), 
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 140, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, 0)),
-			new CaveSettings(0.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.14285715F, 0.07F, 0.02F, true, false),
+			new CaveSettings(0.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, true, false),
 			new ClimateSettings(
 				new RangeValue(0, 7, 1, 0.0F, 1.0F, -0.004F), 
 				new RangeValue(0, 6, 1, 0.0F, 1.0F, 0.0F), 
@@ -223,7 +223,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.CONTINENT_CENTER, 320, 64, 63, -54)
 			),
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 140, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, 0)),
-			new CaveSettings(0.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.14285715F, 0.07F, 0.02F, false, false),
+			new CaveSettings(0.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, false, false),
 			new ClimateSettings(
 				new RangeValue(0, 4, 1, 0.0F, 0.98F, 0.05F),
 				new RangeValue(0, 5, 1, 0.0F, 1.0F, 0.0F), 
@@ -271,7 +271,7 @@ public class BuiltinPresets {
 				new Properties(SpawnType.CONTINENT_CENTER, 320, 64, 63, -54)
 			), 
 			new SurfaceSettings(new SurfaceSettings.Erosion(30, 140, 40, 95, 95, 0.65F, 0.475F, 0.4F, 0.45F, 6.0F, 3.0F, 0)),
-			new CaveSettings(0.0F, 1.5625F, 1.0F, 1.0F, 1.0F, 0.14285715F, 0.07F, 0.02F, true, false),
+			new CaveSettings(0.0F, 1.5625F, 1.0F, 0.30F, 0.12F, 0.055F, 0.028F, 0.007F, true, false),
 			new ClimateSettings(
 				new RangeValue(0, 4, 2, 0.0F, 1.0F, 0.097F), 
 				new RangeValue(0, 3, 1, 0.0F, 1.0F, 0.0F), 

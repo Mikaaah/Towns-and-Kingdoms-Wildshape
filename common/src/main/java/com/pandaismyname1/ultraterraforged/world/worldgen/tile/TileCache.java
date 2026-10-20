@@ -21,7 +21,7 @@ public class TileCache implements TileFactory {
 		this.tileSize = tileSize;
 		this.queue = queue;
 		// Tile arrays belong to chunks still using them: retire only after drop().
-        this.cache = CacheManager.createCache(256, Long.MAX_VALUE, 20L, TimeUnit.MILLISECONDS, StampedLongMap::new);
+        this.cache = CacheManager.createCache(256, Long.MAX_VALUE, 20L, TimeUnit.MINUTES, StampedLongMap::new);
 		this.generator = generator;
 	}
 	
@@ -33,7 +33,13 @@ public class TileCache implements TileFactory {
 	public Tile provideIfPresent(int tileX, int tileZ) {
 		@Nullable
 		CacheEntry<Entry> entry = this.cache.get(PosUtil.pack(tileX, tileZ));
-		return entry != null && entry.isDone() ? entry.get().tile : null;
+		if (entry == null || !entry.isDone()) return null;
+        try {
+            return entry.get().tile;
+        } catch (RuntimeException failure) {
+            this.discardFailed(PosUtil.pack(tileX, tileZ), entry);
+            throw failure;
+        }
 	}
 
 	@Nullable
@@ -43,7 +49,14 @@ public class TileCache implements TileFactory {
 
 	@Override
 	public Tile provide(int tileX, int tileZ) {
-		return this.computeEntry(tileX, tileZ).get().tile;
+		long key = PosUtil.pack(tileX, tileZ);
+        CacheEntry<Entry> entry = this.computeEntry(tileX, tileZ);
+        try {
+            return entry.get().tile;
+        } catch (RuntimeException failure) {
+            this.discardFailed(key, entry);
+            throw failure;
+        }
 	}
 	
 	@Override
@@ -63,6 +76,12 @@ public class TileCache implements TileFactory {
 			entry.get().tile.close();
 		}
 	}
+
+    // A failed tile must not poison the same coordinates forever.
+    // Check identity to avoid evicting a replacement entry that another thread created.
+    private void discardFailed(long key, CacheEntry<Entry> failed) {
+        if (failed.isDone() && this.cache.get(key) == failed) this.cache.remove(key);
+    }
 
 	@Override
 	public int chunkToTile(int chunkCoord) {

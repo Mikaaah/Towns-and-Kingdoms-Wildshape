@@ -28,15 +28,20 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
         long intervalMillis = unit.toMillis(pollInterval);
         WeakReference<Cache<V>> cacheRef = new WeakReference<>(this);
         AtomicReference<ScheduledFuture<?>> handle = new AtomicReference<>();
-        this.poll = SCHEDULER.scheduleAtFixedRate(() -> {
-            Cache<V> cached = cacheRef.get();
-            if (cached != null) cached.poll();
-            else {
-                ScheduledFuture<?> scheduled = handle.get();
-                if (scheduled != null) scheduled.cancel(false);
-            }
-        }, intervalMillis, intervalMillis, TimeUnit.MILLISECONDS);
-        handle.set(this.poll);
+        if (expireTime == Long.MAX_VALUE) {
+            // Non-expiring tile caches do not need a scheduler tick.
+            this.poll = null;
+        } else {
+            this.poll = SCHEDULER.scheduleAtFixedRate(() -> {
+                Cache<V> cached = cacheRef.get();
+                if (cached != null) cached.poll();
+                else {
+                    ScheduledFuture<?> scheduled = handle.get();
+                    if (scheduled != null) scheduled.cancel(false);
+                }
+            }, intervalMillis, intervalMillis, TimeUnit.MILLISECONDS);
+            handle.set(this.poll);
+        }
     }
     
     public void remove(long key) {
@@ -58,6 +63,6 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
 
 	@Override
 	public void close() {
-		this.poll.cancel(false);
+		if (this.poll != null) this.poll.cancel(false);
 	}
 }

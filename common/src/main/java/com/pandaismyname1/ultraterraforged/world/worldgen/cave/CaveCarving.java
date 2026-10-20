@@ -2,7 +2,7 @@ package com.pandaismyname1.ultraterraforged.world.worldgen.cave;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.BitSet;
-import java.util.ArrayDeque;
+import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -253,11 +253,13 @@ public final class CaveCarving {
      */
     public void reconcileWater() {
         if (this.carvedAir.isEmpty()) return;
+        // Short offsets are safe for supported Minecraft world heights.
         int len = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
-        int[] highestWater = new int[len];
-        Arrays.fill(highestWater, Integer.MIN_VALUE);
+        short[] highestWater = new short[len];
+        Arrays.fill(highestWater, (short) -1);
         BitSet filled = new BitSet();
-        ArrayDeque<Long> pending = new ArrayDeque<>();
+        // Primitive queue: no Long boxing for large flooded caverns.
+        LongArrayFIFOQueue pending = new LongArrayFIFOQueue();
         for (int bit=this.carvedAir.nextSetBit(0); bit>=0; bit=this.carvedAir.nextSetBit(bit+1)) {
             int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
             int ceiling = Integer.MIN_VALUE;
@@ -266,17 +268,17 @@ public final class CaveCarving {
             if (x<this.minX+15 && this.isWater(x+1,y,z)) ceiling=Math.max(ceiling,y);
             if (z>this.minZ && this.isWater(x,y,z-1)) ceiling=Math.max(ceiling,y);
             if (z<this.minZ+15 && this.isWater(x,y,z+1)) ceiling=Math.max(ceiling,y);
-            if (ceiling>=y) pending.addLast(packWater(bit,ceiling));
+            if (ceiling>=y) pending.enqueue(packWater(bit,ceiling));
         }
         while(!pending.isEmpty()) {
-            long candidate=pending.removeFirst();
+            long candidate=pending.dequeueLong();
             int bit=(int)candidate, ceiling=(int)(candidate>>>32);
-            if(bit<0 || bit>=len || highestWater[bit]>=ceiling) continue;
+            if(bit<0 || bit>=len || highestWater[bit]>=ceiling-this.bottom) continue;
             int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
             if(y>ceiling || this.isAlexCavesBiome(x,y,z)) continue;
             BlockState state=this.chunk.getBlockState(this.pos.set(x,y,z));
             if(!state.isAir() && !filled.get(bit)) continue;
-            highestWater[bit]=ceiling;
+            highestWater[bit]=(short)(ceiling-this.bottom);
             if(state.isAir()) {
                 this.chunk.setBlockState(this.pos, WATER, false);
                 filled.set(bit);
@@ -284,12 +286,12 @@ public final class CaveCarving {
                     this.chunk.markPosForPostprocessing(this.pos);
                 }
             }
-            if((bit&15)>0) pending.addLast(packWater(bit-1,ceiling));
-            if((bit&15)<15) pending.addLast(packWater(bit+1,ceiling));
-            if(((bit>>>4)&15)>0) pending.addLast(packWater(bit-16,ceiling));
-            if(((bit>>>4)&15)<15) pending.addLast(packWater(bit+16,ceiling));
-            if(y>this.bottom) pending.addLast(packWater(bit-256,ceiling));
-            if(y<ceiling && y+1<this.chunk.getMaxBuildHeight()) pending.addLast(packWater(bit+256,ceiling));
+            if((bit&15)>0) pending.enqueue(packWater(bit-1,ceiling));
+            if((bit&15)<15) pending.enqueue(packWater(bit+1,ceiling));
+            if(((bit>>>4)&15)>0) pending.enqueue(packWater(bit-16,ceiling));
+            if(((bit>>>4)&15)<15) pending.enqueue(packWater(bit+16,ceiling));
+            if(y>this.bottom) pending.enqueue(packWater(bit-256,ceiling));
+            if(y<ceiling && y+1<this.chunk.getMaxBuildHeight()) pending.enqueue(packWater(bit+256,ceiling));
         }
     }
 

@@ -35,26 +35,72 @@ final class GiantCaverns implements CaveFeatures.Feature {
         this.pillars = Noises.worleyEdge(seed + 2, 27);
     }
 
+    /** Return a stable active site, independent of the requesting chunk. */
+    private Cavern active(int gx, int gz, CaveCarving carving) {
+        float draw = CaveFeatures.random(this.seed, gx, gz, 0);
+        if (draw >= this.frequency) return NONE;
+        Cavern c = this.caverns.get(gx, gz, (x, z) -> this.find(x, z, carving));
+        if (c == NONE) return NONE;
+        float highland = NoiseUtil.clamp(
+            (c.terrainHeight() - carving.levels.waterY - 18.0F) / 120.0F, 0.0F, 1.0F);
+        return draw < this.frequency * (0.42F + 0.58F * highland) ? c : NONE;
+    }
+
     @Override
     public void carve(CaveCarving carving) {
         int gridX = NoiseUtil.floor(carving.minX / GRID);
         int gridZ = NoiseUtil.floor(carving.minZ / GRID);
         for (int gx = gridX - 1; gx <= gridX + 1; gx++) {
             for (int gz = gridZ - 1; gz <= gridZ + 1; gz++) {
-                // Cheap early rejection; terrain-dependent acceptance below
-                // intentionally favors continents, foothills and mountains.
-                float draw = CaveFeatures.random(this.seed, gx, gz, 0);
-                if (draw >= this.frequency * 1.0F) continue;
-                Cavern cavern = this.caverns.get(gx, gz, (cx, cz) -> this.find(cx, cz, carving));
+                Cavern cavern = this.active(gx, gz, carving);
                 if (cavern == NONE) continue;
-                float highland = NoiseUtil.clamp((cavern.terrainHeight() - carving.levels.waterLevel - 18.0F) / 120.0F, 0.0F, 1.0F);
-                float probability = this.frequency * (0.42F + 0.58F * highland);
-                if (draw >= probability) continue;
                 float reach = Math.max(cavern.radiusX(), cavern.radiusZ()) * 1.22F;
-                if (carving.reaches(cavern.x() - reach, cavern.z() - reach, cavern.x() + reach, cavern.z() + reach)) {
+                if (carving.reaches(cavern.x() - reach, cavern.z() - reach,
+                                    cavern.x() + reach, cavern.z() + reach)) {
                     this.hollow(cavern, carving);
                 }
+                // Only create each grid edge once. The same path will be carved
+                // when either adjacent chunk arrives, without checking neighbor chunks.
+                this.connect(cavern, this.active(gx + 1, gz, carving), carving);
+                this.connect(cavern, this.active(gx, gz + 1, carving), carving);
             }
+        }
+    }
+
+    /**
+     * Wide corridors between adjacent giant chambers. Position and geometry
+     * are pure functions of world seed and grid coordinates: no chunk ordering.
+     * Protect the surface with the normal hollow() ground-depth constraint.
+     */
+    private void connect(Cavern from, Cavern to, CaveCarving carving) {
+        if (to == NONE) return;
+        float dx = to.x() - from.x(), dz = to.z() - from.z();
+        float length = (float)Math.sqrt(dx * dx + dz * dz);
+        if (length < 1.0F) return;
+        float radius = 17.0F;
+        if (!carving.reaches(Math.min(from.x(), to.x()) - radius,
+                            Math.min(from.z(), to.z()) - radius,
+                            Math.max(from.x(), to.x()) + radius,
+                            Math.max(from.z(), to.z()) + radius)) return;
+        int steps = Math.max(1, (int)Math.ceil(length / 12.0F));
+        float sideX = -dz / length, sideZ = dx / length;
+        float deviation = (CaveFeatures.random(this.seed,
+            (int)Math.floor(from.x() / GRID), (int)Math.floor(from.z() / GRID), 12) - 0.5F) * 38.0F;
+        for (int i = 0; i <= steps; i++) {
+            float t = i / (float)steps;
+            float sway = (float)Math.sin(t * Math.PI) * deviation;
+            float x = from.x() + dx * t + sideX * sway;
+            float z = from.z() + dz * t + sideZ * sway;
+            if (!carving.reaches(x - radius - 3, z - radius - 3,
+                                 x + radius + 3, z + radius + 3)) continue;
+            float y = NoiseUtil.lerp(from.y(), to.y(), t) +
+                      (float)Math.sin(t * Math.PI * 3.0F) * 3.0F;
+            // The tunnel must not puncture Y30 or the actual surface above.
+            y = Math.min(y, MAX_ROOF_Y - 13.0F);
+            y = Math.max(y, carving.bottom + 17.0F);
+            if (y + 12.0F > MAX_ROOF_Y) continue;
+            carving.hollow(x, y, z, radius, 12.0F, radius,
+                           CaveCarving.DRY, MIN_ROOF_COVER);
         }
     }
 

@@ -81,7 +81,11 @@ public class TileGenerator {
 		return CompletableFuture.allOf(futures).thenApply((v) -> {
 			this.filters.apply(tile, true);
 			return tile;
-		});
+		}).whenComplete((result, failure) -> {
+            // allOf has completed every worker before this callback runs:
+            // pooled arrays are not returned while workers can still write.
+            if (failure != null) tile.close();
+        });
 	}
 	
 	public CompletableFuture<Tile> generateZoomed(float centerX, float centerZ, float zoom, boolean applyOptionalFilters) {
