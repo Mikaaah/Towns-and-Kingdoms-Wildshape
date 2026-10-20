@@ -28,7 +28,8 @@ public class Slider extends AbstractSliderButton {
     }
     
     public void setValue(double value) {
-    	this.value = value;
+        if (Double.isFinite(value)) this.value = Mth.clamp(value, 0.0D, 1.0D);
+        this.updateMessage();
     }
     
     public double getValue() {
@@ -61,14 +62,37 @@ public class Slider extends AbstractSliderButton {
     
     @Override
     public void applyValue() {
-    	if(this.callback != null) {
-        	this.value = this.callback.apply(this, this.value);
-    	}
+        if (this.callback != null) {
+            double accepted = this.callback.apply(this, this.value);
+            if (Double.isFinite(accepted)) this.value = Mth.clamp(accepted, 0.0D, 1.0D);
+        }
+        this.updateMessage();
+    }
+
+    // Nested option lists may swallow the vanilla base slider's value update.
+    // Always derive the new normalized value from the pointer ourselves.
+    @Override
+    public void onClick(double mouseX, double mouseY) {
+        this.utf$fromMouse(mouseX);
+    }
+
+    @Override
+    protected void onDrag(double mouseX, double mouseY, double deltaX, double deltaY) {
+        this.utf$fromMouse(mouseX);
+    }
+
+    private void utf$fromMouse(double mouseX) {
+        if (!this.active || !this.visible || this.width <= 8) return;
+        double next = Mth.clamp((mouseX - (this.getX() + 4)) / (double)(this.width - 8), 0.0D, 1.0D);
+        if (next != this.value) {
+            this.value = next;
+            this.applyValue();
+        }
     }
 
     @Override
     protected void updateMessage() {
-        this.setMessage(CommonComponents.optionNameValue(this.name, Component.literal(this.format.getMessage(this.scaleValue((float) this.value)))));
+        this.setMessage(CommonComponents.optionNameValue(this.name, Component.literal(this.format.getMessage(this.scaleValue(this.value)))));
     }
     
     public static enum Format {
