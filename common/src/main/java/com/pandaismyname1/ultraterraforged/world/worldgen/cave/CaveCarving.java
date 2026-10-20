@@ -189,15 +189,8 @@ public final class CaveCarving {
 		}
 		BlockState fill = y <= water ? WATER : AIR;
 		if (state != fill) {
-            if (y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
-                int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
-                if (fill == AIR && !state.isAir()) {
-                    this.carvedAir.set(bit);
-                } else if (fill == WATER) {
-                    // Later features can flood previously carved air.
-                    // The mask must reflect the final state of the block.
-                    this.carvedAir.clear(bit);
-                }
+            if (fill == AIR && !state.isAir() && y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
+                this.carvedAir.set(((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX));
             }
             this.chunk.setBlockState(this.pos, fill, false);
         }
@@ -254,9 +247,6 @@ public final class CaveCarving {
 
 	public void set(int x, int y, int z, BlockState state) {
         if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
-        if (!state.isAir() && this.contains(x, z) && y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
-            this.carvedAir.clear(((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX));
-        }
 		this.chunk.setBlockState(this.pos.set(x, y, z), state, false);
 	}
 
@@ -294,17 +284,8 @@ public final class CaveCarving {
         // Most giant-cave chunks have no exposed fluid connection.
         // Build the seed queue before allocating a per-block water-height table.
         LongArrayFIFOQueue pending = new LongArrayFIFOQueue();
-        int maxBit = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
         for (int bit=this.carvedAir.nextSetBit(0); bit>=0; bit=this.carvedAir.nextSetBit(bit+1)) {
-            // Deep inside a contiguous dry cavity, none of these five
-            // surrounding blocks can be an existing water source.
-            // Skipping the ChunkAccess lookups matters for 100k-block caverns.
-            int lx = bit & 15, lz = (bit >>> 4) & 15;
-            if (lx > 0 && lx < 15 && lz > 0 && lz < 15 && bit + 256 < maxBit
-                    && this.carvedAir.get(bit - 1) && this.carvedAir.get(bit + 1)
-                    && this.carvedAir.get(bit - 16) && this.carvedAir.get(bit + 16)
-                    && this.carvedAir.get(bit + 256)) continue;
-            int x=this.minX+lx, z=this.minZ+lz, y=this.bottom+(bit>>>8);
+            int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
             int ceiling = Integer.MIN_VALUE;
             if (y+1 < this.chunk.getMaxBuildHeight() && this.isWater(x,y+1,z)) ceiling=y+1;
             if (x>this.minX && this.isWater(x-1,y,z)) ceiling=Math.max(ceiling,y);
