@@ -2,10 +2,11 @@
   "schemaVersion": 1,
   "id": "ultraterraforged",
   "version": "${version}",
-  "name": "UltraTerraForged",
-  "description": "Realistic, configurable terrain: continents, mountain ranges, rivers that follow the land, coasts, caves and sea floors worth exploring. A continuation of ReTerraForged and TerraForged.",
+  "name": "TNKTerraForged",
+  "description": "TNK3-focused overworld terrain based on UltraTerraForged, ReTerraForged and TerraForged. Large caverns and modded structure safeguards.",
   "authors": [
-    "pandaismyname1"
+    "Mikaaah (TNKTerraForged)",
+    "pandaismyname1 (UltraTerraForged original)"
   ],
   "contributors": [
     "dags (TerraForged)",
@@ -13,7 +14,8 @@
     "raccoonman (ReTerraForged)",
     "Steveplays28 (ReTerraForged)",
     "EdoEquin0x (ReTerraForged)",
-    "Mikaaah (community fork)"
+    "Mikaaah (community fork)",
+    "Mikaaah (TNKTerraForged)"
   ],
   "contact": {
     "homepage": "https://github.com/Mikaaah/ultraterraforged-personal",

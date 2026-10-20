@@ -23,6 +23,14 @@ public class MixinStructure {
 		cancellable = true
 	)
     private static void isValidBiome(GenerationStub generationStub, GenerationContext generationContext, CallbackInfoReturnable<Boolean> callback) {
+		// Original rules were intended for villages, but this static Minecraft
+        // hook has no current Structure identity. Applying a village-only
+        // terrain rule here rejects every modded dungeon, arena or stronghold.
+        // Disable the global veto in TNK3 until structure-target-aware rules
+        // are implemented. Retain an explicit compatibility/debug switch.
+        if (!Boolean.getBoolean("tnkterraforged.legacyGlobalStructureRules")) return;
+        if (!((Object) generationContext.randomState() instanceof
+              com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState)) return;
 		RegistryAccess registry = generationContext.registryAccess();
 		RegistryLookup<StructureRule> structureRules = registry.lookupOrThrow(UTFRegistries.STRUCTURE_RULE);
 		

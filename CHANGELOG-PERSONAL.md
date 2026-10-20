@@ -1,4 +1,15 @@
-# UltraTerraForged Personal — development changelog
+# TNKTerraForged — development changelog
+
+## 0.1.0 preview — TNK3-specific derivative (2026-10-20)
+- Rebranded loaders' display names, creation screen and build archives to **TNKTerraForged**.
+- Retained the original `ultraterraforged` mod ID, registry/data namespaces, version base and preset storage intentionally for world and integration compatibility; this fork **replaces**, never co-installs with, UltraTerraForged.
+- Scoped unsafe static global structure terrain veto behind `-Dtnkterraforged.legacyGlobalStructureRules=true` (off by default), because this old village rule could reject **all** modded structure generation sites.
+- Added generic structure-start bounding-box preservation during UTF cave carving, lining and local water repairs (configurable with `-Dtnkterraforged.structureProtection=false`).
+- Compatible in design with IDAS, Integrated Dungeons Arise, Integrated Stronghold, Integrated Cataclysm, YUNG's Better Dungeons and Cataclysm; their actual JAR versions, placement rules, and multi-chunk overlaps still need in-game verification.
+- Existing optional Alex's Caves 2.0.10 source integration retained for NeoForge; Fabric makes no such claim.
+- Kept MIT upstream notices and GPL-3.0 integrated NeoForge compatibility obligations.
+- No new dungeon structures, dungeon loot or progression bypasses are introduced.
+
 ## 2026-10-20 — Cave networks, failed-tile recovery and repository cleanup
 
 ### World generation

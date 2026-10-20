@@ -1,67 +1,59 @@
-# UltraTerraForged — Community Maintenance Fork
+# TNKTerraForged
 
-**Large-scale terrain and underground world generation for Minecraft 1.21.1.**
-Maintained by **Mikaaah** for the *Towns & Kingdoms 3* modpack, building on the work of the original UltraTerraForged, ReTerraForged and TerraForged developers.
+**Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
 
-> **Unofficial fork.** Not the upstream UltraTerraForged project. Existing worlds are not regenerated, and significant world-generation updates can cause seams between old and newly generated chunks.
+An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based on **UltraTerraForged** (pandaismyname1), **ReTerraForged** (raccoonman and contributors), and **TerraForged** (dags, Won-Ton and contributors). Their code, history, notices and credits are retained.
 
-| Minecraft | Loader | Status |
+> **TNK3-specific preview:** This is *not* an official UltraTerraForged build, nor an unrelated replacement written from scratch. It replaces the original JAR in your modpack and changes world generation in newly generated chunks.
+
+## What makes this fork different?
+
+- **Massive caves:** enormous, noisy caverns roughly 230–350 blocks across, with interconnected passages and roofs typically no higher than Y=30.
+- **Better for modded dungeons:** don't globally reject Integrated, YUNG or Cataclysm structure sites because of a village-only terrain restriction. Carving tries to preserve already-known structure footprints.
+- **More exploration, fewer tiny caves:** shipped terrain presets favor large underground spaces, without forcing hard progression stages.
+- **River and memory improvements:** water transitions, cave-water repair, tile failure recovery, cache fixes and a capped worldgen worker pool inherited from the source audit.
+- **Optional Alex's Caves support (NeoForge):** compatibility from Mikaaah's own Alex's Caves fix is integrated without requiring the port for normal play.
+
+## Editions
+
+| Edition | Minecraft | Details |
 | --- | --- | --- |
-| **1.21.1 / Java 21** | **NeoForge 21.1.x** | Primary edition; optional Alex's Caves integration |
-| **1.21.1 / Java 21** | **Fabric + Fabric API** | Supported edition; Alex's Caves integration not included |
+| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/neoforge-1.21.1) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
+| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/fabric-1.21.1) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
 
-## What changed in this fork?
+### Technical compatibility: legacy mod ID
 
-### Bigger, interconnected underground caves
-- Giant caverns roughly **230–350 blocks across**, with broad irregular chamber shapes, lakes and rock pillars.
-- **New winding connecting passages** between neighboring cavern sites, built deterministically across chunk borders.
-- Cavern sites are more common under higher terrain while roofs stay **at or below Y=30**, protected by at least 30 blocks of cover.
-- Original small vanilla spaghetti, noodle and carver cave densities are **reduced in shipped presets**; cheese caves stay enabled. Personal/custom presets retain their saved settings.
-- Normal optional cave features (underground rivers, karst, lava tubes, sea caves and more) remain configurable.
+To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. Only the visible name and JAR branding change to **TNKTerraForged**. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
-### Rivers, water and caves
-- Gentler river transitions, smaller elevation terraces and improved water continuity at river mouths.
-- Raised-water filling recognizes existing source water.
-- Cave-water reconciliation floods newly exposed cavities when connected to a local source and schedules boundary updates. **Cross-chunk fluid continuity must still be inspected in-game**; this is not an aquifer replacement.
-- More compact primitive water-repair queues and water-level tracking reduce temporary allocations.
+The mod's core `ultraterraforged` data/resource namespace and config paths remain unchanged. Its baseline implementation version remains `1.0.2+1.21.1` to preserve exact-version compatibility with existing addons.
 
-### Performance and stability
-- Retry failed tile-generation futures rather than permanently caching a broken generation result.
-- Return pooled arrays after generation failures, *after* all parallel workers have finished.
-- Avoid polling caches that never expire; make bounded caches and worker pools safer.
-- Correct stale world-lookup caching, non-UTF spawn injection, thread-local restoration and certain resource-lifecycle errors.
-- Fix mouse click/drag handling in Create World preset sliders.
+## Dungeon and biome compatibility
 
-### Optional Alex's Caves integration (NeoForge only)
-The fork integrates **Mikaaah's own [TerraForged × Alex's Caves compatibility fix](https://github.com/Mikaaah/Terraforged-Alexs-Caves-Fix)** into the NeoForge module. It preserves native cave biomes/chambers and adjusts placement for UltraTerraForged. **Alex's Caves is optional**; it is never bundled or required for normal worlds. When enabled, use the compatible Alex's Caves 2.0.10 NeoForge port and its Citadel dependency.
+The first integration uses **vanilla structure starts** to protect generated dungeon footprints; no dependency on an individual dungeon mod is introduced. The old globally applied village-only structure placement veto is disabled to prevent rejecting modded dungeon candidates.
 
-**Do not install the separate `tfacfix` mod with this integrated edition**—its Mixins would duplicate the built-in integration.
+The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated Dungeons & Structures, Integrated Dungeons Arise, Integrated Stronghold, Integrated Cataclysm, YUNG's Better Dungeons, Cataclysm, Alex's Caves, Biomes O' Plenty, Oh The Biomes We've Gone, Twilight Forest and the Nether/End overhauls**. Mod-list presence is based on pack planning documents, not an automatically verified running instance.
 
-## Installation
-1. Use **one** UltraTerraForged JAR matching your loader and Minecraft **1.21.1**.
-2. Install Fabric API on Fabric; use a compatible NeoForge 21.1.x on NeoForge.
-3. Start a **new world** with the UltraTerraForged world type. Back up any existing saves before experimenting.
-4. Customize terrain via the Create World **Terrain** tab, then select your preset.
-5. For a comparable performance/terrain test, pregenerate fresh chunks on the same seed with identical mod lists.
+**This fork does not duplicate dungeon NBT structures, bypass LootJS/FTB Quests progression or override dungeon loot.** Dungeon-frequency balancing should be handled with TNK3 structure-set datapacks once the actual mod versions and registry keys are checked.
 
-## Source, branches and validation
-- **[NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/neoforge-1.21.1)** — primary development branch.
-- **[Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/fabric-1.21.1)** — same shared generation engine, loader-specific Fabric files.
-- [Detailed change history](CHANGELOG-PERSONAL.md) · [Original 23-finding audit](AUDIT-STATUS.md) · [Alex's Caves notes](docs/alex-caves-native-compat.md)
+## Installation and validation
 
-**Builds and automated tests are not proof of in-game visual correctness.** River seams, cavern frequency, server memory usage and input handling need real-world verification with the full modpack.
+Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
 
-### Development
-```bash
+Build on Java 21:
+
+```sh
 ./gradlew :neoforge:build -Putf.perfMods=false
 ./gradlew :fabric:build -Putf.perfMods=false
 ./gradlew :common:test -Putf.perfMods=false
 ```
 
-## Attribution and licenses
-- **UltraTerraForged:** [Pandaismyname1](https://github.com/Pandaismyname1/ultraterraforged).
-- **ReTerraForged:** [raccoonman](https://github.com/racoonman2/ReTerraForged) and contributors.
-- **TerraForged:** [dags](https://github.com/dags-/), [Won-Ton](https://github.com/Won-Ton) and contributors.
-- **Community fork and Alex's Caves compatibility implementation:** Mikaaah / Towns & Kingdoms.
+Read the [technical changelog](CHANGELOG-PERSONAL.md) and [23-finding audit matrix](AUDIT-STATUS.md). Successful automated builds do **not** prove modpack stability: test generation on multiple seeds, very high terrain, river junctions and all dungeon types with TNK3's full mod list.
 
-The original UltraTerraForged/TerraForged MIT copyright notices are preserved in [LICENSE](LICENSE). The incorporated NeoForge Alex's Caves compatibility sources carry the terms described in [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Ownership of the compatibility implementation does not cancel licensing obligations for other contributed code.
+## Authors, origins and licensing
+
+- **TNKTerraForged-specific work / Alex's Caves compatibility:** Mikaaah / Towns & Kingdoms
+- **UltraTerraForged:** [pandaismyname1](https://github.com/Pandaismyname1/ultraterraforged)
+- **ReTerraForged:** [raccoonman](https://github.com/racoonman2/ReTerraForged) and contributors
+- **TerraForged:** [dags](https://github.com/TerraForged/TerraForged) and contributors
+
+Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution includes your GPL-3.0-licensed Alex's Caves integration; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Branding does not remove upstream attribution or existing obligations.
