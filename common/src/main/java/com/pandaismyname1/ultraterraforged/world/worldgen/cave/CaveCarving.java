@@ -239,7 +239,9 @@ public final class CaveCarving {
         long key = net.minecraft.core.BlockPos.asLong(qx, qy, qz);
         Boolean cached = this.protectedBiomeCache.get(key);
         if (cached != null) return cached;
-        boolean protectedBiome = this.chunk.getNoiseBiome(qx, qy, qz).unwrapKey()
+        var biomeHolder = this.chunk.getNoiseBiome(qx, qy, qz);
+        // Synthetic test chunks and unfinished worldgen may return no holder.
+        boolean protectedBiome = biomeHolder != null && biomeHolder.unwrapKey()
             .map(biome -> "alexscaves".equals(biome.location().getNamespace())).orElse(false);
         this.protectedBiomeCache.put(key, protectedBiome);
         return protectedBiome;
