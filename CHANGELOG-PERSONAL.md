@@ -15,6 +15,7 @@
 
 ### Presentation and repository
 - Rewrite README to describe actual fork features, supported loaders, credit and compatibility.
+- Update NeoForge and Fabric mod metadata, project homepages, issue links and original/fork contributor credits; retain correct MIT and GPL license declarations.
 - Consolidate development branches to NeoForge/Fabric 1.21.1 editions, retaining only necessary repository administration branch(es) if GitHub permissions prevent changing the default.
 
 **Validation:** source compilation and targeted tests are required; geometry, fluid seams, Alex's Caves coexistence and user input still require actual Minecraft-world checks. Build results do not constitute a performance benchmark.
