@@ -22,6 +22,9 @@ config="ultraterraforged-neoforge.mixins.json"
 [[mixins]]
 config="ultraterraforged-alex-caves.mixins.json"
 
+[[mixins]]
+config="tnkterraforged-streams.mixins.json"
+
 [[dependencies.ultraterraforged]]
     modId="neoforge"
     type="required"
@@ -48,4 +51,20 @@ config="ultraterraforged-alex-caves.mixins.json"
     type="optional"
     versionRange="[2.0.10,2.0.11)"
     ordering="AFTER"
+    side="BOTH"
+
+# Integrated native-current adapter; Streams itself stays a separate optional mod.
+[[dependencies.ultraterraforged]]
+    modId="streamsreflowing"
+    type="optional"
+    versionRange="[2.15.2,2.15.3)"
+    ordering="AFTER"
+    side="BOTH"
+
+# Do not load the old standalone compatibility addon alongside this integration.
+[[dependencies.ultraterraforged]]
+    modId="utfstreams"
+    type="incompatible"
+    versionRange="[0,)"
+    ordering="NONE"
     side="BOTH"

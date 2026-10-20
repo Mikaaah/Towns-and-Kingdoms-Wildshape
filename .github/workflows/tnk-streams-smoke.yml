@@ -1,0 +1,76 @@
+name: TNKTerraForged Streams 2.15.2 smoke
+on:
+  push:
+    branches: [neoforge-1.21.1]
+    paths:
+      - 'neoforge/src/main/java/nl/townsandkingdoms/utfstreams/**'
+      - 'common/src/main/java/nl/townsandkingdoms/utfstreams/**'
+      - 'neoforge/src/main/resources/tnkterraforged-streams.mixins.json'
+      - 'neoforge/src/main/resources/META-INF/neoforge.mods.toml'
+      - 'neoforge/build.gradle'
+      - '.github/workflows/tnk-streams-smoke.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: tnk-streams-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Configure native-river world
+        run: |
+          mkdir -p neoforge/run/config
+          printf 'eula=true\n' > neoforge/run/eula.txt
+          cat > neoforge/run/server.properties <<'END'
+          level-name=tnk-streams-smoke
+          level-type=ultraterraforged:ultraterraforged
+          level-seed=2031102026
+          spawn-protection=0
+          online-mode=false
+          view-distance=3
+          simulation-distance=3
+          END
+          cat > neoforge/run/config/streamsreflowing.properties <<'END'
+          vanillaWaterFlow=true
+          flowVanillaRivers=true
+          END
+      - name: Start server with optional Streams 2.15.2 and run upstream adapter assertions
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=20s 600s ./gradlew :neoforge:runServer -Putf.perfMods=false -Ptnk.streamsSmoke=true --no-daemon > streams-smoke.log 2>&1
+          status=$?
+          set -e
+          echo "Server exit: $status"
+          tail -n 150 streams-smoke.log || true
+          test -s neoforge/run/utfstreams-integration-results.json || { echo "No Streams verification report"; exit 1; }
+          python3 - <<'PY'
+          import json
+          p='neoforge/run/utfstreams-integration-results.json'
+          d=json.load(open(p,encoding='utf8'))
+          print(json.dumps(d,indent=2)[:9000])
+          assert d.get('passed') is True, 'Native current integration failed: '+str(d.get('error'))
+          assert d.get('nativeRiverDirectionHasPriority'), 'Priority flow override not validated'
+          assert d.get('fullGridAndServerPhysicsPassed'), 'Physics grid not validated'
+          assert d.get('packetCodecAndClientLookupPassed'), 'Packet round-trip not validated'
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tnk-streams-2.15.2-integration-logs
+          path: |
+            streams-smoke.log
+            neoforge/run/utfstreams-integration-results.json
+            neoforge/run/logs/
+          if-no-files-found: warn
