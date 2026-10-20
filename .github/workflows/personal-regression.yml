@@ -3,6 +3,10 @@ on:
   push:
     branches: [fix/1.21.1-caverns-ui-stability, fix/1.21.1-performance-followup, work/20261020-cave-cache-final, main, neoforge-1.21.1, fabric-1.21.1]
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 jobs:
