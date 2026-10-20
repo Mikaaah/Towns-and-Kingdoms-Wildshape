@@ -54,7 +54,8 @@ public final class WaterLevels {
 	private static final int WETLAND_DROP = 2;
 	// the water drops, or climbs, this many blocks at a time, so rivers run in level pools with small waterfalls between
 	// them rather than a one block step every few blocks
-	private static final int TERRACE = 3;
+	private static final int TERRACE = 1;
+    private static final int MAX_FALL_PER_REACH = 3;
 	// the world around rivers and lakes is gone over on a grid this fine for the places beside their water
 	private static final float GRID = 8.0F;
 	// how far from where undoing the warps puts a river's channel it can really lie
@@ -118,8 +119,13 @@ public final class WaterLevels {
 			water[i] = height(level, levels);
 		}
 		// it meets the water it flows into at that water's level, stepping up or down to it
-		water[water.length - 1] = mouth;
-		carver.setWaterLevels(water);
+		int[] profile = new int[water.length];
+        for (int i=0; i<profile.length; i++) profile[i] = levels.scale(water[i]);
+        profile[profile.length - 1] = levels.scale(mouth);
+        easeMouthTransition(profile, lowest, gorge, levels);
+        for (int i=0; i<water.length-1; i++) water[i] = height(profile[i], levels);
+        water[water.length - 1] = mouth;
+        carver.setWaterLevels(water);
 
 		for (WetlandPopulator wetland : network.wetlands()) {
 			float upstream = carver.waterLevelAt(wetland.startT);
@@ -138,7 +144,15 @@ public final class WaterLevels {
 
 	// the top water block of the next stretch of a river, from the last one's and the lowest land beside this one; never
 	// below the sea, which fills anything lower
-	private static int step(int level, float lowest, float gorge, Levels levels) {
+	static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
+        for (int i=blocks.length-2; i>=0; i--) {
+            int lowestSafeLevel = Math.max(levels.waterY, (int) Math.ceil((lowest[i]-gorge)*levels.worldHeight));
+            int preferred = blocks[i+1] + MAX_FALL_PER_REACH;
+            if (blocks[i]>preferred) blocks[i]=Math.max(lowestSafeLevel, preferred);
+        }
+    }
+
+    private static int step(int level, float lowest, float gorge, Levels levels) {
 		int highest = (int) Math.floor(lowest * levels.worldHeight) - MARGIN;
 		int deepest = (int) Math.ceil((lowest - gorge) * levels.worldHeight);
 		if (level > highest) {
