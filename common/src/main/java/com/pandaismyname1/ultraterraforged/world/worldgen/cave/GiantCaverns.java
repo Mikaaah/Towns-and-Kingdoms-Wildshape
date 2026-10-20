@@ -86,7 +86,13 @@ final class GiantCaverns implements CaveFeatures.Feature {
         float sideX = -dz / length, sideZ = dx / length;
         float deviation = (CaveFeatures.random(this.seed,
             (int)Math.floor(from.x() / GRID), (int)Math.floor(from.z() / GRID), 12) - 0.5F) * 38.0F;
-        for (int i = 0; i <= steps; i++) {
+        // Sine sway is perpendicular to the chord. Projection onto the
+        // chord gives a conservative exact segment window for this chunk,
+        // without visiting every point of every ~640-block corridor.
+        long window = corridorStepWindow(from.x(), from.z(), dx, dz,
+                carving.minX, carving.minZ, steps, radius + 3.0F);
+        int first = (int)(window >>> 32), last = (int)window;
+        for (int i = first; i <= last; i++) {
             float t = i / (float)steps;
             float sway = (float)Math.sin(t * Math.PI) * deviation;
             float x = from.x() + dx * t + sideX * sway;
@@ -102,6 +108,26 @@ final class GiantCaverns implements CaveFeatures.Feature {
             carving.hollow(x, y, z, radius, 12.0F, radius,
                            CaveCarving.DRY, MIN_ROOF_COVER);
         }
+    }
+
+    /**
+     * Inclusive conservative segment window intersecting a padded chunk.
+     * Curving perpendicular to the segment never changes this projection.
+     * Extra one-step margin avoids float-rounding edge losses.
+     */
+    static long corridorStepWindow(float x0, float z0, float dx, float dz,
+                                   int minX, int minZ, int steps, float pad) {
+        double len2 = (double)dx * dx + (double)dz * dz;
+        if (len2 < 1.0 || steps <= 0) return 0L;
+        double left = minX - pad, right = minX + 15.0 + pad;
+        double near = minZ - pad, far = minZ + 15.0 + pad;
+        double xLow = (dx >= 0 ? left : right) - x0;
+        double xHigh = (dx >= 0 ? right : left) - x0;
+        double zLow = (dz >= 0 ? near : far) - z0;
+        double zHigh = (dz >= 0 ? far : near) - z0;
+        int first = Math.max(0, (int)Math.floor((xLow * dx + zLow * dz) / len2 * steps) - 1);
+        int last = Math.min(steps, (int)Math.ceil((xHigh * dx + zHigh * dz) / len2 * steps) + 1);
+        return ((long)first << 32) | (last & 0xFFFFFFFFL);
     }
 
     // Package-visible for the waterline/bedrock pillar regression test.

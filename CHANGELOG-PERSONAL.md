@@ -1,5 +1,14 @@
 # TNKTerraForged — development changelog
 
+## 2026-10-20 — Large-cavern worldgen performance follow-up
+
+- Optimize giant-cavern corridor iteration by projecting each chunk onto the path and visiting only potentially intersecting corridor segments. Path positions, curve sway, radius, roof clearance and generated block shapes are unchanged.
+- Skip five block-state lookups for interior air blocks whose four horizontal neighbors and upper neighbor are all also air carved in the same pass. Full fluid checks still run on cavity and chunk boundaries.
+- Keep the carved-air mask current when subsequent features or springs replace air with water. Preserve flood seed detection and lake connections.
+- Add deterministic corridor-range coverage and interior lake-water propagation regressions, alongside existing caverns/raised-river tests.
+- This addresses source-level hotspots but is **not** a benchmark of full TNK3 performance. The 640-block-height Grand Expanse preset and 100% giant-cavern frequency remain expensive.
+
+
 ## 2026-10-20 — Streams Reflowing native integration
 
 - Integrate the complete NeoForge source of Mikaaah's **UltraTerraForged Streams Currents 0.2.1-beta** into TNKTerraForged, without registering a second mod.
