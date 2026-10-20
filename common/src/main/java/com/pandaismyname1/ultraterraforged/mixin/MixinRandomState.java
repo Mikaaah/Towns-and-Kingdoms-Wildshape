@@ -122,6 +122,7 @@ class MixinRandomState {
 				PerformanceConfig config = PerformanceConfig.read(PerformanceConfig.DEFAULT_FILE_PATH)
 					.resultOrPartial(UTFCommon.LOGGER::error)
 					.orElseGet(PerformanceConfig::makeDefault);
+                ThreadPools.configure(config.threadCount());
 				this.generatorContext = GeneratorContext.makeCached(this.preset, (int) this.seed, config.tileSize(), config.batchCount(), ThreadPools.availableProcessors() > 4);
 			}
 		});

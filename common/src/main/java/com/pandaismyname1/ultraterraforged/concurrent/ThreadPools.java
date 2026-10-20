@@ -3,17 +3,28 @@ package com.pandaismyname1.ultraterraforged.concurrent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.pandaismyname1.ultraterraforged.config.PerformanceConfig;
-
+/** Worldgen executor; bootstraps without platform config access for common tests. */
 public class ThreadPools {
-    // Cap default worker count to avoid saturating C2ME / vanilla schedulers.
-    // Explicit threadCount in performance_internal.conf overrides this setting.
-    public static final ExecutorService WORLD_GEN = Executors.newFixedThreadPool(
-        PerformanceConfig.read(PerformanceConfig.DEFAULT_FILE_PATH)
-            .result().orElseGet(PerformanceConfig::makeDefault).threadCount(),
-        daemonFactory("UTF-WorldGen"));
+    private static final int DEFAULT_WORKERS = Math.max(2, Math.min(8, availableProcessors() - 1));
+    public static final ThreadPoolExecutor WORLD_GEN = (ThreadPoolExecutor) Executors.newFixedThreadPool(
+        DEFAULT_WORKERS, daemonFactory("UTF-WorldGen"));
+
+    /** Apply the validated config after the loader/platform and generator are ready. */
+    public static synchronized void configure(int requested) {
+        int desired = Math.max(1, requested);
+        int core = WORLD_GEN.getCorePoolSize();
+        if (desired == core) return;
+        if (desired > core) {
+            WORLD_GEN.setMaximumPoolSize(desired);
+            WORLD_GEN.setCorePoolSize(desired);
+        } else {
+            WORLD_GEN.setCorePoolSize(desired);
+            WORLD_GEN.setMaximumPoolSize(desired);
+        }
+    }
 
     public static int availableProcessors() {
         return Math.max(2, Runtime.getRuntime().availableProcessors());

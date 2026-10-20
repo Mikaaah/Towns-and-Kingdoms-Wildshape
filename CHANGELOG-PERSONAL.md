@@ -29,7 +29,7 @@
 - **Landform cache:** evict only one old site at capacity instead of clearing the entire 4096-entry per-thread cache, retaining hot locations and stable deterministic site geometry.
 - **Tile generation:** on worker or filter failure, release allocated tile and pooled arrays after all workers have completed, for both regular terrain and zoomed previews.
 - **Performance configuration:** `performance_internal.conf` now actually reads and validates `tileSize`, `batchCount` and `threadCount` rather than always ignoring the file.
-- **Generation workers:** cap default worker threads at 8 (or fewer depending on the CPU) to reduce competition with C2ME and JVM memory pressure; `threadCount` can override the cap on restart.
+- **Generation workers:** cap default worker threads at 8 (or fewer depending on the CPU) to reduce competition with C2ME and JVM memory pressure; `threadCount` is applied after generator initialization, avoiding platform-config access during static executor bootstrap.
 - **Release safety:** disable automated publishing to the original project's CurseForge and Modrinth pages; remove the upstream project IDs.
 
 ### Validation and scope
