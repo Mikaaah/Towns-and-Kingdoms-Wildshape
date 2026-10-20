@@ -125,7 +125,9 @@ public class TileGenerator {
 		return CompletableFuture.allOf(futures).thenApply((v) -> {
 			this.filters.apply(tile, applyOptionalFilters);
 			return tile;
-		});
+		}).whenComplete((result, failure) -> {
+            if (failure != null) tile.close();
+        });
 	}
     
 	private Tile makeTile(int x, int z) {

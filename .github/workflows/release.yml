@@ -10,8 +10,8 @@ on:
 
 # Project ids on each platform: modrinth.com/mod/ultraterraforged and curseforge.com/minecraft/mc-mods/ultraterraforged
 env:
-  MODRINTH_ID: "LpyUCfpY"
-  CURSEFORGE_ID: "1715379"
+  MODRINTH_ID: "UNCONFIGURED"
+  CURSEFORGE_ID: "UNCONFIGURED"
 
 permissions:
   contents: write
@@ -77,6 +77,7 @@ jobs:
       # mc-publish skips a platform whose token is empty, so the two uploads below
       # only run once MODRINTH_TOKEN / CURSEFORGE_TOKEN exist as repository secrets.
       - name: Publish Fabric to Modrinth and CurseForge
+        if: ${{ false }} # Fork release safety: configure own project IDs before enabling.
         uses: Kira-NT/mc-publish@v3.3.1
         with:
           modrinth-id: ${{ env.MODRINTH_ID }}
@@ -97,6 +98,7 @@ jobs:
           files: fabric/build/libs/ultraterraforged-${{ steps.composite_version.outputs.composite_version }}-fabric.jar
 
       - name: Publish NeoForge to Modrinth and CurseForge
+        if: ${{ false }} # Fork release safety: configure own project IDs before enabling.
         uses: Kira-NT/mc-publish@v3.3.1
         with:
           modrinth-id: ${{ env.MODRINTH_ID }}

@@ -24,6 +24,14 @@
 - **River-noise performance:** skip two lake-domain warp noises for columns outside every river network, retaining the same algorithm for intersecting networks.
 - **Raised-water postprocessing:** count pre-existing water as filled when identifying river columns that may spill.
 
+### Additional stability, memory and performance corrections
+- **LazyCallable:** distinguish computed-null from not-yet-computed values; Runnable-based adapters now complete once without repeatedly executing or throwing after returning null.
+- **Landform cache:** evict only one old site at capacity instead of clearing the entire 4096-entry per-thread cache, retaining hot locations and stable deterministic site geometry.
+- **Tile generation:** on worker or filter failure, release allocated tile and pooled arrays after all workers have completed, for both regular terrain and zoomed previews.
+- **Performance configuration:** `performance_internal.conf` now actually reads and validates `tileSize`, `batchCount` and `threadCount` rather than always ignoring the file.
+- **Generation workers:** cap default worker threads at 8 (or fewer depending on the CPU) to reduce competition with C2ME and JVM memory pressure; `threadCount` can override the cap on restart.
+- **Release safety:** disable automated publishing to the original project's CurseForge and Modrinth pages; remove the upstream project IDs.
+
 ### Validation and scope
 - These modifications affect newly generated chunks, **not existing terrain**.
 - Initial regression coverage: existing cave/river/option tests and new targeted cavern roof tests; real-world visual checking and mod compatibility tests remain necessary.

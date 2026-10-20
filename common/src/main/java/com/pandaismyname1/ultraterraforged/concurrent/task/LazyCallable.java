@@ -1,6 +1,5 @@
 package com.pandaismyname1.ultraterraforged.concurrent.task;
 
-import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -10,23 +9,25 @@ import java.util.function.Supplier;
 public abstract class LazyCallable<T> implements Callable<T>, Future<T>, Supplier<T> {
 	private StampedLock lock;
 	protected volatile T value;
+	private volatile boolean initialized;
 
 	public LazyCallable() {
 		this.lock = new StampedLock();
 		this.value = null;
+		this.initialized = false;
 	}
 
 	@Override
 	public T call() {
 		long optRead = this.lock.tryOptimisticRead();
 		T result = this.value;
-		if (this.lock.validate(optRead) && result != null) {
+		if (this.lock.validate(optRead) && this.initialized) {
 			return result;
 		}
 		long read = this.lock.readLock();
 		try {
 			result = this.value;
-			if (result != null) {
+			if (this.initialized) {
 				return result;
 			}
 		} finally {
@@ -35,10 +36,10 @@ public abstract class LazyCallable<T> implements Callable<T>, Future<T>, Supplie
 		long write = this.lock.writeLock();
 		try {
 			result = this.value;
-			if (result == null) {
+			if (!this.initialized) {
 				result = this.create();
-				Objects.requireNonNull(result);
 				this.value = result;
+                this.initialized = true;
 			}
 			return result;
 		} finally {
@@ -59,13 +60,13 @@ public abstract class LazyCallable<T> implements Callable<T>, Future<T>, Supplie
 	@Override
 	public boolean isDone() {
 		long optRead = this.lock.tryOptimisticRead();
-		boolean done = this.value != null;
+		boolean done = this.initialized;
 		if (this.lock.validate(optRead)) {
 			return done;
 		}
 		long read = this.lock.readLock();
 		try {
-			return this.value != null;
+			return this.initialized;
 		} finally {
 			this.lock.unlockRead(read);
 		}

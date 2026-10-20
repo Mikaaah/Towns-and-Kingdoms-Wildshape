@@ -24,9 +24,14 @@ public record SiteCache<T>(ThreadLocal<Long2ObjectOpenHashMap<T>> sites) {
 		if (site != null) {
 			return site;
 		}
-		if (sites.size() > LIMIT) {
-			sites.clear();
-		}
+		if (sites.size() >= LIMIT) {
+            // Drop a single old site, not all 4096 hot sites at once.
+            var keys = sites.keySet().iterator();
+            if (keys.hasNext()) {
+                keys.nextLong();
+                keys.remove();
+            }
+        }
 		site = finder.find(gridX, gridZ);
 		sites.put(key, site);
 		return site;
