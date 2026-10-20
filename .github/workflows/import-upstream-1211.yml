@@ -36,7 +36,7 @@ jobs:
           echo "Verified original complete tree hash: $imported_tree"
           # GITHUB_TOKEN lacks 'workflows' permission for new workflow files.
           # Restore those four exact files separately via authorized GitHub connector.
-          git rm -r .github/workflows
+          git rm -rf .github/workflows
           git commit -m "Import original UltraTerraForged 1.21.1 source (workflows restored separately)"
           git push origin HEAD:refs/heads/main
           echo "Imported complete 1.21.1 tree into main."
