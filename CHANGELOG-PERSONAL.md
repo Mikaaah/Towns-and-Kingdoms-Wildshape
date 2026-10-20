@@ -1,4 +1,22 @@
 # UltraTerraForged Personal — development changelog
+## 2026-10-20 — Audit completion implementation
+
+### High-priority world generation
+- **A04:** Stop resetting every active world's caches when another world initializes. Cache registration and scheduler polling now use weak references to prevent abandoned worlds being kept alive.
+- **A05/C05:** Use smaller one-block water terraces and interpolated reach samples. Smooth forced sea/tributary junction drops backwards through the upstream profile, without raising water or exceeding feasible gorge depth.
+- **A06:** Detect newly opened cave air touching filled water, propagate that water through connected air up to the source-water elevation, and mark chunk edges for postprocessing. Disconnected caves remain dry.
+- **A09:** Reenable the serialized terrain-type exclusion in structure placement rules, including their existing village rule.
+- **B03:** Prevent pooled tiles from being retired by timer/capacity while in-flight chunks may be using them; retire on the final chunk drop.
+
+### Compatibility and stability
+- **C01 (partial):** Protect generated Alex's Caves biome chambers against native UTF carving, block replacement and lining with no mandatory Alex dependency. The standalone addon still supplies biome selection, cave structure placement and the locator.
+- **C03:** Replace HEAD/TAIL surface region context with a scoped MixinExtras method wrapper and `try/finally`, so exceptions cannot leave a stale thread-local region.
+- **C04/C05:** Add river mouth/gorge/terrace unit tests and a dual-loader Java 21 release-mode regression workflow.
+
+**Validation policy:** See `AUDIT-STATUS.md` for every one of the original 23 audit findings and outstanding runtime/integration tests. Static checks and builds alone do not validate the TNK3 modpack or resolve historic chunks.
+
+---
+
 ## Unreleased (Minecraft 1.21.1; fork changes)
 
 ### Cave generation
