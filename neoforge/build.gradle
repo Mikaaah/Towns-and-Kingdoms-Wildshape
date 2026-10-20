@@ -11,6 +11,11 @@ loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
     runs {
+        server {
+            if (project.findProperty("tnk.streamsSmoke") == "true") {
+                property "utfstreams.integrationTest", "native"
+            }
+        }
         // new worlds in the dev game start in creative with cheats, to fly around and inspect terrain
         client {
             property "ultraterraforged.dev.creative", "true"
@@ -49,6 +54,12 @@ dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
     // Optional Alex port is only needed to compile native compat hooks.
     modCompileOnly "maven.modrinth:kSsLSjEt:pC1MYhqR"
+    // Compile against Streams Reflowing 2.15.2 without bundling its proprietary JAR.
+    modCompileOnly "maven.modrinth:streams-reflowing:vbJ5meb8"
+    // Only for opt-in server smoke checks; normal distributions do not depend on Streams.
+    if (project.findProperty("tnk.streamsSmoke") == "true") {
+        modLocalRuntime "maven.modrinth:streams-reflowing:vbJ5meb8"
+    }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive = false }
     shadowBundle(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
@@ -162,6 +173,30 @@ File unpackDevMods(List<String> urls) {
     }
     stamp.text = stampText
     return dir
+}
+
+
+// The Streams 0.2.1 adapter's original pure-Java tests are confined to
+// NeoForge, so no GPL adapter code is compiled into the Fabric artifact.
+sourceSets {
+    streamsPureTest {
+        java.srcDir "src/testPure/java"
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+tasks.register("verifyStreamsFlowRules", JavaExec) {
+    dependsOn tasks.named("streamsPureTestClasses")
+    classpath = sourceSets.streamsPureTest.runtimeClasspath
+    mainClass = "FlowRulesTest"
+}
+tasks.register("verifyStreamsDownhillSearch", JavaExec) {
+    dependsOn tasks.named("streamsPureTestClasses")
+    classpath = sourceSets.streamsPureTest.runtimeClasspath
+    mainClass = "DownhillSearchTest"
+}
+tasks.named("check") {
+    dependsOn tasks.named("verifyStreamsFlowRules"), tasks.named("verifyStreamsDownhillSearch")
 }
 
 processResources {

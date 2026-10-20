@@ -29,6 +29,10 @@ public class UTFNeoForge {
         if (ModList.get().isLoaded("alexscaves")) {
             new com.pandaismyname1.ultraterraforged.neoforge.compat.alexscaves.TerraforgedAlexCavesFix(modContainer);
         }
+        // Native currents are a built-in, optional NeoForge feature.
+        if (ModList.get().isLoaded("streamsreflowing")) {
+            nl.townsandkingdoms.utfstreams.UtfStreams.initialize(modBus, modContainer);
+        }
 
     	modBus.addListener(UTFNeoForge::gatherData);
     	NeoForge.EVENT_BUS.addListener(UTFNeoForge::addReloadListeners);

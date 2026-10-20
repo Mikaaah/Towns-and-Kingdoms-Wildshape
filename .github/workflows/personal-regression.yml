@@ -24,6 +24,7 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew :common:test --tests '*FailedTileRetryTest' --tests '*WaterContinuityTest' --tests '*LazyCallableTest' --tests '*SiteCacheTest' --tests '*MassiveCavernTest' --tests '*GiantCavernPillarTest' --tests '*PresetOptionsTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' -Putf.perfMods=false --no-daemon --stacktrace
+          ./gradlew :neoforge:verifyStreamsFlowRules :neoforge:verifyStreamsDownhillSearch -Putf.perfMods=false --no-daemon --stacktrace
       - name: Build distributable releases with exact dependency version
         env:
           RELEASE: 'true'

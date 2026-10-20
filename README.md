@@ -35,6 +35,12 @@ The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated 
 
 **This fork does not duplicate dungeon NBT structures, bypass LootJS/FTB Quests progression or override dungeon loot.** Dungeon-frequency balancing should be handled with TNK3 structure-set datapacks once the actual mod versions and registry keys are checked.
 
+### Built-in Streams Reflowing compatibility (NeoForge)
+
+The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Reflowing 0.2.1](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents) is integrated into TNKTerraForged's **NeoForge 1.21.1** edition. When optional **Streams Reflowing 2.15.2** is installed, TNKTerraForged provides height-aware native river currents and corrects current directions using nearby loaded water—including boats, water particles and baked stream blocks—while respecting explicit manual Flow Control overrides.
+
+**Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. Fabric does not yet include this adapter. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
+
 ## Installation and validation
 
 Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
