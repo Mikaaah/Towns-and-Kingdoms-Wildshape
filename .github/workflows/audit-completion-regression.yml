@@ -1,0 +1,55 @@
+name: Complete Audit Regression (NeoForge + Fabric)
+on:
+  push:
+    branches:
+      - fix/complete-1211-audit-water-alex
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Targeted hydrology / cave / settings regression
+        run: |
+          chmod +x gradlew
+          ./gradlew :common:test --tests '*WaterContinuityTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' --tests '*MassiveCavernTest' --tests '*PresetOptionsTest' --tests '*LazyCallableTest' --tests '*SiteCacheTest' -Putf.perfMods=false --no-daemon --stacktrace
+      - name: Release mode both loaders
+        env:
+          RELEASE: 'true'
+        run: ./gradlew :fabric:build :neoforge:build -Putf.perfMods=false --no-daemon
+      - name: Verify mod metadata
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          jars = list(Path('neoforge/build/libs').glob('*-neoforge.jar'))
+          assert len(jars) == 1, jars
+          with zipfile.ZipFile(jars[0]) as archive:
+              assert archive.testzip() is None
+              text=archive.read('META-INF/neoforge.mods.toml').decode()
+              assert 'version="1.0.2+1.21.1"' in text
+          print('Validated NeoForge release metadata:', jars[0])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: ultraterraforged-personal-audit-completion-1.21.1
+          path: |
+            fabric/build/libs/*-fabric.jar
+            neoforge/build/libs/*-neoforge.jar
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-regression-results
+          path: |
+            common/build/test-results/test/
+            common/build/reports/tests/test/
+          if-no-files-found: warn
