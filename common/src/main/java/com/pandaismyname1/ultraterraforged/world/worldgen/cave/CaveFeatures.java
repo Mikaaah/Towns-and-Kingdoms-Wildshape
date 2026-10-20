@@ -77,7 +77,7 @@ public final class CaveFeatures {
             feature.carve(carving);
         }
         carving.reconcileWater();
-    
+    }
 
 	// 0 to 1, fixed for each grid cell and purpose
 	static float random(int seed, int gridX, int gridZ, int purpose) {
