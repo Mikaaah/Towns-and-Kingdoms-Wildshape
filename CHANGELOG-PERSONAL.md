@@ -1,5 +1,16 @@
 # TNKTerraForged — development changelog
 
+## 2026-10-20 — Streams Reflowing native integration
+
+- Integrate the complete NeoForge source of Mikaaah's **UltraTerraForged Streams Currents 0.2.1-beta** into TNKTerraForged, without registering a second mod.
+- Preserve native raised/winding river flow sampling, vertical flow bands, downhill route correction, nearby loaded-water verification, particle/boat behavior and manual **Streams Flow Control** overrides.
+- Automatically disable the integration when Streams Reflowing is absent. Compile against Streams Reflowing **2.15.2** without redistributing its JAR.
+- Reuse the optional runtime config, networking, server commands (`/utfstreams status` and `/utfstreams inspect`) and developer integration smoke checks.
+- Add conditional Mixin activation and reject the separate `utfstreams` addon when the integrated implementation is present.
+- Run the original pure downhill-routing and water-height tests in an isolated NeoForge test source set; no GPL adapter code is included in Fabric.
+- NeoForge-only integration; Fabric remains on the existing terrain-generation implementation.
+
+
 ## 2026-10-20 — Underwater pillar foundation fix
 
 - Fix giant-cavern support pillars ending abruptly at the lake surface: preserve their rock columns above **and below** the waterline, through the lakebed.
