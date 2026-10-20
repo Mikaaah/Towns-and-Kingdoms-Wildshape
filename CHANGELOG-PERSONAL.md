@@ -7,7 +7,7 @@
 - Automatically disable the integration when Streams Reflowing is absent. Compile against Streams Reflowing **2.15.2** without redistributing its JAR.
 - Reuse the optional runtime config, networking, server commands (`/utfstreams status` and `/utfstreams inspect`) and developer integration smoke checks.
 - Add conditional Mixin activation and reject the separate `utfstreams` addon when the integrated implementation is present.
-- Add JUnit coverage for the original pure downhill-routing and water-height rules.
+- Run the original pure downhill-routing and water-height tests in an isolated NeoForge test source set; no GPL adapter code is included in Fabric.
 - NeoForge-only integration; Fabric remains on the existing terrain-generation implementation.
 
 

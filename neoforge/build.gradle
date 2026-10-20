@@ -175,6 +175,30 @@ File unpackDevMods(List<String> urls) {
     return dir
 }
 
+
+// The Streams 0.2.1 adapter's original pure-Java tests are confined to
+// NeoForge, so no GPL adapter code is compiled into the Fabric artifact.
+sourceSets {
+    streamsPureTest {
+        java.srcDir "src/testPure/java"
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+tasks.register("verifyStreamsFlowRules", JavaExec) {
+    dependsOn tasks.named("streamsPureTestClasses")
+    classpath = sourceSets.streamsPureTest.runtimeClasspath
+    mainClass = "FlowRulesTest"
+}
+tasks.register("verifyStreamsDownhillSearch", JavaExec) {
+    dependsOn tasks.named("streamsPureTestClasses")
+    classpath = sourceSets.streamsPureTest.runtimeClasspath
+    mainClass = "DownhillSearchTest"
+}
+tasks.named("check") {
+    dependsOn tasks.named("verifyStreamsFlowRules"), tasks.named("verifyStreamsDownhillSearch")
+}
+
 processResources {
     def props = [
         version: project.version,

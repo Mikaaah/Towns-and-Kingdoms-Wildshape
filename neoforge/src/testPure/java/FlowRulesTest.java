@@ -1,10 +1,9 @@
-import org.junit.jupiter.api.Test;
 import nl.townsandkingdoms.utfstreams.FlowRules;
 
 public class FlowRulesTest {
     private static int checks;
     private static void check(boolean value) { checks++; if (!value) throw new AssertionError("check " + checks); }
-    @Test public void verifiesOriginalAdapterBehavior() {
+    public static void main(String[] args) {
         check(!FlowRules.uphill(120, 120, 120));
         check(!FlowRules.uphill(123, 120, 117));
         check(FlowRules.uphill(117, 120, 120));

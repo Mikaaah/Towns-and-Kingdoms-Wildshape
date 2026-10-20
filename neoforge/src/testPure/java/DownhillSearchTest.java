@@ -1,11 +1,10 @@
-import org.junit.jupiter.api.Test;
 import nl.townsandkingdoms.utfstreams.DownhillSearch;
 import java.util.*;
 public final class DownhillSearchTest {
     private static int checks;
     private static void check(boolean ok,String message){checks++;if(!ok)throw new AssertionError(message);}
     private static DownhillSearch.Surface s(int y){return new DownhillSearch.Surface(y,y+0.888);}
-    @Test public void verifiesOriginalAdapterBehavior(){
+    public static void main(String[] args){
         DownhillSearch.Field west=(x,z,y)->Math.abs(x)<=8 && Math.abs(z)<=1 ? s(x<0?5:8):null;
         var r=DownhillSearch.find(west,3,0,s(8),1,0,16,384);
         check(r.outlet() && r.x()<-.9,"Upstream east current was not reversed toward real westward drop");
