@@ -104,7 +104,8 @@ final class GiantCaverns implements CaveFeatures.Feature {
         }
     }
 
-    private void hollow(Cavern cavern, CaveCarving carving) {
+    // Package-visible for the waterline/bedrock pillar regression test.
+    void hollow(Cavern cavern, CaveCarving carving) {
         int lake = (int) (cavern.y() - cavern.radiusY() * 0.53F);
         int y0 = Math.max(carving.bottom + 3, (int) (cavern.y() - cavern.radiusY() * 1.12F));
         int y1 = Math.min(cavern.roof(), (int) (cavern.y() + cavern.radiusY() * 1.12F));
@@ -117,6 +118,11 @@ final class GiantCaverns implements CaveFeatures.Feature {
                 float flat = nx * nx + nz * nz;
                 if (flat > 1.35F) continue;
                 boolean pillar = this.pillars.compute(x, z, 0) < 0.12F && flat < 0.7F;
+                // Pillars must be solid for their entire vertical column, from the
+                // lakebed through the water to the ceiling. The previous condition
+                // only protected blocks ABOVE the lake and left floating pillars.
+                // Skip carving the column entirely, including the submerged part.
+                if (pillar) continue;
                 // Terrain above the cavern is protected even at the edge of a
                 // steep valley that falls between the 9 site-height probes.
                 int top = Math.min(y1, carving.ground(x, z) - MIN_ROOF_COVER);
@@ -125,7 +131,7 @@ final class GiantCaverns implements CaveFeatures.Feature {
                     float shape = flat + ny * ny;
                     if (shape >= 1.35F) continue; // no expensive wall noise needed
                     float ragged = (this.walls.compute(x + y * 0.7F, z - y * 0.7F, 0) - 0.5F) * 0.7F;
-                    if (shape + ragged >= 1.0F || (pillar && y > lake)) continue;
+                    if (shape + ragged >= 1.0F) continue;
                     carving.clear(x, y, z, lake);
                 }
             }
