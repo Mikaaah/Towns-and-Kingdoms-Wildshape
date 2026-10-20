@@ -4,6 +4,7 @@
 
 - Optimize giant-cavern corridor iteration by projecting each chunk onto the path and visiting only potentially intersecting corridor segments. Path positions, curve sway, radius, roof clearance and generated block shapes are unchanged.
 - Add deterministic corridor-range regression coverage alongside existing caverns and raised-river tests.
+- Add conservative Streams fast path: reuse a still-live generated terrain tile to skip expensive native river recomputation outside valleys/banks, retaining exact fallback for unavailable tiles. `fastRiverScan` can be switched off for comparison; diagnostic counters report avoided samples.
 - An experimental carve-mask water-reconciliation shortcut **failed a new flood regression**; it was reverted rather than changing how cave lakes flood. Original water logic remains intact.
 - This addresses source-level hotspots but is **not** a benchmark of full TNK3 performance. The 640-block-height Grand Expanse preset and 100% giant-cavern frequency remain expensive.
 

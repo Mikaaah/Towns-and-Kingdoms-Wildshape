@@ -16,7 +16,8 @@ import java.util.concurrent.atomic.LongAdder;
 /** Server-produced layers use Streams' existing height-aware cache and network path. */
 public final class NativeFlowLayers {
     public static final LongAdder SAMPLES = new LongAdder(), COLUMNS = new LongAdder(),
-            UPHILL = new LongAdder(), BUILDS = new LongAdder(), NANOS = new LongAdder();
+            UPHILL = new LongAdder(), BUILDS = new LongAdder(), NANOS = new LongAdder(),
+            FAST_SKIPS = new LongAdder(), FAST_CHUNKS = new LongAdder();
     private static final Map<GeneratorContext, Map<Key, List<StreamFlowGrid.Layer>>> CACHE = new WeakHashMap<>();
     private record Key(int cx, int cz, double speed, int depth, boolean skip) {}
     private NativeFlowLayers() {}
@@ -54,6 +55,14 @@ public final class NativeFlowLayers {
             var cached = CACHE.get(context);
             if (cached != null && cached.containsKey(key)) return cached.get(key);
         }
+        // Never generate or retain a tile just to accelerate stream flow.
+        // If the already-complete tile is absent, take the exact old path.
+        long[] candidates = null;
+        if (UtfStreams.FAST_RIVER_SCAN.get() && context.cache != null) {
+            var tile = context.cache.provideAtChunkIfPresent(cx, cz);
+            if (tile != null) candidates = tile.nativeRiverCandidates(cx, cz);
+            if (candidates != null) FAST_CHUNKS.increment();
+        }
         long started = System.nanoTime();
         byte[] angles = new byte[256], speeds = new byte[256];
         short[] lo = new short[256], hi = new short[256];
@@ -61,6 +70,11 @@ public final class NativeFlowLayers {
         int count = 0;
         try {
             for (int z = 0; z < 16; z++) for (int x = 0; x < 16; x++) {
+                int i = x + z * 16;
+                if (candidates != null && (candidates[i >>> 6] & (1L << (i & 63))) == 0) {
+                    FAST_SKIPS.increment();
+                    continue;
+                }
                 int wx = (cx << 4) + x, wz = (cz << 4) + z;
                 SAMPLES.increment();
                 NativeCapture.Sample s = NativeCapture.sample(context, wx, wz);
@@ -69,7 +83,6 @@ public final class NativeFlowLayers {
                 if (calm) UPHILL.increment();
                 // The original Streams layer stays first and retains its own tributary flow.
                 // Do not sample engine.plan here: provisional builds may not have a ready watershed.
-                int i = x + z * 16;
                 int bottom = Math.max(s.bedY() + 1, s.surfaceY() - UtfStreams.MAX_DEPTH.get() + 1);
                 int top = s.surfaceY();
                 if (bottom > top) continue;
