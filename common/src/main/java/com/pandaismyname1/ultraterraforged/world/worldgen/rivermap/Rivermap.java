@@ -60,12 +60,15 @@ public class Rivermap implements ExpiringEntry {
     public void apply(Cell cell, float x, float z) {
         float rx = this.riverWarp.getX(x, z, 0);
         float rz = this.riverWarp.getZ(x, z, 0);
+        int first = 0;
+        while (first < this.networks.length && !this.networks[first].contains(rx, rz)) first++;
+        if (first == this.networks.length) return;
+        // Skip the expensive lake warp unless a river network reaches this column.
         float lx = this.lakeWarp.getOffsetX(rx, rz, 0);
         float lz = this.lakeWarp.getOffsetZ(rx, rz, 0);
-        for (Network network : this.networks) {
-            if (network.contains(rx, rz)) {
-                network.carve(cell, rx, rz, lx, lz);
-            }
+        for (int i = first; i < this.networks.length; i++) {
+            Network network = this.networks[i];
+            if (network.contains(rx, rz)) network.carve(cell, rx, rz, lx, lz);
         }
     }
     

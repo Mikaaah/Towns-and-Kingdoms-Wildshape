@@ -19,6 +19,7 @@ public class SpawnFinderFix {
 		if ((Object) sampler instanceof UTFClimateSampler utfClimateSampler) {
 			BlockPos center = utfClimateSampler.getSpawnSearchCenter();
 
+			if (center == null) return;
 			this.result = SpawnFinderFix.getSpawnPositionAndFitness(list, sampler, center.getX(), center.getZ());
 			this.radialSearch(list, sampler, 2048.0f, 512.0f);
 			this.radialSearch(list, sampler, 512.0f, 32.0f);

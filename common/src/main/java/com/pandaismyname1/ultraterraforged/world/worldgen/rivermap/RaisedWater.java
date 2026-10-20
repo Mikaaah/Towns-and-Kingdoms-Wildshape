@@ -64,6 +64,9 @@ public final class RaisedWater {
 				if (state.isAir()) {
 					chunk.setBlockState(pos, water, false);
 					tops[i] = Math.max(tops[i], y);
+				} else if (state.is(Blocks.WATER)) {
+                    // Pre-existing water is not an empty adjacent column.
+                    tops[i] = Math.max(tops[i], y);
 				} else if (state.getFluidState().isEmpty()) {
 					break;
 				}

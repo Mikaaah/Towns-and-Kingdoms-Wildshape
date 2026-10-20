@@ -218,7 +218,7 @@ public class CaveFeatureSettings {
 	 * Wide low caves running level along the rock layers.
 	 */
 	public static class LayerCaves {
-		private static final LayerCaves DEFAULT = new LayerCaves(true, 0.4F);
+		private static final LayerCaves DEFAULT = new LayerCaves(false, 0.4F);
 
 		public static final Codec<LayerCaves> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			PresetCodecs.defaulted(Codec.BOOL, "enabled", DEFAULT.enabled).forGetter((o) -> o.enabled),
@@ -247,7 +247,7 @@ public class CaveFeatureSettings {
 	 * Rare huge chambers deep underground with pillars and a lake.
 	 */
 	public static class GiantCaverns {
-		private static final GiantCaverns DEFAULT = new GiantCaverns(true, 0.3F);
+		private static final GiantCaverns DEFAULT = new GiantCaverns(true, 0.65F);
 
 		public static final Codec<GiantCaverns> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			PresetCodecs.defaulted(Codec.BOOL, "enabled", DEFAULT.enabled).forGetter((o) -> o.enabled),

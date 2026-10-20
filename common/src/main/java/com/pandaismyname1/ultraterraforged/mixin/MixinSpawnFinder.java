@@ -12,6 +12,7 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.Climate.ParameterPoint;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.spawn.SpawnFinderFix;
+import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 
 // FIXME the mixin that we should actually be using just refuses to work for some reason
 
@@ -21,7 +22,10 @@ class MixinSpawnFinder {
 
 	@Inject(at = @At("HEAD"), method = "findSpawnPosition", cancellable = true)
     private static void findSpawnPosition(List<ParameterPoint> list, Sampler sampler, CallbackInfoReturnable<BlockPos> callback) {
-    	callback.setReturnValue(new SpawnFinderFix(list, sampler).result.location());
+    	if ((Object) sampler instanceof UTFClimateSampler) {
+            SpawnFinderFix.Result result = new SpawnFinderFix(list, sampler).result;
+            if (result != null) callback.setReturnValue(result.location());
+        }
     }
 //	@ModifyArg(
 //		at = @At(

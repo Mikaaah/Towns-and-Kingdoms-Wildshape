@@ -114,6 +114,8 @@ public class StampedBoundLongMap<T> implements LongMap<T> {
 		}
 		long writeStamp = this.lock.writeLock();
 		try {
+            T existing = this.map.get(key);
+            if (existing != null) return existing;
 			if (this.map.size() >= this.capacity) {
 				this.map.removeFirst();
 			}

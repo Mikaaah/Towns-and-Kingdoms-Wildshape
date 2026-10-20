@@ -75,7 +75,8 @@ public class ArrayPool<T> {
 		public void close() {
 			if (!this.released) {
 				this.released = true;
-				this.released = this.pool.restore(this);
+                // A full pool still means this resource is closed, not reusable twice.
+				this.pool.restore(this);
 			}
 		}
 

@@ -35,6 +35,7 @@ public class ScrollingPanel extends AbstractWidget {
 		this.children.clear();
 		this.children.addAll(children);
 		this.pressed = null;
+        this.setFocused(false);
 		this.scroll = Mth.clamp(this.scroll, 0.0D, this.maxScroll());
 	}
 
@@ -106,6 +107,7 @@ public class ScrollingPanel extends AbstractWidget {
 		for (AbstractWidget child : this.children) {
 			if (child.visible && child.isMouseOver(mouseX, mouseY) && child.mouseClicked(mouseX, mouseY, button)) {
 				this.pressed = child;
+                child.setFocused(true);
 				return true;
 			}
 		}
@@ -122,6 +124,7 @@ public class ScrollingPanel extends AbstractWidget {
 		if (this.pressed != null) {
 			AbstractWidget pressed = this.pressed;
 			this.pressed = null;
+            pressed.setFocused(false);
 			return pressed.mouseReleased(mouseX, mouseY, button);
 		}
 		return false;

@@ -44,7 +44,7 @@ public class Slider extends AbstractSliderButton {
 	}
     
     public double getSliderValue(float value) {
-    	return (Mth.clamp(value, this.min, this.max) - this.min) / (this.max - this.min);
+    	return this.max == this.min ? 0.0D : (Mth.clamp(value, this.min, this.max) - this.min) / (this.max - this.min);
     }
     
     public double getLerpedValue() {

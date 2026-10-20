@@ -30,12 +30,13 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 
 	@Override
 	public double minValue() {
-		return 0.0F;
+		// Negative continentalness/weirdness are legitimate; don't lie to the optimizer.
+		return -Double.MAX_VALUE;
 	}
 
 	@Override
 	public double maxValue() {
-		return 1.0F;
+		return Double.MAX_VALUE;
 	}
 
 	public static boolean isCachedNoiseChunk(int cellCountXZ) {
@@ -44,6 +45,7 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 	
 	public static class Cache2d {
 		private long lastPos = Long.MAX_VALUE;
+		private WorldLookup lastLookup;
 		private Cell cell = new Cell();
 		
 		public Cell getAndUpdate(WorldLookup lookup, int blockX, int blockZ) {
@@ -51,9 +53,12 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			blockZ = QuartPos.toBlock(QuartPos.fromBlock(blockZ));
 			
 			long packedPos = PosUtil.pack(blockX, blockZ);
-			if(this.lastPos != packedPos) {
+			if(this.lastPos != packedPos || this.lastLookup != lookup) {
+                this.lastPos = Long.MAX_VALUE;
+                this.lastLookup = null;
 				lookup.apply(this.cell.reset(), blockX, blockZ);
 				this.lastPos = packedPos;
+                this.lastLookup = lookup;
 			}
 			return this.cell;
 		}
