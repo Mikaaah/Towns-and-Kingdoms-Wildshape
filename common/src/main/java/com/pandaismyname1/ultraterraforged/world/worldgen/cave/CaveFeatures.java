@@ -74,9 +74,10 @@ public final class CaveFeatures {
 		}
 		CaveCarving carving = new CaveCarving(chunk, this.context);
 		for (Feature feature : this.features) {
-			feature.carve(carving);
-		}
-	}
+            feature.carve(carving);
+        }
+        carving.reconcileWater();
+    
 
 	// 0 to 1, fixed for each grid cell and purpose
 	static float random(int seed, int gridX, int gridZ, int purpose) {

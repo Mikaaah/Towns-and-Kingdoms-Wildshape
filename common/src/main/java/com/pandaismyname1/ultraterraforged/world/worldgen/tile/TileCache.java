@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import com.pandaismyname1.ultraterraforged.concurrent.cache.Cache;
 import com.pandaismyname1.ultraterraforged.concurrent.cache.CacheEntry;
 import com.pandaismyname1.ultraterraforged.concurrent.cache.CacheManager;
+import com.pandaismyname1.ultraterraforged.concurrent.cache.map.StampedLongMap;
 import com.pandaismyname1.ultraterraforged.world.worldgen.util.PosUtil;
 
 public class TileCache implements TileFactory {
@@ -19,7 +20,8 @@ public class TileCache implements TileFactory {
 	public TileCache(int tileSize, boolean queue, TileGenerator generator) {
 		this.tileSize = tileSize;
 		this.queue = queue;
-		this.cache = CacheManager.createCache(256, 60L, 20L, TimeUnit.SECONDS);
+		// Tile arrays belong to chunks still using them: retire only after drop().
+        this.cache = CacheManager.createCache(256, Long.MAX_VALUE, 20L, TimeUnit.MILLISECONDS, StampedLongMap::new);
 		this.generator = generator;
 	}
 	

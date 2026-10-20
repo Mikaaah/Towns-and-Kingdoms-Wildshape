@@ -1,5 +1,7 @@
 package com.pandaismyname1.ultraterraforged.concurrent.cache;
 
+import java.lang.ref.WeakReference;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -24,7 +26,17 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
         this.lifetimeMS = unit.toMillis(expireTime);
         
         long intervalMillis = unit.toMillis(pollInterval);
-        this.poll = SCHEDULER.scheduleAtFixedRate(this::poll, intervalMillis, intervalMillis, TimeUnit.MILLISECONDS);
+        WeakReference<Cache<V>> cacheRef = new WeakReference<>(this);
+        AtomicReference<ScheduledFuture<?>> handle = new AtomicReference<>();
+        this.poll = SCHEDULER.scheduleAtFixedRate(() -> {
+            Cache<V> cached = cacheRef.get();
+            if (cached != null) cached.poll();
+            else {
+                ScheduledFuture<?> scheduled = handle.get();
+                if (scheduled != null) scheduled.cancel(false);
+            }
+        }, intervalMillis, intervalMillis, TimeUnit.MILLISECONDS);
+        handle.set(this.poll);
     }
     
     public void remove(long key) {
