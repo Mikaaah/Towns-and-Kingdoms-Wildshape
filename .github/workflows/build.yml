@@ -1,0 +1,47 @@
+name: Build
+on: [ pull_request, push ]
+
+# a newer push to the same branch cancels the build still running for the older one
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Gradle, Loom and the mod run on Java 21
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/loom-cache
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
+      - name: Build Fabric
+        run: ./gradlew :fabric:build -Putf.perfMods=false
+
+      - name: Build NeoForge
+        run: ./gradlew :neoforge:build -Putf.perfMods=false
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artifacts
+          path: |
+            fabric/build/libs/
+            neoforge/build/libs/
+
