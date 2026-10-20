@@ -107,7 +107,7 @@ public class Tile implements SafeCloseable, CellLookup {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		// closing twice would wipe the arrays after another tile had taken them from the pool
 		if (!this.closed.compareAndSet(false, true)) {
 			return;
@@ -120,6 +120,34 @@ public class Tile implements SafeCloseable, CellLookup {
 		this.chunkResource.close();
 	}
 	
+    /**
+     * Conservative native river-candidate mask from already finalized cells.
+     * A null result means unknown; callers must do the normal terrain lookup.
+     * Synchronize with close() to avoid reading reclaimed pooled arrays.
+     */
+    public synchronized long[] nativeRiverCandidates(int chunkX, int chunkZ) {
+        if (this.closed.get()) return null;
+        Chunk chunk = this.getChunkReader(chunkX, chunkZ);
+        long[] mask = new long[4];
+        for (int z = 0; z < 16; z++) {
+            for (int x = 0; x < 16; x++) {
+                Cell cell = chunk.getCell(x, z);
+                if (cell == null || cell.terrain == null
+                    || cell.terrain == com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainType.NONE) {
+                    return null;
+                }
+                // Include the whole valley, banks, and any raised-water zone,
+                // rather than only the center channel.
+                if (cell.terrain.isRiver() || cell.riverDistance < 1.0F
+                    || cell.riverBank < Cell.FAR || cell.waterLevel > 0.0F) {
+                    int i = x + z * 16;
+                    mask[i >>> 6] |= 1L << (i & 63);
+                }
+            }
+        }
+        return mask;
+    }
+
     // chunkX and chunkZ are relative to the tile, border included
     private Chunk computeChunk(int index, int chunkX, int chunkZ) {
         Chunk chunk = this.chunks[index];
