@@ -46,8 +46,7 @@ public final class CaveCarving {
     private final BitSet carvedAir = new BitSet();
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
-    private static final boolean ALEX_CAVES_LOADED =
-        com.pandaismyname1.ultraterraforged.platform.ModLoaderUtil.isLoaded("alexscaves");
+
 	// the chunk around this one that ground last read from its tile, or null if its tile wasn't there
 	@Nullable
 	private Tile.Chunk near;
@@ -235,7 +234,7 @@ public final class CaveCarving {
      * dependency or class loading from Alex's Caves, on either loader.
      */
     private boolean isAlexCavesBiome(int x, int y, int z) {
-        if (!ALEX_CAVES_LOADED) return false;
+        // No Alex biomes are present unless the optional mod is installed.
         int qx=QuartPos.fromBlock(x), qy=QuartPos.fromBlock(y), qz=QuartPos.fromBlock(z);
         long key = net.minecraft.core.BlockPos.asLong(qx, qy, qz);
         Boolean cached = this.protectedBiomeCache.get(key);
