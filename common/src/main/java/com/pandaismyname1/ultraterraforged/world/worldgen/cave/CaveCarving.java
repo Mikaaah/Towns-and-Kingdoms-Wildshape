@@ -6,6 +6,9 @@ import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.core.QuartPos;
 import net.minecraft.resources.ResourceLocation;
 
@@ -47,6 +50,22 @@ public final class CaveCarving {
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
 
+    // Structure starts known at the build-surface stage. This is a best-effort
+    // safeguard, not a replacement for modded structure-placement logic.
+    private final List<BoundingBox> protectedStructures;
+    private static final boolean PROTECT_STRUCTURES =
+        !"false".equalsIgnoreCase(System.getProperty("tnkterraforged.structureProtection", "true"));
+
+    private boolean insideStructure(int x, int y, int z) {
+        if (this.protectedStructures.isEmpty()) return false;
+        for (BoundingBox bounds : this.protectedStructures) {
+            if (x >= bounds.minX() - 2 && x <= bounds.maxX() + 2
+                    && y >= bounds.minY() - 2 && y <= bounds.maxY() + 2
+                    && z >= bounds.minZ() - 2 && z <= bounds.maxZ() + 2) return true;
+        }
+        return false;
+    }
+
 	// the chunk around this one that ground last read from its tile, or null if its tile wasn't there
 	@Nullable
 	private Tile.Chunk near;
@@ -63,6 +82,14 @@ public final class CaveCarving {
 		this.minX = chunkPos.getMinBlockX();
 		this.minZ = chunkPos.getMinBlockZ();
 		this.bottom = chunk.getMinBuildHeight();
+        // Generic, mod-independent support for structure starts already
+        // recorded on this chunk (Integrated, YUNG, Cataclysm, vanilla, etc).
+        this.protectedStructures = PROTECT_STRUCTURES ? chunk.getAllStarts().values().stream()
+            .filter(StructureStart::isValid)
+            .map(StructureStart::getBoundingBox)
+            .filter(b -> b.maxX() >= this.minX - 2 && b.minX() <= this.minX + 17
+                      && b.maxZ() >= this.minZ - 2 && b.minZ() <= this.minZ + 17)
+            .toList() : List.of();
 		for (int dz = 0; dz < 16; dz++) {
 			for (int dx = 0; dx < 16; dx++) {
 				this.ground[dz << 4 | dx] = chunk.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, dx, dz);
@@ -154,7 +181,7 @@ public final class CaveCarving {
 	 * Hollows out a single block, as hollow does.
 	 */
 	public void clear(int x, int y, int z, int water) {
-        if (this.isAlexCavesBiome(x, y, z)) return;
+        if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);
 		if (state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
@@ -201,7 +228,7 @@ public final class CaveCarving {
 					if (state.isAir() || state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
 						continue;
 					}
-					if (!this.isAlexCavesBiome(x, y, z)) this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
+					if (!this.insideStructure(x, y, z) && !this.isAlexCavesBiome(x, y, z)) this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
 				}
 			}
 		}
@@ -219,7 +246,7 @@ public final class CaveCarving {
 	}
 
 	public void set(int x, int y, int z, BlockState state) {
-        if (this.isAlexCavesBiome(x, y, z)) return;
+        if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
 		this.chunk.setBlockState(this.pos.set(x, y, z), state, false);
 	}
 
@@ -277,7 +304,7 @@ public final class CaveCarving {
             int bit=(int)candidate, ceiling=(int)(candidate>>>32);
             if(bit<0 || bit>=len || highestWater[bit]>=ceiling-this.bottom) continue;
             int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
-            if(y>ceiling || this.isAlexCavesBiome(x,y,z)) continue;
+            if(y>ceiling || this.insideStructure(x,y,z) || this.isAlexCavesBiome(x,y,z)) continue;
             BlockState state=this.chunk.getBlockState(this.pos.set(x,y,z));
             if(!state.isAir() && !filled.get(bit)) continue;
             highestWater[bit]=(short)(ceiling-this.bottom);

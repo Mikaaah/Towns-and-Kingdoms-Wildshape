@@ -43,7 +43,8 @@ record CellTest(float cutoff, Set<Terrain> terrainTypeBlacklist) implements Stru
 			}
 			return true;
 		} else {
-			throw new IllegalStateException();
+			// Structure tests must never crash another dimension's generator.
+            return true;
 		}
 	}
 
