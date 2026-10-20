@@ -24,8 +24,16 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "0e85a9a3a04726d78b5835e3d73d76bd2de41215"
           echo "Verified upstream commit: $(git rev-parse FETCH_HEAD)"
           echo "Upstream files: $(git ls-tree -r --name-only FETCH_HEAD | wc -l)"
-      - name: Replace bootstrap with pristine upstream source
+      - name: Import exact upstream source tree
         run: |
           set -euo pipefail
-          git push --force origin FETCH_HEAD:refs/heads/main
-          echo "Imported pristine upstream commit to main."
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git read-tree --reset -u FETCH_HEAD
+          upstream_tree="$(git rev-parse FETCH_HEAD^{tree})"
+          imported_tree="$(git write-tree)"
+          test "$upstream_tree" = "$imported_tree"
+          echo "Verified identical tree hash: $imported_tree"
+          git commit -m "Import pristine upstream UltraTerraForged 1.21.1 source"
+          git push origin HEAD:refs/heads/main
+          echo "Imported complete 1.21.1 tree into main."
