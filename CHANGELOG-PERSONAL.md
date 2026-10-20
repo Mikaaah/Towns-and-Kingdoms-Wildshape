@@ -9,9 +9,11 @@
 - **B03:** Prevent pooled tiles from being retired by timer/capacity while in-flight chunks may be using them; retire on the final chunk drop.
 
 ### Compatibility and stability
-- **C01 (partial):** Protect generated Alex's Caves biome chambers against native UTF carving, block replacement and lining with no mandatory Alex dependency. The standalone addon still supplies biome selection, cave structure placement and the locator.
+- **C01 (NeoForge source integrated):** Adapted the existing GPL-3.0 standalone compatibility implementation into the UTF NeoForge module: rare-cave biome routing, structure placement validation, verified `/locateacbiome`, world sampler binding and native cavern protection. Conditional Mixin plugin and compile-only Alex's Caves 2.0.10 dependency keep the port optional. **Remove the standalone tfacfix JAR** when testing this build. Runtime compatibility still requires validation.
 - **C03:** Replace HEAD/TAIL surface region context with a scoped MixinExtras method wrapper and `try/finally`, so exceptions cannot leave a stale thread-local region.
 - **C04/C05:** Add river mouth/gorge/terrace unit tests and a dual-loader Java 21 release-mode regression workflow.
+
+**Licensing:** The embedded NeoForge Alex's Caves compat sources retain the GPL-3.0 obligations of the separately published fix; original UltraTerraForged MIT credits remain. See `LICENSE-ALEX-COMPAT-GPL-3.0`.
 
 **Validation policy:** See `AUDIT-STATUS.md` for every one of the original 23 audit findings and outstanding runtime/integration tests. Static checks and builds alone do not validate the TNK3 modpack or resolve historic chunks.
 

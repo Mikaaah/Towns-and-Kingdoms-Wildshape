@@ -22,7 +22,7 @@ The pinned original audit identified **23 findings**. This file tracks the live 
 | B07 | Close failed tile allocations after workers complete | Compiled |
 | B08 | Keep pooled resources released after rejected restore | Compiled |
 | B09 | Fix LazyCallable Runnable-null completion | Unit-tested earlier |
-| C01 | Native Alex's Caves biome carving protection based on optional biome namespace | Biome placement, native structure integration and locator still require separate compatibility addon |
+| C01 | Integrated conditional NeoForge Alex's Caves biome selection, native chamber placement, locate command, context binding and native UTF carve protection | Compile-only 2.0.10 dependency; in-game port tests still required |
 | C02 | Fork workflow no longer targets upstream releases | Upstream CurseForge/Modrinth publishing disabled |
 | C03 | Wrap full buildSurface in exception-safe SurfaceRegion scope | Mixins on modded server need runtime check |
 | C04 | Dedicated water regression tests and dual-loader CI | Full multi-mod NeoForge pack GameTests still needed |
@@ -30,7 +30,7 @@ The pinned original audit identified **23 findings**. This file tracks the live 
 
 ## Compatibility note
 
-The optional Alex's Caves port is distributed separately and its biome-selection / chamber-placement internals cannot be compiled into the common UTF module without importing the port as a compile dependency. Native UTF carving protection has no hard dependency and only activates where Alex's cave biomes are already generated. Until the native biome injection has its own CI integration test, **retain the existing [Terraforged Alex's Caves Fix](https://github.com/Mikaaah/Terraforged-Alexs-Caves-Fix) as a separate required compatibility addon in the modpack**.
+The Alex's Caves integration now lives in **the NeoForge module of UTF itself**, compiled against the optional v2.0.10 port using a compile-only dependency. It does not bundle the port or require it at runtime. When using this integrated build, **REMOVE the older standalone tfacfix JAR** to avoid duplicate Mixin injection. The Alex's Caves 2.0.10 JAR and required Citadel port remain separate. The imported compatibility source is GPL-3.0; see `docs/alex-caves-native-compat.md` and `LICENSE-ALEX-COMPAT-GPL-3.0`.
 
 ## Never claim runtime verification from CI compilation
 

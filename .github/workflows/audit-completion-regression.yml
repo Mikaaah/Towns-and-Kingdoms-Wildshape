@@ -36,6 +36,12 @@ jobs:
               assert archive.testzip() is None
               text=archive.read('META-INF/neoforge.mods.toml').decode()
               assert 'version="1.0.2+1.21.1"' in text
+              assert 'config="ultraterraforged-alex-caves.mixins.json"' in text
+              assert 'modId="alexscaves"' in text
+              assert 'type="optional"' in text
+              # The Alex port is only a compile-time dependency, never bundled.
+              assert not any(name.startswith('com/github/alexmodguy/alexscaves/') for name in archive.namelist())
+              assert any(name.endswith('OptionalAlexMixinPlugin.class') for name in archive.namelist())
           print('Validated NeoForge release metadata:', jars[0])
           PY
       - uses: actions/upload-artifact@v4
