@@ -254,11 +254,8 @@ public final class CaveCarving {
     public void reconcileWater() {
         if (this.carvedAir.isEmpty()) return;
         // Short offsets are safe for supported Minecraft world heights.
-        int len = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
-        short[] highestWater = new short[len];
-        Arrays.fill(highestWater, (short) -1);
-        BitSet filled = new BitSet();
-        // Primitive queue: no Long boxing for large flooded caverns.
+        // Most giant-cave chunks have no exposed fluid connection.
+        // Build the seed queue before allocating a per-block water-height table.
         LongArrayFIFOQueue pending = new LongArrayFIFOQueue();
         for (int bit=this.carvedAir.nextSetBit(0); bit>=0; bit=this.carvedAir.nextSetBit(bit+1)) {
             int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
@@ -270,6 +267,11 @@ public final class CaveCarving {
             if (z<this.minZ+15 && this.isWater(x,y,z+1)) ceiling=Math.max(ceiling,y);
             if (ceiling>=y) pending.enqueue(packWater(bit,ceiling));
         }
+        if (pending.isEmpty()) return;
+        int len = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
+        short[] highestWater = new short[len];
+        Arrays.fill(highestWater, (short) -1);
+        BitSet filled = new BitSet();
         while(!pending.isEmpty()) {
             long candidate=pending.dequeueLong();
             int bit=(int)candidate, ceiling=(int)(candidate>>>32);
