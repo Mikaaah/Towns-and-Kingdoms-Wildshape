@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "ultraterraforged_clienttest",
+  "version": "0",
+  "name": "UltraTerraForged client test",
+  "description": "Drives the client through world creation and takes screenshots. Only on the clientTest run's classpath.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.pandaismyname1.ultraterraforged.clienttest.ClientTest"
+    ]
+  },
+  "depends": {
+    "ultraterraforged": "*",
+    "fabric-lifecycle-events-v1": "*"
+  }
+}

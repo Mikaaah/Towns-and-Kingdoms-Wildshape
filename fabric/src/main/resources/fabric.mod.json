@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "ultraterraforged",
+  "version": "${version}",
+  "name": "UltraTerraForged",
+  "description": "Realistic, configurable terrain: continents, mountain ranges, rivers that follow the land, coasts, caves and sea floors worth exploring. A continuation of ReTerraForged and TerraForged.",
+  "authors": [
+    "pandaismyname1"
+  ],
+  "contributors": [
+    "dags (TerraForged)",
+    "Won-Ton (TerraForged)",
+    "raccoonman (ReTerraForged)",
+    "Steveplays28 (ReTerraForged)",
+    "EdoEquin0x (ReTerraForged)"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Pandaismyname1/ultraterraforged",
+    "sources": "https://github.com/Pandaismyname1/ultraterraforged",
+    "issues": "https://github.com/Pandaismyname1/ultraterraforged/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/ultraterraforged/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.pandaismyname1.ultraterraforged.fabric.UTFFabric"
+    ]
+  },
+  "mixins": [
+    "ultraterraforged-common.mixins.json",
+    "ultraterraforged-fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": ">=${fabric_api_min}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=21"
+  }
+}

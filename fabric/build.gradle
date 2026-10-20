@@ -1,0 +1,175 @@
+plugins {
+    id "com.gradleup.shadow"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+
+    // mods the dev runs load like a mods folder would, unremapped: for mods made of nested jars, which the classpath
+    // doesn't unpack. Fabric loader remaps them itself when the game starts.
+    devModsFolder {
+        canBeResolved = true
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}") { exclude group: "net.fabricmc", module: "fabric-loader" }
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive = false }
+    shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
+
+    // Performance mods, in the dev runs only: the ones PerformanceMods lists for Fabric on this version, pinned to
+    // Modrinth version ids (the version numbers are shared between loaders). -Putf.perfMods=false leaves them out, to
+    // measure or debug UltraTerraForged on its own. See docs/porting/performance-mods.md.
+    if (project.findProperty("utf.perfMods") != "false") {
+        // C2ME 0.4.0-alpha.0.29: its modules are nested jars. Not C2ME OpenCL: it needs Java 25, the dev game runs on 21.
+        devModsFolder "maven.modrinth:c2me-fabric:RMHYO1LJ"
+        modLocalRuntime "maven.modrinth:noisiumed:8mNj0Di8"     // Noisiumed 3.0.6
+        modLocalRuntime "maven.modrinth:lithium:N08Z8wog"       // Lithium 0.15.4
+        modLocalRuntime "maven.modrinth:modernfix:NnNX8LBn"     // ModernFix 5.25.1
+        modLocalRuntime "maven.modrinth:sodium:SMxNOGZ6"        // Sodium 0.8.13
+    }
+}
+
+processResources {
+    def props = [
+        version: project.version,
+        minecraft_version: rootProject.minecraft_version,
+        fabric_loader_version: rootProject.fabric_loader_version,
+        fabric_api_version: rootProject.fabric_api_version,
+        fabric_api_min: rootProject.fabric_api_min
+    ]
+    inputs.properties props
+
+    filesMatching("fabric.mod.json") {
+        expand props
+    }
+}
+
+shadowJar {
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    injectAccessWidener = true
+    inputFile.set shadowJar.archiveFile
+    archiveClassifier = "fabric"
+}
+
+jar {
+    archiveClassifier = "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+// A client run that drives world creation and takes screenshots: ./gradlew :fabric:runClientTest
+// Output (screenshots, log of what happened) goes to fabric/build/clienttest.
+sourceSets {
+    clienttest {
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
+    }
+}
+
+def devModsDir = layout.buildDirectory.dir("devmods")
+def syncDevMods = tasks.register("syncDevMods", Sync) {
+    from configurations.devModsFolder
+    into devModsDir
+}
+tasks.matching { it.name.startsWith("run") }.configureEach {
+    dependsOn syncDevMods
+}
+
+loom {
+    runs {
+        configureEach {
+            property "fabric.addMods", devModsDir.get().asFile.absolutePath
+            // the dev game runs LWJGL 3.3.2, which Sodium refuses at startup; launchers ship 3.3.1, so only turn the
+            // check off here
+            property "sodium.checks.issue2561", "false"
+        }
+        // new worlds in the dev game start in creative with cheats, to fly around and inspect terrain
+        client {
+            property "ultraterraforged.dev.creative", "true"
+        }
+        clientTest {
+            client()
+            name = "Client Test"
+            source sourceSets.clienttest
+            runDir = "run-clienttest"
+            property "ultraterraforged.clienttest.out", file("build/clienttest").absolutePath
+            // -Dultraterraforged.clienttest.tour=true visits the landforms in a default world instead
+            property "ultraterraforged.clienttest.tour", System.getProperty("ultraterraforged.clienttest.tour", "false")
+            property "ultraterraforged.clienttest.stops", System.getProperty("ultraterraforged.clienttest.stops", "river,salt_flat,alluvial_fan,glacial_valley,cirque,drumlins,moraine,barrier_island,karst,sinkhole,delta,wetland,lake,peninsula,coastal_island,sand_bar,skerry,volcanic_island,river_island,submarine_canyon,seamount,guyot,blue_hole,coral_reef,ocean_trench,ocean_ridge,sand_waves")
+            property "ultraterraforged.dev.creative", "true"
+        }
+    }
+}
+
+// Maven: <group>:ultraterraforged-fabric:<version>, published to the repository given by -PmavenUrl (CI publishes to a folder
+// and pushes it to the "maven" branch)
+publishing {
+    publications {
+        register("maven", MavenPublication) {
+            artifactId = "${rootProject.archives_base_name}-${project.name}"
+            version = project.ext.mavenVersion
+            artifact(remapJar) {
+                builtBy remapJar
+                classifier ""
+            }
+            artifact(sourcesJar) {
+                builtBy sourcesJar
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        if (project.hasProperty("mavenUrl")) {
+            maven {
+                url = project.mavenUrl
+                if (!project.mavenUrl.toString().startsWith("file:")) {
+                    credentials {
+                        username = project.findProperty("mavenUsername") ?: "ci"
+                        password = project.findProperty("mavenPassword") ?: "ci"
+                    }
+                }
+            }
+        }
+    }
+}

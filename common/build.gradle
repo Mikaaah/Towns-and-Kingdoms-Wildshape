@@ -1,0 +1,52 @@
+architectury {
+    common("fabric", "neoforge")
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/ultraterraforged.accesswidener")
+}
+
+// Fabric's Mixin 0.17.4 turned the "at" of @Redirect, @ModifyArg, @ModifyArgs and @ModifyVariable into an array. Common
+// code compiled against it carries arrays there, which the Mixin on Forge accepts but MixinExtras up to 0.5.0 (bundled
+// by ModernFix, AllTheLeaks, Noisium and many others) doesn't: Forge crashes at startup with a ClassCastException. So
+// common code compiles against 0.17.3, the last with a single @At, which every loader reads. MixinAnnotationsTest checks.
+configurations.compileClasspath {
+    resolutionStrategy.force "net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7"
+}
+
+dependencies {
+    // Fabric loader provides the @Environment annotations and the Mixin library for common code.
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    compileOnly "com.github.glitchfiend:TerraBlender-common:${rootProject.minecraft_version}-${rootProject.terrablender_version}"
+    compileOnly "com.electronwill.night-config:toml:3.6.7"
+    // C2ME OpenCL compat: C2ME bundles MixinSquared 0.3.7-beta.1 on both loaders
+    compileOnly "com.github.bawnorton.mixinsquared:mixinsquared-common:0.3.7-beta.1"
+}
+
+dependencies {
+    testImplementation platform("org.junit:junit-bom:5.11.4")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testImplementation "org.mockito:mockito-core:5.14.2"
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "utf.updateGolden", System.getProperty("utf.updateGolden", "false")
+    maxHeapSize = "2G"
+    testLogging.showStandardStreams = Boolean.getBoolean("utf.showOutput")
+    systemProperty "utf.showOutput", System.getProperty("utf.showOutput", "false")
+    systemProperty "utf.render", System.getProperty("utf.render", "false")
+    systemProperty "utf.bench", System.getProperty("utf.bench", "false")
+    if (System.getProperty("utf.profile") != null) systemProperty "utf.profile", "true"
+    // a flight recording of the tests, for finding where the time goes: -Dutf.jfr=<file>
+    if (System.getProperty("utf.jfr") != null) {
+        jvmArgs "-XX:StartFlightRecording=filename=" + System.getProperty("utf.jfr") + ",settings=profile"
+    }
+    // hand-run surveys and measurements
+    System.properties.findAll { it.key.startsWith("utf.survey") }.each { systemProperty it.key, it.value }
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}

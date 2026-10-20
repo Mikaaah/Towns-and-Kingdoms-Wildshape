@@ -1,0 +1,79 @@
+plugins {
+    id "architectury-plugin" version "3.5.170"
+    id "dev.architectury.loom" version "1.17.493" apply false
+    id "com.gradleup.shadow" version "9.6.1" apply false
+}
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.officialMojangMappings()
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
+
+    base {
+        archivesName = rootProject.archives_base_name
+    }
+    // releases are built with RELEASE set (see .github/workflows); anything else is a snapshot
+    ext.mavenVersion = "${rootProject.mod_version}"
+    if (System.getenv("RELEASE") == null) {
+        ext.mavenVersion += "-SNAPSHOT"
+    }
+    ext.mavenVersion += "+${rootProject.minecraft_version}"
+    version = project.ext.mavenVersion
+    group = rootProject.maven_group
+
+    repositories {
+        maven { url = "https://maven.shedaniel.me" }
+        maven { url = "https://jitpack.io" }
+        maven { url = "https://maven.minecraftforge.net/" }
+        // performance mods for the dev runs, see docs/porting/performance-mods.md
+        exclusiveContent {
+            forRepository { maven { url = "https://api.modrinth.com/maven" } }
+            filter { includeGroup "maven.modrinth" }
+        }
+        exclusiveContent {
+            forRepository { maven { url = "https://cursemaven.com" } }
+            filter { includeGroup "curse.maven" }
+        }
+        // MixinSquared, for the C2ME OpenCL compat: C2ME bundles it, so it's only compiled against
+        exclusiveContent {
+            forRepository { maven { url = "https://maven.bawnorton.com/releases" } }
+            filter { includeGroup "com.github.bawnorton.mixinsquared" }
+        }
+        // Sinytra Connector and Forgified Fabric API, published module by module so the dev runs can remap them
+        exclusiveContent {
+            forRepository { maven { url = "https://maven.su5ed.dev/releases" } }
+            filter {
+                includeGroup "org.sinytra"
+                includeGroup "dev.su5ed.sinytra"
+                includeGroup "dev.su5ed.sinytra.fabric-api"
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.compilerArgs << "-Xmaxerrs" << "10000"
+        options.release = rootProject.java_version as int
+    }
+
+    java {
+        withSourcesJar()
+    }
+}
