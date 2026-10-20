@@ -12,12 +12,13 @@
     "Won-Ton (TerraForged)",
     "raccoonman (ReTerraForged)",
     "Steveplays28 (ReTerraForged)",
-    "EdoEquin0x (ReTerraForged)"
+    "EdoEquin0x (ReTerraForged)",
+    "Mikaaah (community fork)"
   ],
   "contact": {
-    "homepage": "https://github.com/Pandaismyname1/ultraterraforged",
-    "sources": "https://github.com/Pandaismyname1/ultraterraforged",
-    "issues": "https://github.com/Pandaismyname1/ultraterraforged/issues"
+    "homepage": "https://github.com/Mikaaah/ultraterraforged-personal",
+    "sources": "https://github.com/Mikaaah/ultraterraforged-personal",
+    "issues": "https://github.com/Mikaaah/ultraterraforged-personal/issues"
   },
   "license": "MIT",
   "icon": "assets/ultraterraforged/icon.png",
