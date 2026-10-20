@@ -1,5 +1,14 @@
 # TNKTerraForged — development changelog
 
+## 2026-10-20 — Underwater pillar foundation fix
+
+- Fix giant-cavern support pillars ending abruptly at the lake surface: preserve their rock columns above **and below** the waterline, through the lakebed.
+- Lake-water filling and open cavern space remain unchanged; carving is skipped only for actual pillar columns.
+- Move pillar rejection before the costly per-height wall-noise loop, reducing unnecessary noise sampling in pillar columns.
+- Add `GiantCavernPillarTest` verifying a pillar remains solid above, at and below the waterline while a nearby open column is water-filled below the lake and air above it.
+- Affects **newly generated chunks only**; existing underwater pillars are not retroactively reconstructed.
+
+
 ## 0.1.0 preview — TNK3-specific derivative (2026-10-20)
 - Rebranded loaders' display names, creation screen and build archives to **TNKTerraForged**.
 - Retained the original `ultraterraforged` mod ID, registry/data namespaces, version base and preset storage intentionally for world and integration compatibility; this fork **replaces**, never co-installs with, UltraTerraForged.
