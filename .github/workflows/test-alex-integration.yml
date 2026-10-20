@@ -1,0 +1,78 @@
+name: UTF Alex Caves NeoForge integration smoke
+on:
+  push:
+    branches: [neoforge-1.21.1]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Acquire exact Alex's Caves and Citadel ports
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, urllib.request
+          target=pathlib.Path('neoforge/run/mods')
+          target.mkdir(parents=True,exist_ok=True)
+          for ver in ('pC1MYhqR','mIylVpkN'):
+              req=urllib.request.Request('https://api.modrinth.com/v2/version/'+ver,
+                                          headers={'User-Agent':'UltraTerraForged-Integration-CI/1.0'})
+              with urllib.request.urlopen(req,timeout=45) as response:
+                  record=json.load(response)
+              file=next((x for x in record['files'] if x.get('primary')),record['files'][0])
+              if not file['url'].startswith('https://cdn.modrinth.com/'):
+                  raise RuntimeError('Unexpected mod distribution host '+file['url'])
+              destination=target/file['filename']
+              req=urllib.request.Request(file['url'],headers={'User-Agent':'UltraTerraForged-Integration-CI/1.0'})
+              with urllib.request.urlopen(req,timeout=180) as response, destination.open('wb') as out:
+                  import shutil
+                  shutil.copyfileobj(response,out)
+              if 'sha512' in file['hashes']:
+                  assert hashlib.sha512(destination.read_bytes()).hexdigest()==file['hashes']['sha512']
+              print('Verified',record['name'],destination.name,destination.stat().st_size)
+          PY
+      - name: Configure new UTF Overworld
+        run: |
+          mkdir -p neoforge/run
+          printf 'eula=true\n' > neoforge/run/eula.txt
+          cat > neoforge/run/server.properties <<'PROPS'
+          level-name=utf-alex-smoke
+          level-type=ultraterraforged:ultraterraforged
+          level-seed=2031102026
+          view-distance=3
+          simulation-distance=3
+          online-mode=false
+          PROPS
+      - name: Check combined mod startup and initial terrain
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=15s 420s ./gradlew :neoforge:runServer -Putf.perfMods=false --no-daemon > alex-server.log 2>&1
+          exitCode=$?
+          set -e
+          tail -n 200 alex-server.log
+          echo "Process exit: $exitCode"
+          if ! grep -Eiq 'Done \([[:digit:].]+s\)!|Done \(' alex-server.log neoforge/run/logs/latest.log 2>/dev/null; then
+            echo "Alex-enabled server did not reach ready state."
+            exit 1
+          fi
+          if grep -Eiq '(MixinApplyError|MixinTransformerError|NoClassDefFoundError|ExceptionInInitializerError|Could not load.*mixin)' alex-server.log neoforge/run/logs/latest.log 2>/dev/null; then
+            echo "Potential fatal mixin or classloading error found."
+            exit 1
+          fi
+          echo "Alex-enabled UTF startup passed."
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: utf-alex-2.0.10-server-smoke-logs
+          path: |
+            alex-server.log
+            neoforge/run/logs/
+          if-no-files-found: warn
