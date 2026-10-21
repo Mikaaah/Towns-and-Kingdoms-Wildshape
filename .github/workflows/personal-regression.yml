@@ -24,7 +24,7 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew :common:test --tests '*FailedTileRetryTest' --tests '*WaterContinuityTest' --tests '*LazyCallableTest' --tests '*SiteCacheTest' --tests '*NativeRiverTileCandidatesTest' --tests '*MassiveCavernTest' --tests '*GiantCavernCorridorWindowTest' --tests '*GiantCavernPillarTest' --tests '*PresetOptionsTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' -Putf.perfMods=false --no-daemon --stacktrace
-          ./gradlew :neoforge:verifyStreamsFlowRules :neoforge:verifyStreamsDownhillSearch -Putf.perfMods=false --no-daemon --stacktrace
+          # Native Streams adapter tests are NeoForge-only and are absent on the Fabric branch.
       - name: Build distributable releases with exact dependency version
         env:
           RELEASE: 'true'
