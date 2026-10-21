@@ -23,6 +23,7 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     // the outer part of the banks, as a share of their width, is raised into a low embankment where the land beside a
     // river is lower than its water
     private static final float LEVEE = 0.3F;
+    private static final float MAX_BANK_FILL = 2.0F;
     public boolean main;
     private boolean connecting;
     private float fade;
@@ -189,7 +190,8 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     	}
     	// (not across another river's water, like the parent a fork flows into)
     	boolean water = cell.waterLevel > 0.0F || cell.terrain.isRiver() || cell.terrain.isLake() || cell.height < this.waterLine;
-    	if (distance > width * (1.0F - LEVEE) && distance < width + 2.0F && cell.height < level + this.levels.unit && !water) {
+        if (distance > width * (1.0F - LEVEE) && distance < width + 2.0F && cell.height < level + this.levels.unit
+                && level + this.levels.unit - cell.height <= MAX_BANK_FILL * this.levels.unit && !water) {
     		// the land beside the river is lower than its water: an embankment keeps it in
     		cell.height = level + this.levels.unit;
     		cell.erosionMask = true;

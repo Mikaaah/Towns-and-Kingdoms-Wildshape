@@ -2,8 +2,6 @@ package com.pandaismyname1.ultraterraforged.world.worldgen.cave;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.BitSet;
-import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -148,6 +146,12 @@ public final class CaveCarving {
 	 * is the ground within roof blocks of the surface, unless roof is OPEN.
 	 */
 	public void hollow(float cx, float cy, float cz, float rx, float ry, float rz, int water, int roof) {
+        this.hollow(cx, cy, cz, rx, ry, rz, water, roof, null);
+    }
+
+    // Large connections use the same world-coordinate wall noise in every chunk.
+    void hollow(float cx, float cy, float cz, float rx, float ry, float rz, int water, int roof,
+            com.pandaismyname1.ultraterraforged.world.worldgen.noise.module.Noise walls) {
 		int x0 = Math.max(this.minX, (int) Math.floor(cx - rx));
 		int x1 = Math.min(this.minX + 15, (int) Math.ceil(cx + rx));
 		int z0 = Math.max(this.minZ, (int) Math.floor(cz - rz));
@@ -168,7 +172,12 @@ public final class CaveCarving {
 				int top = roof == OPEN ? y1 : Math.min(y1, this.ground[(z - this.minZ) << 4 | (x - this.minX)] - roof);
 				for (int y = y0; y <= top; y++) {
 					float ny = (y + 0.5F - cy) / ry;
-					if (flat + ny * ny >= 1.0F) {
+                    float shape = flat + ny * ny;
+                    // Only erode into the nominal cross-section, preserving the
+                    // conservative corridor bounds and the surface roof guard.
+                    float roughness = walls == null ? 0.0F
+                            : 0.28F * walls.compute(x + y * 0.7F, z - y * 0.7F, 0);
+					if (shape + roughness >= 1.0F) {
 						continue;
 					}
 					this.clear(x, y, z, water);
@@ -274,63 +283,36 @@ public final class CaveCarving {
         return protectedBiome;
     }
 
-    /** Reconcile newly carved air connected to water sources at buildSurface.
-     * Disconnected dry cave systems stay dry. Flood cannot rise above the
-     * adjacent source water block. Chunk edges are marked for fluid processing.
+    /**
+     * Wake existing water exposed by carving. Never manufacture source blocks:
+     * a spring opening onto a slope must flow down it, not flood every connected
+     * air block up to its height (including open sky within this chunk).
+     * Authored sea caves and cavern lakes already supply their own waterline.
      */
     public void reconcileWater() {
-        if (this.carvedAir.isEmpty()) return;
-        // Short offsets are safe for supported Minecraft world heights.
-        // Most giant-cave chunks have no exposed fluid connection.
-        // Build the seed queue before allocating a per-block water-height table.
-        LongArrayFIFOQueue pending = new LongArrayFIFOQueue();
-        for (int bit=this.carvedAir.nextSetBit(0); bit>=0; bit=this.carvedAir.nextSetBit(bit+1)) {
-            int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
-            int ceiling = Integer.MIN_VALUE;
-            if (y+1 < this.chunk.getMaxBuildHeight() && this.isWater(x,y+1,z)) ceiling=y+1;
-            if (x>this.minX && this.isWater(x-1,y,z)) ceiling=Math.max(ceiling,y);
-            if (x<this.minX+15 && this.isWater(x+1,y,z)) ceiling=Math.max(ceiling,y);
-            if (z>this.minZ && this.isWater(x,y,z-1)) ceiling=Math.max(ceiling,y);
-            if (z<this.minZ+15 && this.isWater(x,y,z+1)) ceiling=Math.max(ceiling,y);
-            if (ceiling>=y) pending.enqueue(packWater(bit,ceiling));
-        }
-        if (pending.isEmpty()) return;
-        int len = (this.chunk.getMaxBuildHeight() - this.bottom) << 8;
-        short[] highestWater = new short[len];
-        Arrays.fill(highestWater, (short) -1);
-        BitSet filled = new BitSet();
-        while(!pending.isEmpty()) {
-            long candidate=pending.dequeueLong();
-            int bit=(int)candidate, ceiling=(int)(candidate>>>32);
-            if(bit<0 || bit>=len || highestWater[bit]>=ceiling-this.bottom) continue;
-            int x=this.minX+(bit&15), z=this.minZ+((bit>>>4)&15), y=this.bottom+(bit>>>8);
-            if(y>ceiling || this.insideStructure(x,y,z) || this.isAlexCavesBiome(x,y,z)) continue;
-            BlockState state=this.chunk.getBlockState(this.pos.set(x,y,z));
-            if(!state.isAir() && !filled.get(bit)) continue;
-            highestWater[bit]=(short)(ceiling-this.bottom);
-            if(state.isAir()) {
-                this.chunk.setBlockState(this.pos, WATER, false);
-                filled.set(bit);
-                if(x==this.minX || x==this.minX+15 || z==this.minZ || z==this.minZ+15) {
-                    this.chunk.markPosForPostprocessing(this.pos);
-                }
-            }
-            if((bit&15)>0) pending.enqueue(packWater(bit-1,ceiling));
-            if((bit&15)<15) pending.enqueue(packWater(bit+1,ceiling));
-            if(((bit>>>4)&15)>0) pending.enqueue(packWater(bit-16,ceiling));
-            if(((bit>>>4)&15)<15) pending.enqueue(packWater(bit+16,ceiling));
-            if(y>this.bottom) pending.enqueue(packWater(bit-256,ceiling));
-            if(y<ceiling && y+1<this.chunk.getMaxBuildHeight()) pending.enqueue(packWater(bit+256,ceiling));
+        BitSet scheduled = new BitSet();
+        for (int bit = this.carvedAir.nextSetBit(0); bit >= 0; bit = this.carvedAir.nextSetBit(bit + 1)) {
+            int x = this.minX + (bit & 15);
+            int z = this.minZ + ((bit >>> 4) & 15);
+            int y = this.bottom + (bit >>> 8);
+            this.scheduleWater(x, y + 1, z, scheduled);
+            this.scheduleWater(x - 1, y, z, scheduled);
+            this.scheduleWater(x + 1, y, z, scheduled);
+            this.scheduleWater(x, y, z - 1, scheduled);
+            this.scheduleWater(x, y, z + 1, scheduled);
         }
     }
 
-    private static long packWater(int bit, int ceiling) {
-        return ((long)ceiling<<32) | (bit & 0xFFFFFFFFL);
-    }
-
-    private boolean isWater(int x,int y,int z) {
-        return this.chunk.getBlockState(this.pos.set(x,y,z)).getFluidState()
-            .is(net.minecraft.tags.FluidTags.WATER);
+    private void scheduleWater(int x, int y, int z, BitSet scheduled) {
+        // Never read or mutate a neighboring generation chunk.
+        if (!this.contains(x, z) || y < this.bottom || y >= this.chunk.getMaxBuildHeight()) return;
+        int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
+        if (scheduled.get(bit)) return;
+        BlockState state = this.chunk.getBlockState(this.pos.set(x, y, z));
+        if (state.is(Blocks.WATER) || state.getFluidState().is(net.minecraft.tags.FluidTags.WATER)) {
+            scheduled.set(bit);
+            this.chunk.markPosForPostprocessing(this.pos);
+        }
     }
 
 	/**

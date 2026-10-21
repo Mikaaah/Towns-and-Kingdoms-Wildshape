@@ -239,7 +239,7 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
         CellPopulator land = new MountainChainPopulator(terrainBlend, mountains, 0.3F, 0.8F);
         
         CellPopulator deepOcean = Populators.makeDeepOcean(ctx.seed.next(), levels.water);
-        CellPopulator shallowOcean = Populators.makeShallowOcean(ctx.levels);
+        CellPopulator shallowOcean = Populators.makeShallowOcean(ctx.seed.root() + 73491, ctx.levels);
         CellPopulator coast = Populators.makeCoast(ctx.levels);
         
         CellPopulator oceans = new ContinentLerper3(deepOcean, shallowOcean, coast, controlPoints.deepOcean, controlPoints.shallowOcean, controlPoints.coast);

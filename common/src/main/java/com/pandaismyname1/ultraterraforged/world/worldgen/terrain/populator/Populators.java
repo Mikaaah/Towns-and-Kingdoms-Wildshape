@@ -51,7 +51,15 @@ public class Populators {
 	}
     
 	public static OceanPopulator makeShallowOcean(Levels levels) {
-		 return new OceanPopulator(TerrainType.SHALLOW_OCEAN, Noises.constant(levels.water(-7)));
+        return makeShallowOcean(73491, levels);
+    }
+
+    public static OceanPopulator makeShallowOcean(int seed, Levels levels) {
+        // A constant seven-block bed made broad preset shelves look paved flat.
+        Noise relief = Noises.add(Noises.mul(Noises.perlin(seed, 160, 2), levels.scale(7)),
+                Noises.mul(Noises.perlin(seed + 1, 34, 2), levels.scale(2)));
+        return new OceanPopulator(TerrainType.SHALLOW_OCEAN,
+                Noises.add(Noises.constant(levels.water(-14)), relief));
 	}
 	
 	public static OceanPopulator makeCoast(Levels levels) {

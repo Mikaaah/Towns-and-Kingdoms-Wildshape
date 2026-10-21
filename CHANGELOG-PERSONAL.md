@@ -1,5 +1,13 @@
 # TNKTerraForged — development changelog
 
+## 1.0.5+1.21.1 — Terrain and water safety
+
+- Stop cave reconciliation from flooding outdoor air with synthetic source blocks; schedule exposed water to flow instead.
+- Cap artificial river embankments and rim repairs at two blocks, and constrain raised water against finished terrain.
+- Replace the flat shallow-ocean base with seed-dependent relief; add shelf texture and soften shelf drop-offs.
+- Give giant cavern connections varying, rough cross-sections while retaining roof guards and clipping bounds.
+- Add revised Balanced/Grand Expanse presets and regression coverage. See `docs/TNK_TERRAIN_WATER_1.0.5.md` for installation and verification limits.
+
 ## 1.0.4+1.21.1 — TNK3 biome exclusions
 
 - Exclude the agreed 16 Biomes O' Plenty and 6 Regions Unexplored biomes from newly generated TNKTerraForged terrain. Keep BOP Grassland.

@@ -105,8 +105,10 @@ final class GiantCaverns implements CaveFeatures.Feature {
             y = Math.min(y, MAX_ROOF_Y - 13.0F);
             y = Math.max(y, carving.bottom + 17.0F);
             if (y + 12.0F > MAX_ROOF_Y) continue;
-            carving.hollow(x, y, z, radius, 12.0F, radius,
-                           CaveCarving.DRY, MIN_ROOF_COVER);
+            float width = radius * (0.78F + 0.22F * this.walls.compute(x, z, 0));
+            float height = 9.0F + 3.0F * this.walls.compute(x + 718, z - 931, 0);
+            carving.hollow(x, y, z, width, height, width,
+                           CaveCarving.DRY, MIN_ROOF_COVER, this.walls);
         }
     }
 
