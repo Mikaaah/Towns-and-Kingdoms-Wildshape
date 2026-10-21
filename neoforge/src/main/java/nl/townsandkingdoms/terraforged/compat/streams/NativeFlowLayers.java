@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
 import dev.streamsreflowing.core.RiverEngine;

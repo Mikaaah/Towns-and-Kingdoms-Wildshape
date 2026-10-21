@@ -1,9 +1,9 @@
-package nl.townsandkingdoms.utfstreams.mixin;
+package nl.townsandkingdoms.terraforged.compat.streams.mixin;
 
 import dev.streamsreflowing.worldgen.StreamRiverFlowFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import nl.townsandkingdoms.utfstreams.UtfStreams;
+import nl.townsandkingdoms.terraforged.compat.streams.UtfStreams;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

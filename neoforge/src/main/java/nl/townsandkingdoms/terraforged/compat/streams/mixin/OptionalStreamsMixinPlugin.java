@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams.mixin;
+package nl.townsandkingdoms.terraforged.compat.streams.mixin;
 
 import com.pandaismyname1.ultraterraforged.platform.ModLoaderUtil;
 import java.util.List;

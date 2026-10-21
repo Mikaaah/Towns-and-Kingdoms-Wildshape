@@ -15,6 +15,9 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.biome.MultiNoiseBiomeSourceParameterLists;
+import com.pandaismyname1.ultraterraforged.world.worldgen.biome.BiomeExclusions;
+import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunction.NoiseHolder;
@@ -99,6 +102,11 @@ class MixinRandomState {
 
 	public void ultraterraforged$UTFRandomState$initialize(RegistryAccess registryAccess) {
 		this.registryAccess = registryAccess;
+		if (this.hasContext) {
+			var overworld = registryAccess.registryOrThrow(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST)
+				.getHolderOrThrow(MultiNoiseBiomeSourceParameterLists.OVERWORLD).value();
+			((UTFClimateSampler) (Object) this.sampler).setBiomeFallback(BiomeExclusions.fallback(overworld.parameters()));
+		}
 		
 		RegistryLookup<Preset> presets = registryAccess.lookupOrThrow(UTFRegistries.PRESET);
 		RegistryLookup<DensityFunction> functions = registryAccess.lookupOrThrow(Registries.DENSITY_FUNCTION);

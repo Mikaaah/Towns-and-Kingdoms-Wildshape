@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 
 import com.google.gson.GsonBuilder;
 import com.pandaismyname1.ultraterraforged.world.worldgen.heightmap.Levels;
@@ -68,6 +68,10 @@ public final class IntegrationChecks {
                 var chunk = level.getChunkAt(position);
                 require(chunk.getFluidState(position).is(FluidTags.WATER), "Native predicted surface is not actual water in the generated chunk");
                 report.put("generatedWaterAtPredictedHeight", true);
+                Cell retained = new Cell();
+                require(context.riverData.apply(retained, s.x(), s.z()) && retained.riverCarver != null,
+                        "Generated river did not retain its compact current data");
+                report.put("generatedRiverSnapshotRetained", true);
                 long started = System.nanoTime();
                 var layers = NativeFlowLayers.layers(level, null, cx, cz);
                 report.put("sampleLayerBuildMs", (System.nanoTime() - started) / 1_000_000.0);
