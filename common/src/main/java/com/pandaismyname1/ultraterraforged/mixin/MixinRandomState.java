@@ -15,7 +15,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.biome.MultiNoiseBiomeSourceParameterLists;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.BiomeExclusions;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 import net.minecraft.world.level.biome.Climate;
@@ -104,7 +103,7 @@ class MixinRandomState {
 		this.registryAccess = registryAccess;
 		if (this.hasContext) {
 			var overworld = registryAccess.registryOrThrow(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST)
-				.getHolderOrThrow(MultiNoiseBiomeSourceParameterLists.OVERWORLD).value();
+				.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, net.minecraft.resources.ResourceLocation.withDefaultNamespace("overworld"))).value();
 			((UTFClimateSampler) (Object) this.sampler).setBiomeFallback(BiomeExclusions.fallback(overworld.parameters()));
 		}
 		
