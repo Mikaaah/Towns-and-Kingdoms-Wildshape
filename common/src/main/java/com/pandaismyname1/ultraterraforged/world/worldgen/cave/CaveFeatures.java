@@ -61,10 +61,8 @@ public final class CaveFeatures {
 		if (oceans.whaleFalls.enabled && oceans.whaleFalls.frequency > 0.0F) {
 			features.add(new WhaleFalls(seed + 11, oceans.whaleFalls.frequency));
 		}
-		// last, so their water isn't carved away
-		if (settings.springs.enabled && settings.springs.frequency > 0.0F) {
-			features.add(new Springs(seed + 9, settings.springs.frequency));
-		}
+        // TNK3 policy: single-source hillside springs are intentionally omitted,
+        // including worlds whose saved presets enabled the older Springs feature.
 		this.features = List.copyOf(features);
 	}
 
@@ -76,6 +74,7 @@ public final class CaveFeatures {
 		for (Feature feature : this.features) {
             feature.carve(carving);
         }
+        carving.repairSingleBlockHoles();
         carving.reconcileWater();
     }
 

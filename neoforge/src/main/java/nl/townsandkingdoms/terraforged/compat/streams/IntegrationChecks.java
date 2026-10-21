@@ -58,6 +58,7 @@ public final class IntegrationChecks {
                 report.put("vanillaControlInactive", true);
             } else {
                 require(context != null, "No active UTF context");
+                generatedCoastalWater(level, context, report);
                 NativeCapture.Sample high = findElevatedMain(context);
                 require(high != null, "No elevated main-river sample found within test search");
                 final var s = high;
@@ -162,6 +163,31 @@ public final class IntegrationChecks {
         } catch (Exception e) { UtfStreams.LOG.error("Cannot write integration results", e); }
         UtfStreams.LOG.info("UTF Streams integration complete: {}", report);
         server.halt(false);
+    }
+
+    private static void generatedCoastalWater(ServerLevel level, GeneratorContext context, Map<String,Object> report) {
+        Cell cell = new Cell();
+        int checked = 0;
+        for (int radius=256; radius<=4096 && checked<2; radius+=256) {
+            for (int side=0;side<8 && checked<2;side++) {
+                double angle=side*Math.PI/4;
+                int x=(int)(Math.cos(angle)*radius), z=(int)(Math.sin(angle)*radius);
+                context.lookup.compute(cell.reset(),x,z);
+                if (cell.terrain != com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainType.COAST
+                        || cell.height >= context.levels.water(-1)) continue;
+                context.lookup.apply(cell,x,z,true);
+                if (cell.height >= context.levels.water(-1) || cell.waterLevel>0) continue;
+                BlockPos surface=new BlockPos(x,context.levels.waterY,z);
+                var chunk=level.getChunkAt(surface);
+                require(chunk.getFluidState(surface).is(FluidTags.WATER),
+                        "Coastal floor is dry at " + surface + " predicted bed="+context.levels.scale(cell.height));
+                require(cell.continentalness < com.pandaismyname1.ultraterraforged.world.worldgen.biome.Continentalness.COAST.min(),
+                        "Submerged coastal bed retained inland biome climate");
+                checked++;
+            }
+        }
+        require(checked>0,"No coastal water sample found in the smoke seed");
+        report.put("generatedCoastalWaterColumns",checked);
     }
 
     private static void actualWaterRegression(ServerLevel level, int wx, int wz, Map<String,Object> report) {

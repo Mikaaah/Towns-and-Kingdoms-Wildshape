@@ -1,5 +1,15 @@
 # TNKTerraForged — development changelog
 
+## 1.0.6+1.21.1 — Coastal beds and connected rivers
+
+- Replace the constant sea-surface coastal bed with shallow, seeded relief. Classify dry shoreline as coast/inland and submerged land tags as marine climate.
+- Survey canyon cuts before choosing river routes and water levels. Retain original ground at intersecting river banks, within the existing two-block fill budget; preserve real water joins.
+- Remove the per-column water suppression that could interrupt connected rivers. Allow bounded rapids on steep natural banks instead of excessively flattening their approaches.
+- Process every tile cell once in the final biome pass, including borders at negative coordinates.
+- Disable vanilla and custom water springs even for older enabled presets. Fill isolated one-cell surface pools while retaining diagonal stream connections.
+- Close isolated single-block rock pocks made by custom cave carvers; preserve larger openings, structures and other mods' protected caves.
+- Update both Expanse presets. See `docs/TNK_TERRAIN_WATER_1.0.6.md` for installation and verification scope.
+
 ## 1.0.5+1.21.1 — Terrain and water safety
 
 - Stop cave reconciliation from flooding outdoor air with synthetic source blocks; schedule exposed water to flow instead.

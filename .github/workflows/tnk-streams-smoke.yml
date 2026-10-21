@@ -1,7 +1,7 @@
 name: TNKTerraForged Streams 2.15.2 smoke
 on:
   push:
-    branches: [main, neoforge-1.21.1, fix/river-water-and-generation]
+    branches: [fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
     paths:
       - 'neoforge/src/main/java/nl/townsandkingdoms/terraforged/compat/streams/**'
       - 'common/src/main/java/com/pandaismyname1/ultraterraforged/world/worldgen/**'

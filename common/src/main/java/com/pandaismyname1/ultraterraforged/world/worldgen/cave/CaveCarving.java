@@ -283,6 +283,29 @@ public final class CaveCarving {
         return protectedBiome;
     }
 
+    /** Close only isolated one-block pocks made by our carvers, retaining larger cave openings. */
+    public void repairSingleBlockHoles() {
+        java.util.Map<BlockPos, BlockState> repairs = new java.util.HashMap<>();
+        for (int bit = this.carvedAir.nextSetBit(0); bit >= 0; bit = this.carvedAir.nextSetBit(bit + 1)) {
+            int x = this.minX + (bit & 15), z = this.minZ + ((bit >>> 4) & 15);
+            int y = this.bottom + (bit >>> 8);
+            if (x <= this.minX || x >= this.minX + 15 || z <= this.minZ || z >= this.minZ + 15
+                    || y <= this.bottom || y >= this.chunk.getMaxBuildHeight() - 1) continue;
+            if (!this.chunk.getBlockState(this.pos.set(x,y,z)).isAir()) continue;
+            int rock = 0, air = 0;
+            BlockState replacement = null;
+            for (net.minecraft.core.Direction direction : net.minecraft.core.Direction.values()) {
+                BlockState next = this.chunk.getBlockState(this.pos.set(x + direction.getStepX(), y + direction.getStepY(), z + direction.getStepZ()));
+                if (next.is(Blocks.STONE) || next.is(net.minecraft.tags.BlockTags.BASE_STONE_OVERWORLD)) {
+                    rock++;
+                    replacement = next;
+                } else if (next.isAir()) air++;
+            }
+            if (rock >= 5 && rock + air == 6) repairs.put(new BlockPos(x,y,z), replacement);
+        }
+        repairs.forEach((position, state) -> this.chunk.setBlockState(position, state, false));
+    }
+
     /**
      * Wake existing water exposed by carving. Never manufacture source blocks:
      * a spring opening onto a slope must flow down it, not flood every connected

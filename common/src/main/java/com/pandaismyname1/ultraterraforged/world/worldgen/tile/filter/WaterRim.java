@@ -12,63 +12,37 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.tile.Tile;
  */
 public record WaterRim(Levels levels) implements Filter {
     private static final int MAX_FILL = 2;
-    // A finite neighborhood fits inside generation tile borders. Unlike an
-    // unbounded flood, results in the tile interior do not depend on tile size.
-    private static final int SUPPORT_RADIUS = 12;
 
-    private void constrainWater(Tile tile, int size) {
-        float[] limit = new float[size * size];
-        int[] wet = new int[limit.length];
-        int count = 0;
-        for (int z = 0; z < size; z++) for (int x = 0; x < size; x++) {
+    // Remove only truly isolated surface pools; diagonal river connections count.
+    private void removeSingleCellPools(Tile tile, int size) {
+        java.util.BitSet isolated = new java.util.BitSet();
+        for (int z = 1; z < size - 1; z++) for (int x = 1; x < size - 1; x++) {
             Cell cell = tile.getCellRaw(x, z);
-            if (this.wet(cell) && cell.terrain != TerrainType.CIRQUE
-                    && cell.waterLevel > this.levels.water) {
-                int index = z * size + x;
-                wet[count++] = index;
-                // Unsupported deep source columns are not made by the block filler.
-                limit[index] = Math.min(cell.waterLevel, cell.height + 24 * this.levels.unit);
+            if (!this.wet(cell) && cell.height >= this.levels.water) continue;
+            boolean joined = false;
+            for (int dz = -1; dz <= 1 && !joined; dz++) for (int dx = -1; dx <= 1; dx++) {
+                if (dx == 0 && dz == 0) continue;
+                Cell next = tile.getCellRaw(x + dx, z + dz);
+                if (this.wet(next) || next.height < this.levels.water) { joined = true; break; }
             }
+            if (!joined) isolated.set(z * size + x);
         }
-        if (count == 0) return;
-        float[] next = limit.clone();
-        float slope = 0.25F * this.levels.unit;
-        float fill = MAX_FILL * this.levels.unit;
-        for (int pass = 0; pass < SUPPORT_RADIUS; pass++) {
-            boolean changed = false;
-            for (int n = 0; n < count; n++) {
-                int index = wet[n], x = index % size, z = index / size;
-                float cap = limit[index];
-                if (x > 0) cap = Math.min(cap, this.neighborLimit(tile, x - 1, z, limit[index - 1], slope, fill));
-                if (x + 1 < size) cap = Math.min(cap, this.neighborLimit(tile, x + 1, z, limit[index + 1], slope, fill));
-                if (z > 0) cap = Math.min(cap, this.neighborLimit(tile, x, z - 1, limit[index - size], slope, fill));
-                if (z + 1 < size) cap = Math.min(cap, this.neighborLimit(tile, x, z + 1, limit[index + size], slope, fill));
-                cap = Math.max(this.levels.water, cap);
-                next[index] = cap;
-                changed |= cap < limit[index];
+        for (int i = isolated.nextSetBit(0); i >= 0; i = isolated.nextSetBit(i + 1)) {
+            int x = i % size, z = i / size;
+            Cell cell = tile.getCellRaw(x, z);
+            float rim = Float.MAX_VALUE;
+            for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
+                if (dx != 0 || dz != 0) rim = Math.min(rim, tile.getCellRaw(x + dx, z + dz).height);
             }
-            float[] swap = limit; limit = next; next = swap;
-            if (!changed) break;
-        }
-        for (int n = 0; n < count; n++) {
-            int index = wet[n];
-            Cell cell = tile.getCellRaw(index % size, index / size);
-            cell.waterLevel = limit[index] > cell.height ? limit[index] : 0.0F;
+            cell.height = Math.max(cell.height, Math.min(rim, Math.max(this.levels.water, cell.waterLevel)));
+            cell.waterLevel = 0;
         }
     }
-
-    private float neighborLimit(Tile tile, int x, int z, float limit, float slope, float fill) {
-        Cell neighbor = tile.getCellRaw(x, z);
-        if (limit > 0.0F) return limit + slope;
-        if (this.wet(neighbor)) return neighbor.waterLevel + slope;
-        return Math.max(this.levels.water, neighbor.height + fill);
-    }
-
 
 	@Override
 	public void apply(Tile tile, int regionX, int regionZ, int iterationsPerChunks) {
 		int size = tile.getBlockSize().total();
-        this.constrainWater(tile, size);
+        this.removeSingleCellPools(tile, size);
 		for (int z = 0; z < size; z++) {
 			for (int x = 0; x < size; x++) {
 				Cell cell = tile.getCellRaw(x, z);
@@ -90,7 +64,7 @@ public record WaterRim(Levels levels) implements Filter {
 				if (x < size - 1) water = Math.max(water, this.surface(tile.getCellRaw(x + 1, z)));
 				if (z > 0) water = Math.max(water, this.surface(tile.getCellRaw(x, z - 1)));
 				if (z < size - 1) water = Math.max(water, this.surface(tile.getCellRaw(x, z + 1)));
-				if (y < this.levels.scale(water) && water - cell.height <= MAX_FILL * this.levels.unit + 1.0E-6F) {
+				if (y < this.levels.scale(water) && water - (Float.isNaN(cell.riverBankBase) ? cell.height : cell.riverBankBase) <= MAX_FILL * this.levels.unit + 1.0E-6F) {
 					cell.height = water;
 				}
 			}

@@ -52,4 +52,32 @@ class CaveWaterSafetyTest {
         assertTrue(chunk.getBlockState(new BlockPos(-24, 90, -40)).isAir(), "new cave must stay air");
         assertTrue(updates.contains(source), "exposed source needs a fluid update");
     }
+    @Test void isolatedWallPocksCloseWhileLargerOpeningsRemain() {
+        ChunkAccess chunk = mock(ChunkAccess.class);
+        when(chunk.getPos()).thenReturn(new ChunkPos(0,0));
+        when(chunk.getMinBuildHeight()).thenReturn(-64);
+        when(chunk.getMaxBuildHeight()).thenReturn(320);
+        when(chunk.getAllStarts()).thenReturn(Map.of());
+        when(chunk.getHeight(any(),anyInt(),anyInt())).thenReturn(100);
+        Map<BlockPos,BlockState> blocks = new HashMap<>();
+        blocks.put(new BlockPos(8,80,7), Blocks.AIR.defaultBlockState());
+        when(chunk.getBlockState(any())).thenAnswer(a -> {
+            BlockPos pos = a.getArgument(0);
+            assertEquals(0,pos.getX()>>4); assertEquals(0,pos.getZ()>>4);
+            return blocks.getOrDefault(pos,Blocks.STONE.defaultBlockState());
+        });
+        when(chunk.setBlockState(any(),any(),anyBoolean())).thenAnswer(a -> {
+            blocks.put(a.<BlockPos>getArgument(0).immutable(),a.getArgument(1));
+            return Blocks.STONE.defaultBlockState();
+        });
+        GeneratorContext context = mock(GeneratorContext.class);
+        context.levels = new Levels(384,63);
+        CaveCarving carving = new CaveCarving(chunk,context);
+        carving.clear(7,80,7,CaveCarving.DRY);
+        for(int x=4;x<=5;x++) for(int y=82;y<=83;y++) carving.clear(x,y,5,CaveCarving.DRY);
+        carving.repairSingleBlockHoles();
+        assertTrue(chunk.getBlockState(new BlockPos(7,80,7)).is(Blocks.STONE));
+        for(int x=4;x<=5;x++) for(int y=82;y<=83;y++) assertTrue(chunk.getBlockState(new BlockPos(x,y,5)).isAir());
+    }
+
 }

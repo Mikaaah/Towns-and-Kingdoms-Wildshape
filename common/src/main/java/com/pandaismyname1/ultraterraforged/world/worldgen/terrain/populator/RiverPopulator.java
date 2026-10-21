@@ -181,6 +181,10 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     	} else {
     		target = bankTop + (distance - width) * SIDE_SLOPE * this.levels.unit;
     	}
+        float natural = Float.isNaN(cell.riverBankBase) ? cell.height : cell.riverBankBase;
+        // A second valley may remove a first river's bank. Retain that original
+        // ground outside the second channel; water-to-water joins remain open.
+        if (target >= level) target = Math.max(target, Math.min(natural, cell.riverBankFloor));
     	if (cell.height > target) {
     		cell.height = target;
             this.tag(cell, bedHeight, level, t);
@@ -191,7 +195,7 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     	// (not across another river's water, like the parent a fork flows into)
     	boolean water = cell.waterLevel > 0.0F || cell.terrain.isRiver() || cell.terrain.isLake() || cell.height < this.waterLine;
         if (distance > width * (1.0F - LEVEE) && distance < width + 2.0F && cell.height < level + this.levels.unit
-                && level + this.levels.unit - cell.height <= MAX_BANK_FILL * this.levels.unit && !water) {
+                && level + this.levels.unit - natural <= MAX_BANK_FILL * this.levels.unit && !water) {
     		// the land beside the river is lower than its water: an embankment keeps it in
     		cell.height = level + this.levels.unit;
     		cell.erosionMask = true;
@@ -201,6 +205,10 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     		// erosion would pile the bed up into islands
     		cell.erosionMask = true;
     	}
+        if (distance < width + 2 && distance > width * (1.0F - LEVEE) && cell.height >= level) {
+            cell.riverBankFloor = Math.max(cell.riverBankFloor, level);
+            cell.erosionMask = true;
+        }
     }
 
     public RiverConfig createForkConfig(float t, Levels levels) {

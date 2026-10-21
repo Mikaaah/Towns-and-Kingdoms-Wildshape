@@ -148,7 +148,11 @@ public final class WaterLevels {
         // A fixed junction has to win over the preferred gorge depth. Keeping the
         // gorge floor here used to retain drops of dozens of blocks at the mouth.
         for (int i=blocks.length-2; i>=0; i--) {
-            blocks[i] = Math.min(blocks[i], blocks[i+1] + MAX_FALL_PER_REACH);
+            // Follow naturally steep banks with bounded rapids, instead of
+            // flattening a mountain approach into an unnecessarily deep trench.
+            float bankFall = (lowest[i] - lowest[i + 1]) * levels.worldHeight;
+            int fall = MAX_FALL_PER_REACH + Math.min(3, Math.max(0, (int) (bankFall / 4)));
+            blocks[i] = Math.min(blocks[i], blocks[i+1] + fall);
         }
 
     }
@@ -378,7 +382,7 @@ public final class WaterLevels {
 		}
 
 		private float ground(float x, float z) {
-			return this.heightmap.sampleGround(x, z).height;
+			return this.heightmap.sampleDrainageGround(x, z).height;
 		}
 
 		private float ground(int gridX, int gridZ) {

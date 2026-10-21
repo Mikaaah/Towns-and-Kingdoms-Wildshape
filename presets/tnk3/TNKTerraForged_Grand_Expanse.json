@@ -60,7 +60,7 @@
     "volcanoBiomeUsage": 0.3,
     "naturalSnowDecorator": true,
     "customBiomeFeatures": true,
-    "vanillaSprings": true,
+    "vanillaSprings": false,
     "oreCompatibleStoneOnly": true,
     "erosionDecorator": true,
     "plainStoneErosion": false,
@@ -223,8 +223,8 @@
       "frequency": 0.88
     },
     "springs": {
-      "enabled": true,
-      "frequency": 0.56
+      "enabled": false,
+      "frequency": 0.0
     },
     "lavaTubes": {
       "enabled": true,

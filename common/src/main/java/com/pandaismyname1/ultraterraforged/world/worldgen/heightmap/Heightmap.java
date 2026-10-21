@@ -68,7 +68,9 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 	
 	public void applyTerrain(Cell cell, float x, float z, Rivermap rivermap) {
 		this.applyTerrainTypes(cell, x, z);
+        if (this.landforms instanceof Landforms landforms) landforms.applyBeforeRivers(cell, x, z, this);
 
+        cell.riverBankBase = cell.height;
         // rivers carve into the finished terrain; applied before it, as upstream 1.20.2 did, the terrain overwrote them
         rivermap.apply(cell, x, z);
 
@@ -110,6 +112,34 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 		}
 	}
 
+    /** Climate-only site queries must not prepare a river map while its survey is in progress. */
+    public Cell sampleClimateGround(float x, float z) {
+        Cell cell = this.sampleGround(x, z);
+        Cell previous = this.cellProvider.getCacheCell();
+        this.cellProvider.setCacheCell(cell);
+        try {
+            this.applyClimate(cell, x, z);
+            return cell;
+        } finally {
+            this.cellProvider.setCacheCell(previous);
+        }
+    }
+
+    /** Land available to drainage, including the landforms that cut valleys. No rivers or lake warps. */
+    public Cell sampleDrainageGround(float x, float z) {
+        Cell previous = this.cellProvider.getCacheCell();
+        Cell cell = new Cell();
+        this.cellProvider.setCacheCell(cell);
+        try {
+            this.applyContinent(cell, x, z);
+            this.applyTerrainTypes(cell, x, z);
+            if (this.landforms instanceof Landforms landforms) landforms.applyBeforeRivers(cell, x, z, this);
+            return cell;
+        } finally {
+            this.cellProvider.setCacheCell(previous);
+        }
+    }
+
 	/**
 	 * The terrain types, rivers and climate at another position, without landforms, e.g. for the ground a landform
 	 * stands on.
@@ -121,6 +151,8 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 		try {
 			this.applyContinent(cell, x, z);
 			this.applyTerrainTypes(cell, x, z);
+            if (this.landforms instanceof Landforms landforms) landforms.applyBeforeRivers(cell, x, z, this);
+            cell.riverBankBase = cell.height;
 			Rivermap.get(cell, null, this).apply(cell, x, z);
 			this.applyClimate(cell, x, z);
 			return cell;
@@ -184,8 +216,16 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 		// land the continent counts as sea, such as islands and peninsulas, is still land: with the sea's climate it got
 		// ocean biomes, and ocean structures such as shipwrecks and ruins on dry ground. Coast at the water's edge,
 		// inland from a few blocks up.
-		if(cell.continentalness < Continentalness.COAST.min() && cell.height >= this.levels.ground) {
-			float alpha = NoiseUtil.map(cell.height, this.levels.ground, this.levels.ground(ISLAND_INLAND));
+        boolean inlandWater = cell.waterLevel > this.levels.water || cell.terrain.isRiver()
+                || cell.terrain.isLake() || cell.terrain.isWetland();
+        // A density column at the sea's top solid block already forms dry shoreline.
+        if (!inlandWater && cell.height < this.levels.water(-1)) {
+            float depth = (this.levels.water - cell.height) * this.levels.worldHeight;
+            cell.continentalness = depth > 24 ? Continentalness.DEEP_OCEAN.lerp(0.5F)
+                    : Continentalness.OCEAN.lerp(0.5F);
+        }
+        if(cell.continentalness < Continentalness.COAST.min() && cell.height >= this.levels.water) {
+			float alpha = NoiseUtil.map(cell.height, this.levels.water, this.levels.water(ISLAND_INLAND));
 			cell.continentalness = NoiseUtil.lerp(Continentalness.COAST.lerp(0.5F), Continentalness.NEAR_INLAND.lerp(0.5F), alpha);
 		}
 	}
@@ -240,7 +280,7 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
         
         CellPopulator deepOcean = Populators.makeDeepOcean(ctx.seed.next(), levels.water);
         CellPopulator shallowOcean = Populators.makeShallowOcean(ctx.seed.root() + 73491, ctx.levels);
-        CellPopulator coast = Populators.makeCoast(ctx.levels);
+        CellPopulator coast = Populators.makeCoast(ctx.seed.root() + 73493, ctx.levels);
         
         CellPopulator oceans = new ContinentLerper3(deepOcean, shallowOcean, coast, controlPoints.deepOcean, controlPoints.shallowOcean, controlPoints.coast);
         CellPopulator terrain = new ContinentLerper2(oceans, land, controlPoints.shallowOcean, controlPoints.nearInland);

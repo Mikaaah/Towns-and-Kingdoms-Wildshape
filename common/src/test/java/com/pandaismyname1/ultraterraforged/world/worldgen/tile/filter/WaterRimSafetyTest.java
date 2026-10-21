@@ -34,7 +34,7 @@ class WaterRimSafetyTest {
             Cell cell = cells[z][x];
             if(x < 10 || x > 20) assertTrue(levels.scale(cell.height) <= 72, "bank repair exceeded two blocks");
         }
-        assertEquals(0, cells[16][10].waterLevel, "unsupported bank-side sources must be removed");
+        assertEquals(100, levels.scale(cells[16][10].waterLevel), "a local bank check must not erase a connected river profile");
     }
     @Test void properlyContainedMountainRiverKeepsItsWater() {
         Tile tile = tile(94,100,104);
@@ -47,4 +47,20 @@ class WaterRimSafetyTest {
         new WaterRim(levels).apply(tile,0,0,1);
         assertEquals(100,levels.scale(cells[16][9].height));
     }
+    @Test void isolatedOneBlockPoolIsFilledButDiagonalStreamSurvives() {
+        Tile tile = tile(94,100,104);
+        for (Cell[] row : cells) for (Cell cell : row) { cell.height = 104 / 384f; cell.waterLevel = 0; }
+        cells[6][6].height = 61 / 384f;
+        cells[8][8].height = 99 / 384f;
+        cells[8][8].waterLevel = 100.01f / 384f;
+        cells[16][16].height = cells[17][17].height = 99 / 384f;
+        cells[16][16].waterLevel = cells[17][17].waterLevel = 100.01f / 384f;
+        new WaterRim(levels).apply(tile,0,0,1);
+        assertEquals(62, levels.scale(cells[6][6].height), "isolated sea-level pit must also be filled");
+        assertEquals(0, cells[8][8].waterLevel);
+        assertEquals(100, levels.scale(cells[8][8].height));
+        assertEquals(100, levels.scale(cells[16][16].waterLevel));
+        assertEquals(100, levels.scale(cells[17][17].waterLevel));
+    }
+
 }

@@ -45,6 +45,9 @@ public class Cell {
     public float riverDistance;
     // the surface of a river, lake or wetland above the sea, as a height; 0 elsewhere
     public float waterLevel;
+    // Ground before channels carve each other, and the lip of an existing river bank.
+    public float riverBankBase = Float.NaN;
+    public float riverBankFloor;
     // Native river identity travels with the cached terrain, avoiding a second terrain pass for currents.
     public com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.RiverPopulator riverCarver;
     public float riverT;
@@ -105,6 +108,8 @@ public class Cell {
         this.biomeVariant = other.biomeVariant;
         this.riverDistance = other.riverDistance;
         this.waterLevel = other.waterLevel;
+        this.riverBankBase = other.riverBankBase;
+        this.riverBankFloor = other.riverBankFloor;
         this.riverCarver = other.riverCarver;
         this.riverT = other.riverT;
         this.riverBank = other.riverBank;
