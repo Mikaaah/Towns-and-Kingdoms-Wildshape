@@ -1,11 +1,11 @@
-package nl.townsandkingdoms.utfstreams.mixin;
+package nl.townsandkingdoms.terraforged.compat.streams.mixin;
 
 import dev.streamsreflowing.core.RiverEngine;
 import dev.streamsreflowing.core.river.RiverFlowField;
 import dev.streamsreflowing.flow.StreamFlowGrid;
 import net.minecraft.server.level.ServerLevel;
-import nl.townsandkingdoms.utfstreams.UtfStreams;
-import nl.townsandkingdoms.utfstreams.NativeFlowLayers;
+import nl.townsandkingdoms.terraforged.compat.streams.UtfStreams;
+import nl.townsandkingdoms.terraforged.compat.streams.NativeFlowLayers;
 import dev.streamsreflowing.worldgen.compat.RTFRiverCourse;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;

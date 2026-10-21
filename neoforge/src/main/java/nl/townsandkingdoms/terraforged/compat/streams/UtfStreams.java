@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 
 import com.mojang.logging.LogUtils;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
@@ -37,7 +37,8 @@ public final class UtfStreams {
     }
     /** Initialize within TNKTerraForged, only when Streams Reflowing is installed. */
     public static void initialize(IEventBus bus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, SPEC, "tnkterraforged-streams.toml");
+        GeneratorContext.retainRiverData = true;
+        container.registerConfig(ModConfig.Type.COMMON, SPEC, "tnkterraforged/streams.toml");
         bus.addListener(UtfStreams::setup);
         NeoForge.EVENT_BUS.addListener(UtfStreams::commands);
         bus.addListener(ActualWaterState::register);
@@ -70,7 +71,7 @@ public final class UtfStreams {
         event.getDispatcher().register(Commands.literal("utfstreams").requires(s -> s.hasPermission(2))
                 .then(Commands.literal("status").executes(c -> {
                     boolean active = context(c.getSource().getLevel()) != null;
-                    c.getSource().sendSuccess(() -> Component.literal("UTF Streams: active=" + active
+                    c.getSource().sendSuccess(() -> Component.literal("TNKTerraForged Streams: active=" + active
                             + "; native columns=" + NativeFlowLayers.COLUMNS.sum()
                             + "; basin columns calmed=" + NativeFlowLayers.UPHILL.sum()
                             + "; layer builds=" + NativeFlowLayers.BUILDS.sum()
@@ -89,7 +90,7 @@ public final class UtfStreams {
                     var flow=state.getFlow(level,pos);
                     byte[] grid=StreamFlowGrid.peek(pos.getX()>>4,pos.getZ()>>4);
                     byte raw=StreamFlowGrid.angleOf(grid,pos.getX(),pos.getZ(),pos.getY());
-                    final String info="UTF Streams at "+pos.toShortString()+"; fluid="
+                    final String info="TNKTerraForged Streams at "+pos.toShortString()+"; fluid="
                         +net.minecraft.core.registries.BuiltInRegistries.FLUID.getKey(state.getType())
                         +"; grid angle="+raw+"; actual flow="+flow+"; runtime fix="+ACTUAL_WATER.get();
                     c.getSource().sendSuccess(()->Component.literal(info),false); return 1;

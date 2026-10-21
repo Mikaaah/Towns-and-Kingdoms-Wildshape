@@ -14,13 +14,20 @@ class WaterContinuityTest {
         assertArrayEquals(new int[]{100, 99, 96, 93, 90}, profile);
     }
 
-    @Test void gorgeLimitStillAppliesAtImpossibleJunctions() {
+    @Test void steepJunctionDoesNotRetainAVerticalWaterWall() {
         Levels levels = new Levels(384, 63);
         int[] profile = {107, 105, 100, 69};
         float[] land = {110/384f, 108/384f, 105/384f, 72/384f};
         WaterLevels.easeMouthTransition(profile, land, 8/384f, levels);
-        assertEquals(97, profile[2]);
+        assertArrayEquals(new int[]{78, 75, 72, 69}, profile);
         assertEquals(69, profile[3]);
+    }
+
+    @Test void risingProfileIsNotLoweredIntoAnArtificialTrench() {
+        Levels levels = new Levels(384, 63);
+        int[] profile = {70, 75, 80, 85};
+        WaterLevels.easeMouthTransition(profile, new float[4], 8/384f, levels);
+        assertArrayEquals(new int[]{70, 75, 80, 85}, profile);
     }
 
     @Test void gentleWaterProfilesRemainUnchanged() {

@@ -1,10 +1,10 @@
-package nl.townsandkingdoms.utfstreams.mixin;
+package nl.townsandkingdoms.terraforged.compat.streams.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.streamsreflowing.neoforge.client.StreamParticleScanner;
 import net.minecraft.client.multiplayer.ClientLevel;
-import nl.townsandkingdoms.utfstreams.ActualWaterFlow;
+import nl.townsandkingdoms.terraforged.compat.streams.ActualWaterFlow;
 import org.spongepowered.asm.mixin.Mixin;
 
 /** Surface particles receive a column-only cached angle upstream; correct it at the known surface height. */

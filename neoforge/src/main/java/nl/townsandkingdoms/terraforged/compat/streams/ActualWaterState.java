@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -17,7 +17,7 @@ public final class ActualWaterState {
         };
         public Type<? extends CustomPacketPayload> type(){return TYPE;}
     }
-    public static void register(RegisterPayloadHandlersEvent e){e.registrar("1").playToClient(State.TYPE,State.CODEC,(p,c)->c.enqueueWork(()->{clientActive=p.active;ActualWaterFlow.clear();nl.townsandkingdoms.utfstreams.client.ActualWaterClient.refresh();}));}
+    public static void register(RegisterPayloadHandlersEvent e){e.registrar("1").playToClient(State.TYPE,State.CODEC,(p,c)->c.enqueueWork(()->{clientActive=p.active;ActualWaterFlow.clear();nl.townsandkingdoms.terraforged.compat.streams.client.ActualWaterClient.refresh();}));}
     private static void sync(ServerPlayer p){PacketDistributor.sendToPlayer(p,new State(UtfStreams.context(p.serverLevel())!=null && UtfStreams.ACTUAL_WATER.get()));}
     public static void login(PlayerEvent.PlayerLoggedInEvent e){if(e.getEntity() instanceof ServerPlayer p)sync(p);}
     public static void dimension(PlayerEvent.PlayerChangedDimensionEvent e){if(e.getEntity() instanceof ServerPlayer p)sync(p);}

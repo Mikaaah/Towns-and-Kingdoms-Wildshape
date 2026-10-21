@@ -1,10 +1,10 @@
-package nl.townsandkingdoms.utfstreams.mixin;
+package nl.townsandkingdoms.terraforged.compat.streams.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.Vec3;
-import nl.townsandkingdoms.utfstreams.ActualWaterFlow;
+import nl.townsandkingdoms.terraforged.compat.streams.ActualWaterFlow;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value=FlowingFluid.class,priority=400)

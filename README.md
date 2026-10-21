@@ -18,14 +18,14 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 | Edition | Minecraft | Details |
 | --- | --- | --- |
-| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/neoforge-1.21.1) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
-| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/fabric-1.21.1) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
+| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
+| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
 
 ### Technical compatibility: legacy mod ID
 
-To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. Only the visible name and JAR branding change to **TNKTerraForged**. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
+To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The project and build files use **TNKTerraForged** branding; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
-The mod's core `ultraterraforged` data/resource namespace and config paths remain unchanged. Its baseline implementation version remains `1.0.2+1.21.1` to preserve exact-version compatibility with existing addons.
+The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.3+1.21.1**.
 
 ## Dungeon and biome compatibility
 
@@ -40,6 +40,8 @@ The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated 
 The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Reflowing 0.2.1](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents) is integrated into TNKTerraForged's **NeoForge 1.21.1** edition. When optional **Streams Reflowing 2.15.2** is installed, TNKTerraForged provides height-aware native river currents and corrects current directions using nearby loaded water—including boats, water particles and baked stream blocks—while respecting explicit manual Flow Control overrides.
 
 **Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. Fabric does not yet include this adapter. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
+
+See the [1.0.3 water and performance notes](docs/TNK3_WATER_PERFORMANCE_FIX.md) for the fixes, configuration migration and test scope.
 
 ## Installation and validation
 

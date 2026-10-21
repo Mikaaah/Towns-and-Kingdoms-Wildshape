@@ -31,7 +31,7 @@ vanillaWaterFlow=true
 flowVanillaRivers=true
 ```
 
-When Streams is installed, the integration configuration is created at `config/tnkterraforged-streams.toml` with switches for uphill correction, current speed, max depth, loaded-water correction and scan radius.
+When Streams is installed, the integration configuration is created at `config/tnkterraforged/streams.toml` with switches for uphill correction, current speed, max depth, loaded-water correction and scan radius.
 
 ## Diagnostics
 

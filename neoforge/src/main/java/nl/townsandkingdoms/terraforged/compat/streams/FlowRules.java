@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 
 /** Small pure rules shared with the focused regression checks. */
 public final class FlowRules {

@@ -1,5 +1,16 @@
 # TNKTerraForged — development changelog
 
+## 1.0.3+1.21.1 — River water, current-query performance and configuration cleanup
+
+- Bound steep downstream mouth transitions even when the preferred gorge depth cannot meet the parent river. Preserve existing rising terrain profiles so smoothing does not introduce unnecessarily deep trenches.
+- Require a real riverbed within the raised-water fill depth before writing source blocks; avoid unsupported floating slabs.
+- Postprocess every exposed water block on a column face instead of only the top; skip enclosed pool faces and never read neighboring chunks during this pass.
+- Keep the selecting river and route position in terrain cells, including cell copies and resets. Current layers reuse completed terrain tiles for their center and slope probes, falling back to pure queries without waiting for missing tiles. Retain compact river snapshots for up to 2,048 chunks so tile-pool retirement does not restore the repeated queries; dry chunks are cached too. Remove the old observer Mixin and its per-query allocations.
+- Consolidate active configuration under `config/tnkterraforged/`, including optional Streams and Alex's Caves settings. Import missing legacy files without overwriting current settings or deleting originals.
+- Rename project, access widener and Mixin resource files; move integrated current code to `nl.townsandkingdoms.terraforged.compat.streams`. Use TNK names for generated preset packs and language-provider labels, while continuing to recognize existing world packs. Retain upstream API packages and world registry IDs deliberately for compatibility.
+- Add block-placement, steep-transition, config-import and cached-river identity regressions, plus an opt-in raw/cached query benchmark.
+
+
 ## 2026-10-20 — Streams Reflowing native integration
 
 - Integrate the complete NeoForge source of Mikaaah's **UltraTerraForged Streams Currents 0.2.1-beta** into TNKTerraForged, without registering a second mod.

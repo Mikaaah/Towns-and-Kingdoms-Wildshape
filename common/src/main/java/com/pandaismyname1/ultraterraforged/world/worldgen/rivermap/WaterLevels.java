@@ -145,11 +145,12 @@ public final class WaterLevels {
 	// the top water block of the next stretch of a river, from the last one's and the lowest land beside this one; never
 	// below the sea, which fills anything lower
 	static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
+        // A fixed junction has to win over the preferred gorge depth. Keeping the
+        // gorge floor here used to retain drops of dozens of blocks at the mouth.
         for (int i=blocks.length-2; i>=0; i--) {
-            int lowestSafeLevel = Math.max(levels.waterY, (int) Math.ceil((lowest[i]-gorge)*levels.worldHeight));
-            int preferred = blocks[i+1] + MAX_FALL_PER_REACH;
-            if (blocks[i]>preferred) blocks[i]=Math.min(blocks[i], Math.max(lowestSafeLevel, preferred));
+            blocks[i] = Math.min(blocks[i], blocks[i+1] + MAX_FALL_PER_REACH);
         }
+
     }
 
     private static int step(int level, float lowest, float gorge, Levels levels) {

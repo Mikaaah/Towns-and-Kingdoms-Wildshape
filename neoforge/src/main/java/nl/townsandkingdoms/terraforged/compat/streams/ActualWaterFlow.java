@@ -1,4 +1,4 @@
-package nl.townsandkingdoms.utfstreams;
+package nl.townsandkingdoms.terraforged.compat.streams;
 
 import dev.streamsreflowing.flow.StreamFlowGrid;
 import dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock;
@@ -25,7 +25,7 @@ public final class ActualWaterFlow {
         if (getter instanceof Level level) return level;
         // Render regions are finite snapshots. Probe the client's loaded level, never outside a render-region array.
         return ActualWaterState.clientActive && getter instanceof BlockAndTintGetter
-                ? nl.townsandkingdoms.utfstreams.client.ActualWaterClient.level() : null;
+                ? nl.townsandkingdoms.terraforged.compat.streams.client.ActualWaterClient.level() : null;
     }
     private static boolean active(Level level) {
         if (level==null || !level.dimension().equals(Level.OVERWORLD) || !UtfStreams.ACTUAL_WATER.get()) return false;
