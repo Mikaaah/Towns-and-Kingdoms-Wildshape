@@ -48,11 +48,29 @@ jobs:
           END
       - name: Start server with optional Streams 2.15.2 and run upstream adapter assertions
         run: |
-          set +e
-          timeout --signal=TERM --kill-after=20s 600s ./gradlew :neoforge:runServer -Putf.perfMods=false -Ptnk.streamsSmoke=true --no-daemon > streams-smoke.log 2>&1
-          status=$?
-          set -e
-          echo "Server exit: $status"
+          python3 - <<'PY'
+          import os, signal, subprocess, time
+          from pathlib import Path
+          report=Path('neoforge/run/utfstreams-integration-results.json')
+          report.unlink(missing_ok=True)
+          with open('streams-smoke.log','w') as output:
+              process=subprocess.Popen(['./gradlew',':neoforge:runServer','-Putf.perfMods=false','-Ptnk.streamsSmoke=true','--no-daemon'],stdout=output,stderr=subprocess.STDOUT,start_new_session=True)
+              deadline=time.monotonic()+600
+              while process.poll() is None and not report.exists() and time.monotonic()<deadline:
+                  time.sleep(2)
+              # The report is authoritative. Optional-mod worker threads can keep
+              # the dev JVM alive after Minecraft has finished saving its world.
+              try:
+                  process.wait(timeout=15)
+              except subprocess.TimeoutExpired:
+                  os.killpg(process.pid,signal.SIGTERM)
+                  try:
+                      process.wait(timeout=10)
+                  except subprocess.TimeoutExpired:
+                      os.killpg(process.pid,signal.SIGKILL)
+                      process.wait()
+              print('Server exit:',process.returncode,'report:',report.exists())
+          PY
           tail -n 150 streams-smoke.log || true
           test -s neoforge/run/utfstreams-integration-results.json || { echo "No Streams verification report"; exit 1; }
           python3 - <<'PY'

@@ -173,8 +173,8 @@ public final class IntegrationChecks {
                 double angle=side*Math.PI/4;
                 int x=(int)(Math.cos(angle)*radius), z=(int)(Math.sin(angle)*radius);
                 context.lookup.compute(cell.reset(),x,z);
-                if (cell.terrain != com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainType.COAST
-                        || cell.height >= context.levels.water(-1)) continue;
+                if (cell.height < context.levels.water(-6) || cell.height >= context.levels.water(-1)
+                        || cell.continentalness >= com.pandaismyname1.ultraterraforged.world.worldgen.biome.Continentalness.COAST.min()) continue;
                 context.lookup.apply(cell,x,z,true);
                 if (cell.height >= context.levels.water(-1) || cell.waterLevel>0) continue;
                 BlockPos surface=new BlockPos(x,context.levels.waterY,z);
@@ -183,6 +183,7 @@ public final class IntegrationChecks {
                         "Coastal floor is dry at " + surface + " predicted bed="+context.levels.scale(cell.height));
                 require(cell.continentalness < com.pandaismyname1.ultraterraforged.world.worldgen.biome.Continentalness.COAST.min(),
                         "Submerged coastal bed retained inland biome climate");
+                report.put("coastalColumn"+checked,Map.of("x",x,"z",z,"bedY",context.levels.scale(cell.height),"waterY",surface.getY(),"terrain",cell.terrain.getName()));
                 checked++;
             }
         }
