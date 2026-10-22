@@ -7,6 +7,7 @@ import net.minecraft.world.level.biome.Climate;
 
 public interface UTFClimateSampler {
 	void setBiomeFallback(Climate.ParameterList<Holder<Biome>> fallback);
+	Climate.ParameterList<Holder<Biome>> getBiomeFallback();
 
 	Holder<Biome> filterBiome(Holder<Biome> biome, int x, int y, int z);
 

@@ -20,6 +20,10 @@ class MixinClimateSampler {
 		this.tnk$biomeFallback = fallback;
 	}
 
+	public Climate.ParameterList<Holder<Biome>> ultraterraforged$UTFClimateSampler$getBiomeFallback() {
+		return this.tnk$biomeFallback;
+	}
+
 	public Holder<Biome> ultraterraforged$UTFClimateSampler$filterBiome(Holder<Biome> selected, int x, int y, int z) {
 		if (this.tnk$biomeFallback == null || !BiomeExclusions.excludes(selected)) return selected;
 		return BiomeExclusions.select(selected, this.tnk$biomeFallback,
