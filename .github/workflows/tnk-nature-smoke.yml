@@ -3,8 +3,9 @@ on:
   push:
     branches: [fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
     paths:
-      - 'common/src/main/java/com/pandaismyname1/ultraterraforged/world/worldgen/surface/**'
+      - 'common/src/main/java/com/pandaismyname1/ultraterraforged/world/worldgen/**'
       - 'common/src/main/java/com/pandaismyname1/ultraterraforged/mixin/MixinSurfaceSystem.java'
+      - 'common/src/main/java/com/pandaismyname1/ultraterraforged/mixin/MixinNoiseBasedChunkGenerator.java'
       - 'neoforge/src/main/java/nl/townsandkingdoms/terraforged/compat/streams/IntegrationChecks.java'
       - 'neoforge/build.gradle'
       - '.github/workflows/tnk-nature-smoke.yml'

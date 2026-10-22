@@ -51,7 +51,9 @@ final class PirateCoves implements CaveFeatures.Feature {
                 float dx=NoiseUtil.cos(angle*NoiseUtil.PI2/12),dz=NoiseUtil.sin(angle*NoiseUtil.PI2/12);
                 float mx=x+dx*d,mz=z+dz*d;
                 var cell=carving.cell(mx,mz);
-                if (carving.levels.scale(cell.height)>=sea-3 || cell.terrain.isRiver()
+                if (carving.levels.scale(cell.height)>=sea-3
+                        || cell.continentalness>=com.pandaismyname1.ultraterraforged.world.worldgen.biome.Continentalness.COAST.min()
+                        || cell.terrain.isRiver()
                         || cell.terrain.isLake() || cell.terrain.isWetland()) continue;
                 float cx=x-dx*20,cz=z-dz*20;
                 float radius=32+CaveFeatures.random(this.seed,gx,gz,15)*16;

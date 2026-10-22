@@ -19,6 +19,7 @@ class PirateCoveTest {
         org.mockito.stubbing.Answer<Boolean> terrain=invocation->{
             Cell cell=invocation.getArgument(0);int x=invocation.getArgument(1);
             cell.height=context.levels.water(x<128?-12:55);
+            cell.continentalness=x<128?-0.5F:0.3F;
             cell.terrain=x<128?TerrainType.SHALLOW_OCEAN:TerrainType.PLAINS;
             return true;
         };
