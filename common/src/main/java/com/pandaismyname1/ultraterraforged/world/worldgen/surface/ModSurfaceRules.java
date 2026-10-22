@@ -85,11 +85,18 @@ public final class ModSurfaceRules {
     }
 
     private static SurfaceRules.RuleSource terraBlender(SurfaceRules.RuleSource base) {
+        var existing=new HashMap<String,SurfaceRules.RuleSource>();
+        // NoiseGeneratorSettings may already have been wrapped by TerraBlender.
+        // Unwrap it so its minecraft default cannot mask the TNK fallback.
+        while (base instanceof terrablender.worldgen.surface.NamespacedSurfaceRuleSource wrapped) {
+            wrapped.sources().forEach(existing::putIfAbsent);
+            base=wrapped.base();
+        }
         var all = terrablender.api.SurfaceRuleManager.getNamespacedRules(
                 terrablender.api.SurfaceRuleManager.RuleCategory.OVERWORLD,base);
         if (all instanceof terrablender.worldgen.surface.NamespacedSurfaceRuleSource namespaced) {
             var sources = new HashMap<>(namespaced.sources());
-            // Minecraft's default rules must not replace the authored TNK surfaces.
+            sources.putAll(existing);
             sources.remove("minecraft");
             return new terrablender.worldgen.surface.NamespacedSurfaceRuleSource(base,sources);
         }

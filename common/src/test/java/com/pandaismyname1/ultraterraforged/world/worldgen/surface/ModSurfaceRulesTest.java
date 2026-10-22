@@ -23,4 +23,13 @@ class ModSurfaceRulesTest {
         assertTrue(SurfaceRules.RuleSource.CODEC.parse(JsonOps.INSTANCE,
                 SurfaceRules.RuleSource.CODEC.encodeStart(JsonOps.INSTANCE,result).getOrThrow()).result().isPresent());
     }
+    @Test void optionalModsAbsentLeavesTheOriginalRulesUntouched() {
+        try (var mods=org.mockito.Mockito.mockStatic(
+                com.pandaismyname1.ultraterraforged.platform.ModLoaderUtil.class)) {
+            mods.when(()->com.pandaismyname1.ultraterraforged.platform.ModLoaderUtil.isLoaded(
+                    org.mockito.ArgumentMatchers.anyString())).thenReturn(false);
+            var original=SurfaceRules.state(Blocks.STONE.defaultBlockState());
+            assertSame(original,ModSurfaceRules.wrap(original,org.mockito.Mockito.mock(net.minecraft.core.RegistryAccess.class)));
+        }
+    }
 }
