@@ -170,6 +170,14 @@ public final class IntegrationChecks {
     }
 
     private static void natureSpiritSurface(ServerLevel level, GeneratorContext context, Map<String,Object> report) {
+        var nativeSource=com.pandaismyname1.ultraterraforged.world.worldgen.surface.ModSurfaceRules.wrap(
+                net.minecraft.world.level.levelgen.SurfaceRules.state(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()),
+                level.registryAccess());
+        String nativeJson=net.minecraft.world.level.levelgen.SurfaceRules.RuleSource.CODEC
+                .encodeStart(com.mojang.serialization.JsonOps.INSTANCE,nativeSource).getOrThrow().toString();
+        require(nativeJson.contains("natures_spirit:white_chalk"),"Native Nature's Spirit special materials were not imported");
+        require(nativeJson.contains("ultraterraforged:near_ground"),"Native surface height adaptation missing");
+        report.put("nativeNatureSpiritMaterialsAndHeightChecks",true);
         int soil=0, tested=0;
         var samples=new java.util.ArrayList<Object>();
         Cell cell=new Cell();
