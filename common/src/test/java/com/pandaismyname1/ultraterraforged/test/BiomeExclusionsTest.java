@@ -21,9 +21,9 @@ class BiomeExclusionsTest {
 
     @Test
     void finalPackListKeepsBopGrasslandAndOtherDimensions() {
-        assertEquals(22, BiomeExclusions.EXCLUDED.size());
-        assertEquals(16, BiomeExclusions.EXCLUDED.stream().filter(id -> id.getNamespace().equals("biomesoplenty")).count());
-        assertEquals(6, BiomeExclusions.EXCLUDED.stream().filter(id -> id.getNamespace().equals("regions_unexplored")).count());
+        assertEquals(24, BiomeExclusions.EXCLUDED.size());
+        assertEquals(17, BiomeExclusions.EXCLUDED.stream().filter(id -> id.getNamespace().equals("biomesoplenty")).count());
+        assertEquals(7, BiomeExclusions.EXCLUDED.stream().filter(id -> id.getNamespace().equals("regions_unexplored")).count());
         for (var id : BiomeExclusions.EXCLUDED) assertTrue(BiomeExclusions.excludes(biome(id.toString())), id.toString());
         for (String kept : List.of("biomesoplenty:grassland", "biomesoplenty:erupting_inferno",
                 "regions_unexplored:redwoods", "minecraft:plains", "alexscaves:toxic_caves")) {

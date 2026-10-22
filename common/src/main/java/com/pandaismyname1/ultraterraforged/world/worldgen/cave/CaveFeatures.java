@@ -11,7 +11,7 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
 /**
  * Caves shaped by the land above them, carved into each chunk once its surface is built: underground rivers and
  * springs, karst caves, lava tubes, sea caves and arches, caves along the rock layers, giant caverns, rock shelters and
- * glacier caves. The biomes underground are left as they are. Cave mouths on slopes are made in the noise router
+ * glacier caves. Giant chambers receive coherent lush, dripstone or lantern styles. Cave mouths on slopes are made in the noise router
  * instead, see PresetNoiseRouterData.
  */
 public final class CaveFeatures {
@@ -39,14 +39,13 @@ public final class CaveFeatures {
 		if (settings.layerCaves.enabled && settings.layerCaves.frequency > 0.0F) {
 			features.add(new LayerCaves(seed + 3, settings.layerCaves.frequency));
 		}
-		if (settings.undergroundRivers.enabled && settings.undergroundRivers.frequency > 0.0F) {
-			features.add(new UndergroundRivers(seed + 4, settings.undergroundRivers.frequency));
-		}
+        // TNK3 policy: omit artificial underground water tunnels, even in saved presets.
 		if (settings.lavaTubes.enabled && settings.lavaTubes.frequency > 0.0F) {
 			features.add(new LavaTubes(seed + 5, settings.lavaTubes.frequency));
 		}
 		if (settings.seaCaves.enabled && settings.seaCaves.frequency > 0.0F) {
 			features.add(new SeaCaves(seed + 6, settings.seaCaves.frequency));
+            features.add(new PirateCoves(seed + 12, settings.seaCaves.frequency));
 		}
 		if (settings.glacierCaves.enabled && settings.glacierCaves.frequency > 0.0F) {
 			features.add(new GlacierCaves(seed + 7, settings.glacierCaves.frequency));
@@ -67,14 +66,19 @@ public final class CaveFeatures {
 	}
 
 	public void carve(ChunkAccess chunk) {
+        this.carve(chunk, null);
+    }
+
+    public void carve(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries) {
 		if (this.features.isEmpty()) {
 			return;
 		}
-		CaveCarving carving = new CaveCarving(chunk, this.context);
+		CaveCarving carving = new CaveCarving(chunk, this.context, registries);
 		for (Feature feature : this.features) {
             feature.carve(carving);
         }
         carving.repairSingleBlockHoles();
+        carving.decorateCaverns();
         carving.reconcileWater();
     }
 

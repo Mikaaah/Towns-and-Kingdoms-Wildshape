@@ -22,7 +22,6 @@ final class GiantCaverns implements CaveFeatures.Feature {
     private final int seed;
     private final float frequency;
     private final Noise walls;
-    private final Noise pillars;
     private final SiteCache<Cavern> caverns = SiteCache.make();
 
     record Cavern(float x, float y, float z, float radiusX, float radiusY,
@@ -32,7 +31,6 @@ final class GiantCaverns implements CaveFeatures.Feature {
         this.seed = seed;
         this.frequency = NoiseUtil.clamp(frequency, 0.0F, 1.0F);
         this.walls = Noises.perlin(seed + 1, 24, 2);
-        this.pillars = Noises.worleyEdge(seed + 2, 27);
     }
 
     /** Return a stable active site, independent of the requesting chunk. */
@@ -134,6 +132,8 @@ final class GiantCaverns implements CaveFeatures.Feature {
 
     // Package-visible for the waterline/bedrock pillar regression test.
     void hollow(Cavern cavern, CaveCarving carving) {
+        var pillars = this.pillarsFor(carving);
+        carving.addCavern(cavern, this.style(cavern));
         int lake = (int) (cavern.y() - cavern.radiusY() * 0.53F);
         int y0 = Math.max(carving.bottom + 3, (int) (cavern.y() - cavern.radiusY() * 1.12F));
         int y1 = Math.min(cavern.roof(), (int) (cavern.y() + cavern.radiusY() * 1.12F));
@@ -145,12 +145,6 @@ final class GiantCaverns implements CaveFeatures.Feature {
                 float nz = (z - cavern.z()) / cavern.radiusZ();
                 float flat = nx * nx + nz * nz;
                 if (flat > 1.35F) continue;
-                boolean pillar = this.pillars.compute(x, z, 0) < 0.12F && flat < 0.7F;
-                // Pillars must be solid for their entire vertical column, from the
-                // lakebed through the water to the ceiling. The previous condition
-                // only protected blocks ABOVE the lake and left floating pillars.
-                // Skip carving the column entirely, including the submerged part.
-                if (pillar) continue;
                 // Terrain above the cavern is protected even at the edge of a
                 // steep valley that falls between the 9 site-height probes.
                 int top = Math.min(y1, carving.ground(x, z) - MIN_ROOF_COVER);
@@ -160,10 +154,53 @@ final class GiantCaverns implements CaveFeatures.Feature {
                     if (shape >= 1.35F) continue; // no expensive wall noise needed
                     float ragged = (this.walls.compute(x + y * 0.7F, z - y * 0.7F, 0) - 0.5F) * 0.7F;
                     if (shape + ragged >= 1.0F) continue;
+                    if (flat < 0.7F && isPillar(pillars, x, y, z, cavern)) continue;
                     carving.clear(x, y, z, lake);
                 }
             }
         }
+    }
+
+    record Pillar(float x, float z, float waist, float aspect, float phase) {}
+
+    java.util.List<Pillar> pillarsFor(CaveCarving carving) {
+        var result = new java.util.ArrayList<Pillar>();
+        int gx = Math.floorDiv(carving.minX, 64), gz = Math.floorDiv(carving.minZ, 64);
+        for (int x = gx - 1; x <= gx + 1; x++) for (int z = gz - 1; z <= gz + 1; z++) {
+            if (CaveFeatures.random(this.seed, x, z, 30) > 0.72F) continue;
+            float px = x * 64 + 16 + CaveFeatures.random(this.seed,x,z,31) * 32;
+            float pz = z * 64 + 16 + CaveFeatures.random(this.seed,x,z,32) * 32;
+            if (!carving.reaches(px-40,pz-40,px+40,pz+40)) continue;
+            result.add(new Pillar(px,pz,4 + CaveFeatures.random(this.seed,x,z,33)*5,
+                    0.7F + CaveFeatures.random(this.seed,x,z,34)*0.7F,
+                    CaveFeatures.random(this.seed,x,z,35)*NoiseUtil.PI2));
+        }
+        return result;
+    }
+
+    static boolean isPillar(java.util.List<Pillar> pillars, int x, int y, int z, Cavern cavern) {
+        for (Pillar pillar : pillars) if (pillarAt(pillar,x,y,z,cavern)) return true;
+        return false;
+    }
+
+    static boolean pillarAt(Pillar p, int x, int y, int z, Cavern c) {
+        float ny = (y-c.y())/c.radiusY();
+        // Root buttresses and ceiling fans join a narrower, uneven waist.
+        // The lean stays smaller than the waist so the rock remains connected
+        // all the way through the lake, rather than floating above its water.
+        float radius = p.waist() + 13 * (float)Math.pow(Math.abs(ny), 2.7)
+                + 1.2F * (float)Math.sin(y*0.13F+p.phase());
+        float dx = (x-p.x()-2*(float)Math.sin(y*0.055F+p.phase()))/p.aspect();
+        float dz = (z-p.z()-2*(float)Math.cos(y*0.047F+p.phase()))*p.aspect();
+        float lobes = 1 + 0.13F*(float)Math.sin(Math.atan2(dz,dx)*3+p.phase()+y*0.035F);
+        return dx*dx+dz*dz < radius*radius*lobes;
+    }
+
+    CavernDecorations.Style style(Cavern cavern) {
+        float draw = CaveFeatures.random(this.seed, NoiseUtil.floor(cavern.x()/GRID),
+                NoiseUtil.floor(cavern.z()/GRID), 20);
+        return draw < 0.45F ? CavernDecorations.Style.LUSH
+                : draw < 0.8F ? CavernDecorations.Style.DRIPSTONE : CavernDecorations.Style.LANTERN;
     }
 
     Cavern find(int gridX, int gridZ, CaveCarving carving) {

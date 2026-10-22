@@ -120,6 +120,10 @@ public class RiverPopulator implements Comparable<RiverPopulator> {
     }
     
     public void apply(Cell cell, float px, float pz, float pt, float x, float z, float t) {
+        // A channel ends where it meets already submerged ground. Otherwise the
+        // raised-river path tags and cuts stripes across the ocean floor.
+        float natural = Float.isNaN(cell.riverBankBase) ? cell.height : cell.riverBankBase;
+        if (natural < this.levels.water(-2) && this.waterLevelAt(t) <= this.levels.water(1)) return;
         float d2 = this.getDistance2(x, z, t);
         float pd2 = this.getDistance2(px, pz, pt);
         float valleyAlpha = this.getDistanceAlpha(pt, Math.min(d2, pd2), this.valleyWidth);

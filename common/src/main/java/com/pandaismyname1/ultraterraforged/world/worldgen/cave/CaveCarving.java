@@ -70,7 +70,16 @@ public final class CaveCarving {
 	private int nearX = Integer.MIN_VALUE;
 	private int nearZ = Integer.MIN_VALUE;
 
-	CaveCarving(ChunkAccess chunk, GeneratorContext context) {
+    private final net.minecraft.core.RegistryAccess registries;
+    private final Map<GiantCaverns.Cavern, CavernDecorations.Style> caverns = new java.util.LinkedHashMap<>();
+    private final Map<Long, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> cavernBiomes = new HashMap<>();
+
+    CaveCarving(ChunkAccess chunk, GeneratorContext context) {
+        this(chunk, context, null);
+    }
+
+    CaveCarving(ChunkAccess chunk, GeneratorContext context, net.minecraft.core.RegistryAccess registries) {
+        this.registries = registries;
 		this.chunk = chunk;
 		this.context = context;
 		this.levels = context.levels;
@@ -281,6 +290,24 @@ public final class CaveCarving {
             .map(biome -> "alexscaves".equals(biome.location().getNamespace())).orElse(false);
         this.protectedBiomeCache.put(key, protectedBiome);
         return protectedBiome;
+    }
+
+    void addCavern(GiantCaverns.Cavern cavern, CavernDecorations.Style style) {
+        this.caverns.put(cavern, style);
+    }
+
+    void paintCavernBiome(int x, int y, int z, net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
+        if (this.registries == null || this.insideStructure(x,y,z) || this.isAlexCavesBiome(x,y,z)) return;
+        var holder = this.registries.registryOrThrow(net.minecraft.core.registries.Registries.BIOME).getHolder(key);
+        holder.ifPresent(value -> this.cavernBiomes.put(BlockPos.asLong(x>>2,y>>2,z>>2),value));
+    }
+
+    void decorateCaverns() {
+        this.caverns.forEach((cavern, style) -> CavernDecorations.decorate(this,cavern,style));
+        if (!this.cavernBiomes.isEmpty()) {
+            this.chunk.fillBiomesFromNoise((qx,qy,qz,sampler) -> this.cavernBiomes.getOrDefault(
+                    BlockPos.asLong(qx,qy,qz), this.chunk.getNoiseBiome(qx,qy,qz)), null);
+        }
     }
 
     /** Close only isolated one-block pocks made by our carvers, retaining larger cave openings. */

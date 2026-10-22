@@ -219,7 +219,7 @@
       "size": 1.4
     },
     "undergroundRivers": {
-      "enabled": true,
+      "enabled": false,
       "frequency": 0.5
     },
     "springs": {

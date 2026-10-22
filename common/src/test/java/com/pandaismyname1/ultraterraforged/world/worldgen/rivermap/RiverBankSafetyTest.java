@@ -37,4 +37,16 @@ class RiverBankSafetyTest {
         assertEquals(70,levels.scale(cell.waterLevel));
     }
 
+    @Test void riverCannotCutOrTagAnExistingOceanFloor() {
+        Levels levels=new Levels(384,63);
+        var carver=RiverPopulator.create(0,0,1000,0,RiverConfig.builder(levels).build(),levels,new Random(1));
+        carver.setWaterLevels(new float[]{levels.water,levels.water});
+        Cell cell=new Cell();cell.height=levels.water(-12);cell.riverBankBase=cell.height;
+        cell.terrain=TerrainType.SHALLOW_OCEAN;
+        float original=cell.height;
+        carver.apply(cell,500,0,.5F,500,0,.5F);
+        assertEquals(original,cell.height);
+        assertSame(TerrainType.SHALLOW_OCEAN,cell.terrain);
+        assertNull(cell.riverCarver);
+    }
 }

@@ -16,10 +16,10 @@ public final class BiomeExclusions {
         id("biomesoplenty:prairie"), id("biomesoplenty:pumpkin_patch"),
         id("biomesoplenty:rocky_shrubland"), id("biomesoplenty:shrubland"),
         id("biomesoplenty:snowy_fir_clearing"), id("biomesoplenty:tundra"),
-        id("biomesoplenty:volcanic_plains"), id("biomesoplenty:volcano"),
+        id("biomesoplenty:volcanic_plains"), id("biomesoplenty:volcano"), id("biomesoplenty:wasteland"),
         id("regions_unexplored:shrubland"), id("regions_unexplored:grassland"),
         id("regions_unexplored:prairie"), id("regions_unexplored:gravel_beach"),
-        id("regions_unexplored:grassy_beach"), id("regions_unexplored:pumpkin_fields")
+        id("regions_unexplored:grassy_beach"), id("regions_unexplored:pumpkin_fields"), id("regions_unexplored:dry_bushland")
     );
 
     private BiomeExclusions() {}
