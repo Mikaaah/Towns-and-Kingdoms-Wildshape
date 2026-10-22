@@ -30,9 +30,10 @@ public record MushroomIslands(CellPopulator ocean, Levels levels, float deepOcea
                 float wobble = (this.shore.compute(x, z, 0) - 0.5F) * 35.0F;
                 float distance = (float) Math.hypot(x - cx, z - cz) + wobble;
                 if (distance >= radius) continue;
-                float rise = Landform.smoothstep(1.0F - distance / radius, 0.0F, 0.8F);
-                float islandHeight = this.levels.water(-3) + this.levels.scale(55) * rise;
-                // Blend up from the existing ocean floor, with no square grid seams or vertical underwater walls.
+                float rise = Landform.smoothstep(1.0F - distance / radius, 0.0F, 1.0F);
+                // A long submerged slope rises into a low island. Blending
+                // twice made a steep rim and a broad, unnaturally high plateau.
+                float islandHeight = this.levels.water(18);
                 float height = cell.height + (islandHeight - cell.height) * rise;
                 if (height > cell.height) cell.height = height;
                 if (cell.height >= this.levels.water(2)) {

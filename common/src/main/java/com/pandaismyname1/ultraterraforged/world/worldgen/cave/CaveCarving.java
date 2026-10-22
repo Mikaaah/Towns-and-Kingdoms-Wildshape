@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.List;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.core.QuartPos;
 import net.minecraft.resources.ResourceLocation;
@@ -46,12 +47,14 @@ public final class CaveCarving {
 	private final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 	private final Cell cell = new Cell();
     private final BitSet carvedAir = new BitSet();
+    private final BitSet authoredWater = new BitSet();
     private final BitSet protectedPillars = new BitSet();
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
 
-    // Starts in this chunk and in neighboring chunks referenced by it. Large
-    // jigsaws can cover many chunks beyond their start chunk.
+    // Starts in this chunk and in neighboring chunks referenced by it. Protect
+    // individual pieces: a mineshaft's aggregate bounding box includes vast
+    // amounts of empty rock between corridors and must not block cave carving.
     private final List<BoundingBox> protectedStructures;
     private static final boolean PROTECT_STRUCTURES =
         !"false".equalsIgnoreCase(System.getProperty("tnkterraforged.structureProtection", "true"));
@@ -110,7 +113,7 @@ public final class CaveCarving {
         }
         this.protectedStructures = PROTECT_STRUCTURES ? starts
             .filter(StructureStart::isValid)
-            .map(StructureStart::getBoundingBox)
+            .flatMap(start -> start.getPieces().stream().map(StructurePiece::getBoundingBox))
             .filter(b -> b.maxX() >= this.minX - 4 && b.minX() <= this.minX + 19
                       && b.maxZ() >= this.minZ - 4 && b.minZ() <= this.minZ + 19)
             .distinct()
@@ -226,13 +229,20 @@ public final class CaveCarving {
         if (this.insideStructure(x, y, z) || this.isProtectedCaveBiome(x, y, z)) return;
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);
-		if (state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
+		int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
+		if (state.is(Blocks.BEDROCK) || (!state.getFluidState().isEmpty()
+                && !(water == DRY && this.authoredWater.get(bit)))) {
 			return;
 		}
 		BlockState fill = y <= water ? WATER : AIR;
+		// Another cave may already be open here. Filling that air makes a
+		// free-standing ellipsoid of water in the middle of a large chamber.
+		if (fill == WATER && state.isAir()) return;
 		if (state != fill) {
+            if (fill == WATER) this.authoredWater.set(bit);
+            else this.authoredWater.clear(bit);
             if (fill == AIR && !state.isAir() && y >= this.bottom && y < this.chunk.getMaxBuildHeight()) {
-                this.carvedAir.set(((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX));
+                this.carvedAir.set(bit);
             }
             this.chunk.setBlockState(this.pos, fill, false);
         }

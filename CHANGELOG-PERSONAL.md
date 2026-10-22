@@ -1,5 +1,12 @@
 # TNKTerraForged — development changelog
 
+## 1.0.10+1.21.1 — Cave structures, water and island profile
+
+- Protect individual underground structure pieces instead of the encompassing start bounding box, so mineshafts do not leave giant rectangular areas of solid terrain inside caverns.
+- Avoid filling already open cave air with water from later cave pools. Allow later dry caves to remove water placed by an earlier TNK cave within the same chunk while retaining naturally generated fluids.
+- Lower mushroom islands and blend a long shore slope from the ocean floor without a high flat top.
+- Spread closely placed third-party random-spread structure sets in TNK worlds while respecting explicit preset overrides and preserving vanilla and already rare sets. Custom placement types retain their own placement logic.
+
 ## 1.0.9+1.21.1 — Biome selection and Cherry Groves
 
 - Copy the TNK3 exclusion policy into cached chunk climate samplers, closing the path that could generate RU Gravel Beach or BOP Wasteland in new chunks despite the global biome-source filter.

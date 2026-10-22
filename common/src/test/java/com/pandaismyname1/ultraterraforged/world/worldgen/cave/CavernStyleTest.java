@@ -61,13 +61,27 @@ class CavernStyleTest {
         assertTrue(world.get(6,-30,5).isAir());
     }
 
+    @Test void overlappingPoolsDoNotFillExistingCavernAir() {
+        var world=world();
+        var carving=new CaveCarving(world.chunk(0,0),world.context);
+        carving.clear(5,-30,5,CaveCarving.DRY);
+        carving.clear(5,-30,5,-20);
+        assertTrue(world.get(5,-30,5).isAir(),"later pool floated inside an open cavern");
+        carving.clear(6,-30,5,-20);
+        assertTrue(world.get(6,-30,5).is(Blocks.WATER));
+        carving.clear(6,-30,5,CaveCarving.DRY);
+        assertTrue(world.get(6,-30,5).isAir(),"later dry cave left a water ball behind");
+    }
+
     @Test void neighboringStructureStartProtectsItsPiecesInThisChunk() {
         var world=world();
         var chunk=world.chunk(0,0);
         var structure=org.mockito.Mockito.mock(net.minecraft.world.level.levelgen.structure.Structure.class);
         var start=org.mockito.Mockito.mock(net.minecraft.world.level.levelgen.structure.StructureStart.class);
         org.mockito.Mockito.when(start.isValid()).thenReturn(true);
-        org.mockito.Mockito.when(start.getBoundingBox()).thenReturn(new net.minecraft.world.level.levelgen.structure.BoundingBox(8,-35,8,10,-25,10));
+        var piece=org.mockito.Mockito.mock(net.minecraft.world.level.levelgen.structure.StructurePiece.class);
+        org.mockito.Mockito.when(piece.getBoundingBox()).thenReturn(new net.minecraft.world.level.levelgen.structure.BoundingBox(8,-35,8,10,-25,10));
+        org.mockito.Mockito.when(start.getPieces()).thenReturn(java.util.List.of(piece));
         org.mockito.Mockito.when(chunk.getAllReferences()).thenReturn(java.util.Map.of(structure,
                 new it.unimi.dsi.fastutil.longs.LongOpenHashSet(new long[]{new net.minecraft.world.level.ChunkPos(-1,0).toLong()})));
         var manager=org.mockito.Mockito.mock(net.minecraft.world.level.StructureManager.class);
@@ -78,6 +92,8 @@ class CavernStyleTest {
         assertTrue(world.get(9,-30,9).is(Blocks.STONE),"neighboring jigsaw piece was carved out");
         carving.clear(0,-30,0,CaveCarving.DRY);
         assertTrue(world.get(0,-30,0).isAir(),"unrelated cave column was suppressed");
+        carving.clear(15,-30,0,CaveCarving.DRY);
+        assertTrue(world.get(15,-30,0).isAir(),"aggregate mineshaft bounds suppressed empty space");
     }
 
     @Test void cavernBiomePaintingRetainsOtherCellsAndProtectedAlexBiomes() {
