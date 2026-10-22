@@ -25,7 +25,7 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The project and build files use **TNKTerraForged** branding; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
-The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.6+1.21.1**.
+The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.7+1.21.1**.
 
 ## Dungeon and biome compatibility
 
@@ -69,6 +69,10 @@ Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge 
 ### TNK3 biome exclusions
 
 The [22 excluded biomes](docs/TNK3_BIOME_EXCLUSIONS.md) are replaced during natural generation in TNKTerraForged worlds. BOP Grassland remains enabled; biome registrations, blocks, items and existing chunks are preserved.
+
+### Caverns and biome surfaces (1.0.7)
+
+Giant chambers now have lush, dripstone and lantern variants, with curved rock supports. Rare large coves open onto the sea. Artificial underground water tunnels are removed, and surface rivers stop at submerged ocean floors. Nature's Spirit uses its native surface materials with terrain-aware height checks and soil defaults for ordinary fields. The TNK3 exclusions now include RU Dry Bushland and BOP Wasteland. See [installation and scope](docs/TNK_CAVERNS_BIOMES_1.0.7.md).
 
 ### Terrain and water patch (1.0.6)
 

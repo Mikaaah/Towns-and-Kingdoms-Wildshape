@@ -79,8 +79,17 @@ public final class CaveFeatures {
             feature.carve(carving);
         }
         carving.repairSingleBlockHoles();
-        carving.decorateCaverns();
         carving.reconcileWater();
+    }
+
+    public void decorate(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
+        if (this.features.isEmpty()) return;
+        CaveCarving carving=new CaveCarving(chunk,this.context,registries,possibleBiomes);
+        for (Feature feature : this.features) {
+            if (feature instanceof GiantCaverns giant) giant.prepareDecorations(carving);
+        }
+        carving.decorateCaverns();
     }
 
 	// 0 to 1, fixed for each grid cell and purpose

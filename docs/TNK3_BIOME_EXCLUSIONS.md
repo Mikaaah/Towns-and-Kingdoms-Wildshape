@@ -1,8 +1,8 @@
 # TNK3 natural biome exclusions
 
-Version 1.0.4 excludes these 22 biome IDs from natural selection in TNKTerraForged worlds. BOP Grassland (`biomesoplenty:grassland`) is kept.
+Version 1.0.7 excludes these 24 biome IDs from natural selection in TNKTerraForged worlds. BOP Grassland (`biomesoplenty:grassland`) is kept.
 
-## Biomes O’ Plenty (16)
+## Biomes O’ Plenty (17)
 
 - `biomesoplenty:cold_desert`
 - `biomesoplenty:field`
@@ -20,8 +20,9 @@ Version 1.0.4 excludes these 22 biome IDs from natural selection in TNKTerraForg
 - `biomesoplenty:tundra`
 - `biomesoplenty:volcanic_plains`
 - `biomesoplenty:volcano`
+- `biomesoplenty:wasteland`
 
-## Regions Unexplored (6)
+## Regions Unexplored (7)
 
 - `regions_unexplored:shrubland`
 - `regions_unexplored:grassland`
@@ -29,6 +30,7 @@ Version 1.0.4 excludes these 22 biome IDs from natural selection in TNKTerraForg
 - `regions_unexplored:gravel_beach`
 - `regions_unexplored:grassy_beach`
 - `regions_unexplored:pumpkin_fields`
+- `regions_unexplored:dry_bushland`
 
 ## Behavior
 

@@ -202,7 +202,13 @@ public final class CaveCarving {
 	/**
 	 * Hollows out a single block, as hollow does.
 	 */
+    void protectPillar(int x,int y,int z) {
+        this.protectedPillars.set(((y-this.bottom)<<8)|((z-this.minZ)<<4)|(x-this.minX));
+    }
+
 	public void clear(int x, int y, int z, int water) {
+        if (y >= this.bottom && this.contains(x,z) && this.protectedPillars.get(
+                ((y-this.bottom)<<8)|((z-this.minZ)<<4)|(x-this.minX))) return;
         if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);

@@ -71,6 +71,17 @@ final class GiantCaverns implements CaveFeatures.Feature {
         }
     }
 
+    void prepareDecorations(CaveCarving carving) {
+        int gx=NoiseUtil.floor(carving.minX/GRID),gz=NoiseUtil.floor(carving.minZ/GRID);
+        for (int x=gx-1;x<=gx+1;x++) for (int z=gz-1;z<=gz+1;z++) {
+            Cavern c=this.active(x,z,carving);
+            if (c==NONE) continue;
+            float reach=Math.max(c.radiusX(),c.radiusZ())*1.22F;
+            if (carving.reaches(c.x()-reach,c.z()-reach,c.x()+reach,c.z()+reach))
+                carving.addCavern(c,this.style(c));
+        }
+    }
+
     /**
      * Wide corridors between adjacent giant chambers. Position and geometry
      * are pure functions of world seed and grid coordinates: no chunk ordering.
@@ -139,7 +150,6 @@ final class GiantCaverns implements CaveFeatures.Feature {
     // Package-visible for the waterline/bedrock pillar regression test.
     void hollow(Cavern cavern, CaveCarving carving) {
         var pillars = this.pillarsFor(carving);
-        carving.addCavern(cavern, this.style(cavern));
         int lake = (int) (cavern.y() - cavern.radiusY() * 0.53F);
         int y0 = Math.max(carving.bottom + 3, (int) (cavern.y() - cavern.radiusY() * 1.12F));
         int y1 = Math.min(cavern.roof(), (int) (cavern.y() + cavern.radiusY() * 1.12F));

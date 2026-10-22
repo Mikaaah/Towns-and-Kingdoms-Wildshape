@@ -1,5 +1,15 @@
 # TNKTerraForged — development changelog
 
+## 1.0.7+1.21.1 — Biome-aware caverns and mod surfaces
+
+- Stop river channels from cutting/tagging existing submerged ocean floors. Remove artificial underground water tunnels, including saved presets, and omit their retired UI controls.
+- Replace extruded cavern columns with seeded, curved and tapered rock supports. Protect their foundations from later custom connections; reuse per-height cross-sections during carving.
+- Give huge chambers coherent lush, dripstone and lantern styles. Apply matching vanilla cave biomes only when available in the biome source; preserve Alex's Caves and known structures. Place anchored fittings after vanilla carvers.
+- Add rare giant coastal coves with flooded sea entrances, navigable headroom and guarded cliff roofs. Controlled by the existing sea-cave setting.
+- Import optional native mod surface rules while preserving TNK fallback surfaces. Adapt Nature's Spirit's preliminary-height tests to actual terrain, retaining native materials and giving ordinary fields (including Cypress Fields) grass/dirt ground cover.
+- Exclude `regions_unexplored:dry_bushland` and `biomesoplenty:wasteland`; keep BOP Grassland. Total exclusions: 24.
+- Update both Expanse presets and add targeted geometry, attachment, biome-palette, native surface and cove regression tests plus an optional exact-JAR Nature's Spirit server smoke test.
+
 ## 1.0.6+1.21.1 — Coastal beds and connected rivers
 
 - Replace the constant sea-surface coastal bed with shallow, seeded relief. Classify dry shoreline as coast/inland and submerged land tags as marine climate.
