@@ -18,18 +18,22 @@ class MarineTerrainTest {
   h.applyPost(dry,0,0);
   assertTrue(dry.continentalness>=Continentalness.COAST.min(),"dry shoreline cannot remain cold ocean");
  }
- @Test void broadCoastalBedHasReliefAndStaysBelowTheWaterSurface(){
+ @Test void coastHasSubmergedShelvesAndRaisedRockyStonyShore(){
   var levels=new com.pandaismyname1.ultraterraforged.world.worldgen.heightmap.Levels(256,63);
   var coast=com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.Populators.makeCoast(1234,levels);
   float low=Float.MAX_VALUE,high=-Float.MAX_VALUE;
+  int rock=0,shelf=0;
   Cell cell=new Cell();
   for(int z=-512;z<=512;z+=8)for(int x=-512;x<=512;x+=8){
    coast.apply(cell,x,z);
    float y=cell.height*levels.worldHeight;
-   assertTrue(y<levels.waterY,"coastal bed emerged as a dry ocean plateau");
+   if(y>=levels.waterY+5 && cell.erosion<-.4F) rock++;
+   if(y<levels.waterY && cell.erosion>-.4F) shelf++;
    low=Math.min(low,y);high=Math.max(high,y);
   }
-  assertTrue(high-low>1.5F,"coastal bed is still flat");
+  assertTrue(high-low>8.0F,"rocky shore needs actual height above the shelf");
+  assertTrue(rock>0,"stony shore has no raised rocky headlands");
+  assertTrue(shelf>0,"sandy and submerged shelf disappeared");
  }
 
 }

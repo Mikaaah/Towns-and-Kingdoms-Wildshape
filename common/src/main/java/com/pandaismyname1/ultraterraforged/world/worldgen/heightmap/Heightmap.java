@@ -34,6 +34,7 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainCategor
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainProvider;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainType;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.Populators;
+import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.MushroomIslands;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.VolcanoPopulator;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.region.RegionLerper;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.region.RegionModule;
@@ -180,6 +181,10 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 	}
 	
 	public void applyPost(Cell cell, float x, float z) {
+		if (cell.terrain == TerrainType.MUSHROOM_FIELDS && cell.height >= this.levels.water(2)) {
+			cell.continentalness = Continentalness.MUSHROOM_FIELDS.lerp(0.5F);
+			return;
+		}
 		float deepOcean = this.controlPoints.deepOcean;
 		float shallowOcean = this.controlPoints.shallowOcean;
 		float beach = this.controlPoints.beach;
@@ -282,7 +287,9 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
         CellPopulator shallowOcean = Populators.makeShallowOcean(ctx.seed.root() + 73491, ctx.levels);
         CellPopulator coast = Populators.makeCoast(ctx.seed.root() + 73493, ctx.levels);
         
-        CellPopulator oceans = new ContinentLerper3(deepOcean, shallowOcean, coast, controlPoints.deepOcean, controlPoints.shallowOcean, controlPoints.coast);
+        CellPopulator oceans = new MushroomIslands(
+                new ContinentLerper3(deepOcean, shallowOcean, coast, controlPoints.deepOcean, controlPoints.shallowOcean, controlPoints.coast),
+                levels, controlPoints.deepOcean, ctx.seed.root() + 87341, Noises.perlin(ctx.seed.root() + 87342, 120, 2));
         CellPopulator terrain = new ContinentLerper2(oceans, land, controlPoints.shallowOcean, controlPoints.nearInland);
        
         Noise beachNoise = Noises.perlin2(ctx.seed.next(), 20, 1);

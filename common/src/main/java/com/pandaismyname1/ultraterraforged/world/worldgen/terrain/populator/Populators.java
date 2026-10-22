@@ -62,17 +62,14 @@ public class Populators {
                 Noises.add(Noises.constant(levels.water(-14)), relief));
 	}
 	
-    public static OceanPopulator makeCoast(Levels levels) {
+    public static RockyCoastPopulator makeCoast(Levels levels) {
         return makeCoast(73493, levels);
     }
 
-    public static OceanPopulator makeCoast(int seed, Levels levels) {
-        // The old constant was the sea's top solid block: a broad coast blend
-        // could become a dry, perfectly level ocean floor covered in sea plants.
+    public static RockyCoastPopulator makeCoast(int seed, Levels levels) {
         Noise relief = Noises.add(Noises.mul(Noises.perlin(seed, 150, 2), levels.scale(3)),
                 Noises.mul(Noises.perlin(seed + 1, 35, 2), levels.scale(1)));
-        return new OceanPopulator(TerrainType.COAST,
-                Noises.add(Noises.constant(levels.water(-4)), relief));
+        return new RockyCoastPopulator(levels, relief, Noises.perlin(seed + 2, 280, 2));
     }
 	
     public static TerrainPopulator makeSteppe(Seed seed, Noise ground, TerrainSettings.Terrain settings) {
