@@ -58,6 +58,11 @@ jobs:
               deadline=time.monotonic()+600
               while process.poll() is None and not report.exists() and time.monotonic()<deadline:
                   time.sleep(2)
+                  output.flush()
+                  tail=Path('streams-smoke.log').read_text(errors='replace')[-24000:]
+                  if any(fatal in tail for fatal in ('Failed to start the minecraft server', 'BUILD FAILED', 'Error during pre-loading phase')):
+                      print('Detected startup failure; collecting diagnostics immediately')
+                      break
               # The report is authoritative. Optional-mod worker threads can keep
               # the dev JVM alive after Minecraft has finished saving its world.
               try:
