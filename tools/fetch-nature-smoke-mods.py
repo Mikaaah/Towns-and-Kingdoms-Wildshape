@@ -14,7 +14,8 @@ def api(path):
     return json.load(urlopen(Request('https://api.modrinth.com/v2/' + path,
         headers={'User-Agent': 'TNKTerraForged/compatibility-smoke'}), timeout=60))
 
-queue = [('natures-spirit', None), ('lithostitched', None), ('terrablender', None)]
+# Lithostitched 1.8.1 declares Apollib in its JAR but omits it from Modrinth metadata.
+queue = [('natures-spirit', None), ('lithostitched', None), ('terrablender', None), ('apollib', None)]
 seen = set()
 while queue:
     project, version_id = queue.pop(0)
