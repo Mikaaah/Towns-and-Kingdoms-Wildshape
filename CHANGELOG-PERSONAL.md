@@ -2,6 +2,7 @@
 
 ## 1.0.7+1.21.1 — Biome-aware caverns and mod surfaces
 
+- Restore rare Mushroom Fields islands in deep ocean with terrain above sea level and the matching vanilla biome, and give Stony Shore actual elevated rocky terrain rather than a flat sea-level strip.
 - Stop river channels from cutting/tagging existing submerged ocean floors. Remove artificial underground water tunnels, including saved presets, and omit their retired UI controls.
 - Replace extruded cavern columns with seeded, curved and tapered rock supports. Protect their foundations from later custom connections; reuse per-height cross-sections during carving.
 - Give huge chambers coherent lush, dripstone and lantern styles. Apply matching vanilla cave biomes only when available in the biome source; preserve Alex's Caves and known structures. Place anchored fittings after vanilla carvers.

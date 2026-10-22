@@ -14,6 +14,7 @@ New chunks receive the code fixes. A new world is needed to adopt a different te
 - Rare ocean-facing cliff coves have flooded entrances and large inner chambers. They share the sea-cave enable/frequency controls. Coves are conditional on suitable coastal terrain and will not occur at every river mouth or coastline.
 - Nature's Spirit's own public surface-rule factory supplies its special materials. TNK height checks also admit the actual ground; ordinary grassy fields receive grass over dirt, while native sand, chalk, kaolin and other special rules take precedence. No Nature's Spirit classes are required when it is absent.
 - Exclude `regions_unexplored:dry_bushland` (the upstream registry name, rather than dry_shrubland) and `biomesoplenty:wasteland`. Keep BOP Grassland.
+- Rocky coasts now rise into varied stony headlands with submerged shelves between them. Rare deep-ocean Mushroom Fields form actual dry mycelium islands; their climate follows the raised land instead of leaving a biome label over open water.
 
 Tectonic's source was reviewed for general ideas about varying pillars, regional cavern decoration and ceiling-anchored lanterns. This implementation uses TNK's own chunk-local carvers and geometry; Tectonic is not required and no Tectonic assets are bundled.
 
