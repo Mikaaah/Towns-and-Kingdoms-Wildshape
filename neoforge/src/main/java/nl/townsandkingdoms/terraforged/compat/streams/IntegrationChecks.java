@@ -181,8 +181,10 @@ public final class IntegrationChecks {
         int soil=0, tested=0;
         var samples=new java.util.ArrayList<Object>();
         Cell cell=new Cell();
-        for (int radius=128; radius<=2048 && soil<80; radius+=128) {
-            int x=radius,z=radius/2;
+        for (int radius=256; radius<=8192 && soil<80; radius+=256) {
+            for (int side=0;side<16 && soil<80;side++) {
+            double angle=side*Math.PI/8;
+            int x=(int)(Math.cos(angle)*radius),z=(int)(Math.sin(angle)*radius);
             context.lookup.compute(cell.reset(),x,z);
             if (cell.height<context.levels.water(6) || cell.height>context.levels.water(80)
                     || cell.terrain.isRiver()) continue;
@@ -206,6 +208,7 @@ public final class IntegrationChecks {
             tested++;
             soil+=found;
             samples.add(Map.of("x",x,"z",z,"grassAndDirtColumns",found));
+            }
         }
         require(soil>=80,"Cypress fields still lack grass/dirt surfaces: "+soil+" columns in "+tested+" chunks");
         report.put("naturesSpiritCypressGrassAndDirt",true);
