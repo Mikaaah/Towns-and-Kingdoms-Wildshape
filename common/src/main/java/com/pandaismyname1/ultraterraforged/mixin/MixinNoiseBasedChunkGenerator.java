@@ -64,7 +64,7 @@ class MixinNoiseBasedChunkGenerator {
             RaisedWater.fill(chunk, context);
             original.call(region, structures, randomState, chunk);
             context.caveFeatures.carve(chunk, region.registryAccess(),
-                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes());
+                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes(), structures);
         } finally {
             SurfaceRegion.set(null);
         }
@@ -79,7 +79,7 @@ class MixinNoiseBasedChunkGenerator {
         if (step != net.minecraft.world.level.levelgen.GenerationStep.Carving.AIR) return;
         if ((Object)randomState instanceof UTFRandomState utf && utf.generatorContext()!=null) {
             utf.generatorContext().caveFeatures.decorate(chunk,region.registryAccess(),
-                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes());
+                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes(), structures);
         }
     }
 

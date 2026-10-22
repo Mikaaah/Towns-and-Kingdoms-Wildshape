@@ -25,7 +25,7 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The project and build files use **TNKTerraForged** branding; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
-The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.7+1.21.1**.
+The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.8+1.21.1**.
 
 ## Dungeon and biome compatibility
 
@@ -69,6 +69,10 @@ Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge 
 ### TNK3 biome exclusions
 
 The [22 excluded biomes](docs/TNK3_BIOME_EXCLUSIONS.md) are replaced during natural generation in TNKTerraForged worlds. BOP Grassland remains enabled; biome registrations, blocks, items and existing chunks are preserved.
+
+### Structure compatibility (1.0.8)
+
+TNK cave carving and cavern decorations now honor structure starts referenced from neighboring chunks. This protects large Integrated, YUNG, ATi and vanilla jigsaws beyond their start chunk, while YUNG's Cave Biomes retain their own cave blocks and biome identity. Structure mods remain separate installations. See [compatibility details](docs/TNK_STRUCTURE_COMPAT_1.0.8.md).
 
 ### Caverns and biome surfaces (1.0.7)
 

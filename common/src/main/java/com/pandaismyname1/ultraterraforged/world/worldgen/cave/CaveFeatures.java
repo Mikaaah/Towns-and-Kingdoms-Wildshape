@@ -71,10 +71,16 @@ public final class CaveFeatures {
 
     public void carve(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
             java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
+		this.carve(chunk, registries, possibleBiomes, null);
+	}
+
+    public void carve(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes,
+            net.minecraft.world.level.StructureManager structures) {
 		if (this.features.isEmpty()) {
 			return;
 		}
-		CaveCarving carving = new CaveCarving(chunk, this.context, registries, possibleBiomes);
+		CaveCarving carving = new CaveCarving(chunk, this.context, registries, possibleBiomes, structures);
 		for (Feature feature : this.features) {
             feature.carve(carving);
         }
@@ -84,8 +90,14 @@ public final class CaveFeatures {
 
     public void decorate(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
             java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
+        this.decorate(chunk, registries, possibleBiomes, null);
+    }
+
+    public void decorate(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes,
+            net.minecraft.world.level.StructureManager structures) {
         if (this.features.isEmpty()) return;
-        CaveCarving carving=new CaveCarving(chunk,this.context,registries,possibleBiomes);
+        CaveCarving carving=new CaveCarving(chunk,this.context,registries,possibleBiomes,structures);
         for (Feature feature : this.features) {
             if (feature instanceof GiantCaverns giant) giant.prepareDecorations(carving);
         }

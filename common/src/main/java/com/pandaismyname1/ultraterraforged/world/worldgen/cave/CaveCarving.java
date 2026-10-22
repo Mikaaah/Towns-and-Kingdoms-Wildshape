@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.List;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.core.QuartPos;
 import net.minecraft.resources.ResourceLocation;
 
@@ -49,8 +50,8 @@ public final class CaveCarving {
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
 
-    // Structure starts known at the build-surface stage. This is a best-effort
-    // safeguard, not a replacement for modded structure-placement logic.
+    // Starts in this chunk and in neighboring chunks referenced by it. Large
+    // jigsaws can cover many chunks beyond their start chunk.
     private final List<BoundingBox> protectedStructures;
     private static final boolean PROTECT_STRUCTURES =
         !"false".equalsIgnoreCase(System.getProperty("tnkterraforged.structureProtection", "true"));
@@ -58,9 +59,9 @@ public final class CaveCarving {
     private boolean insideStructure(int x, int y, int z) {
         if (this.protectedStructures.isEmpty()) return false;
         for (BoundingBox bounds : this.protectedStructures) {
-            if (x >= bounds.minX() - 2 && x <= bounds.maxX() + 2
-                    && y >= bounds.minY() - 2 && y <= bounds.maxY() + 2
-                    && z >= bounds.minZ() - 2 && z <= bounds.maxZ() + 2) return true;
+            if (x >= bounds.minX() - 4 && x <= bounds.maxX() + 4
+                    && y >= bounds.minY() - 4 && y <= bounds.maxY() + 4
+                    && z >= bounds.minZ() - 4 && z <= bounds.maxZ() + 4) return true;
         }
         return false;
     }
@@ -77,11 +78,17 @@ public final class CaveCarving {
     private final Map<Long, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> cavernBiomes = new HashMap<>();
 
     CaveCarving(ChunkAccess chunk, GeneratorContext context) {
-        this(chunk, context, null, null);
+        this(chunk, context, null, null, null);
     }
 
     CaveCarving(ChunkAccess chunk, GeneratorContext context, net.minecraft.core.RegistryAccess registries,
             java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
+        this(chunk, context, registries, possibleBiomes, null);
+    }
+
+    CaveCarving(ChunkAccess chunk, GeneratorContext context, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes,
+            StructureManager structures) {
         this.possibleBiomes = possibleBiomes;
         this.registries = registries;
 		this.chunk = chunk;
@@ -93,13 +100,20 @@ public final class CaveCarving {
 		this.minX = chunkPos.getMinBlockX();
 		this.minZ = chunkPos.getMinBlockZ();
 		this.bottom = chunk.getMinBuildHeight();
-        // Generic, mod-independent support for structure starts already
-        // recorded on this chunk (Integrated, YUNG, Cataclysm, vanilla, etc).
-        this.protectedStructures = PROTECT_STRUCTURES ? chunk.getAllStarts().values().stream()
+        // Structure references are complete by SURFACE. Resolve neighboring
+        // starts through the worldgen region so a jigsaw that began next door
+        // protects its pieces here as well. Avoid the lookup for empty refs.
+        java.util.stream.Stream<StructureStart> starts = chunk.getAllStarts().values().stream();
+        if (PROTECT_STRUCTURES && structures != null && !chunk.getAllReferences().isEmpty()) {
+            starts = java.util.stream.Stream.concat(starts,
+                    structures.startsForStructure(chunkPos, structure -> true).stream());
+        }
+        this.protectedStructures = PROTECT_STRUCTURES ? starts
             .filter(StructureStart::isValid)
             .map(StructureStart::getBoundingBox)
-            .filter(b -> b.maxX() >= this.minX - 2 && b.minX() <= this.minX + 17
-                      && b.maxZ() >= this.minZ - 2 && b.minZ() <= this.minZ + 17)
+            .filter(b -> b.maxX() >= this.minX - 4 && b.minX() <= this.minX + 19
+                      && b.maxZ() >= this.minZ - 4 && b.minZ() <= this.minZ + 19)
+            .distinct()
             .toList() : List.of();
 		for (int dz = 0; dz < 16; dz++) {
 			for (int dx = 0; dx < 16; dx++) {
@@ -209,7 +223,7 @@ public final class CaveCarving {
 	public void clear(int x, int y, int z, int water) {
         if (y >= this.bottom && this.contains(x,z) && this.protectedPillars.get(
                 ((y-this.bottom)<<8)|((z-this.minZ)<<4)|(x-this.minX))) return;
-        if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
+        if (this.insideStructure(x, y, z) || this.isProtectedCaveBiome(x, y, z)) return;
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);
 		if (state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
@@ -256,7 +270,7 @@ public final class CaveCarving {
 					if (state.isAir() || state.is(Blocks.BEDROCK) || !state.getFluidState().isEmpty()) {
 						continue;
 					}
-					if (!this.insideStructure(x, y, z) && !this.isAlexCavesBiome(x, y, z)) this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
+					if (!this.insideStructure(x, y, z) && !this.isProtectedCaveBiome(x, y, z)) this.chunk.setBlockState(this.pos, lining.at(x, y, z), false);
 				}
 			}
 		}
@@ -274,7 +288,7 @@ public final class CaveCarving {
 	}
 
 	public void set(int x, int y, int z, BlockState state) {
-        if (this.insideStructure(x, y, z) || this.isAlexCavesBiome(x, y, z)) return;
+        if (this.insideStructure(x, y, z) || this.isProtectedCaveBiome(x, y, z)) return;
 		this.chunk.setBlockState(this.pos.set(x, y, z), state, false);
 	}
 
@@ -285,11 +299,10 @@ public final class CaveCarving {
 
 
     /**
-     * Optional native protection for Alex's Caves biomes. Requires no hard
-     * dependency or class loading from Alex's Caves, on either loader.
+     * Preserve native cave volumes and their own worldgen features without
+     * linking either optional mod into TNK's runtime.
      */
-    private boolean isAlexCavesBiome(int x, int y, int z) {
-        // No Alex biomes are present unless the optional mod is installed.
+    private boolean isProtectedCaveBiome(int x, int y, int z) {
         int qx=QuartPos.fromBlock(x), qy=QuartPos.fromBlock(y), qz=QuartPos.fromBlock(z);
         long key = net.minecraft.core.BlockPos.asLong(qx, qy, qz);
         Boolean cached = this.protectedBiomeCache.get(key);
@@ -297,13 +310,16 @@ public final class CaveCarving {
         var biomeHolder = this.chunk.getNoiseBiome(qx, qy, qz);
         // Synthetic test chunks and unfinished worldgen may return no holder.
         boolean protectedBiome = biomeHolder != null && biomeHolder.unwrapKey()
-            .map(biome -> "alexscaves".equals(biome.location().getNamespace())).orElse(false);
+            .map(biome -> {
+                String namespace = biome.location().getNamespace();
+                return "alexscaves".equals(namespace) || "yungscavebiomes".equals(namespace);
+            }).orElse(false);
         this.protectedBiomeCache.put(key, protectedBiome);
         return protectedBiome;
     }
 
     boolean canDecorate(int x,int y,int z) {
-        return !this.insideStructure(x,y,z) && !this.isAlexCavesBiome(x,y,z);
+        return !this.insideStructure(x,y,z) && !this.isProtectedCaveBiome(x,y,z);
     }
 
     void addCavern(GiantCaverns.Cavern cavern, CavernDecorations.Style style) {
@@ -311,7 +327,7 @@ public final class CaveCarving {
     }
 
     void paintCavernBiome(int x, int y, int z, net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
-        if (this.registries == null || this.insideStructure(x,y,z) || this.isAlexCavesBiome(x,y,z)) return;
+        if (this.registries == null || this.insideStructure(x,y,z) || this.isProtectedCaveBiome(x,y,z)) return;
         var holder = this.registries.registryOrThrow(net.minecraft.core.registries.Registries.BIOME).getHolder(key);
         holder.filter(value -> this.possibleBiomes == null || this.possibleBiomes.contains(value))
                 .ifPresent(value -> this.cavernBiomes.put(BlockPos.asLong(x>>2,y>>2,z>>2),value));

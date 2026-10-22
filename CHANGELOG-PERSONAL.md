@@ -1,5 +1,11 @@
 # TNKTerraForged — development changelog
 
+## 1.0.8+1.21.1 — Structure and cave-biome compatibility
+
+- Protect structure pieces referenced from neighboring chunks during custom cave carving, lining and decorations, including large jigsaw structures from the supplied Integrated, YUNG and ATi families.
+- Preserve YUNG's Frosted and Lost Cave biomes and their blocks when custom caverns overlap them, alongside existing Alex's Caves protection.
+- Increase the protection margin around structure bounding boxes to four blocks. Feature-based bridges remain owned by YUNG's own placement stage.
+
 ## 1.0.7+1.21.1 — Biome-aware caverns and mod surfaces
 
 - Restore rare Mushroom Fields islands in deep ocean with terrain above sea level and the matching vanilla biome, and give Stony Shore actual elevated rocky terrain rather than a flat sea-level strip.

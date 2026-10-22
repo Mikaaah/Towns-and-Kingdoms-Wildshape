@@ -61,6 +61,25 @@ class CavernStyleTest {
         assertTrue(world.get(6,-30,5).isAir());
     }
 
+    @Test void neighboringStructureStartProtectsItsPiecesInThisChunk() {
+        var world=world();
+        var chunk=world.chunk(0,0);
+        var structure=org.mockito.Mockito.mock(net.minecraft.world.level.levelgen.structure.Structure.class);
+        var start=org.mockito.Mockito.mock(net.minecraft.world.level.levelgen.structure.StructureStart.class);
+        org.mockito.Mockito.when(start.isValid()).thenReturn(true);
+        org.mockito.Mockito.when(start.getBoundingBox()).thenReturn(new net.minecraft.world.level.levelgen.structure.BoundingBox(8,-35,8,10,-25,10));
+        org.mockito.Mockito.when(chunk.getAllReferences()).thenReturn(java.util.Map.of(structure,
+                new it.unimi.dsi.fastutil.longs.LongOpenHashSet(new long[]{new net.minecraft.world.level.ChunkPos(-1,0).toLong()})));
+        var manager=org.mockito.Mockito.mock(net.minecraft.world.level.StructureManager.class);
+        org.mockito.Mockito.when(manager.startsForStructure(org.mockito.ArgumentMatchers.eq(chunk.getPos()),
+                org.mockito.ArgumentMatchers.any())).thenReturn(java.util.List.of(start));
+        var carving=new CaveCarving(chunk,world.context,null,null,manager);
+        carving.clear(9,-30,9,CaveCarving.DRY);
+        assertTrue(world.get(9,-30,9).is(Blocks.STONE),"neighboring jigsaw piece was carved out");
+        carving.clear(0,-30,0,CaveCarving.DRY);
+        assertTrue(world.get(0,-30,0).isAir(),"unrelated cave column was suppressed");
+    }
+
     @Test void cavernBiomePaintingRetainsOtherCellsAndProtectedAlexBiomes() {
         var world=world();
         var registry=new net.minecraft.core.MappedRegistry<net.minecraft.world.level.biome.Biome>(
@@ -72,21 +91,28 @@ class CavernStyleTest {
         var alex=registry.register(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
                 net.minecraft.resources.ResourceLocation.parse("alexscaves:primordial_caves")),
                 org.mockito.Mockito.mock(net.minecraft.world.level.biome.Biome.class),net.minecraft.core.RegistrationInfo.BUILT_IN);
+        var yung=registry.register(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
+                net.minecraft.resources.ResourceLocation.parse("yungscavebiomes:frosted_caves")),
+                org.mockito.Mockito.mock(net.minecraft.world.level.biome.Biome.class),net.minecraft.core.RegistrationInfo.BUILT_IN);
         registry.freeze();
         var access=new net.minecraft.core.RegistryAccess.ImmutableRegistryAccess(java.util.List.of(registry));
         var chunk=world.chunk(0,0);
         org.mockito.Mockito.when(chunk.getNoiseBiome(org.mockito.ArgumentMatchers.anyInt(),
                 org.mockito.ArgumentMatchers.anyInt(),org.mockito.ArgumentMatchers.anyInt()))
-                .thenAnswer(inv->(int)inv.getArgument(0)==1?alex:plain);
-        var carving=new CaveCarving(chunk,world.context,access,java.util.Set.of(plain,lush,alex));
+                .thenAnswer(inv->(int)inv.getArgument(0)==1?alex:(int)inv.getArgument(0)==2?yung:plain);
+        var carving=new CaveCarving(chunk,world.context,access,java.util.Set.of(plain,lush,alex,yung));
+        carving.clear(10,-30,2,CaveCarving.DRY);
+        assertTrue(world.get(10,-30,2).is(Blocks.STONE),"YUNG cave volume lost its native blocks");
         carving.paintCavernBiome(2,-18,2,net.minecraft.world.level.biome.Biomes.LUSH_CAVES);
         carving.paintCavernBiome(6,-18,2,net.minecraft.world.level.biome.Biomes.LUSH_CAVES);
+        carving.paintCavernBiome(10,-18,2,net.minecraft.world.level.biome.Biomes.LUSH_CAVES);
         var resolver=new java.util.concurrent.atomic.AtomicReference<net.minecraft.world.level.biome.BiomeResolver>();
         org.mockito.Mockito.doAnswer(inv->{resolver.set(inv.getArgument(0));return null;}).when(chunk)
                 .fillBiomesFromNoise(org.mockito.ArgumentMatchers.any(),org.mockito.ArgumentMatchers.isNull());
         carving.decorateCaverns();
         assertSame(lush,resolver.get().getNoiseBiome(0,-5,0,null));
         assertSame(alex,resolver.get().getNoiseBiome(1,-5,0,null));
-        assertSame(plain,resolver.get().getNoiseBiome(2,-5,0,null));
+        assertSame(yung,resolver.get().getNoiseBiome(2,-5,0,null));
+        assertSame(plain,resolver.get().getNoiseBiome(3,-5,0,null));
     }
 }
