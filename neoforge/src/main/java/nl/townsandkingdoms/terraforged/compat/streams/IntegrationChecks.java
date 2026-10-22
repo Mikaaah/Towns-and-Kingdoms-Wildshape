@@ -58,6 +58,9 @@ public final class IntegrationChecks {
                 report.put("vanillaControlInactive", true);
             } else {
                 require(context != null, "No active UTF context");
+                if (Boolean.getBoolean("utfstreams.natureSmoke")) {
+                    natureSpiritSurface(level,context,report);
+                } else {
                 generatedCoastalWater(level, context, report);
                 NativeCapture.Sample high = findElevatedMain(context);
                 require(high != null, "No elevated main-river sample found within test search");
@@ -149,6 +152,7 @@ public final class IntegrationChecks {
                 require(FlowRules.downhill(b, b, c) == -1, "Downhill rule did not reverse the native rise");
                 report.put("uphillReversalPassed", true);
                 report.put("statusCommandPassed", server.getCommands().getDispatcher().execute("utfstreams status", server.createCommandSourceStack()) == 1);
+                }
             }
             for (var key : java.util.List.of(Level.NETHER, Level.END))
                 require(UtfStreams.context(server.getLevel(key)) == null, "Non-Overworld adapter activation");
@@ -163,6 +167,42 @@ public final class IntegrationChecks {
         } catch (Exception e) { UtfStreams.LOG.error("Cannot write integration results", e); }
         UtfStreams.LOG.info("UTF Streams integration complete: {}", report);
         server.halt(false);
+    }
+
+    private static void natureSpiritSurface(ServerLevel level, GeneratorContext context, Map<String,Object> report) {
+        int soil=0, tested=0;
+        var samples=new java.util.ArrayList<Object>();
+        Cell cell=new Cell();
+        for (int radius=128; radius<=2048 && soil<80; radius+=128) {
+            int x=radius,z=radius/2;
+            context.lookup.compute(cell.reset(),x,z);
+            if (cell.height<context.levels.water(6) || cell.height>context.levels.water(80)
+                    || cell.terrain.isRiver()) continue;
+            var chunk=level.getChunk(x>>4,z>>4);
+            require(level.getBiome(new BlockPos(x,context.levels.scale(cell.height),z)).unwrapKey()
+                    .map(key->key.location().toString().equals("natures_spirit:cypress_fields")).orElse(false),
+                    "Nature smoke world did not use the fixed cypress biome");
+            int found=0;
+            for (int dz=0;dz<16;dz++) for (int dx=0;dx<16;dx++) {
+                int bx=(x&~15)+dx,bz=(z&~15)+dz;
+                context.lookup.apply(cell.reset(),bx,bz,true);
+                int y=context.levels.scale(cell.height);
+                for (int dy=8;dy>=-8;dy--) {
+                    var pos=new BlockPos(bx,y+dy,bz);
+                    if (chunk.getBlockState(pos).is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK)
+                            && chunk.getBlockState(pos.below()).is(net.minecraft.world.level.block.Blocks.DIRT)) {
+                        found++;break;
+                    }
+                }
+            }
+            tested++;
+            soil+=found;
+            samples.add(Map.of("x",x,"z",z,"grassAndDirtColumns",found));
+        }
+        require(soil>=80,"Cypress fields still lack grass/dirt surfaces: "+soil+" columns in "+tested+" chunks");
+        report.put("naturesSpiritCypressGrassAndDirt",true);
+        report.put("cypressSamples",samples);
+        report.put("grassAndDirtColumns",soil);
     }
 
     private static void generatedCoastalWater(ServerLevel level, GeneratorContext context, Map<String,Object> report) {

@@ -52,4 +52,41 @@ class CavernStyleTest {
         assertTrue(world.count(s->s.is(Blocks.MOSS_BLOCK))>20,"lush style has no moss floor");
         assertTrue(world.count(s->s.is(Blocks.CAVE_VINES))>0,"lush style has no glowberry vines");
     }
+    @Test void laterConnectionsCannotSeverProtectedPillarRock() {
+        var world=world();
+        var carving=new CaveCarving(world.chunk(0,0),world.context);
+        carving.protectPillar(5,-30,5);
+        carving.hollow(5,-30,5,5,5,5,CaveCarving.DRY,CaveCarving.OPEN);
+        assertTrue(world.get(5,-30,5).is(Blocks.STONE));
+        assertTrue(world.get(6,-30,5).isAir());
+    }
+
+    @Test void cavernBiomePaintingRetainsOtherCellsAndProtectedAlexBiomes() {
+        var world=world();
+        var registry=new net.minecraft.core.MappedRegistry<net.minecraft.world.level.biome.Biome>(
+                net.minecraft.core.registries.Registries.BIOME,com.mojang.serialization.Lifecycle.stable());
+        var plain=registry.register(net.minecraft.world.level.biome.Biomes.PLAINS,
+                org.mockito.Mockito.mock(net.minecraft.world.level.biome.Biome.class),net.minecraft.core.RegistrationInfo.BUILT_IN);
+        var lush=registry.register(net.minecraft.world.level.biome.Biomes.LUSH_CAVES,
+                org.mockito.Mockito.mock(net.minecraft.world.level.biome.Biome.class),net.minecraft.core.RegistrationInfo.BUILT_IN);
+        var alex=registry.register(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
+                net.minecraft.resources.ResourceLocation.parse("alexscaves:primordial_caves")),
+                org.mockito.Mockito.mock(net.minecraft.world.level.biome.Biome.class),net.minecraft.core.RegistrationInfo.BUILT_IN);
+        registry.freeze();
+        var access=new net.minecraft.core.RegistryAccess.ImmutableRegistryAccess(java.util.List.of(registry));
+        var chunk=world.chunk(0,0);
+        org.mockito.Mockito.when(chunk.getNoiseBiome(org.mockito.ArgumentMatchers.anyInt(),
+                org.mockito.ArgumentMatchers.anyInt(),org.mockito.ArgumentMatchers.anyInt()))
+                .thenAnswer(inv->(int)inv.getArgument(0)==1?alex:plain);
+        var carving=new CaveCarving(chunk,world.context,access,java.util.Set.of(plain,lush,alex));
+        carving.paintCavernBiome(2,-18,2,net.minecraft.world.level.biome.Biomes.LUSH_CAVES);
+        carving.paintCavernBiome(6,-18,2,net.minecraft.world.level.biome.Biomes.LUSH_CAVES);
+        var resolver=new java.util.concurrent.atomic.AtomicReference<net.minecraft.world.level.biome.BiomeResolver>();
+        org.mockito.Mockito.doAnswer(inv->{resolver.set(inv.getArgument(0));return null;}).when(chunk)
+                .fillBiomesFromNoise(org.mockito.ArgumentMatchers.any(),org.mockito.ArgumentMatchers.isNull());
+        carving.decorateCaverns();
+        assertSame(lush,resolver.get().getNoiseBiome(0,-5,0,null));
+        assertSame(alex,resolver.get().getNoiseBiome(1,-5,0,null));
+        assertSame(plain,resolver.get().getNoiseBiome(2,-5,0,null));
+    }
 }

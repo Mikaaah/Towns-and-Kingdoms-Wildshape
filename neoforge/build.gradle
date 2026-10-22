@@ -12,6 +12,9 @@ loom {
 
     runs {
         server {
+            if (project.findProperty("tnk.natureSmoke") == "true") {
+                property "utfstreams.natureSmoke", "true"
+            }
             if (project.findProperty("tnk.streamsSmoke") == "true") {
                 property "utfstreams.integrationTest", "native"
             }
@@ -59,6 +62,10 @@ dependencies {
     // Only for opt-in server smoke checks; normal distributions do not depend on Streams.
     if (project.findProperty("tnk.streamsSmoke") == "true") {
         modLocalRuntime "maven.modrinth:streams-reflowing:vbJ5meb8"
+    }
+
+    if (project.findProperty("tnk.natureSmoke") == "true") {
+        modLocalRuntime fileTree(".smoke-mods") { include "*.jar" }
     }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive = false }

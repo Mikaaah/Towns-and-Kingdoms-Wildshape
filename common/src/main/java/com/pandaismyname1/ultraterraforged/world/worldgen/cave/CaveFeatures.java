@@ -66,14 +66,15 @@ public final class CaveFeatures {
 	}
 
 	public void carve(ChunkAccess chunk) {
-        this.carve(chunk, null);
+        this.carve(chunk, null, null);
     }
 
-    public void carve(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries) {
+    public void carve(ChunkAccess chunk, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
 		if (this.features.isEmpty()) {
 			return;
 		}
-		CaveCarving carving = new CaveCarving(chunk, this.context, registries);
+		CaveCarving carving = new CaveCarving(chunk, this.context, registries, possibleBiomes);
 		for (Feature feature : this.features) {
             feature.carve(carving);
         }

@@ -25,18 +25,51 @@ public final class ModSurfaceRules {
                 .filter(key -> key.location().getNamespace().equals("natures_spirit")).toArray(ResourceKey[]::new);
         if (biomes.length == 0) return base;
         var nativeRules = natureSpirit();
-        // Cypress uses the vanilla grass/dirt default; its native rule set only
+        if (nativeRules != null) nativeRules = adaptNative(nativeRules);
+        // Cypress and other ordinary fields use the vanilla grass/dirt default; the native rule set only
         // describes exceptional surfaces. Actual TNK ground can be below the
         // vanilla preliminary surface estimate, so provide its soil explicitly.
-        var cypress = SurfaceRules.ifTrue(SurfaceRules.isBiome(ResourceKey.create(Registries.BIOME,
-                ResourceLocation.fromNamespaceAndPath("natures_spirit","cypress_fields"))),
-                SurfaceRules.ifTrue(UTFSurfaceConditions.nearGround(5), SurfaceRules.sequence(
+        var cypress = SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes),
+                SurfaceRules.ifTrue(UTFSurfaceConditions.nearGround(5), SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()), SurfaceRules.sequence(
                     SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(0,0), SurfaceRules.state(Blocks.GRASS_BLOCK.defaultBlockState())),
                         SurfaceRules.state(Blocks.DIRT.defaultBlockState()))),
-                    SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.DIRT.defaultBlockState())))));
+                    SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.DIRT.defaultBlockState()))))));
         return nativeRules == null ? SurfaceRules.sequence(cypress,base)
                 : SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes),nativeRules),cypress,base);
+    }
+
+    static SurfaceRules.RuleSource adaptNative(SurfaceRules.RuleSource nativeRules) {
+        // Once per rule set, through the public vanilla codecs. Preserve the
+        // original biome/noise/material tests, but admit the actual TNK surface
+        // where vanilla's preliminary height estimate misses it.
+        try {
+            var json=SurfaceRules.RuleSource.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE,nativeRules).getOrThrow();
+            return SurfaceRules.RuleSource.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE,adaptConditions(json)).getOrThrow();
+        } catch (RuntimeException failure) {
+            UTFCommon.LOGGER.warn("Could not adapt native surface height checks; retaining native rules",failure);
+            return nativeRules;
+        }
+    }
+
+    private static com.google.gson.JsonElement adaptConditions(com.google.gson.JsonElement json) {
+        if (json.isJsonObject()) {
+            var object=json.getAsJsonObject();
+            if (object.has("type") && (object.get("type").getAsString().equals("minecraft:above_preliminary_surface")
+                    || object.get("type").getAsString().equals("above_preliminary_surface"))) {
+                return SurfaceRules.ConditionSource.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE,
+                        UTFSurfaceConditions.any(SurfaceRules.abovePreliminarySurface(),UTFSurfaceConditions.nearGround(8))).getOrThrow();
+            }
+            var copy=new com.google.gson.JsonObject();
+            object.entrySet().forEach(entry->copy.add(entry.getKey(),adaptConditions(entry.getValue())));
+            return copy;
+        }
+        if (json.isJsonArray()) {
+            var copy=new com.google.gson.JsonArray();
+            json.getAsJsonArray().forEach(value->copy.add(adaptConditions(value)));
+            return copy;
+        }
+        return json;
     }
 
     private static SurfaceRules.RuleSource natureSpirit() {

@@ -79,16 +79,17 @@ final class CavernDecorations {
     }
 
     static void hangLantern(CaveCarving carving,int x,int ceiling,int z,int length) {
-        if (!rock(carving.get(x,ceiling,z)) || length<1 || ceiling-length-3<=carving.bottom) return;
+        if (!carving.canDecorate(x,ceiling,z) || !rock(carving.get(x,ceiling,z)) || length<1 || ceiling-length-3<=carving.bottom) return;
         // Include clearance under the lamp and validate the entire chain before writing.
-        for (int i=1;i<=length+3;i++) if (!carving.get(x,ceiling-i,z).isAir()) return;
+        for (int i=1;i<=length+3;i++) if (!carving.canDecorate(x,ceiling-i,z) || !carving.get(x,ceiling-i,z).isAir()) return;
         for (int i=1;i<length;i++) carving.set(x,ceiling-i,z,Blocks.CHAIN.defaultBlockState());
         carving.set(x,ceiling-length,z,Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING,true));
     }
 
     private static void hangVines(CaveCarving carving,int x,int ceiling,int z,int length) {
+        if (!carving.canDecorate(x,ceiling,z)) return;
         int free=0;
-        while (free<length && ceiling-free-2>carving.bottom && carving.get(x,ceiling-free-1,z).isAir()) free++;
+        while (free<length && ceiling-free-2>carving.bottom && carving.canDecorate(x,ceiling-free-1,z) && carving.get(x,ceiling-free-1,z).isAir()) free++;
         if (free<2) return;
         for (int i=1;i<free;i++) carving.set(x,ceiling-i,z,Blocks.CAVE_VINES_PLANT.defaultBlockState());
         carving.set(x,ceiling-free,z,Blocks.CAVE_VINES.defaultBlockState().setValue(CaveVines.BERRIES,true));

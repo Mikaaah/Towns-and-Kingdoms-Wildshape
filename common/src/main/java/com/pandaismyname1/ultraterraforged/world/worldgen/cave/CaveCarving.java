@@ -45,6 +45,7 @@ public final class CaveCarving {
 	private final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 	private final Cell cell = new Cell();
     private final BitSet carvedAir = new BitSet();
+    private final BitSet protectedPillars = new BitSet();
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
 
@@ -71,14 +72,17 @@ public final class CaveCarving {
 	private int nearZ = Integer.MIN_VALUE;
 
     private final net.minecraft.core.RegistryAccess registries;
+    private final java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes;
     private final Map<GiantCaverns.Cavern, CavernDecorations.Style> caverns = new java.util.LinkedHashMap<>();
     private final Map<Long, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> cavernBiomes = new HashMap<>();
 
     CaveCarving(ChunkAccess chunk, GeneratorContext context) {
-        this(chunk, context, null);
+        this(chunk, context, null, null);
     }
 
-    CaveCarving(ChunkAccess chunk, GeneratorContext context, net.minecraft.core.RegistryAccess registries) {
+    CaveCarving(ChunkAccess chunk, GeneratorContext context, net.minecraft.core.RegistryAccess registries,
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> possibleBiomes) {
+        this.possibleBiomes = possibleBiomes;
         this.registries = registries;
 		this.chunk = chunk;
 		this.context = context;
@@ -292,6 +296,10 @@ public final class CaveCarving {
         return protectedBiome;
     }
 
+    boolean canDecorate(int x,int y,int z) {
+        return !this.insideStructure(x,y,z) && !this.isAlexCavesBiome(x,y,z);
+    }
+
     void addCavern(GiantCaverns.Cavern cavern, CavernDecorations.Style style) {
         this.caverns.put(cavern, style);
     }
@@ -299,7 +307,8 @@ public final class CaveCarving {
     void paintCavernBiome(int x, int y, int z, net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
         if (this.registries == null || this.insideStructure(x,y,z) || this.isAlexCavesBiome(x,y,z)) return;
         var holder = this.registries.registryOrThrow(net.minecraft.core.registries.Registries.BIOME).getHolder(key);
-        holder.ifPresent(value -> this.cavernBiomes.put(BlockPos.asLong(x>>2,y>>2,z>>2),value));
+        holder.filter(value -> this.possibleBiomes == null || this.possibleBiomes.contains(value))
+                .ifPresent(value -> this.cavernBiomes.put(BlockPos.asLong(x>>2,y>>2,z>>2),value));
     }
 
     void decorateCaverns() {

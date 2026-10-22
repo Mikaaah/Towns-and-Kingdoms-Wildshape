@@ -63,7 +63,8 @@ class MixinNoiseBasedChunkGenerator {
         try {
             RaisedWater.fill(chunk, context);
             original.call(region, structures, randomState, chunk);
-            context.caveFeatures.carve(chunk, region.registryAccess());
+            context.caveFeatures.carve(chunk, region.registryAccess(),
+                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes());
         } finally {
             SurfaceRegion.set(null);
         }

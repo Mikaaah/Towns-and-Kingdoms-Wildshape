@@ -29,12 +29,16 @@ final class PirateCoves implements CaveFeatures.Feature {
             if (c==NONE || !carving.reaches(Math.min(c.x()-c.radius(),c.mouthX()-16),
                     Math.min(c.z()-c.radius(),c.mouthZ()-16),Math.max(c.x()+c.radius(),c.mouthX()+16),
                     Math.max(c.z()+c.radius(),c.mouthZ()+16))) continue;
-            int sea=carving.levels.waterY;
-            carving.hollow(c.x(),sea+6,c.z(),c.radius(),c.height(),c.radius()*0.86F,sea,8,this.walls);
-            CaveFeatures.along(new float[]{c.mouthX(),c.x()},new float[]{sea+3,sea+6},
-                    new float[]{c.mouthZ(),c.z()},5,(px,py,pz,t)->
-                        carving.hollow(px,py,pz,14,15,14,sea,6,this.walls));
+            hollow(c,carving);
         }
+    }
+
+    void hollow(Cove c,CaveCarving carving) {
+        int sea=carving.levels.waterY;
+        carving.hollow(c.x(),sea+6,c.z(),c.radius(),c.height(),c.radius()*0.86F,sea,8,this.walls);
+        CaveFeatures.along(new float[]{c.mouthX(),c.x()},new float[]{sea+3,sea+6},
+                new float[]{c.mouthZ(),c.z()},5,(px,py,pz,t)->
+                carving.hollow(px,py,pz,14,15,14,sea,6,this.walls));
     }
 
     Cove find(int gx,int gz,CaveCarving carving) {
