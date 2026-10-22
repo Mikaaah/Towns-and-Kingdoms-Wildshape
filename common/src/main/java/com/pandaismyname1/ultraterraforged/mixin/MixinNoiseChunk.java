@@ -39,7 +39,8 @@ class MixinNoiseChunk {
 	private void tnk$copyBiomeExclusions(NoiseRouter router, List<Climate.ParameterPoint> points,
 			CallbackInfoReturnable<Climate.Sampler> callback) {
 		UTFClimateSampler global = (UTFClimateSampler) (Object) this.randomState.sampler();
-		((UTFClimateSampler) (Object) callback.getReturnValue()).setBiomeFallback(global.getBiomeFallback());
+		UTFClimateSampler cached = (UTFClimateSampler) (Object) callback.getReturnValue();
+		cached.copyBiomeSelection(global);
 	}
 	private RandomState randomState;
 	private int chunkX, chunkZ;

@@ -1,6 +1,6 @@
 # TNK3 natural biome exclusions
 
-Version 1.0.7 excludes these 24 biome IDs from natural selection in TNKTerraForged worlds. BOP Grassland (`biomesoplenty:grassland`) is kept.
+Version 1.0.9 excludes these 24 biome IDs from natural selection in TNKTerraForged worlds. BOP Grassland (`biomesoplenty:grassland`) is kept.
 
 ## Biomes O’ Plenty (17)
 
@@ -34,7 +34,7 @@ Version 1.0.7 excludes these 24 biome IDs from natural selection in TNKTerraForg
 
 ## Behavior
 
-The final biome selected by the multi-noise source, including TerraBlender, is checked against the exact registry IDs. An excluded result is replaced using a private, filtered Overworld climate search tree. Allowed results do not resample climate. The fallback is initialized per TNK terrain sampler; worlds and dimensions without TNK terrain cells retain their original selection. No BOP/RU implementation classes are linked and neither mod becomes required.
+The final biome selected by the multi-noise source, including TerraBlender, is checked against the exact registry IDs. An excluded result is replaced using a private, filtered Overworld climate search tree. Allowed results do not resample climate. The fallback is initialized on the global TNK terrain sampler and copied to each cached chunk sampler; worlds and dimensions without TNK terrain cells retain their original selection. No BOP/RU implementation classes are linked and neither mod becomes required.
 
 Registrations, blocks, items, commands and saved chunks remain intact. Existing chunks retain their biomes; explore new chunks to see the change. The biome source still advertises its original candidate set for codec/registry compatibility; this policy controls actual XYZ selection. This removes the named biomes, not TNKTerraForged’s independent volcano terrain landform.
 

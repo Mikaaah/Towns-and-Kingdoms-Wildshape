@@ -39,8 +39,8 @@ jobs:
           with zipfile.ZipFile(jars[0]) as z:
               assert z.testzip() is None
               toml = z.read('META-INF/neoforge.mods.toml').decode()
-          assert 'version="1.0.8+1.21.1"' in toml, toml
-          print('Verified NeoForge version 1.0.8+1.21.1:', jars[0])
+          assert 'version="1.0.9+1.21.1"' in toml, toml
+          print('Verified NeoForge version 1.0.9+1.21.1:', jars[0])
           PY
       - uses: actions/upload-artifact@v4
         if: success()

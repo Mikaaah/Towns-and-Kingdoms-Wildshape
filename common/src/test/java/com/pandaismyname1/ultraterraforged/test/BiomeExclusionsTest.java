@@ -20,6 +20,12 @@ class BiomeExclusionsTest {
     }
 
     @Test
+    void meadowPromotionUsesStableRegionIdentity() {
+        assertTrue(BiomeExclusions.promoteMeadow(0.1F));
+        assertFalse(BiomeExclusions.promoteMeadow(0.6F));
+    }
+
+    @Test
     void finalPackListKeepsBopGrasslandAndOtherDimensions() {
         assertEquals(24, BiomeExclusions.EXCLUDED.size());
         assertEquals(17, BiomeExclusions.EXCLUDED.stream().filter(id -> id.getNamespace().equals("biomesoplenty")).count());

@@ -130,6 +130,7 @@ class MixinRandomState {
 					.orElseGet(PerformanceConfig::makeDefault);
                 ThreadPools.configure(config.threadCount());
 				this.generatorContext = GeneratorContext.makeCached(this.preset, (int) this.seed, config.tileSize(), config.batchCount(), ThreadPools.availableProcessors() > 4);
+				((UTFClimateSampler) (Object) this.sampler).setGeneratorContext(this.generatorContext);
 			}
 		});
 	}

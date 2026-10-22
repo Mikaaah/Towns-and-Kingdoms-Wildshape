@@ -50,7 +50,7 @@ public class BiomeSurveyTest {
 				.parse(com.mojang.serialization.JsonOps.INSTANCE,
 					com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(path))).getOrThrow();
 			var context = GeneratorContext.makeCached(preset, 1111, 3, 6, false);
-			int cherry = 0, meadow = 0;
+			int cherry = 0, meadow = 0, promoted = 0;
 			Cell cell = new Cell();
 			for (int x = -20000; x <= 20000; x += 192) {
 				for (int z = -20000; z <= 20000; z += 192) {
@@ -60,11 +60,17 @@ public class BiomeSurveyTest {
 						cell.erosion, 0.0F, cell.weirdness);
 					var biome = vanilla.findValue(target);
 					if (biome.equals(Biomes.CHERRY_GROVE)) cherry++;
-					if (biome.equals(Biomes.MEADOW)) meadow++;
+					if (biome.equals(Biomes.MEADOW)) {
+						meadow++;
+						if (com.pandaismyname1.ultraterraforged.world.worldgen.biome.BiomeExclusions
+								.promoteMeadow(cell.biomeRegionId)) promoted++;
+					}
 				}
 			}
-			System.out.printf("%s TNK3 Expanse: cherry %d, meadow %d%n", name, cherry, meadow);
-			assertTrue(cherry > 0, name + " Expanse has no Cherry Grove climate in 40,000 blocks");
+			System.out.printf("%s TNK3 Expanse: native cherry %d, meadow %d, added cherry %d%n",
+				name, cherry, meadow, promoted);
+			assertTrue(cherry > 0 && promoted > 0 && promoted < meadow,
+				name + " Expanse needs Cherry Groves and remaining meadows in 40,000 blocks");
 		}
 	}
 

@@ -24,6 +24,11 @@ public final class BiomeExclusions {
 
     private BiomeExclusions() {}
 
+    /** One stable choice per TNK climate region, preserving most meadows. */
+    public static boolean promoteMeadow(float biomeRegionId) {
+        return biomeRegionId < 0.4F;
+    }
+
     private static ResourceLocation id(String name) {
         return ResourceLocation.parse(name);
     }

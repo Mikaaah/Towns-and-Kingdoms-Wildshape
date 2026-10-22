@@ -1,5 +1,11 @@
 # TNKTerraForged — development changelog
 
+## 1.0.9+1.21.1 — Biome selection and Cherry Groves
+
+- Copy the TNK3 exclusion policy into cached chunk climate samplers, closing the path that could generate RU Gravel Beach or BOP Wasteland in new chunks despite the global biome-source filter.
+- Promote part of suitable vanilla Meadow regions to Cherry Grove, using stable per-region values from the TNK climate map. Keep the remaining meadows and modded biomes.
+- Survey both TNK3 Expanse presets across a 40,000-block square and check the promoted groves and retained meadows.
+
 ## 1.0.8+1.21.1 — Structure and cave-biome compatibility
 
 - Protect structure pieces referenced from neighboring chunks during custom cave carving, lining and decorations, including large jigsaw structures from the supplied Integrated, YUNG and ATi families.
