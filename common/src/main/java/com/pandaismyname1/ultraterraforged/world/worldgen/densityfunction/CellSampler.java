@@ -1,6 +1,7 @@
 package com.pandaismyname1.ultraterraforged.world.worldgen.densityfunction;
 
 import com.pandaismyname1.ultraterraforged.data.UTFCodecs;
+import java.lang.ref.WeakReference;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +21,7 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.util.PosUtil;
 
 public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField field) implements MappedFunction {
 	private static final ThreadLocal<Cache2d> LOCAL_CELL = ThreadLocal.withInitial(Cache2d::new);
-	
+
 	@Override
 	public double compute(FunctionContext ctx) {
 		WorldLookup worldLookup = this.generatorContext.get().lookup;
@@ -28,42 +29,48 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 		return this.field.read(cell);
 	}
 
+	// no bounds: continentalness, erosion and weirdness are negative too, and vanilla's min and max skip an argument
+	// by its bounds
 	@Override
 	public double minValue() {
-		// Negative continentalness/weirdness are legitimate; don't lie to the optimizer.
-		return -Double.MAX_VALUE;
+		return Double.NEGATIVE_INFINITY;
 	}
 
 	@Override
 	public double maxValue() {
-		return Double.MAX_VALUE;
+		return Double.POSITIVE_INFINITY;
 	}
 
 	public static boolean isCachedNoiseChunk(int cellCountXZ) {
 		return cellCountXZ > 1;
 	}
-	
+
+	// the last cell looked up on this thread, at the corner of its 4x4 column, and the world it was looked up in: worlds
+	// open one after another, or side by side, share the worker threads. Held weakly, so a closed world can go
 	public static class Cache2d {
 		private long lastPos = Long.MAX_VALUE;
-		private WorldLookup lastLookup;
+		private WeakReference<WorldLookup> lastLookup = new WeakReference<>(null);
 		private Cell cell = new Cell();
-		
+
 		public Cell getAndUpdate(WorldLookup lookup, int blockX, int blockZ) {
 			blockX = QuartPos.toBlock(QuartPos.fromBlock(blockX));
 			blockZ = QuartPos.toBlock(QuartPos.fromBlock(blockZ));
-			
+
 			long packedPos = PosUtil.pack(blockX, blockZ);
-			if(this.lastPos != packedPos || this.lastLookup != lookup) {
-                this.lastPos = Long.MAX_VALUE;
-                this.lastLookup = null;
+			if(this.lastPos != packedPos || this.lastLookup.get() != lookup) {
+				// Failed lookups must not leave a partially overwritten cell cached.
+				this.lastPos = Long.MAX_VALUE;
+				this.lastLookup = new WeakReference<>(null);
 				lookup.apply(this.cell.reset(), blockX, blockZ);
 				this.lastPos = packedPos;
-                this.lastLookup = lookup;
+				if(this.lastLookup.get() != lookup) {
+					this.lastLookup = new WeakReference<>(lookup);
+				}
 			}
 			return this.cell;
 		}
 	}
-	
+
 	public class CacheChunk implements MappedFunction {
 		// not the tile's chunk itself: a chunk waiting to be generated would keep its whole tile alive
 		@Nullable
@@ -86,9 +93,9 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			int chunkZ = SectionPos.blockToSectionCoord(blockZ);
 			int quartBlockX = QuartPos.toBlock(QuartPos.fromBlock(blockX));
 			int quartBlockZ = QuartPos.toBlock(QuartPos.fromBlock(blockZ));
-			
+
 			WorldLookup worldLookup = CellSampler.this.generatorContext.get().lookup;
-			Cell cell = (this.chunk != null && this.chunkX == chunkX && this.chunkZ == chunkZ) ? 
+			Cell cell = (this.chunk != null && this.chunkX == chunkX && this.chunkZ == chunkZ) ?
 				this.chunk.get().getCell(blockX, blockZ) :
 				this.cache2d.getAndUpdate(worldLookup, quartBlockX, quartBlockZ);
 			return CellSampler.this.field.read(cell);
@@ -104,12 +111,12 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			return CellSampler.this.maxValue();
 		}
 	}
-	
+
 	public record Marker(CellField field) implements MappedFunction.Marker {
 		public static final Codec<Marker> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				CellField.CODEC.fieldOf("field").forGetter(Marker::field)
 		).apply(instance, Marker::new));
-		
+
 		@Override
 		public KeyDispatchDataCodec<Marker> codec() {
 			return UTFCodecs.keyDispatch(CODEC);

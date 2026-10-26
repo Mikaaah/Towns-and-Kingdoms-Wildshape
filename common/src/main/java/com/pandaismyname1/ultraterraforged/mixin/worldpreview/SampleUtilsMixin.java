@@ -24,24 +24,23 @@ import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.WorldOptions;
 import com.pandaismyname1.ultraterraforged.UTFCommon;
 import com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState;
-import com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags;
 
 @Pseudo
 @Mixin(targets = "caeruleusTait.world.preview.backend.worker.SampleUtils", remap = false)
 public class SampleUtilsMixin {
-	@Shadow 
+	@Shadow
 	@Final
     private RandomState randomState;
 	@Shadow
 	@Final
 	private RegistryAccess registryAccess;
-	
+
 	@Inject(
 		at = @At("TAIL"),
 		require = 1,
 		target = @Desc(
 			value = "<init>",
-			args = { 
+			args = {
 				MinecraftServer.class, BiomeSource.class, ChunkGenerator.class, WorldOptions.class, LevelStem.class, LevelHeightAccessor.class
 			}
 		)
@@ -51,25 +50,27 @@ public class SampleUtilsMixin {
 	}
 
 	@Inject(
-		at = @At("TAIL"), 
+		at = @At("TAIL"),
 		require = 1,
 		target = @Desc(
 			value = "<init>",
-			args = { 
-				BiomeSource.class, ChunkGenerator.class, LayeredRegistryAccess.class, WorldOptions.class, LevelStem.class, LevelHeightAccessor.class, WorldDataConfiguration.class, Proxy.class, Path.class 
+			args = {
+				BiomeSource.class, ChunkGenerator.class, LayeredRegistryAccess.class, WorldOptions.class, LevelStem.class, LevelHeightAccessor.class, WorldDataConfiguration.class, Proxy.class, Path.class
 			}
 		)
-	) 
+	)
 	private void SampleUtils$2(CallbackInfo callback) {
 		this.initUTF();
 	}
-	
+
 	private void initUTF() {
 		if((Object) this.randomState instanceof UTFRandomState utfRandomState) {
-			WorldGenFlags.setCullNoiseSections(false);
-			
 			utfRandomState.initialize(this.registryAccess);
-			
+			// the preview reads every section: its own world isn't culled, and no other is touched
+			if(utfRandomState.generatorContext() != null) {
+				utfRandomState.generatorContext().lookup.setCullNoiseSections(false);
+			}
+
 			UTFCommon.LOGGER.info("initialized utf data");
 		} else {
 			throw new IllegalStateException();

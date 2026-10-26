@@ -39,6 +39,18 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+        // Resolve loader tooling at its authoritative repository instead of probing
+        // every generic mod repository for each NeoForge build dependency.
+        exclusiveContent {
+            forRepository { maven { url = "https://maven.neoforged.net/releases/" } }
+            filter {
+                includeGroup "net.neoforged"
+                includeGroup "net.neoforged.fancymodloader"
+                includeGroup "net.neoforged.installertools"
+                includeGroup "net.neoforged.jst"
+                includeGroup "cpw.mods"
+            }
+        }
         maven { url = "https://maven.shedaniel.me" }
         maven { url = "https://jitpack.io" }
         maven { url = "https://maven.minecraftforge.net/" }
@@ -50,11 +62,6 @@ allprojects {
         exclusiveContent {
             forRepository { maven { url = "https://cursemaven.com" } }
             filter { includeGroup "curse.maven" }
-        }
-        // MixinSquared, for the C2ME OpenCL compat: C2ME bundles it, so it's only compiled against
-        exclusiveContent {
-            forRepository { maven { url = "https://maven.bawnorton.com/releases" } }
-            filter { includeGroup "com.github.bawnorton.mixinsquared" }
         }
         // Sinytra Connector and Forgified Fabric API, published module by module so the dev runs can remap them
         exclusiveContent {

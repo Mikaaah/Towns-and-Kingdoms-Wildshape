@@ -14,6 +14,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.world.level.levelgen.Aquifer;
+import com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.RaisedWaterGuard;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -41,11 +45,11 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.surface.SurfaceRegion;
 
 @Mixin(value = NoiseBasedChunkGenerator.class, priority = 9001 /* we need this so we don't break noisium */)
 class MixinNoiseBasedChunkGenerator {
-	
+
 	@Shadow
 	@Final
     private Holder<NoiseGeneratorSettings> settings;
-	
+
 
     // Wrap the complete surface call so a thrown exception cannot leave a
     // previous world's WorldGenRegion in this thread-local.
@@ -63,9 +67,35 @@ class MixinNoiseBasedChunkGenerator {
         try {
             RaisedWater.fill(chunk, context);
             original.call(region, structures, randomState, chunk);
-            context.caveFeatures.carve(chunk);
+            context.caveFeatures.carve(chunk, region.registryAccess(),
+                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes(), structures);
         } finally {
             SurfaceRegion.set(null);
+        }
+    }
+
+    // Upstream's aquifer guard protects raised water while vanilla and modded
+    // carvers run. Keep our scoped surface handling and later cave decoration.
+    @ModifyExpressionValue(method = "applyCarvers", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/level/levelgen/NoiseChunk;aquifer()Lnet/minecraft/world/level/levelgen/Aquifer;"), require = 1)
+    private Aquifer ultraterraforged$guardRaisedWater(Aquifer aquifer,
+            @Local(argsOnly = true) RandomState randomState, @Local(argsOnly = true) ChunkAccess chunk) {
+        if ((Object) randomState instanceof UTFRandomState utf && utf.generatorContext() != null) {
+            return new RaisedWaterGuard(chunk, utf.generatorContext()).wrap(aquifer);
+        }
+        return aquifer;
+    }
+
+    // Ceiling fittings and cave biomes belong after vanilla carvers, otherwise
+    // a later cut can remove the anchor above a hanging chain or vine.
+    @Inject(method="applyCarvers", at=@At("TAIL"))
+    private void ultraterraforged$decorateCaverns(WorldGenRegion region,long seed,RandomState randomState,
+            net.minecraft.world.level.biome.BiomeManager biomeManager,StructureManager structures,
+            ChunkAccess chunk,net.minecraft.world.level.levelgen.GenerationStep.Carving step,CallbackInfo callback) {
+        if (step != net.minecraft.world.level.levelgen.GenerationStep.Carving.AIR) return;
+        if ((Object)randomState instanceof UTFRandomState utf && utf.generatorContext()!=null) {
+            utf.generatorContext().caveFeatures.decorate(chunk,region.registryAccess(),
+                    ((NoiseBasedChunkGenerator)(Object)this).getBiomeSource().possibleBiomes(), structures);
         }
     }
 
@@ -82,8 +112,8 @@ class MixinNoiseBasedChunkGenerator {
 		if((Object) randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
 			return generatorContext.lookup.getGenerationHeight(chunkPos.x, chunkPos.z, this.settings.value(), true);
 		} else {
-    		return settings.height();
-    	}
+		return settings.height();
+	}
     }
 
 	@Redirect(
@@ -98,11 +128,11 @@ class MixinNoiseBasedChunkGenerator {
 		GeneratorContext generatorContext;
 		if((Object) randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
 			return generatorContext.lookup.getGenerationHeight(SectionPos.blockToSectionCoord(blockX), SectionPos.blockToSectionCoord(blockZ), this.settings.value(), !WorldGenFlags.fastLookups());
-    	} else {
-    		return settings.height();
-    	}
+	} else {
+		return settings.height();
+	}
     }
-	
+
 	@Inject(
 		at = @At("TAIL"),
 		method = "addDebugScreenInfo"
@@ -116,7 +146,7 @@ class MixinNoiseBasedChunkGenerator {
 
 			WorldSettings worldSettings = generatorContext.preset.world();
 			WorldSettings.ControlPoints controlPoints = worldSettings.controlPoints;
-			
+
 			list.add("");
 			list.add("Terrain Type: " + cell.terrain.getName());
 			list.add("Terrain Region: " + cell.terrainRegionEdge);
@@ -130,6 +160,6 @@ class MixinNoiseBasedChunkGenerator {
 			list.add("Temperature: " + cell.regionTemperature);
 			list.add("Moisture: " + cell.regionMoisture);
 			list.add("");
-    	}
+	}
     }
 }

@@ -14,18 +14,30 @@ import com.pandaismyname1.ultraterraforged.UTFCommon;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBCompat;
 import com.pandaismyname1.ultraterraforged.compat.worldpreview.WPCompat;
 import com.pandaismyname1.ultraterraforged.compat.c2me.C2MECompat;
+import com.pandaismyname1.ultraterraforged.compat.byepregen.ByePregenCompat;
+import com.pandaismyname1.ultraterraforged.compat.streams.StreamsCompat;
+import com.pandaismyname1.ultraterraforged.compat.alexscaves.AlexsCavesCompat;
+import com.pandaismyname1.ultraterraforged.compat.generatoraccelerator.GeneratorAcceleratorCompat;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 	private static final String MIXIN_PACKAGE_PREFIX = "com.pandaismyname1.ultraterraforged.mixin.";
 	public static final List<String> TB_MIXINS = ImmutableList.of(mixinClassName("terrablender.MixinClimateSampler"), mixinClassName("terrablender.MixinNoiseChunk"), mixinClassName("terrablender.MixinParameterList"), mixinClassName("terrablender.MixinTargetPoint"));
 	public static final List<String> WP_MIXINS = ImmutableList.of(mixinClassName("worldpreview.SampleUtilsMixin"));
 	public static final List<String> C2ME_OPENCL_MIXINS = ImmutableList.of(mixinClassName("c2me.MixinChunkMapOpenCL"));
-	
+	public static final List<String> BYE_PREGEN_MIXINS = ImmutableList.of(mixinClassName("byepregen.AccessorNoiseChunk"), mixinClassName("byepregen.MixinArenaNoiseFiller"));
+	public static final List<String> STREAMS_MIXINS = ImmutableList.of(mixinClassName("streams.MixinStreamFlowGrid"), mixinClassName("streams.MixinRiverCarverFeature"), mixinClassName("streams.MixinWorldGenRegion"));
+	public static final List<String> AC_MIXINS = ImmutableList.of(mixinClassName("alexscaves.MixinBiomeGenerationNoiseCondition"), mixinClassName("alexscaves.MixinClimateSampler"));
+	public static final List<String> GA_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinNoiseBasedChunkGenerator"));
+
 	@Override
 	public void onLoad(String mixinPackage) {
 		log(TBCompat.isEnabled(), "TerraBlender");
 		log(WPCompat.isEnabled(), "World Preview");
 		log(C2MECompat.isOpenCLLoaded(), "C2ME OpenCL");
+		log(ByePregenCompat.isEnabled(), "Bye Pregen");
+		log(StreamsCompat.isEnabled(), "Streams Reflowing");
+		log(AlexsCavesCompat.isEnabled(), "Alex's Caves");
+		log(GeneratorAcceleratorCompat.isEnabled(), "Generator Accelerator");
 	}
 
 	@Override
@@ -35,9 +47,13 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		return TB_MIXINS.contains(mixinClassName) ? TBCompat.isEnabled() : 
+		return TB_MIXINS.contains(mixinClassName) ? TBCompat.isEnabled() :
 			   WP_MIXINS.contains(mixinClassName) ? WPCompat.isEnabled() :
 			   C2ME_OPENCL_MIXINS.contains(mixinClassName) ? C2MECompat.isOpenCLLoaded() :
+			   BYE_PREGEN_MIXINS.contains(mixinClassName) ? ByePregenCompat.isEnabled() :
+			   STREAMS_MIXINS.contains(mixinClassName) ? StreamsCompat.isEnabled() :
+			   AC_MIXINS.contains(mixinClassName) ? AlexsCavesCompat.isEnabled() :
+			   GA_MIXINS.contains(mixinClassName) ? GeneratorAcceleratorCompat.isEnabled() :
 			   true;
 	}
 
@@ -47,7 +63,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public List<String> getMixins() {
-		return Stream.of(TB_MIXINS, WP_MIXINS, C2ME_OPENCL_MIXINS).flatMap(List::stream).map((str) -> {
+		return Stream.of(TB_MIXINS, WP_MIXINS, C2ME_OPENCL_MIXINS, BYE_PREGEN_MIXINS, STREAMS_MIXINS, AC_MIXINS, GA_MIXINS).flatMap(List::stream).map((str) -> {
 			return str.replace(MIXIN_PACKAGE_PREFIX, "");
 		}).toList();
 	}
@@ -63,7 +79,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	private static String mixinClassName(String className) {
 		return MIXIN_PACKAGE_PREFIX + className;
 	}
-	
+
 	private static void log(boolean isModLoaded, String modName) {
 		if(isModLoaded) {
 			UTFCommon.LOGGER.info("Enabling {} compat", modName);

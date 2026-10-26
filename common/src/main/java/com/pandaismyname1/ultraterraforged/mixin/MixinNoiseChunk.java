@@ -22,46 +22,63 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouter;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.biome.Climate;
+import java.util.List;
 import com.pandaismyname1.ultraterraforged.data.preset.settings.Preset;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
+import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState;
 import com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags;
 import com.pandaismyname1.ultraterraforged.world.worldgen.densityfunction.CellSampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.densityfunction.CellSampler.Cache2d;
 import com.pandaismyname1.ultraterraforged.world.worldgen.tile.TileChunkRef;
 
-@Mixin(NoiseChunk.class)
+// after mods that overwrite NoiseChunk's methods (Generator Accelerator overwrites computePreliminarySurfaceLevel): a
+// mixin can only inject into a method another one merged if it comes after it, and NoiseChunk failed to load otherwise
+@Mixin(value = NoiseChunk.class, priority = 1100)
 class MixinNoiseChunk {
+	@Inject(method = "cachedClimateSampler", at = @At("RETURN"))
+	private void tnk$copyBiomeExclusions(NoiseRouter router, List<Climate.ParameterPoint> points,
+			CallbackInfoReturnable<Climate.Sampler> callback) {
+		UTFClimateSampler global = (UTFClimateSampler) (Object) this.randomState.sampler();
+		UTFClimateSampler cached = (UTFClimateSampler) (Object) callback.getReturnValue();
+		cached.copyBiomeSelection(global);
+        if (com.pandaismyname1.ultraterraforged.compat.alexscaves.AlexsCavesCompat.isEnabled()) {
+            var original = (com.pandaismyname1.ultraterraforged.compat.alexscaves.ACClimateSampler) global;
+            ((com.pandaismyname1.ultraterraforged.compat.alexscaves.ACClimateSampler) cached)
+                    .ultraterraforged$setTerrain(original.ultraterraforged$isTerrain());
+        }
+	}
 	private RandomState randomState;
 	private int chunkX, chunkZ;
 	private int generationHeight;
 	private TileChunkRef chunk;
 	private Cache2d cache2d;
     private NoiseGeneratorSettings generatorSettings;
-	
+
 	@Shadow
     @Final
     private DensityFunction initialDensityNoJaggedness;
-    
+
 	@Shadow
     @Final
 	int firstNoiseX;
-	
+
 	@Shadow
     @Final
     int firstNoiseZ;
-	
+
 	@Shadow
     @Final
 	private int cellCountXZ;
-	
+
 	@Shadow
 	private int cellCountY;
-	
+
 	@Shadow
     @Final
     private int cellHeight;
-	
+
 	@Redirect(
 		at = @At(
 			value = "INVOKE",
@@ -84,10 +101,10 @@ class MixinNoiseChunk {
 //			} else {
 				this.generationHeight = generatorContext.lookup.getGenerationHeight(this.chunkX, this.chunkZ, noiseGeneratorSettings, cache);
 //			}
-			
+
 			this.cellCountY = Math.min(this.cellCountY, this.generationHeight / this.cellHeight);
 			this.cache2d = new CellSampler.Cache2d();
-			
+
 			if(cache) {
 				this.chunk = new TileChunkRef(generatorContext.cache, this.chunkX, this.chunkZ);
 			}
@@ -96,7 +113,7 @@ class MixinNoiseChunk {
 		}
 		return this.randomState.router();
 	}
-	
+
 	@ModifyVariable(
 		method = "<init>",
 		at = @At("HEAD"),
@@ -152,9 +169,9 @@ class MixinNoiseChunk {
         int generationHeight;
 		GeneratorContext generatorContext;
         if((Object) this.randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
-        	generationHeight = generatorContext.lookup.getGenerationHeight(SectionPos.blockToSectionCoord(blockX), SectionPos.blockToSectionCoord(blockZ), this.generatorSettings, false);
+	generationHeight = generatorContext.lookup.getGenerationHeight(SectionPos.blockToSectionCoord(blockX), SectionPos.blockToSectionCoord(blockZ), this.generatorSettings, false);
         } else {
-        	generationHeight = this.generatorSettings.noiseSettings().height();
+	generationHeight = this.generatorSettings.noiseSettings().height();
         }
         return generationHeight;
 	}

@@ -14,17 +14,17 @@ import com.pandaismyname1.ultraterraforged.concurrent.cache.map.LongMap;
 
 public class Cache<V extends ExpiringEntry> implements AutoCloseable {
 	public static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor(ThreadPools.daemonFactory("UTF-CacheScheduler"));
-	
+
     private LongMap<V> map;
     private long lifetimeMS;
     private volatile long timeout;
     private ScheduledFuture<?> poll;
-    
+
     public Cache(int capacity, long expireTime, long pollInterval, TimeUnit unit, IntFunction<LongMap<V>> mapFunc) {
         this.timeout = 0L;
         this.map = mapFunc.apply(capacity);
         this.lifetimeMS = unit.toMillis(expireTime);
-        
+
         long intervalMillis = unit.toMillis(pollInterval);
         WeakReference<Cache<V>> cacheRef = new WeakReference<>(this);
         AtomicReference<ScheduledFuture<?>> handle = new AtomicReference<>();
@@ -43,23 +43,32 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
             handle.set(this.poll);
         }
     }
-    
+
     public void remove(long key) {
         this.map.remove(key, ExpiringEntry::close);
     }
-    
+
+    // takes out this very entry, not one that has since taken its place
+    public void forget(V entry) {
+        this.map.removeIf((other) -> other == entry);
+    }
+
     public V get(long key) {
         return this.map.get(key);
     }
-    
+
     public V computeIfAbsent(long key, LongFunction<V> func) {
         return this.map.computeIfAbsent(key, func);
     }
-    
+
     public void poll() {
         this.timeout = System.currentTimeMillis() - this.lifetimeMS;
         this.map.removeIf((entry) -> entry.getTimestamp() < this.timeout);
     }
+
+	public boolean isPolling() {
+		return this.poll != null && !this.poll.isDone();
+	}
 
 	@Override
 	public void close() {

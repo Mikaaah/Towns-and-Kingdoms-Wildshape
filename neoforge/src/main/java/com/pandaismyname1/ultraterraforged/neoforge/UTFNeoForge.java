@@ -24,39 +24,41 @@ import com.pandaismyname1.ultraterraforged.server.UTFMinecraftServer;
 public class UTFNeoForge {
 
     public UTFNeoForge(IEventBus modBus, ModContainer modContainer) {
-    	UTFCommon.bootstrap();
-        // No Alex classes are initialized unless the optional mod is installed.
-        if (ModList.get().isLoaded("alexscaves")) {
-            new com.pandaismyname1.ultraterraforged.neoforge.compat.alexscaves.TerraforgedAlexCavesFix(modContainer);
+        try {
+            com.pandaismyname1.ultraterraforged.platform.ConfigMigration.migrate(
+                net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Cannot initialize TNKTerraForged configuration", e);
         }
+	UTFCommon.bootstrap();
         // Native currents are a built-in, optional NeoForge feature.
         if (ModList.get().isLoaded("streamsreflowing")) {
-            nl.townsandkingdoms.utfstreams.UtfStreams.initialize(modBus, modContainer);
+            nl.townsandkingdoms.terraforged.compat.streams.UtfStreams.initialize(modBus, modContainer);
         }
 
-    	modBus.addListener(UTFNeoForge::gatherData);
-    	NeoForge.EVENT_BUS.addListener(UTFNeoForge::addReloadListeners);
+	modBus.addListener(UTFNeoForge::gatherData);
+	NeoForge.EVENT_BUS.addListener(UTFNeoForge::addReloadListeners);
 
-    	RegistryUtilImpl.register(modBus);
+	RegistryUtilImpl.register(modBus);
     }
 
     private static void gatherData(GatherDataEvent event) {
-    	boolean includeClient = event.includeClient();
-    	DataGenerator generator = event.getGenerator();
-    	PackOutput output = generator.getPackOutput();
+	boolean includeClient = event.includeClient();
+	DataGenerator generator = event.getGenerator();
+	PackOutput output = generator.getPackOutput();
 
-    	generator.addProvider(includeClient, new UTFLanguageProvider.EnglishUS(output));
-    	generator.addProvider(includeClient, PackMetadataGenerator.forFeaturePack(output, Component.translatable(UTFTranslationKeys.METADATA_DESCRIPTION)));
+	generator.addProvider(includeClient, new UTFLanguageProvider.EnglishUS(output));
+	generator.addProvider(includeClient, PackMetadataGenerator.forFeaturePack(output, Component.translatable(UTFTranslationKeys.METADATA_DESCRIPTION)));
     }
 
     // /reload: templates are read again from the new resources. The first load needs nothing: the server reads them
     // when it first asks for its template manager.
     private static void addReloadListeners(AddReloadListenerEvent event) {
-    	event.addListener((ResourceManagerReloadListener) (resourceManager) -> {
-    		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-    		if (server instanceof UTFMinecraftServer utfServer) {
-    			utfServer.getFeatureTemplateManager().onReload(resourceManager);
-    		}
-    	});
+	event.addListener((ResourceManagerReloadListener) (resourceManager) -> {
+		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+		if (server instanceof UTFMinecraftServer utfServer) {
+			utfServer.getFeatureTemplateManager().onReload(resourceManager);
+		}
+	});
     }
 }

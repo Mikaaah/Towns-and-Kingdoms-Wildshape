@@ -14,13 +14,10 @@ displayURL="https://github.com/Mikaaah/ultraterraforged-personal"
 description='''TNK3-focused overworld terrain generation built from UltraTerraForged, ReTerraForged and TerraForged. Massive caves and modded structure safeguards.'''
 
 [[mixins]]
-config="ultraterraforged-common.mixins.json"
+config="tnkterraforged-common.mixins.json"
 
 [[mixins]]
-config="ultraterraforged-neoforge.mixins.json"
-
-[[mixins]]
-config="ultraterraforged-alex-caves.mixins.json"
+config="tnkterraforged-neoforge.mixins.json"
 
 [[mixins]]
 config="tnkterraforged-streams.mixins.json"
@@ -49,7 +46,7 @@ config="tnkterraforged-streams.mixins.json"
 [[dependencies.ultraterraforged]]
     modId="alexscaves"
     type="optional"
-    versionRange="[2.0.10,2.0.11)"
+    versionRange="[2.0.10,)"
     ordering="AFTER"
     side="BOTH"
 

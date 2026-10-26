@@ -119,6 +119,10 @@ public final class WaterLevels {
 			water[i] = height(level, levels);
 		}
 		// it meets the water it flows into at that water's level, stepping up or down to it
+		water[water.length - 1] = mouth;
+		// a fork whose last stretches lie below the river it flows into would hold that river's water back at a step: they
+		// rise to its level where the land beside them is high enough (audit A05)
+		raiseMouthApproach(water, lowest, mouth, levels);
 		int[] profile = new int[water.length];
         for (int i=0; i<profile.length; i++) profile[i] = levels.scale(water[i]);
         profile[profile.length - 1] = levels.scale(mouth);
@@ -144,12 +148,30 @@ public final class WaterLevels {
 
 	// the top water block of the next stretch of a river, from the last one's and the lowest land beside this one; never
 	// below the sea, which fills anything lower
-	static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
-        for (int i=blocks.length-2; i>=0; i--) {
-            int lowestSafeLevel = Math.max(levels.waterY, (int) Math.ceil((lowest[i]-gorge)*levels.worldHeight));
-            int preferred = blocks[i+1] + MAX_FALL_PER_REACH;
-            if (blocks[i]>preferred) blocks[i]=Math.min(blocks[i], Math.max(lowestSafeLevel, preferred));
+	static void raiseMouthApproach(float[] water, float[] lowest, float mouth, Levels levels) {
+        int mouthY = levels.scale(mouth);
+        for (int i = water.length - 2; i >= 0 && water[i] < mouth; i--) {
+            // TNK interpolates water between samples. A raised endpoint belongs
+            // to the previous stretch too, so both stretches must contain it.
+            // Upstream's stepped profile only needed the current stretch.
+            float bank = i > 0 ? Math.min(lowest[i - 1], lowest[i]) : lowest[i];
+            int raised = Math.min(mouthY, (int) Math.floor(bank * levels.worldHeight) - MARGIN);
+            if (raised <= levels.scale(water[i])) break;
+            water[i] = height(raised, levels);
         }
+    }
+
+    static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
+        // A fixed junction has to win over the preferred gorge depth. Keeping the
+        // gorge floor here used to retain drops of dozens of blocks at the mouth.
+        for (int i=blocks.length-2; i>=0; i--) {
+            // Follow naturally steep banks with bounded rapids, instead of
+            // flattening a mountain approach into an unnecessarily deep trench.
+            float bankFall = (lowest[i] - lowest[i + 1]) * levels.worldHeight;
+            int fall = MAX_FALL_PER_REACH + Math.min(3, Math.max(0, (int) (bankFall / 4)));
+            blocks[i] = Math.min(blocks[i], blocks[i+1] + fall);
+        }
+
     }
 
     private static int step(int level, float lowest, float gorge, Levels levels) {
@@ -377,7 +399,7 @@ public final class WaterLevels {
 		}
 
 		private float ground(float x, float z) {
-			return this.heightmap.sampleGround(x, z).height;
+			return this.heightmap.sampleDrainageGround(x, z).height;
 		}
 
 		private float ground(int gridX, int gridZ) {

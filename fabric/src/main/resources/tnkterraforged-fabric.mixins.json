@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.pandaismyname1.ultraterraforged.fabric.mixin",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "MixinPresetEditor"
+  ],
+  "mixins": [
+    "MixinMinecraftServer",
+    "ChunkGeneratorAccessor",
+    "MixinBiomeModificationImpl",
+    "MixinFabricDataGenerator$Pack"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
