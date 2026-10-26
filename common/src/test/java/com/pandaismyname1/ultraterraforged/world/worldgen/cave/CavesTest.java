@@ -258,18 +258,24 @@ public class CavesTest {
 		world.carve(cavern.x() - reach, cavern.z() - reach, cavern.x() + reach, cavern.z() + reach, caverns);
 		int air = world.count(BlockState::isAir);
 		int water = world.count((state) -> state.is(Blocks.WATER));
-		// columns of stone left standing inside it, which go down through the lake to its bed rather than hang over it
+		// TNK pillars curve: test face-connected support through the lake rather
+		// than requiring every surface block to have stone at the same X/Z below.
 		int pillars = 0;
 		int hanging = 0;
 		int cy = (int) cavern.y();
-		int lake = (int) (cavern.y() - cavern.radiusY() * 0.55F);
+		int lake = (int) (cavern.y() - cavern.radiusY() * 0.53F);
+		int centerX = (int) cavern.x(), centerZ = (int) cavern.z();
+		int radiusX = (int) cavern.radiusX() / 2 + 8;
+		int radiusZ = (int) cavern.radiusZ() / 2 + 8;
+		var supported = supportedRock(world, centerX - radiusX, centerX + radiusX,
+				centerZ - radiusZ, centerZ + radiusZ, lake - 2, cy);
 		for (int dx = (int) -cavern.radiusX() / 2; dx < cavern.radiusX() / 2; dx++) {
 			for (int dz = (int) -cavern.radiusZ() / 2; dz < cavern.radiusZ() / 2; dz++) {
 				int x = (int) cavern.x() + dx;
 				int z = (int) cavern.z() + dz;
 				if (world.get(x, cy, z).is(Blocks.STONE)) {
 					pillars++;
-					if (world.get(x, lake, z).is(Blocks.WATER) || world.get(x, lake - 2, z).is(Blocks.WATER)) {
+					if (!supported.contains(net.minecraft.core.BlockPos.asLong(x, cy, z))) {
 						hanging++;
 					}
 				}
@@ -284,6 +290,32 @@ public class CavesTest {
 		assertTrue(pillars > 10, "only " + pillars + " stone columns in the middle");
 		assertEquals(0, hanging, hanging + " of " + pillars + " pillars end above the lake instead of standing in it");
 	}
+
+    private static java.util.Set<Long> supportedRock(CaveWorld world, int minX, int maxX,
+            int minZ, int maxZ, int bottom, int top) {
+        var connected = new java.util.HashSet<Long>();
+        var queue = new java.util.ArrayDeque<net.minecraft.core.BlockPos>();
+        for (int x = minX; x <= maxX; x++) for (int z = minZ; z <= maxZ; z++) {
+            if (world.get(x, bottom, z).is(Blocks.STONE)) {
+                var pos = new net.minecraft.core.BlockPos(x, bottom, z);
+                connected.add(pos.asLong());
+                queue.add(pos);
+            }
+        }
+        while (!queue.isEmpty()) {
+            var pos = queue.removeFirst();
+            for (var direction : net.minecraft.core.Direction.values()) {
+                var next = pos.relative(direction);
+                if (next.getX() < minX || next.getX() > maxX || next.getZ() < minZ || next.getZ() > maxZ
+                        || next.getY() < bottom || next.getY() > top || connected.contains(next.asLong())) continue;
+                if (world.get(next.getX(), next.getY(), next.getZ()).is(Blocks.STONE)) {
+                    connected.add(next.asLong());
+                    queue.add(next);
+                }
+            }
+        }
+        return connected;
+    }
 
 	@Test
 	void glacierCavesAreWalledWithIce() throws IOException {
