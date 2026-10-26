@@ -68,9 +68,12 @@ class CavernStyleTest {
         carving.clear(5,-30,5,-20);
         assertTrue(world.get(5,-30,5).isAir(),"later pool floated inside an open cavern");
         carving.clear(6,-30,5,-20);
+        carving.clear(6,-29,5,-20);
         assertTrue(world.get(6,-30,5).is(Blocks.WATER));
         carving.clear(6,-30,5,CaveCarving.DRY);
         assertTrue(world.get(6,-30,5).isAir(),"later dry cave left a water ball behind");
+        carving.clear(6,-29,5,CaveCarving.DRY);
+        assertTrue(world.get(6,-29,5).isAir(),"stacked authored pool did not drain");
     }
 
     @Test void neighboringStructureStartProtectsItsPiecesInThisChunk() {

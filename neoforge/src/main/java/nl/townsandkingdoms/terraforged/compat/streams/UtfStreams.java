@@ -25,7 +25,8 @@ public final class UtfStreams {
     public static final ModConfigSpec.IntValue SCAN_RADIUS;
     static {
         var b = new ModConfigSpec.Builder();
-        ENABLED = b.define("enabled", true);
+        ENABLED = b.comment("Enable TNK's additional actual-water corrections. Upstream native river layers follow Streams' own options.")
+                .define("enabled", true);
         ACTUAL_WATER = b.comment("Validate final baked-fluid and boat currents against connected water in loaded chunks.").define("correctActualWaterFlow", true);
         SCAN_RADIUS = b.defineInRange("actualWaterScanRadius", 16, 4, 32);
         SPEC = b.build();
