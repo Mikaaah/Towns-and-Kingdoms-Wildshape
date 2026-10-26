@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
-import com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags;
 import com.pandaismyname1.ultraterraforged.world.worldgen.cell.Cell;
 import com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.Rivermap;
 import com.pandaismyname1.ultraterraforged.world.worldgen.cell.noise.CellSampler;
@@ -19,7 +18,9 @@ public class WorldLookup {
 	private float beachLevel;
 	private TileCache cache;
 	private Levels levels;
-	
+	// whether chunks are generated only as high as their terrain: off for a world preview, which reads every section
+	private volatile boolean cullNoiseSections = true;
+
 	public WorldLookup(GeneratorContext context) {
 		this.context = context;
 		this.cache = context.cache;
@@ -28,17 +29,21 @@ public class WorldLookup {
 		this.levels = context.levels;
 	}
 
+	public void setCullNoiseSections(boolean cullNoiseSections) {
+		this.cullNoiseSections = cullNoiseSections;
+	}
+
 	public int getGenerationHeight(int chunkX, int chunkZ, NoiseGeneratorSettings generatorSettings, boolean load) {
 		NoiseSettings noiseSettings = generatorSettings.noiseSettings();
-		
+
 		int minY = noiseSettings.minY();
 		int genHeight = noiseSettings.height();
 		int cellHeight = noiseSettings.getCellHeight();
-		
-		if(!WorldGenFlags.cullNoiseSections()) {
+
+		if(!this.cullNoiseSections) {
 			return genHeight;
 		}
-		
+
 		@Nullable
 		Tile tile = load ? this.cache.provideAtChunk(chunkX, chunkZ) : this.cache.provideAtChunkIfPresent(chunkX, chunkZ);
 		if(tile != null) {
@@ -92,10 +97,10 @@ public class WorldLookup {
 	public boolean compute(Cell cell, int x, int z) {
 		Heightmap heightmap = this.context.localHeightmap.get();
 		CellSampler.Provider cellProvider = heightmap.cellProvider();
-		
+
 		@Nullable
 		Cell oldCell = cellProvider.getCacheCell();
-		
+
 		cellProvider.setCacheCell(cell);
 		try {
 			heightmap.applyContinent(cell, x, z);

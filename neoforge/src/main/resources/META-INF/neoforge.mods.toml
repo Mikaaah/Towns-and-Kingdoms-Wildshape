@@ -20,9 +20,6 @@ config="tnkterraforged-common.mixins.json"
 config="tnkterraforged-neoforge.mixins.json"
 
 [[mixins]]
-config="tnkterraforged-alex-caves.mixins.json"
-
-[[mixins]]
 config="tnkterraforged-streams.mixins.json"
 
 [[dependencies.ultraterraforged]]
@@ -49,7 +46,7 @@ config="tnkterraforged-streams.mixins.json"
 [[dependencies.ultraterraforged]]
     modId="alexscaves"
     type="optional"
-    versionRange="[2.0.10,2.0.11)"
+    versionRange="[2.0.10,)"
     ordering="AFTER"
     side="BOTH"
 

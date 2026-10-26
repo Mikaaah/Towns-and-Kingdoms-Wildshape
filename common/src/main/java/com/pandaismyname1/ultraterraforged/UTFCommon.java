@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
+import com.pandaismyname1.ultraterraforged.compat.streams.StreamsCompat;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBCompat;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBSurfaceRules;
 import com.pandaismyname1.ultraterraforged.data.preset.settings.Preset;
@@ -54,18 +55,22 @@ public class UTFCommon {
 		StructureRules.bootstrap();
 
 		UTFCommands.bootstrap();
-		
+
 		if(TBCompat.isEnabled()) {
 			TBCompat.bootstrap();
 		}
-		
+
+		if(StreamsCompat.isEnabled()) {
+			StreamsCompat.bootstrap();
+		}
+
 		UTFRegistries.createDataRegistry(UTFRegistries.NOISE, Noise.DIRECT_CODEC);
 		UTFRegistries.createDataRegistry(UTFRegistries.BIOME_MODIFIER, BiomeModifier.CODEC);
 		UTFRegistries.createDataRegistry(UTFRegistries.STRUCTURE_RULE, StructureRule.CODEC);
 		UTFRegistries.createDataRegistry(UTFRegistries.SURFACE_LAYERS, LayeredSurfaceRule.Layer.CODEC);
 		UTFRegistries.createDataRegistry(UTFRegistries.PRESET, Preset.CODEC);
 	}
-	
+
 	public static ResourceLocation location(String name) {
 		if (name.contains(":")) return ResourceLocation.parse(name);
 		return ResourceLocation.fromNamespaceAndPath(UTFCommon.MOD_ID, name);

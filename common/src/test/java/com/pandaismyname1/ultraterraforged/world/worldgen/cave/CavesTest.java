@@ -1,5 +1,6 @@
 package com.pandaismyname1.ultraterraforged.world.worldgen.cave;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -257,13 +258,20 @@ public class CavesTest {
 		world.carve(cavern.x() - reach, cavern.z() - reach, cavern.x() + reach, cavern.z() + reach, caverns);
 		int air = world.count(BlockState::isAir);
 		int water = world.count((state) -> state.is(Blocks.WATER));
-		// columns of stone left standing inside it
+		// columns of stone left standing inside it, which go down through the lake to its bed rather than hang over it
 		int pillars = 0;
+		int hanging = 0;
 		int cy = (int) cavern.y();
+		int lake = (int) (cavern.y() - cavern.radiusY() * 0.55F);
 		for (int dx = (int) -cavern.radiusX() / 2; dx < cavern.radiusX() / 2; dx++) {
 			for (int dz = (int) -cavern.radiusZ() / 2; dz < cavern.radiusZ() / 2; dz++) {
-				if (world.get((int) cavern.x() + dx, cy, (int) cavern.z() + dz).is(Blocks.STONE)) {
+				int x = (int) cavern.x() + dx;
+				int z = (int) cavern.z() + dz;
+				if (world.get(x, cy, z).is(Blocks.STONE)) {
 					pillars++;
+					if (world.get(x, lake, z).is(Blocks.WATER) || world.get(x, lake - 2, z).is(Blocks.WATER)) {
+						hanging++;
+					}
 				}
 			}
 		}
@@ -274,6 +282,7 @@ public class CavesTest {
 		assertTrue(air > 100000, "only " + air + " blocks of air");
 		assertTrue(water > 3000, "only " + water + " blocks of lake");
 		assertTrue(pillars > 10, "only " + pillars + " stone columns in the middle");
+		assertEquals(0, hanging, hanging + " of " + pillars + " pillars end above the lake instead of standing in it");
 	}
 
 	@Test
@@ -317,6 +326,22 @@ public class CavesTest {
 		int air = world.count(BlockState::isAir);
 		System.out.printf("rock shelters: %d blocks of air%n", air);
 		assertTrue(air > 200, "only " + air + " blocks of air");
+	}
+
+	@Test
+	void waterIsNotLeftHanging() {
+		CaveWorld world = world("default");
+		CaveCarving carving = world.probe();
+		int ground = world.ground(5, 5);
+		// a lake's water on the ground, as RaisedWater puts it in before the caves
+		carving.set(5, ground + 1, 5, Blocks.WATER.defaultBlockState());
+		carving.hollow(5.5F, ground - 4, 5.5F, 4.0F, 6.0F, 4.0F, CaveCarving.DRY, CaveCarving.OPEN);
+		assertTrue(world.get(5, ground, 5).is(Blocks.STONE), "the bed of the lake was carved away");
+		assertTrue(world.get(5, ground - 1, 5).isAir(), "the cave under the bed wasn't carved");
+		assertTrue(world.get(6, ground, 5).isAir(), "the ground beside the lake wasn't carved");
+		// a flooded cave may open under it
+		carving.hollow(5.5F, ground - 4, 5.5F, 4.0F, 6.0F, 4.0F, ground, CaveCarving.OPEN);
+		assertTrue(world.get(5, ground, 5).is(Blocks.WATER), "the flooded cave didn't reach the lake");
 	}
 
 	@Test

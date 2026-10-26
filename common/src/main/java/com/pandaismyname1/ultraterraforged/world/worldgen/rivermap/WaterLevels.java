@@ -119,6 +119,17 @@ public final class WaterLevels {
 			water[i] = height(level, levels);
 		}
 		// it meets the water it flows into at that water's level, stepping up or down to it
+		water[water.length - 1] = mouth;
+		// a fork whose last stretches lie below the river it flows into would hold that river's water back at a step: they
+		// rise to its level where the land beside them is high enough (audit A05)
+		int mouthY = (int) Math.floor(mouth * levels.worldHeight);
+		for (int i = water.length - 2; i >= 0 && water[i] < mouth; i--) {
+			int raised = Math.min(mouthY, (int) Math.floor(lowest[i] * levels.worldHeight) - MARGIN);
+			if (raised <= (int) Math.floor(water[i] * levels.worldHeight)) {
+				break;
+			}
+			water[i] = height(raised, levels);
+		}
 		int[] profile = new int[water.length];
         for (int i=0; i<profile.length; i++) profile[i] = levels.scale(water[i]);
         profile[profile.length - 1] = levels.scale(mouth);

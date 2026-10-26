@@ -1,8 +1,10 @@
 name: TNKTerraForged Streams 2.15.2 smoke
 on:
   push:
-    branches: [fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
+    branches: [update/upstream-1.0.3-tnk, fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
     paths:
+      - 'common/src/main/java/com/pandaismyname1/ultraterraforged/compat/streams/**'
+      - 'common/src/main/java/com/pandaismyname1/ultraterraforged/mixin/streams/**'
       - 'neoforge/src/main/java/nl/townsandkingdoms/terraforged/compat/streams/**'
       - 'common/src/main/java/com/pandaismyname1/ultraterraforged/world/worldgen/**'
       - 'neoforge/src/main/resources/tnkterraforged-streams.mixins.json'
@@ -84,7 +86,7 @@ jobs:
           d=json.load(open(p,encoding='utf8'))
           print(json.dumps(d,indent=2)[:9000])
           assert d.get('passed') is True, 'Native current integration failed: '+str(d.get('error'))
-          assert d.get('nativeRiverDirectionHasPriority'), 'Priority flow override not validated'
+          assert d.get('nativeLayerAndStreamsLayerPreserved'), 'Native and Streams layers were not preserved'
           assert d.get('fullGridAndServerPhysicsPassed'), 'Physics grid not validated'
           assert d.get('packetCodecAndClientLookupPassed'), 'Packet round-trip not validated'
           PY

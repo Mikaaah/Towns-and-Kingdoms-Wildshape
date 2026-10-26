@@ -238,6 +238,10 @@ public final class CaveCarving {
 		// Another cave may already be open here. Filling that air makes a
 		// free-standing ellipsoid of water in the middle of a large chamber.
 		if (fill == WATER && state.isAir()) return;
+        // Preserve the bed beneath existing fluid, as in upstream's #9 fix.
+        // Stay within this generation chunk and reset the mutable position.
+        if (fill == AIR && !this.chunk.getBlockState(this.pos.set(x, y + 1, z)).getFluidState().isEmpty()) return;
+        this.pos.set(x, y, z);
 		if (state != fill) {
             if (fill == WATER) this.authoredWater.set(bit);
             else this.authoredWater.clear(bit);
