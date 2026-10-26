@@ -183,7 +183,7 @@ public class RaisedWaterTest {
 		long legacyDepth = 0;
 		int cells = 0;
 		int raised = 0;
-		for (float[] spot : riverSpots(preset, 5)) {
+		for (float[] spot : riverSpots(preset, 8)) {
 			TerrainViews.View view = TerrainViews.view(preset, spot[0], spot[1], 1.0F);
 			TerrainViews.View old = TerrainViews.view(legacy, spot[0], spot[1], 1.0F);
 			for (int x = 32; x < view.size() - 32; x += 2) {

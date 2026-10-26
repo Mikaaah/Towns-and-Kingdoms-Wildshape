@@ -122,14 +122,7 @@ public final class WaterLevels {
 		water[water.length - 1] = mouth;
 		// a fork whose last stretches lie below the river it flows into would hold that river's water back at a step: they
 		// rise to its level where the land beside them is high enough (audit A05)
-		int mouthY = (int) Math.floor(mouth * levels.worldHeight);
-		for (int i = water.length - 2; i >= 0 && water[i] < mouth; i--) {
-			int raised = Math.min(mouthY, (int) Math.floor(lowest[i] * levels.worldHeight) - MARGIN);
-			if (raised <= (int) Math.floor(water[i] * levels.worldHeight)) {
-				break;
-			}
-			water[i] = height(raised, levels);
-		}
+		raiseMouthApproach(water, lowest, mouth, levels);
 		int[] profile = new int[water.length];
         for (int i=0; i<profile.length; i++) profile[i] = levels.scale(water[i]);
         profile[profile.length - 1] = levels.scale(mouth);
@@ -155,7 +148,20 @@ public final class WaterLevels {
 
 	// the top water block of the next stretch of a river, from the last one's and the lowest land beside this one; never
 	// below the sea, which fills anything lower
-	static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
+	static void raiseMouthApproach(float[] water, float[] lowest, float mouth, Levels levels) {
+        int mouthY = levels.scale(mouth);
+        for (int i = water.length - 2; i >= 0 && water[i] < mouth; i--) {
+            // TNK interpolates water between samples. A raised endpoint belongs
+            // to the previous stretch too, so both stretches must contain it.
+            // Upstream's stepped profile only needed the current stretch.
+            float bank = i > 0 ? Math.min(lowest[i - 1], lowest[i]) : lowest[i];
+            int raised = Math.min(mouthY, (int) Math.floor(bank * levels.worldHeight) - MARGIN);
+            if (raised <= levels.scale(water[i])) break;
+            water[i] = height(raised, levels);
+        }
+    }
+
+    static void easeMouthTransition(int[] blocks, float[] lowest, float gorge, Levels levels) {
         // A fixed junction has to win over the preferred gorge depth. Keeping the
         // gorge floor here used to retain drops of dozens of blocks at the mouth.
         for (int i=blocks.length-2; i>=0; i--) {

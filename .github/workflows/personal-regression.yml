@@ -20,6 +20,10 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+      - name: Check merged river bank and junction behavior first
+        run: |
+          chmod +x gradlew
+          ./gradlew :common:test --tests '*WaterContinuityTest' --tests '*RaisedWaterTest.waterStaysInItsBanks' --tests '*RaisedWaterTest.forksStepIntoTheirRiverGently' --tests '*RaisedWaterTest.riversRunNearTheLandNotInTrenches' -Putf.perfMods=false --no-daemon --stacktrace
       - name: Run affected core tests
         run: |
           chmod +x gradlew
