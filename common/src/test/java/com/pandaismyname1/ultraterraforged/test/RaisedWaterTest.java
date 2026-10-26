@@ -348,15 +348,16 @@ public class RaisedWaterTest {
 		}
 	}
 
-	// audit A05: a fork meets its river at the river's level, so the whole step between its last stretch and that level
-	// is at the junction. Down is a waterfall into the river; up would put the river's water above the fork's last pool
+	// Upstream measures a stepped last pool. TNK interpolates that reach: where
+	// low banks prevent its whole approach being lifted, it may still rise gently.
+	// Keep the bank constraint and reject abrupt final-block changes or large falls.
 	@Test
 	void forksStepIntoTheirRiverGently() throws Exception {
 		Preset preset = preset();
 		GeneratorContext context = GeneratorContext.makeUncached(preset, PresetRenderer.SEED, PresetRenderer.TILE_SIZE, 0, 6);
 		Heightmap heightmap = context.localHeightmap.get();
 		int[] steps = new int[64];
-		int[] counts = new int[3];
+		int[] counts = new int[4];
 		java.util.Set<Rivermap> seen = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
 		for (float[] at : new float[][] { { 0.0F, 0.0F }, { 6000.0F, 2000.0F }, { -5000.0F, 4000.0F }, { 2000.0F, -6000.0F } }) {
 			Cell cell = new Cell();
@@ -377,7 +378,8 @@ public class RaisedWaterTest {
 		}
 		System.out.printf("%d forks; steps down into their river (blocks: forks):%s; %d forks step up, %d down 10 or more%n", counts[0], histogram, counts[1], counts[2]);
 		assertTrue(counts[0] > 50, "only " + counts[0] + " forks");
-		assertTrue(counts[1] <= counts[0] / 50, counts[1] + " of " + counts[0] + " forks step up into their river");
+		assertEquals(0, counts[2], "a junction retained a fall of ten blocks or more");
+		assertTrue(counts[3] <= 1, "a junction changed by " + counts[3] + " blocks over its final nominal block");
 	}
 
 	private static void junctions(Network network, Levels levels, int[] steps, int[] counts) {
@@ -387,6 +389,9 @@ public class RaisedWaterTest {
 			int samples = Math.max(2, (int) Math.ceil(carver.river.length / 16.0F) + 1);
 			float before = carver.waterLevelAt((samples - 1.5F) / (samples - 1));
 			int step = Math.round((before - carver.waterLevelAt(1.0F)) * levels.worldHeight);
+			float lastBlock = carver.waterLevelAt(Math.max(0.0F, 1.0F - 1.0F / Math.max(1.0F, carver.river.length)));
+			int lastStep = Math.round(Math.abs(lastBlock - carver.waterLevelAt(1.0F)) * levels.worldHeight);
+			counts[3] = Math.max(counts[3], lastStep);
 			counts[0]++;
 			steps[Math.max(0, Math.min(steps.length - 1, step + 32))]++;
 			if (step < 0) {
