@@ -6,6 +6,17 @@ import com.pandaismyname1.ultraterraforged.world.worldgen.heightmap.Levels;
 import com.pandaismyname1.ultraterraforged.world.worldgen.terrain.populator.RiverPopulator;
 
 class WaterContinuityTest {
+    @Test void tributaryUpliftRespectsBothInterpolatedBanks() {
+        Levels levels = new Levels(384, 63);
+        float[] water = {50/384f, 50/384f, 50/384f, 70/384f};
+        float[] land = {60/384f, 80/384f, 80/384f, 80/384f};
+        WaterLevels.raiseMouthApproach(water, land, 70/384f, levels);
+        assertTrue(levels.scale(water[0]) <= 58);
+        assertTrue(levels.scale(water[1]) <= 58, "uplift overflowed the previous interpolated stretch");
+        assertEquals(70, levels.scale(water[2]));
+        assertEquals(70, levels.scale(water[3]));
+    }
+
     @Test void forcedRiverJunctionDropSpreadsOverFeasibleReaches() {
         Levels levels = new Levels(384, 63);
         int[] profile = {100, 100, 100, 100, 90};

@@ -77,7 +77,7 @@ public final class IntegrationChecks {
                         "Generated river did not retain its compact current data");
                 report.put("generatedRiverSnapshotRetained", true);
                 long started = System.nanoTime();
-                var layers = NativeFlowLayers.layers(level, null, cx, cz);
+                var layers = com.pandaismyname1.ultraterraforged.compat.streams.RiverCurrents.INSTANCE.layers(level, null, cx, cz);
                 report.put("sampleLayerBuildMs", (System.nanoTime() - started) / 1_000_000.0);
                 require(layers.size() == 1 && layers.getFirst().angle()[i] != -1, "No current at elevated native main river");
                 var nativeLayer = layers.getFirst();
@@ -97,9 +97,13 @@ public final class IntegrationChecks {
                 byte[] combined = (byte[])append.invoke(null, level, null, cx, cz, own);
                 require(StreamFlowGrid.layerCount(combined) >= 2, "Native layer was not registered through the API");
                 require(StreamFlowGrid.layerAt(combined, i, s.surfaceY()) == 0
-                        && StreamFlowGrid.angleOf(combined, s.x(), s.z(), s.surfaceY()) == StreamFlowGrid.encode(s.dx(), s.dz()),
-                        "Native layer did not correct a conflicting current");
-                report.put("nativeRiverDirectionHasPriority", true);
+                        && StreamFlowGrid.angleOf(combined, s.x(), s.z(), s.surfaceY()) == 64,
+                        "The native producer overwrote Streams' own stream layer");
+                boolean appendedNative = false;
+                for (int layer = 1; layer < StreamFlowGrid.layerCount(combined); layer++)
+                    if (combined[layer * StreamFlowGrid.LAYER + i] == nativeLayer.angle()[i]) appendedNative = true;
+                require(appendedNative, "Native current layer missing after Streams' own layer");
+                report.put("nativeLayerAndStreamsLayerPreserved", true);
                 require(own[i] == 64, "Composition mutated the original Streams grid");
                 report.put("originalGridPreserved", true);
 

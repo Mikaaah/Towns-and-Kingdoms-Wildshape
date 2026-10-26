@@ -73,6 +73,7 @@ public class ArrayPool<T> {
 
 		@Override
 		public void close() {
+			// released whether or not the pool had room to take it back: closing twice mustn't restore it twice
 			if (!this.released) {
 				this.released = true;
                 // A full pool still means this resource is closed, not reusable twice.

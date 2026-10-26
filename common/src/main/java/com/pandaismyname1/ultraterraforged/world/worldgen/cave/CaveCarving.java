@@ -230,14 +230,20 @@ public final class CaveCarving {
 		this.pos.set(x, y, z);
 		BlockState state = this.chunk.getBlockState(this.pos);
 		int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
+		boolean drainingOwnWater = water == DRY && this.authoredWater.get(bit);
 		if (state.is(Blocks.BEDROCK) || (!state.getFluidState().isEmpty()
-                && !(water == DRY && this.authoredWater.get(bit)))) {
+                && !drainingOwnWater)) {
 			return;
 		}
 		BlockState fill = y <= water ? WATER : AIR;
 		// Another cave may already be open here. Filling that air makes a
 		// free-standing ellipsoid of water in the middle of a large chamber.
 		if (fill == WATER && state.isAir()) return;
+        // Preserve the bed beneath existing fluid, as in upstream's #9 fix.
+        // Stay within this generation chunk and reset the mutable position.
+        if (fill == AIR && !drainingOwnWater
+                && !this.chunk.getBlockState(this.pos.set(x, y + 1, z)).getFluidState().isEmpty()) return;
+        this.pos.set(x, y, z);
 		if (state != fill) {
             if (fill == WATER) this.authoredWater.set(bit);
             else this.authoredWater.clear(bit);

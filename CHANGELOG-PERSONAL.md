@@ -1,5 +1,14 @@
 # TNKTerraForged — development changelog
 
+## 1.0.11+1.21.1 — Upstream 1.0.3 synchronization
+
+- Compare against upstream 1.21.1 commit `c0a1270`, using the identical 1.0.2 import as the common source base.
+- Combine upstream's tributary junction elevation fix with TNK's one-block terraces and bounded mouth smoothing.
+- Add upstream raised-water aquifer and cave-bed guards, canyon wall slopes, targeted structure rules, per-world preview culling, cache hardening, Bye Pregen and Generator Accelerator compatibility, and Fabric decoration fixes.
+- Use upstream's built-in Alex's Caves climate mapping and Streams native-current producer. Remove duplicate Alex placement and Streams grid-composition hooks; retain TNK actual-water physics corrections and bounded river snapshots. Copy Alex terrain activation into chunk-local samplers.
+- Preserve giant decorated caverns, curved pillars, piece-level structure protection, pirate coves, mushroom islands, modded surface rules, biome exclusions, Cherry Grove promotion, and disabled underwater rivers/springs.
+- Full comparison: `docs/UPSTREAM_1.0.3_COMPARISON.md`.
+
 ## 1.0.10+1.21.1 — Cave structures, water and island profile
 
 - Protect individual underground structure pieces instead of the encompassing start bounding box, so mineshafts do not leave giant rectangular areas of solid terrain inside caverns.

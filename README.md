@@ -12,24 +12,24 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 - **Better for modded dungeons:** don't globally reject Integrated, YUNG or Cataclysm structure sites because of a village-only terrain restriction. Carving tries to preserve already-known structure footprints.
 - **More exploration, fewer tiny caves:** shipped terrain presets favor large underground spaces, without forcing hard progression stages.
 - **River and memory improvements:** water transitions, cave-water repair, tile failure recovery, cache fixes and a capped worldgen worker pool inherited from the source audit.
-- **Optional Alex's Caves support (NeoForge):** compatibility from Mikaaah's own Alex's Caves fix is integrated without requiring the port for normal play.
+- **Optional Alex's Caves support (NeoForge):** upstream's built-in climate adaptation replaces the older duplicate placement adapter. Alex's Caves remains optional.
 
 ## Editions
 
 | Edition | Minecraft | Details |
 | --- | --- | --- |
-| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
-| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
+| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Primary TNK3 build; native Alex/Streams compatibility and actual-water corrections |
+| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Shared terrain core and native Streams producer; no NeoForge-specific water corrections |
 
 ### Technical compatibility: legacy mod ID
 
 To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The project and build files use **TNKTerraForged** branding; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
-The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.9+1.21.1**.
+The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.11+1.21.1**.
 
 ## Dungeon and biome compatibility
 
-The first integration uses **vanilla structure starts** to protect generated dungeon footprints; no dependency on an individual dungeon mod is introduced. The old globally applied village-only structure placement veto is disabled to prevent rejecting modded dungeon candidates.
+The first integration uses **vanilla structure starts** to protect generated dungeon footprints; no dependency on an individual dungeon mod is introduced. Upstream's structure-target-aware rules apply village restrictions only to villages, leaving modded dungeon candidates alone.
 
 The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated Dungeons & Structures, Integrated Dungeons Arise, Integrated Stronghold, Integrated Cataclysm, YUNG's Better Dungeons, Cataclysm, Alex's Caves, Biomes O' Plenty, Oh The Biomes We've Gone, Twilight Forest and the Nether/End overhauls**. Mod-list presence is based on pack planning documents, not an automatically verified running instance.
 
@@ -37,9 +37,9 @@ The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated 
 
 ### Built-in Streams Reflowing compatibility (NeoForge)
 
-The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Reflowing 0.2.1](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents) is integrated into TNKTerraForged's **NeoForge 1.21.1** edition. When optional **Streams Reflowing 2.15.2** is installed, TNKTerraForged provides height-aware native river currents and corrects current directions using nearby loaded water—including boats, water particles and baked stream blocks—while respecting explicit manual Flow Control overrides.
+Upstream's built-in native river-current producer now supplies Streams layers in both editions. TNK retains bounded terrain snapshots to avoid regenerating tiles for current queries. When optional **Streams Reflowing 2.15.2** is installed, TNKTerraForged provides height-aware native river currents and corrects current directions using nearby loaded water—including boats, water particles and baked stream blocks—while respecting explicit manual Flow Control overrides.
 
-**Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. Fabric does not yet include this adapter. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
+**Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. The additional actual-water corrections remain NeoForge-specific. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
 
 See the [1.0.3 water and performance notes](docs/TNK3_WATER_PERFORMANCE_FIX.md) for the fixes, configuration migration and test scope.
 
@@ -64,11 +64,15 @@ Read the [technical changelog](CHANGELOG-PERSONAL.md) and [23-finding audit matr
 - **ReTerraForged:** [raccoonman](https://github.com/racoonman2/ReTerraForged) and contributors
 - **TerraForged:** [dags](https://github.com/TerraForged/TerraForged) and contributors
 
-Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution includes your GPL-3.0-licensed Alex's Caves integration; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Branding does not remove upstream attribution or existing obligations.
+Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution retains GPL-3.0-licensed actual-water correction code from the earlier compatibility integration; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Branding does not remove upstream attribution or existing obligations.
 
 ### TNK3 biome exclusions
 
 The [24 excluded biomes](docs/TNK3_BIOME_EXCLUSIONS.md) are replaced during natural generation in TNKTerraForged worlds. BOP Grassland remains enabled; biome registrations, blocks, items and existing chunks are preserved. Version 1.0.9 carries this filter into chunk-local climate samplers and makes Cherry Groves more common in Meadow regions of TNK3 terrain.
+
+### Upstream synchronization (1.0.11)
+
+Compared against upstream `1.21.1` at `c0a12700e34bcf7e940ac248a4450a8e6225c2c3`. See the [comparison and retained TNK behavior](docs/UPSTREAM_1.0.3_COMPARISON.md). Giant cavern geometry, biome exclusions, native mod surfaces, pirate coves and gentle river transitions are retained.
 
 ### Structure compatibility (1.0.8)
 

@@ -43,6 +43,8 @@ public class ClientTest implements ClientModInitializer {
 	// with -Dultraterraforged.clienttest.tour=true: a default world, visiting each of these, as /utf locate finds them
 	private static final boolean TOUR = Boolean.getBoolean("ultraterraforged.clienttest.tour");
 	private static final String[] TOUR_STOPS = System.getProperty("ultraterraforged.clienttest.stops", "river,salt_flat,alluvial_fan,glacial_valley,cirque,drumlins,moraine,barrier_island,karst,sinkhole,delta,wetland,lake,peninsula,coastal_island,sand_bar,skerry,volcanic_island,river_island,submarine_canyon,seamount,guyot,blue_hole,coral_reef,ocean_trench,ocean_ridge,sand_waves").split(",");
+	// with -Dultraterraforged.clienttest.seed=<seed>: the tour's world has that seed, so two runs can be compared
+	private static final String SEED = System.getProperty("ultraterraforged.clienttest.seed", "");
 	private static final String SAVED_PRESET = "ClientTest Preset";
 
 	private final Path out = Path.of(System.getProperty("ultraterraforged.clienttest.out", "clienttest"));
@@ -209,7 +211,17 @@ public class ClientTest implements ClientModInitializer {
 			this.log("screen after reopening: " + (mc.screen == null ? "none (in world)" : mc.screen.getClass().getSimpleName() + " '" + mc.screen.getTitle().getString() + "'"));
 			this.log("in world: " + (mc.level != null));
 			this.screenshot("12_reopened");
+			// a reopened world has its feature order worked out before the server applies the biome modifiers (issue
+			// #11): new chunks with UTF's trees must still decorate
+			IntegratedServer server = mc.getSingleplayerServer();
+			server.execute(() -> this.command(server, "execute as @a at @s run tp @s ~3000 200 ~3000"));
+		});
+		this.step("new chunks after reopening", () -> true, 400, () -> {
+			IntegratedServer server = mc.getSingleplayerServer();
+			this.log("still in world after new chunks: " + (mc.level != null && server != null && server.isRunning()));
+			this.screenshot("14_reopened_new_chunks");
 			this.log("done");
+			this.exitOnceStopped();
 			mc.stop();
 		});
 
@@ -220,6 +232,9 @@ public class ClientTest implements ClientModInitializer {
 		this.step("title screen", () -> mc.screen instanceof TitleScreen, 40, () -> CreateWorldScreen.openFresh(mc, mc.screen));
 		this.step("create world screen", () -> mc.screen instanceof CreateWorldScreen, 40, () -> {
 			this.log("ultraterraforged selected: " + TerrainState.of((CreateWorldScreen) mc.screen).isUltraTerraForgedSelected() + ", preset " + TerrainState.of((CreateWorldScreen) mc.screen).name().getString());
+			if (!SEED.isEmpty()) {
+				((CreateWorldScreen) mc.screen).getUiState().setSeed(SEED);
+			}
 			this.button(mc.screen, "Create New World").onPress();
 		});
 		this.step("world loaded", () -> mc.level != null && mc.player != null, 200, () -> {
@@ -263,8 +278,21 @@ public class ClientTest implements ClientModInitializer {
 				}
 				this.screenshot("tour_" + stop);
 				IntegratedServer server = mc.getSingleplayerServer();
-				server.execute(() -> this.surfaceStats(server.overworld(), target, stop));
+				server.execute(() -> {
+					this.surfaceStats(server.overworld(), target, stop);
+					this.waterPockets(server.overworld(), target, stop);
+				});
 			});
+			if (stop.equals("river") || stop.equals("delta")) {
+				this.step("currents at " + stop, () -> true, 20, () -> {
+					BlockPos target = this.located;
+					if (target == null) {
+						return;
+					}
+					IntegratedServer server = mc.getSingleplayerServer();
+					server.execute(() -> this.currents(server.overworld(), target, stop));
+				});
+			}
 			if (stop.equals("glacial_valley") || stop.equals("cirque")) {
 				this.step("snow at " + stop, () -> true, 20, () -> {
 					BlockPos target = this.located;
@@ -277,9 +305,138 @@ public class ClientTest implements ClientModInitializer {
 			}
 		}
 		this.step("done", () -> true, 20, () -> {
+			this.log("seed " + mc.getSingleplayerServer().overworld().getSeed() + "; water pockets in all: " + this.pocketColumns + " of " + this.waterColumns + " raised-water columns");
+			this.log("blocks Streams Reflowing's rivers were kept from carving: " + com.pandaismyname1.ultraterraforged.compat.streams.StreamsCompat.kept());
 			this.log("done");
+			this.exitOnceStopped();
 			mc.stop();
 		});
+	}
+
+	// columns of still water above the sea with air under it, in the loaded chunks around a place: caves cut into
+	// rivers and lakes (#9). Flowing water is left out, as it may be caught moving
+	private int waterColumns;
+	private int pocketColumns;
+
+	private void waterPockets(ServerLevel level, BlockPos center, String name) {
+		int columns = 0, pockets = 0, air = 0;
+		List<String> examples = new ArrayList<>();
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+		for (int cx = (center.getX() >> 4) - 6; cx <= (center.getX() >> 4) + 6; cx++) {
+			for (int cz = (center.getZ() >> 4) - 6; cz <= (center.getZ() >> 4) + 6; cz++) {
+				net.minecraft.world.level.chunk.LevelChunk chunk = level.getChunkSource().getChunkNow(cx, cz);
+				if (chunk == null) {
+					continue;
+				}
+				for (int dx = 0; dx < 16; dx++) {
+					for (int dz = 0; dz < 16; dz++) {
+						int x = (cx << 4) + dx, z = (cz << 4) + dz;
+						int top = chunk.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, dx, dz);
+						net.minecraft.world.level.block.state.BlockState state = chunk.getBlockState(pos.set(x, top, z));
+						if (top <= level.getSeaLevel() || !state.is(net.minecraft.world.level.block.Blocks.WATER) || !state.getFluidState().isSource()) {
+							continue;
+						}
+						columns++;
+						int found = 0;
+						for (int y = top - 1; y > top - 64; y--) {
+							net.minecraft.world.level.block.state.BlockState below = chunk.getBlockState(pos.set(x, y, z));
+							if (below.isAir()) {
+								found++;
+							} else if (!below.is(net.minecraft.world.level.block.Blocks.WATER)) {
+								break;
+							}
+						}
+						if (found > 0) {
+							pockets++;
+							air += found;
+							if (examples.size() < 5) {
+								examples.add(x + " " + top + " " + z);
+							}
+						}
+					}
+				}
+			}
+		}
+		this.waterColumns += columns;
+		this.pocketColumns += pockets;
+		this.log("water pockets at " + name + ": " + pockets + " of " + columns + " raised-water columns (" + air + " blocks of air) " + examples);
+	}
+
+	// with Streams Reflowing (-Putf.streams=true): the flow grids it built around a place, read by name so the test
+	// builds without it. The last layer is UltraTerraForged's (RiverCurrents); the first is Streams' own, which should
+	// have no river currents of its own in an UltraTerraForged world (MixinStreamFlowGrid)
+	private void currents(ServerLevel level, BlockPos center, String name) {
+		try {
+			Class<?> grids = Class.forName("dev.streamsreflowing.flow.StreamFlowGrid");
+			java.lang.reflect.Method peek = grids.getMethod("peek", int.class, int.class);
+			java.lang.reflect.Method layerCount = grids.getMethod("layerCount", byte[].class);
+			com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext context = ((com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState) (Object) level.getChunkSource().randomState()).generatorContext();
+			com.pandaismyname1.ultraterraforged.world.worldgen.cell.Cell cell = new com.pandaismyname1.ultraterraforged.world.worldgen.cell.Cell();
+			com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.Rivermap rivermap = null;
+			int chunks = 0, built = 0, riverColumns = 0, ours = 0, agree = 0, streamsOwn = 0;
+			java.util.Map<Integer, Integer> layers = new java.util.TreeMap<>();
+			for (int cx = (center.getX() >> 4) - 4; cx <= (center.getX() >> 4) + 4; cx++) {
+				for (int cz = (center.getZ() >> 4) - 4; cz <= (center.getZ() >> 4) + 4; cz++) {
+					chunks++;
+					byte[] grid = (byte[]) peek.invoke(null, cx, cz);
+					if (grid == null) {
+						continue;
+					}
+					built++;
+					int count = (int) layerCount.invoke(null, grid);
+					layers.merge(count, 1, Integer::sum);
+					for (int i = 0; i < 256; i++) {
+						int x = (cx << 4) + (i & 15);
+						int z = (cz << 4) + (i >> 4);
+						context.lookup.apply(cell.reset(), x, z, true);
+						if (cell.terrain == null || !cell.terrain.isRiver()) {
+							continue;
+						}
+						riverColumns++;
+						if (grid.length >= 1536 && grid[i] != -1) {
+							streamsOwn++;
+						}
+						if (count < 2) {
+							continue;
+						}
+						byte angle = grid[(count - 1) * 1536 + i];
+						if (angle == -1) {
+							continue;
+						}
+						ours++;
+						rivermap = com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.Rivermap.get(cell, rivermap, context.localHeightmap.get());
+						com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.RiverFlow.Sample sample = com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.RiverFlow.sample(rivermap, x, z);
+						double radians = (angle & 0xFF) / 255.0 * Math.PI * 2.0;
+						if (sample != null && Math.cos(radians) * sample.dirX() + Math.sin(radians) * sample.dirZ() > 0.95) {
+							agree++;
+						}
+					}
+				}
+			}
+			this.log("currents at " + name + ": " + built + " of " + chunks + " chunks have grids, layers " + layers + "; " + riverColumns + " river columns, " + ours + " with UltraTerraForged's current (" + agree + " running the river's way), " + streamsOwn + " with one in Streams' first layer");
+		} catch (ClassNotFoundException e) {
+			this.log("currents at " + name + ": no Streams Reflowing");
+		} catch (ReflectiveOperationException e) {
+			this.log("currents at " + name + ": " + e);
+		}
+	}
+
+	// The dev run's Architectury Transformer leaves two thread pools behind that keep the JVM from exiting, so the
+	// client's shutdown watchdog ended every run in a crash report and a failed task. Once the game has stopped after
+	// a run that got to the end, the JVM is let go; a run that crashed or hung still fails.
+	private void exitOnceStopped() {
+		Thread render = Thread.currentThread();
+		Thread exit = new Thread(() -> {
+			try {
+				render.join();
+				Thread.sleep(2000L);
+			} catch (InterruptedException e) {
+				return;
+			}
+			Runtime.getRuntime().halt(0);
+		}, "Client Test exit");
+		exit.setDaemon(true);
+		exit.start();
 	}
 
 	private void command(IntegratedServer server, String command) {
@@ -371,6 +528,14 @@ public class ClientTest implements ClientModInitializer {
 	private void tick() {
 		if (this.stepIndex >= this.steps.size()) {
 			return;
+		}
+		Minecraft mc = Minecraft.getInstance();
+		// a fresh run folder opens on the accessibility screen instead of the title, and a game in the background
+		// pauses, which stops the integrated server too
+		mc.options.onboardAccessibility = false;
+		mc.options.pauseOnLostFocus = false;
+		if (mc.screen instanceof net.minecraft.client.gui.screens.AccessibilityOnboardingScreen) {
+			mc.setScreen(new TitleScreen());
 		}
 		if (++this.totalTicks > (TOUR ? TIMEOUT_TICKS * 8 : TIMEOUT_TICKS)) {
 			this.log("TIMEOUT waiting for: " + this.steps.get(this.stepIndex).name() + " (screen " + Minecraft.getInstance().screen + ")");

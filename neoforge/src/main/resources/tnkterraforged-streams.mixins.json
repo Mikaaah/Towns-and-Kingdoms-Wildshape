@@ -4,8 +4,6 @@
   "package": "nl.townsandkingdoms.terraforged.compat.streams.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "StreamGridMixin",
-    "NaturalRiverFeatureMixin",
     "ActualWaterMixin",
     "ActualBakedFlowMixin",
     "ActualGridMixin"

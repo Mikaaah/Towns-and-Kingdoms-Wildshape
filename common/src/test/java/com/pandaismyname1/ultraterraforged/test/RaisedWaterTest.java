@@ -183,7 +183,7 @@ public class RaisedWaterTest {
 		long legacyDepth = 0;
 		int cells = 0;
 		int raised = 0;
-		for (float[] spot : riverSpots(preset, 5)) {
+		for (float[] spot : riverSpots(preset, 8)) {
 			TerrainViews.View view = TerrainViews.view(preset, spot[0], spot[1], 1.0F);
 			TerrainViews.View old = TerrainViews.view(legacy, spot[0], spot[1], 1.0F);
 			for (int x = 32; x < view.size() - 32; x += 2) {
@@ -345,6 +345,62 @@ public class RaisedWaterTest {
 		}
 		for (Network child : network.children()) {
 			climbs(child, heightmap, gorgeDepth, totals);
+		}
+	}
+
+	// Upstream measures a stepped last pool. TNK interpolates that reach: where
+	// low banks prevent its whole approach being lifted, it may still rise gently.
+	// Keep the bank constraint and reject abrupt final-block changes or large falls.
+	@Test
+	void forksStepIntoTheirRiverGently() throws Exception {
+		Preset preset = preset();
+		GeneratorContext context = GeneratorContext.makeUncached(preset, PresetRenderer.SEED, PresetRenderer.TILE_SIZE, 0, 6);
+		Heightmap heightmap = context.localHeightmap.get();
+		int[] steps = new int[64];
+		int[] counts = new int[4];
+		java.util.Set<Rivermap> seen = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+		for (float[] at : new float[][] { { 0.0F, 0.0F }, { 6000.0F, 2000.0F }, { -5000.0F, 4000.0F }, { 2000.0F, -6000.0F } }) {
+			Cell cell = new Cell();
+			heightmap.applyContinent(cell, at[0], at[1]);
+			Rivermap rivermap = Rivermap.get(cell, null, heightmap);
+			if (!seen.add(rivermap)) {
+				continue;
+			}
+			for (Network network : (Network[]) field(Rivermap.class, "networks").get(rivermap)) {
+				junctions(network, heightmap.levels(), steps, counts);
+			}
+		}
+		StringBuilder histogram = new StringBuilder();
+		for (int i = 0; i < steps.length; i++) {
+			if (steps[i] > 0) {
+				histogram.append(' ').append(i - 32).append(':').append(steps[i]);
+			}
+		}
+		System.out.printf("%d forks; steps down into their river (blocks: forks):%s; %d forks step up, %d down 10 or more%n", counts[0], histogram, counts[1], counts[2]);
+		assertTrue(counts[0] > 50, "only " + counts[0] + " forks");
+		assertEquals(0, counts[2], "a junction retained a fall of ten blocks or more");
+		assertTrue(counts[3] <= 1, "a junction changed by " + counts[3] + " blocks over its final nominal block");
+	}
+
+	private static void junctions(Network network, Levels levels, int[] steps, int[] counts) {
+		for (Network child : network.children()) {
+			RiverPopulator carver = child.riverCarver();
+			// the fork's last stretch, which runs up to the junction (the last sample, the river's level, is only the end point)
+			int samples = Math.max(2, (int) Math.ceil(carver.river.length / 16.0F) + 1);
+			float before = carver.waterLevelAt((samples - 1.5F) / (samples - 1));
+			int step = Math.round((before - carver.waterLevelAt(1.0F)) * levels.worldHeight);
+			float lastBlock = carver.waterLevelAt(Math.max(0.0F, 1.0F - 1.0F / Math.max(1.0F, carver.river.length)));
+			int lastStep = Math.round(Math.abs(lastBlock - carver.waterLevelAt(1.0F)) * levels.worldHeight);
+			counts[3] = Math.max(counts[3], lastStep);
+			counts[0]++;
+			steps[Math.max(0, Math.min(steps.length - 1, step + 32))]++;
+			if (step < 0) {
+				counts[1]++;
+			}
+			if (step >= 10) {
+				counts[2]++;
+			}
+			junctions(child, levels, steps, counts);
 		}
 	}
 

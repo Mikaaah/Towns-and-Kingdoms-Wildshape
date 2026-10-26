@@ -1,7 +1,7 @@
 name: TNKTerraForged Nature's Spirit 2.3.1 smoke
 on:
   push:
-    branches: [fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
+    branches: [update/upstream-1.0.3-tnk, fix/tnk3-biome-exclusions, main, neoforge-1.21.1, fix/river-water-and-generation]
     paths:
       - 'common/src/main/java/com/pandaismyname1/ultraterraforged/world/worldgen/**'
       - 'common/src/main/java/com/pandaismyname1/ultraterraforged/mixin/MixinSurfaceSystem.java'

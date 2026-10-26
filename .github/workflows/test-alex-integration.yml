@@ -1,7 +1,7 @@
 name: UTF Alex Caves NeoForge integration smoke
 on:
   push:
-    branches: [neoforge-1.21.1]
+    branches: [update/upstream-1.0.3-tnk, neoforge-1.21.1]
   workflow_dispatch:
 permissions:
   contents: read

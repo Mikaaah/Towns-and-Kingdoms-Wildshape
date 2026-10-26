@@ -21,18 +21,12 @@ import org.slf4j.Logger;
 public final class UtfStreams {
     public static final Logger LOG = LogUtils.getLogger();
     public static final ModConfigSpec SPEC;
-    public static final ModConfigSpec.BooleanValue ENABLED, SKIP_UPHILL, ACTUAL_WATER, FAST_RIVER_SCAN;
-    public static final ModConfigSpec.DoubleValue SPEED;
-    public static final ModConfigSpec.IntValue MAX_DEPTH, SCAN_RADIUS;
+    public static final ModConfigSpec.BooleanValue ENABLED, ACTUAL_WATER;
+    public static final ModConfigSpec.IntValue SCAN_RADIUS;
     static {
         var b = new ModConfigSpec.Builder();
-        ENABLED = b.define("enabled", true);
-        FAST_RIVER_SCAN = b.comment("Reuse finalized live tile river flags to skip terrain recomputation off rivers. Always fall back to exact sampling when missing.")
-                .define("fastRiverScan", true);
-        SKIP_UPHILL = b.comment("Calm local basins where both route directions rise. Rising stretches are directed downhill; terrain is unchanged.")
-                .define("skipUphillSegments", true);
-        SPEED = b.defineInRange("nativeRiverSpeed", 1.0, 0.1, 2.0);
-        MAX_DEPTH = b.defineInRange("maxCurrentDepth", 64, 1, 256);
+        ENABLED = b.comment("Enable TNK's additional actual-water corrections. Upstream native river layers follow Streams' own options.")
+                .define("enabled", true);
         ACTUAL_WATER = b.comment("Validate final baked-fluid and boat currents against connected water in loaded chunks.").define("correctActualWaterFlow", true);
         SCAN_RADIUS = b.defineInRange("actualWaterScanRadius", 16, 4, 32);
         SPEC = b.build();
@@ -51,7 +45,7 @@ public final class UtfStreams {
     }
     private static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            // Native layers are composed by StreamGridMixin, ahead of conflicting generic layers.
+            // Native layers are supplied once by upstream's common StreamsCompat.
             LOG.info("TNKTerraForged integrated native currents for Streams 2.15.2; terrain is not modified.");
         });
     }
@@ -74,11 +68,7 @@ public final class UtfStreams {
                 .then(Commands.literal("status").executes(c -> {
                     boolean active = context(c.getSource().getLevel()) != null;
                     c.getSource().sendSuccess(() -> Component.literal("TNKTerraForged Streams: active=" + active
-                            + "; native columns=" + NativeFlowLayers.COLUMNS.sum()
-                            + "; basin columns calmed=" + NativeFlowLayers.UPHILL.sum()
-                            + "; layer builds=" + NativeFlowLayers.BUILDS.sum()
-                            + "; reused tile masks=" + NativeFlowLayers.FAST_CHUNKS.sum()
-                            + "; avoided samples=" + NativeFlowLayers.FAST_SKIPS.sum()
+                            + "; native provider=upstream built-in"
                             + "; actual water searches=" + ActualWaterFlow.SEARCHES.sum()
                             + "; actual corrections=" + ActualWaterFlow.CORRECTIONS.sum()), false);
                     return active ? 1 : 0;

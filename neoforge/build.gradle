@@ -26,6 +26,14 @@ loom {
         // ./gradlew :neoforge:runData regenerates the translation files into neoforge/src/generated; copy them into
         // common resources. The dev datagen JVM does not exit on its own once it prints "All providers took", so stop
         // it manually.
+        // a dedicated server in its own folder, for automated checks (world creation with another mod, say)
+        serverTest {
+            server()
+            name = "Server Test"
+            runDir = "run-servertest"
+            // system properties for this server, to switch other mods' options: -Putf.serverTestProps=<key=value, separated by commas>
+            project.findProperty("utf.serverTestProps")?.split(",")?.each { def kv = it.split("=", 2); property kv[0], kv[1] }
+        }
         data {
             data()
             programArgs "--mod", "ultraterraforged", "--all", "--output", file("src/generated/resources").absolutePath
@@ -55,8 +63,6 @@ configurations {
 
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
-    // Optional Alex port is only needed to compile native compat hooks.
-    modCompileOnly "maven.modrinth:kSsLSjEt:pC1MYhqR"
     // Compile against Streams Reflowing 2.15.2 without bundling its proprietary JAR.
     modCompileOnly "maven.modrinth:streams-reflowing:vbJ5meb8"
     // Only for opt-in server smoke checks; normal distributions do not depend on Streams.
@@ -75,8 +81,9 @@ dependencies {
 
     // Performance mods, in the dev runs only: the ones PerformanceMods lists for NeoForge on this version. -Putf.perfMods=false
     // leaves them out. See docs/porting/performance-mods.md and unpackDevMods below.
+    def unpacked = []
     if (project.findProperty("utf.perfMods") != "false") {
-        def dir = unpackDevMods([
+        unpacked += [
             // Embeddium 1.0.15 rather than Sodium: Sodium's jar is an early-loading service with the mod nested in it, and
             // the mod uses the service's classes, which the dev game can't give it once Loom has remapped them
             "https://api.modrinth.com/maven/maven/modrinth/embeddium/J7b96IEd/embeddium-J7b96IEd.jar",
@@ -86,13 +93,28 @@ dependencies {
             "https://api.modrinth.com/maven/maven/modrinth/lithium/DDUrRVCA/lithium-DDUrRVCA.jar",       // Lithium 0.15.4
             "https://api.modrinth.com/maven/maven/modrinth/modernfix/5HLHxQ2F/modernfix-5HLHxQ2F.jar",   // ModernFix 5.27.24
             "https://www.cursemaven.com/curse/maven/alltheleaks-1091339/8943912/alltheleaks-1091339-8943912.jar" // AllTheLeaks 1.1.13
-        ])
+        ]
+    }
+    // other mods unpacked the same way, for those whose nested libraries the dev game needs (Generator Accelerator's
+    // MixinSquared): -Putf.unpackMods=<their download URLs, separated by commas>
+    project.findProperty("utf.unpackMods")?.split(",")?.each { unpacked << it }
+    if (!unpacked.isEmpty()) {
+        def dir = unpackDevMods(unpacked)
         modLocalRuntime fileTree(new File(dir, "mods")) { include "*.jar" }
         localRuntime fileTree(new File(dir, "libs")) { include "*.jar" }
     }
+    // Streams Reflowing 2.15.2, to see UltraTerraForged's river currents in a dev run: -Putf.streams=true
+    if (project.findProperty("utf.streams") == "true") {
+        modLocalRuntime "maven.modrinth:streams-reflowing:vbJ5meb8"
+    }
+    // other mods for a dev run, e.g. to try a compat: -Putf.extraMod=<paths to their jars, or dependencies such as
+    // curse.maven:bye-pregen-1567378:9206739, separated by commas>
+    project.findProperty("utf.extraMod")?.split(",")?.each { mod ->
+        modLocalRuntime(new File(mod).exists() ? files(mod) : mod)
+    }
 }
 
-// The performance mods for the dev game, unpacked into build/devmods/{mods,libs}; done while Gradle configures the
+// The performance mods (and -Putf.unpackMods) for the dev game, unpacked into build/devmods/{mods,libs}; done while Gradle configures the
 // project, as Loom remaps mod dependencies then.
 // - Released NeoForge mods name some of Minecraft's methods as javac does (lambda$fillFromNoise$11), and the dev game's
 //   jar doesn't keep those names, so the mods have to go through Loom, which renames them to match.

@@ -1,4 +1,4 @@
-package com.pandaismyname1.ultraterraforged.mixin; 
+package com.pandaismyname1.ultraterraforged.mixin;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -26,6 +26,8 @@ import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.SurfaceSystem;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import com.pandaismyname1.ultraterraforged.UTFCommon;
+import com.pandaismyname1.ultraterraforged.compat.alexscaves.ACClimateSampler;
+import com.pandaismyname1.ultraterraforged.compat.alexscaves.AlexsCavesCompat;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBClimateSampler;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBCompat;
 import com.pandaismyname1.ultraterraforged.compat.terrablender.TBNoiseRouterData;
@@ -50,23 +52,23 @@ class MixinRandomState {
 	@Shadow
 	@Final
     private SurfaceSystem surfaceSystem;
-	
+
 	@Nullable
 	private Preset preset;
 	@Nullable
 	private NoiseSampler globalSampler;
 	@Nullable
 	private RegistryAccess registryAccess;
-	
+
 	@Deprecated
 	private boolean hasContext;
 	@Deprecated
 	@Nullable
 	private GeneratorContext generatorContext;
-	
+
 	private long seed;
 	private DensityFunction.Visitor densityFunctionWrapper;
-	
+
 	@Redirect(
 		at = @At(
 			value = "INVOKE",
@@ -78,7 +80,7 @@ class MixinRandomState {
 	private NoiseRouter RandomState(NoiseRouter router, DensityFunction.Visitor visitor, NoiseGeneratorSettings noiseGeneratorSettings, HolderGetter<NormalNoise.NoiseParameters> params, final long seed) {
 		this.seed = seed;
 		this.densityFunctionWrapper = new DensityFunction.Visitor() {
-			
+
 			@Override
 			public DensityFunction apply(DensityFunction function) {
 				if(function instanceof NoiseSampler.Marker marker) {
@@ -106,10 +108,10 @@ class MixinRandomState {
 				.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, net.minecraft.resources.ResourceLocation.withDefaultNamespace("overworld"))).value();
 			((UTFClimateSampler) (Object) this.sampler).setBiomeFallback(BiomeExclusions.fallback(overworld.parameters()));
 		}
-		
+
 		RegistryLookup<Preset> presets = registryAccess.lookupOrThrow(UTFRegistries.PRESET);
 		RegistryLookup<DensityFunction> functions = registryAccess.lookupOrThrow(Registries.DENSITY_FUNCTION);
-		
+
 		// only in a world whose terrain reads the cells: mapping the uniqueness, a cell too, would count any other
 		// dimension TerraBlender places biomes in, such as the Nether, as UltraTerraForged's and generate it as one
 		if((Object) this.sampler instanceof TBClimateSampler tbClimateSampler && TBCompat.isEnabled() && this.hasContext) {
@@ -117,14 +119,17 @@ class MixinRandomState {
 				tbClimateSampler.setUniqueness(uniqueness.value().mapAll(this.densityFunctionWrapper));
 			});
 		}
-		
+		if(this.hasContext && AlexsCavesCompat.isEnabled()) {
+			((ACClimateSampler) (Object) this.sampler).ultraterraforged$setTerrain(true);
+		}
+
 		presets.get(PresetData.PRESET).ifPresent((presetHolder) -> {
 			this.preset = presetHolder.value();
 
 			if(this.hasContext) {
 				//TODO move this somewhere else
 				// Cached contexts are independent; no global cache reset on new worlds.
-				
+
 				PerformanceConfig config = PerformanceConfig.read(PerformanceConfig.DEFAULT_FILE_PATH)
 					.resultOrPartial(UTFCommon.LOGGER::error)
 					.orElseGet(PerformanceConfig::makeDefault);
@@ -134,7 +139,7 @@ class MixinRandomState {
 			}
 		});
 	}
-	
+
 	public boolean ultraterraforged$UTFRandomState$usesCells() {
 		return this.hasContext;
 	}
@@ -143,12 +148,12 @@ class MixinRandomState {
 	public RegistryAccess ultraterraforged$UTFRandomState$registryAccess() {
 		return this.registryAccess;
 	}
-	
+
 	@Nullable
 	public Preset ultraterraforged$UTFRandomState$preset() {
 		return this.preset;
 	}
-	
+
 	@Nullable
 	public GeneratorContext ultraterraforged$UTFRandomState$generatorContext() {
 		return this.generatorContext;
