@@ -4,7 +4,7 @@
 
 **Wildshape (formerly TNKTerraForged).**
 
-[Documentation](wiki/Home.md) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+[Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
 
 **Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
 
