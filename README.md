@@ -4,7 +4,7 @@
 
 **Wildshape (formerly TNKTerraForged).**
 
-[Documentation](wiki/Home.md) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/ultraterraforged-personal/issues)
+[Documentation](wiki/Home.md) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
 
 **Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
 
@@ -24,8 +24,8 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 | Edition | Minecraft | Details |
 | --- | --- | --- |
-| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/neoforge-1.21.1) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
-| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/fabric-1.21.1) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
+| [NeoForge 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/neoforge-1.21.1) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
+| [Fabric 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/fabric-1.21.1) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
 
 ### Technical compatibility: legacy mod ID
 

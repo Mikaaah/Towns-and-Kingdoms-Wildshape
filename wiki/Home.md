@@ -12,4 +12,4 @@ Terrain-generation fork for TNK3, formerly presented as TNKTerraForged. Based on
 - [Troubleshooting](Troubleshooting.md)
 - [Credits and license](Credits-and-License.md)
 
-[Repository](https://github.com/Mikaaah/ultraterraforged-personal) · [Report an issue](https://github.com/Mikaaah/ultraterraforged-personal/issues)
+[Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
