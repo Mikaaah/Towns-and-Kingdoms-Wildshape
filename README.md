@@ -1,4 +1,10 @@
-# TNKTerraForged
+<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms — Wildshape" width="100%"></p>
+
+# Towns & Kingdoms — Wildshape
+
+**Wildshape (formerly TNKTerraForged).**
+
+[Documentation](wiki/Home.md) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/ultraterraforged-personal/issues)
 
 **Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
 
@@ -23,7 +29,7 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 ### Technical compatibility: legacy mod ID
 
-To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. Only the visible name and JAR branding change to **TNKTerraForged**. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
+To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. Wildshape is the documentation brand. Current builds still use **TNKTerraForged** in the mod selector and `tnkterraforged` in artifact names; these legacy names refer to this fork. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
 The mod's core `ultraterraforged` data/resource namespace and config paths remain unchanged. Its baseline implementation version remains `1.0.2+1.21.1` to preserve exact-version compatibility with existing addons.
 
@@ -41,19 +47,11 @@ The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Ref
 
 **Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. Fabric does not yet include this adapter. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
 
-## Installation and validation
+## Installation
 
 Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
 
-Build on Java 21:
-
-```sh
-./gradlew :neoforge:build -Putf.perfMods=false
-./gradlew :fabric:build -Putf.perfMods=false
-./gradlew :common:test -Putf.perfMods=false
-```
-
-Read the [technical changelog](CHANGELOG-PERSONAL.md) and [23-finding audit matrix](AUDIT-STATUS.md). Successful automated builds do **not** prove modpack stability: test generation on multiple seeds, very high terrain, river junctions and all dungeon types with TNK3's full mod list.
+Read the [technical changelog](CHANGELOG-PERSONAL.md), [installation guide](wiki/Getting-Started.md) and [developer notes](docs/DEVELOPMENT.md). Generate new chunks to see terrain changes.
 
 ## Authors, origins and licensing
 
