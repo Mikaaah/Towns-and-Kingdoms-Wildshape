@@ -1,8 +1,15 @@
-# Towns & Kingdoms: Wildshape
+<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms Wildshape" width="100%"></p>
 
-Expansive terrain, enormous connected caverns and mod-aware exploration for **Towns & Kingdoms 3 | Beyond the Forge**.
+<h1 align="center">Towns & Kingdoms Wildshape</h1>
 
-Wildshape is Mikaaah’s maintained Minecraft **1.21.1 / NeoForge / Java 21** fork of UltraTerraForged, ReTerraForged and TerraForged. Original authors, history and notices remain credited below. The current development build is **1.0.12-beta.2**.
+<p align="center"><strong>Big landscapes. Bigger caverns. Terrain made for long journeys and underground discoveries.</strong></p>
+
+<p align="center"><a href="https://www.curseforge.com/members/mikaaah/projects">Downloads</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
+
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
+
+
+
 
 ## Terrain and compatibility
 
@@ -34,16 +41,6 @@ The FML mod ID and resource namespace are **`wildshape`**. Configuration is writ
 |---|---|---|---|
 | NeoForge | 1.21.1 | 21 | Primary TNK3 build; native Alex’s Caves and actual-water current corrections |
 
-## Development
-
-```sh
-./gradlew :common:test :neoforge:build -Pwildshape.perfMods=false
-```
-
-Set `RELEASE=1` for versioned release filenames. Optional performance mods are excluded from this build command so they are not silently made requirements. The [published project Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) contains the project overview. See [development notes](docs/DEVELOPMENT.md), [changelog](CHANGELOG.md) and the [JAR inventory utility](tools/audit-compat-jars.py).
-
-The opt-in dedicated-server check is enabled with JVM argument `-Dwildshape.compatSmoke=true` (or `-Ptnk.compatSmoke=true` for the NeoForge development run). It checks live registries, habitats, dimension ownership and generation, writes `wildshape-compat-results.json`, then stops the server. Leave this argument out for normal play.
-
 ## Preserved TNK3 decisions
 
 The [24 excluded BOP/RU biomes](docs/TNK3_BIOME_EXCLUSIONS.md), BOP Grassland, Cherry Grove promotion, enormous cavern geometry, native mod surfaces and gentle river transitions remain. Artificial underground water tunnels remain disabled. Other dimensions keep their own generators. Recipes, quest progression, loot and boss access stay with the pack’s existing scripts and mods.
@@ -58,3 +55,10 @@ See [upstream comparison](docs/UPSTREAM_1.0.3_COMPARISON.md), [Streams details](
 - **TerraForged:** [dags](https://github.com/TerraForged/TerraForged), Won-Ton and contributors
 
 Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution retains GPL-3.0-licensed compatibility code; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Optional third-party mods and dungeon templates are not bundled.
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
