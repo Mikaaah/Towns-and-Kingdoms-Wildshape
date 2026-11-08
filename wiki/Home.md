@@ -14,6 +14,6 @@ Terrain-generation fork for TNK3, formerly presented as TNKTerraForged. Based on
 
 [Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
 
-## TNK development edition
+## Other editions
 
-[1.0.11 guide](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/update/upstream-1.0.3-tnk) — keep its matching dependencies and configuration together.
+**[1.0.12-beta.2](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/audit/tnk3-compat-1.0.12)** — The current TNK preview uses the `wildshape` mod ID, `config/wildshape/`, the Wildshape world preset and `/wildshape` commands. It changes registry identity and requires a fresh world; the legacy source guide below applies to the main branch.

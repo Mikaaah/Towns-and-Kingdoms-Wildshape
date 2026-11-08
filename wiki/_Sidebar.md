@@ -14,3 +14,7 @@
 - [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
 - [Join Discord](https://discord.gg/CRYk3uDPVt)
 - [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+
+### Edition guides
+
+- [1.0.12-beta.2](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/audit/tnk3-compat-1.0.12)
