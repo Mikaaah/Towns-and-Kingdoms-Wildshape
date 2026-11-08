@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Project](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Get help](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+
 # Credits and license
 
 Fork work: Mikaaah / Towns & Kingdoms.
@@ -8,4 +10,4 @@ Fork work: Mikaaah / Towns & Kingdoms.
 
 Original MIT notices and the GPL-3.0 Alex’s Caves integration license remain in the repository. See [license details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape#authors-origins-and-licensing).
 
-[Documentation home](Home.md)
+[Documentation home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Home)

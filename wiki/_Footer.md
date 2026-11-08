@@ -1,3 +1,3 @@
-[Source](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Issues](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
 
-A Towns & Kingdoms project by Mikaaah.
+[Join Discord](https://discord.gg/CRYk3uDPVt) · [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)

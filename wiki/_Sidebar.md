@@ -2,9 +2,15 @@
 
 **Towns & Kingdoms — Wildshape**
 
-- [Home](Home.md)
-- [Getting started](Getting-Started.md)
-- [Compatibility](Compatibility.md)
-- [Terrain and caves](Terrain-and-Caves.md)
-- [Troubleshooting](Troubleshooting.md)
-- [Credits and license](Credits-and-License.md)
+- [Home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Home)
+- [Getting started](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Getting-Started)
+- [Compatibility](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Compatibility)
+- [Terrain and caves](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Terrain-and-Caves)
+- [Troubleshooting](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Troubleshooting)
+- [Credits and license](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Credits-and-License)
+
+### Community
+
+- [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
+- [Join Discord](https://discord.gg/CRYk3uDPVt)
+- [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)

@@ -1,16 +1,15 @@
-<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms — Wildshape" width="100%"></p>
+<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms Wildshape" width="100%"></p>
 
-# Towns & Kingdoms — Wildshape
+<h1 align="center">Towns & Kingdoms Wildshape</h1>
 
-**Wildshape (formerly TNKTerraForged).**
+<p align="center"><strong>Big landscapes. Bigger caverns. Terrain made for long journeys and underground discoveries.</strong></p>
 
-[Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+<p align="center"><a href="https://www.curseforge.com/members/mikaaah/projects">Downloads</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-**Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based on **UltraTerraForged** (pandaismyname1), **ReTerraForged** (raccoonman and contributors), and **TerraForged** (dags, Won-Ton and contributors). Their code, history, notices and credits are retained.
+> **Looking for the TNK development edition?** The [1.0.11 branch](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/update/upstream-1.0.3-tnk) documents the newer pack-specific work. This main-branch guide describes the standalone/source version below.
 
-> **TNK3-specific preview:** This is *not* an official UltraTerraForged build, nor an unrelated replacement written from scratch. It replaces the original JAR in your modpack and changes world generation in newly generated chunks.
 
 ## What makes this fork different?
 
@@ -51,7 +50,7 @@ The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Ref
 
 Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
 
-Read the [technical changelog](CHANGELOG-PERSONAL.md), [installation guide](wiki/Getting-Started.md) and [developer notes](docs/DEVELOPMENT.md). Generate new chunks to see terrain changes.
+Read the [technical changelog](CHANGELOG-PERSONAL.md), [installation guide](wiki/Getting-Started.md) and [compatibility notes](wiki/Compatibility.md). Generate new chunks to see terrain changes.
 
 ## Authors, origins and licensing
 
@@ -61,3 +60,11 @@ Read the [technical changelog](CHANGELOG-PERSONAL.md), [installation guide](wiki
 - **TerraForged:** [dags](https://github.com/TerraForged/TerraForged) and contributors
 
 Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution includes your GPL-3.0-licensed Alex's Caves integration; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Branding does not remove upstream attribution or existing obligations.
+
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)

@@ -69,7 +69,6 @@ This runs Mojang's data generator (`--server --reports`) from the cached server 
 
 In rough order of cost:
 
-1. **Headless tests** (`./gradlew :common:test`). `TestBootstrap` bootstraps vanilla registries, and the suite checks preset round-trips, datapack generation, terrain sensitivity and **golden terrain fingerprints**.
    - 1.21.1, 26.1, 26.2: fingerprints must **not** change. A diff is a porting bug. Watch the `getMaxY` off-by-one ([26.1.md](26.1.md#silent-changes-compile-fine-behave-differently)).
    - 26.3: density samplers work in `float`, not `double`, so tiny fingerprint drift is expected. Regenerate them deliberately (`-Drtf.updateGolden=true`) only after checking `utf.render` images side by side with the 26.2 output.
    - `TestBootstrap` reflects on `MappedRegistry.frozen`. Re-check the field name per version (`q.py 'core/MappedRegistry:frozen'`).

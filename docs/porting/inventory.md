@@ -436,7 +436,6 @@ Codec style: 154 `static final Codec<…> CODEC` declarations, **0 `MapCodec` CO
   - `forge "net.minecraftforge:forge:1.20.1-47.4.23"` with `convertAccessWideners` and `extraAccessWideners`.
   - It registers the two mixin configs, `dataGen { mod "ultraterraforged" }` and runs with `ultraterraforged.dev.creative`.
   - `mods.toml` sets `loaderVersion="[47,)"` and dependencies `forge [${forge_min_version},)` and `minecraft [${minecraft_version}]`. The comment says NeoForge 1.20.1 reports itself as "forge".
-- **CI** (`.github/workflows/build.yml`): ubuntu, temurin **Java 21**, `gradle/actions/setup-gradle@v4` and `./gradlew build`. It uploads `fabric/build/libs/*-fabric.jar` and `forge/build/libs/*-forge.jar`.
 - **Headless tests** (`common/src/test/java/com/pandaismyname1/ultraterraforged/test/*`, 17 files, plus `server/ServerPresetsTest.java`):
   - `TestBootstrap.init()` (`TestBootstrap.java:46-77`):
     1. Calls `SharedConstants.tryDetectVersion()` and `Bootstrap.bootStrap()`.
