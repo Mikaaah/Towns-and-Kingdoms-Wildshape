@@ -8,7 +8,7 @@ on:
         default: alpha
         options: [release, beta, alpha]
 
-# Project ids on each platform: modrinth.com/mod/ultraterraforged and curseforge.com/minecraft/mc-mods/ultraterraforged
+# Configure the owned Wildshape project IDs before enabling marketplace publication.
 env:
   MODRINTH_ID: "UNCONFIGURED"
   CURSEFORGE_ID: "UNCONFIGURED"
@@ -51,15 +51,10 @@ jobs:
         id: composite_version
         run: echo "composite_version=${{ steps.mod_version.outputs.mod_version }}+${{ steps.minecraft_version.outputs.minecraft_version }}" >> $GITHUB_OUTPUT
 
-      - name: Build Fabric
-        env:
-          RELEASE: true
-        run: ./gradlew :fabric:build -Putf.perfMods=false
-
       - name: Build NeoForge
         env:
           RELEASE: true
-        run: ./gradlew :neoforge:build -Putf.perfMods=false
+        run: ./gradlew :neoforge:build -Pwildshape.perfMods=false
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
@@ -67,36 +62,14 @@ jobs:
           tag_name: ${{ steps.composite_version.outputs.composite_version }}
           # the commit released; a new tag otherwise lands on the default branch, 1.20.1, whichever branch is released
           target_commitish: ${{ github.sha }}
-          name: UltraTerraForged ${{ steps.composite_version.outputs.composite_version }}
+          name: Wildshape ${{ steps.composite_version.outputs.composite_version }}
           body_path: CHANGELOG.md
           prerelease: ${{ inputs.version_type != 'release' }}
           files: |
-            fabric/build/libs/ultraterraforged-${{ steps.composite_version.outputs.composite_version }}-fabric.jar
-            neoforge/build/libs/ultraterraforged-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
+            neoforge/build/libs/wildshape-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
 
-      # mc-publish skips a platform whose token is empty, so the two uploads below
+      # mc-publish skips a platform whose token is empty, so the upload below
       # only run once MODRINTH_TOKEN / CURSEFORGE_TOKEN exist as repository secrets.
-      - name: Publish Fabric to Modrinth and CurseForge
-        if: ${{ false }} # Fork release safety: configure own project IDs before enabling.
-        uses: Kira-NT/mc-publish@v3.3.1
-        with:
-          modrinth-id: ${{ env.MODRINTH_ID }}
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          curseforge-id: ${{ env.CURSEFORGE_ID }}
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          name: UltraTerraForged ${{ steps.composite_version.outputs.composite_version }} Fabric
-          version: ${{ steps.composite_version.outputs.composite_version }}-fabric
-          version-type: ${{ inputs.version_type }}
-          changelog-file: CHANGELOG.md
-          loaders: |
-            fabric
-            quilt
-          game-versions: ${{ steps.minecraft_version.outputs.minecraft_version }}
-          java: 21
-          dependencies: |
-            fabric-api(required)
-          files: fabric/build/libs/ultraterraforged-${{ steps.composite_version.outputs.composite_version }}-fabric.jar
-
       - name: Publish NeoForge to Modrinth and CurseForge
         if: ${{ false }} # Fork release safety: configure own project IDs before enabling.
         uses: Kira-NT/mc-publish@v3.3.1
@@ -105,7 +78,7 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-id: ${{ env.CURSEFORGE_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          name: UltraTerraForged ${{ steps.composite_version.outputs.composite_version }} NeoForge
+          name: Wildshape ${{ steps.composite_version.outputs.composite_version }} NeoForge
           version: ${{ steps.composite_version.outputs.composite_version }}-neoforge
           version-type: ${{ inputs.version_type }}
           changelog-file: CHANGELOG.md
@@ -113,7 +86,7 @@ jobs:
             neoforge
           game-versions: ${{ steps.minecraft_version.outputs.minecraft_version }}
           java: 21
-          files: neoforge/build/libs/ultraterraforged-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
+          files: neoforge/build/libs/wildshape-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
 
   maven:
     needs: build

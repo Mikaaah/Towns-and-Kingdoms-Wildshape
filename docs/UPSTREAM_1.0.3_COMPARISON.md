@@ -1,4 +1,4 @@
-# Upstream comparison — TNKTerraForged 1.0.11
+# Upstream comparison — Wildshape 1.0.11
 
 Compared on 26 October 2026:
 
@@ -21,6 +21,6 @@ Compared on 26 October 2026:
 
 ## Installation and scope
 
-Use the replacement TNK JAR; do not install the original UltraTerraForged alongside it. Streams Reflowing and Alex's Caves/Citadel remain separate optional mods. Remove old standalone `utfstreams` and `tfacfix` adapters. The existing TNK biome, surface and terrain configuration remains active. Native Streams speed now follows upstream's defaults; TNK's additional actual-water correction settings remain in `config/tnkterraforged/streams.toml`.
+Use the replacement TNK JAR; do not install the original upstream terrain mod alongside it. Streams Reflowing and Alex's Caves/Citadel remain separate optional mods. Remove old standalone `utfstreams` and `tfacfix` adapters. The existing TNK biome, surface and terrain configuration remains active. Native Streams speed now follows upstream's defaults; TNK's additional actual-water correction settings remain in `config/wildshape/streams.toml`.
 
 Terrain changes affect new chunks. Existing chunks are not rewritten. Automated checks cover selected river junctions, cave water, mod surfaces, biome selection, optional-mod startup and current grids; they do not establish that every seed and full TNK3 structure combination is free of artifacts.

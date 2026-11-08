@@ -2,6 +2,8 @@
 
 Audit date: 8 November 2026. Target: Minecraft 1.21.1, NeoForge, Java 21.
 
+Follow-up: **1.0.12-beta.2** completes the FML/resource/package/configuration rename to Wildshape. See [identity and world compatibility](WILDSHAPE_IDENTITY.md) and its [exact-binary validation](audit/identity/). The findings and beta.1 evidence below retain the historical names used during the audit.
+
 This first pass was written before changing production code. Findings describe the inspected baseline; the implementation and verification log at the end records subsequent work separately.
 
 ## Source and pack evidence

@@ -2,7 +2,7 @@
 
 Expansive terrain, enormous connected caverns and mod-aware exploration for **Towns & Kingdoms 3 | Beyond the Forge**.
 
-Wildshape is Mikaaah’s maintained Minecraft **1.21.1 / Java 21** fork of UltraTerraForged, ReTerraForged and TerraForged. Original authors, history and notices remain credited below. The current development build is **1.0.12-beta.1**; NeoForge is the TNK3 target.
+Wildshape is Mikaaah’s maintained Minecraft **1.21.1 / NeoForge / Java 21** fork of UltraTerraForged, ReTerraForged and TerraForged. Original authors, history and notices remain credited below. The current development build is **1.0.12-beta.2**.
 
 ## Terrain and compatibility
 
@@ -18,27 +18,26 @@ The [November audit](docs/WILDSHAPE_AUDIT_2026-11-08.md) records findings, imple
 
 ## Installation
 
-Use the JAR for your loader and Minecraft version. Install **one** Wildshape/UltraTerraForged terrain JAR. Remove the superseded standalone adapters `utfstreams`, `tfacfix` and `utfoptimizer`; their relevant fixes are integrated. **Keep Flow Control** when using its tools. Optional mods remain separate installations.
+Install **one NeoForge 1.21.1 Wildshape JAR**. Remove the previous terrain JAR and superseded standalone adapters `utfstreams`, `tfacfix` and `utfoptimizer`; their relevant fixes are integrated. **Keep Flow Control** when using its tools. Optional mods remain separate installations.
 
 Select **Wildshape** in Create World. On a dedicated server use:
 
 ```properties
-level-type=ultraterraforged:ultraterraforged
+level-type=wildshape:wildshape
 ```
 
-Configuration remains in `config/tnkterraforged/`; existing preset names and the `ultraterraforged` mod ID/registry namespace remain stable. Missing settings are imported from legacy configuration directories without replacing current settings.
+The FML mod ID and resource namespace are **`wildshape`**. Configuration is written to **`config/wildshape/`**. Missing settings and custom presets are imported from the previous directories without replacing current settings or altering the originals. New share codes use `WILDSHAPE1:`; previously shared codes still import. Commands use `/wildshape`, with `/wildshape streams status` when Streams is installed.
 
-Use a fresh test world for this beta. Changes affect new chunks; existing chunks retain their terrain and can meet new terrain at seams. Existing saved world datapacks can retain earlier structure/tag rules, so replacing a JAR does not necessarily migrate their registries. Back up worlds before upgrading.
+**This version changes registry identity. Use a fresh world.** Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](docs/WILDSHAPE_IDENTITY.md).
 
 | Build | Minecraft | Java | Scope |
 |---|---|---|---|
 | NeoForge | 1.21.1 | 21 | Primary TNK3 build; native Alex’s Caves and actual-water current corrections |
-| Fabric | 1.21.1 | 21 | Shared terrain core and native Streams producer; separate Fabric runtime validation required |
 
 ## Development
 
 ```sh
-./gradlew :common:test :neoforge:build :fabric:build -Putf.perfMods=false
+./gradlew :common:test :neoforge:build -Pwildshape.perfMods=false
 ```
 
 Set `RELEASE=1` for versioned release filenames. Optional performance mods are excluded from this build command so they are not silently made requirements. The [published project Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) contains the project overview. See [development notes](docs/DEVELOPMENT.md), [changelog](CHANGELOG.md) and the [JAR inventory utility](tools/audit-compat-jars.py).

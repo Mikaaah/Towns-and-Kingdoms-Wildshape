@@ -1,4 +1,4 @@
-# TNKTerraForged 1.0.3: raised water and generation overhead
+# Wildshape 1.0.3: raised water and generation overhead
 
 This release fixes raised-water placement and removes repeated terrain calculations from the integrated NeoForge Streams adapter. Terrain changes apply to newly generated chunks.
 
@@ -18,9 +18,9 @@ A local benchmark of 32,768 terrain queries measured 144.65 ms for the previous 
 
 ## Paths and compatibility
 
-Active files are consolidated under `config/tnkterraforged/`, including `streams.toml` and `alex-caves.toml` when those integrations are installed. Existing presets and settings are imported from the previous directories and root-level compatibility files. Current settings take priority; originals are preserved.
+Active files are consolidated under `config/wildshape/`, including `streams.toml` and `alex-caves.toml` when those integrations are installed. Existing presets and settings are imported from the previous directories and root-level compatibility files. Current settings take priority; originals are preserved.
 
-New world preset packs are named `tnkterraforged-preset.zip` (or a hashed TNK filename in Create World). Older selected pack names remain readable. The project name, Maven group, build-resource filenames, logger, generated language-provider labels and integrated Streams source package use TNKTerraForged naming. The `ultraterraforged` mod/registry namespace and upstream Java API packages remain intentionally stable for existing worlds, datapacks and external integrations. Historical upstream documentation and license notices retain their original names.
+New world preset packs are named `wildshape-preset.zip` (or a hashed TNK filename in Create World). Older selected pack names remain readable. The project name, Maven group, build-resource filenames, logger, generated language-provider labels and integrated Streams source package use Wildshape naming. The `wildshape` mod/registry namespace and upstream Java API packages remain intentionally stable for existing worlds, datapacks and external integrations. Historical upstream documentation and license notices retain their original names.
 
 ## Validation
 

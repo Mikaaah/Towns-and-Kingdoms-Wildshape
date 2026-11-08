@@ -1,0 +1,25 @@
+package nl.townsandkingdoms.wildshape.world.worldgen.structure.rule;
+
+import com.google.common.collect.ImmutableSet;
+import com.mojang.serialization.Codec;
+
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import nl.townsandkingdoms.wildshape.platform.RegistryUtil;
+import nl.townsandkingdoms.wildshape.registries.WildshapeBuiltInRegistries;
+import nl.townsandkingdoms.wildshape.world.worldgen.terrain.Terrain;
+
+public class StructureRules {
+
+	public static void bootstrap() {
+		register("cell_test", CellTest.CODEC);
+	}
+
+	public static CellTest cellTest(TagKey<Structure> targets, float cutoff, Terrain... terrainTypeBlacklist) {
+		return new CellTest(targets, cutoff, ImmutableSet.copyOf(terrainTypeBlacklist));
+	}
+
+	private static void register(String name, Codec<? extends StructureRule> value) {
+		RegistryUtil.register(WildshapeBuiltInRegistries.STRUCTURE_RULE_TYPE, name, value);
+	}
+}

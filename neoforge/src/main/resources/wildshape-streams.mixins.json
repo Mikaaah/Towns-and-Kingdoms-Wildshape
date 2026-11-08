@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "nl.townsandkingdoms.wildshape.compat.streams.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ActualWaterMixin",
+    "ActualBakedFlowMixin",
+    "ActualGridMixin",
+    "ModernGridMixin",
+    "ModernBakedFlowMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "ActualParticleMixin",
+    "ModernParticleMixin"
+  ],
+  "plugin": "nl.townsandkingdoms.wildshape.compat.streams.mixin.OptionalStreamsMixinPlugin"
+}

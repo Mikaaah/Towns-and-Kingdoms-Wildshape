@@ -1,3 +1,10 @@
+# Wildshape 1.0.12-beta.2
+
+- Completed the Wildshape rename: FML ID, registry/resource namespace, Java packages, config paths, commands, packets, translations, preset exports and developer/release tooling.
+- Added non-destructive import of earlier settings and custom presets into `config/wildshape/`. Existing share codes remain readable.
+- NeoForge 1.21.1 is the sole build/release target.
+- This changes serialized registry identity: use a fresh world. Existing worlds require a separate migration; see [identity details](docs/WILDSHAPE_IDENTITY.md).
+
 ### Wildshape 1.0.12-beta.1 — 2026-11-08
 
 * Protect native tagged cave habitats and Deep Dark from generic cavern repainting.
@@ -17,12 +24,12 @@
 
 ---
 
-### TNKTerraForged 1.0.3 — 2026-10-20
+### Wildshape 1.0.3 — 2026-10-20
 * Prevent unsupported raised-water slabs and process the full exposed water face.
 * Smooth steep river-mouth drops instead of keeping a large fall to satisfy the preferred gorge depth.
 * Reuse bounded native-river snapshots for Streams currents after terrain tiles are recycled.
-* Consolidate configuration in `config/tnkterraforged/`, with automatic import of existing settings.
-* Rename project/build resources and organize the integrated Streams code under the TNKTerraForged package.
+* Consolidate configuration in `config/wildshape/`, with automatic import of existing settings.
+* Rename project/build resources and organize the integrated Streams code under the Wildshape package.
 * Preserve world registry IDs and upstream API packages for compatibility. See [development notes](CHANGELOG-PERSONAL.md).
 
 ---
@@ -30,24 +37,24 @@
 ## Upstream changelog
 
 ### New in 1.0.3
-* Alex's Caves: its cave biomes generate in UltraTerraForged worlds about as often as in vanilla ones (#7). Alex's Caves chooses them by the climate at the centre of each of its cells, and UltraTerraForged's land rarely reached the values it asks for; inland it now reads the value vanilla has over the same share of the world, so its own settings keep their meaning. UltraTerraForged's caves stay out of its biomes. After Mikaaah's Terraforged-Alexs-Caves-Fix.
+* Alex's Caves: its cave biomes generate in Wildshape worlds about as often as in vanilla ones (#7). Alex's Caves chooses them by the climate at the centre of each of its cells, and Wildshape's land rarely reached the values it asks for; inland it now reads the value vanilla has over the same share of the world, so its own settings keep their meaning. Wildshape's caves stay out of its biomes. After Mikaaah's Terraforged-Alexs-Caves-Fix.
 * Structures of every mod, Alex's Caves' underground chambers among them, can start near rivers: a rule meant for villages kept every structure away from rivers.
-* Streams Reflowing: UltraTerraForged's rivers get its currents, running the way the river flows, raised rivers too (discussion #3). This was Mikaaah's UltraTerraForged-Streams-Currents add-on, which is no longer needed. Streams' own streams no longer cut away the water of UltraTerraForged's rivers and lakes.
-* No more air under raised rivers and lakes (#9): vanilla's and other mods' carvers took their water away, and UltraTerraForged's own caves hollowed out the ground under them, leaving water hanging.
+* Streams Reflowing: Wildshape's rivers get its currents, running the way the river flows, raised rivers too (discussion #3). This was Mikaaah's Wildshape-Streams-Currents add-on, which is no longer needed. Streams' own streams no longer cut away the water of Wildshape's rivers and lakes.
+* No more air under raised rivers and lakes (#9): vanilla's and other mods' carvers took their water away, and Wildshape's own caves hollowed out the ground under them, leaving water hanging.
 * Canyon walls are slopes again instead of columns of very different heights (#10): narrow canyons are shallower.
 * Where a stream joins a river, the river's water no longer drops to the stream's level in a step with walls of water around it: the stream's last stretch rises to the river's level.
 * Creating a world with Bye Pregen no longer crashes (#13).
-* Generator Accelerator works with UltraTerraForged: with it, chunks failed to generate.
+* Generator Accelerator works with Wildshape: with it, chunks failed to generate.
 * Fabric: reopening a world no longer crashes with "Biome decoration … Index -1 out of bounds" (#11), and a biome modifier that fails is logged and left out instead of stopping the world from loading.
 * The Experimental continent type works: creating a world with it failed at once.
 * Pillars in giant caverns stand in their lakes instead of ending at the water.
 * With World Preview installed, chunks are no longer generated at full height, slower, for the rest of the session once a preview has been shown.
-* With a second dimension on UltraTerraForged's terrain, its caches no longer stop letting go of what they no longer need, so memory no longer grows for the rest of the session; more fixes from Mikaaah's audit (discussion #12).
+* With a second dimension on Wildshape's terrain, its caches no longer stop letting go of what they no longer need, so memory no longer grows for the rest of the session; more fixes from Mikaaah's audit (discussion #12).
 * Terrain changes in newly generated chunks (canyons, streams where they join rivers, the ground under raised rivers and lakes, caves inside Alex's Caves' biomes), so existing worlds can show a seam where new chunks meet old ones.
 * Thanks to Mikaaah for the Alex's Caves fix, the Streams Reflowing add-on and the audit this release builds on.
 
 ### New in 1.0.2
-* Far less memory used while chunks generate, above all with Distant Horizons: every chunk waiting to be generated kept a whole stretch of UltraTerraForged's terrain in memory, about 4 MB, long after it was done with it. With thousands of them waiting, memory filled up and the game slowed to a crawl.
+* Far less memory used while chunks generate, above all with Distant Horizons: every chunk waiting to be generated kept a whole stretch of Wildshape's terrain in memory, about 4 MB, long after it was done with it. With thousands of them waiting, memory filled up and the game slowed to a crawl.
 * Rivers no longer run along walls above the land, and water no longer stands high above dry ground near rivers' sources. Rivers and lakes now take their water level from the land where they actually lie, so rivers sit a few blocks lower than before.
 * Lakes no longer build wide raised platforms around themselves.
 * Rivers Follow the Land is on the Terrain tab too: turn it off for the original rivers, all cut down to sea level.
@@ -58,7 +65,7 @@
 * Without TerraBlender, generating the Nether or the End crashed the server.
 * No more shipwrecks and ocean ruins on dry ground: islands and peninsulas no longer get ocean biomes.
 * New worlds leave vanilla's overworld density functions alone, so modded dimensions built on them keep their own terrain. Existing worlds keep the preset they were created with.
-* Works next to C2ME's OpenCL module: UltraTerraForged's worlds generate as usual instead of stopping the game; vanilla dimensions still use the graphics card.
+* Works next to C2ME's OpenCL module: Wildshape's worlds generate as usual instead of stopping the game; vanilla dimensions still use the graphics card.
 * Fabric: needs Fabric API 0.102.0+1.21.1 or newer (it asked for 0.116.17+1.21.1).
 * Terrain is the same as in 1.0.0; only biomes on islands and peninsulas change, in newly generated chunks.
 
@@ -69,16 +76,16 @@
 * Works next to ModernFix: its world generation optimization no longer fails to apply.
 * Terrain is the same as in 0.1.0-alpha.1; biomes and trees differ, so in existing worlds new chunks can meet old ones at a visible seam.
 
-### UltraTerraForged
-* UltraTerraForged is a continuation of ReTerraForged (by raccoonman, Steveplays28 and EdoEquin0x), which continued TerraForged (by dags and Won-Ton). Full credit and history are in the README and this repository, a fork of ReTerraForged.
-* It has its own mod id, `ultraterraforged`, and isn't compatible with worlds made with ReTerraForged. The first start copies `config/reterraforged` to `config/ultraterraforged`, keeping saved presets and modpack setups. Dedicated servers use `level-type=ultraterraforged:ultraterraforged`.
+### Wildshape
+* Wildshape is a continuation of ReTerraForged (by raccoonman, Steveplays28 and EdoEquin0x), which continued TerraForged (by dags and Won-Ton). Full credit and history are in the README and this repository, a fork of ReTerraForged.
+* It has its own mod id, `wildshape`, and isn't compatible with worlds made with ReTerraForged. The first start copies `config/reterraforged` to `config/wildshape`, keeping saved presets and modpack setups. Dedicated servers use `level-type=wildshape:wildshape`.
 * The first release for Minecraft 1.21.1, on Fabric (with Fabric API) and NeoForge 21.1. Its terrain generation is the same as in the 1.20.1 release.
 
 ### Creating worlds
-* A Terrain tab in Create World: presets, the main settings as sliders, and a live map of the result. UltraTerraForged is the default world type (configurable).
+* A Terrain tab in Create World: presets, the main settings as sliders, and a live map of the result. Wildshape is the default world type (configurable).
 * The full editor a click away, with search, per-page reset and a marker on changed settings.
 * Built-in presets (Default, Archipelago, Supercontinent, Highlands, Prairie, Badlands, Frozen North, Tropics, Volcanic Isles, Waterlands, Patchwork, and the original TerraForged presets); save your own or share them as codes.
-* Dedicated servers create worlds from `config/ultraterraforged/server-preset.json`; modpacks can ship presets and choose the default.
+* Dedicated servers create worlds from `config/wildshape/server-preset.json`; modpacks can ship presets and choose the default.
 
 ### Terrain
 * Landforms: buttes and mesas, canyons, sea cliffs and stacks, volcanic surfaces, fjords, atolls, dunes, tors, salt flats, alluvial fans, glacial valleys and cirques, moraines and drumlins, barrier islands and lagoons, karst with sinkholes and cenotes, river deltas.
@@ -87,7 +94,7 @@
 * Oceans: continental shelves, submarine canyons, trenches, seamounts and guyots, mid-ocean ridges with hydrothermal vents, blue holes, coral reefs, sand waves, whale falls, and sand, gravel and clay sea floors.
 * Caves shaped by the land, biomes untouched: underground rivers, springs, karst caves, lava tubes, sea caves and arches, layered caves, giant caverns, rock shelters, glacier caves; cave mouths in slopes.
 * A snow line that depends on which way slopes face; rock layers from vanilla and modded stone.
-* `/utf locate <terrain>` finds landforms and puts you on their surface.
+* `/wildshape locate <terrain>` finds landforms and puts you on their surface.
 
 ### Performance
 * The Terrain tab recommends performance mods and shows which are installed: C2ME, Noisium(ed), Lithium, ModernFix, AllTheLeaks (NeoForge) and Sodium. With them, new land generates as fast as vanilla or faster.
@@ -96,4 +103,4 @@
 
 ### Fixes
 * Fixed an ArrayIndexOutOfBoundsException generating chunks, from terrain tiles reused after being closed.
-* Fixed from ReTerraForged: rivers generated before the terrain (no rivers at all), missing cave and structure settings, presets losing their scales, `/rtf locate` (now `/utf locate`) sending players to random places, bare rock over the sea floor, and a crash placing some trees.
+* Fixed from ReTerraForged: rivers generated before the terrain (no rivers at all), missing cave and structure settings, presets losing their scales, `/rtf locate` (now `/wildshape locate`) sending players to random places, bare rock over the sea floor, and a crash placing some trees.

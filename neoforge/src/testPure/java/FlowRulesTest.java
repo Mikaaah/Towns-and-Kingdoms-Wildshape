@@ -1,4 +1,4 @@
-import nl.townsandkingdoms.terraforged.compat.streams.FlowRules;
+import nl.townsandkingdoms.wildshape.compat.streams.FlowRules;
 
 public class FlowRulesTest {
     private static int checks;

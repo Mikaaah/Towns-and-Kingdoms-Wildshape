@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "ultraterraforged",
+  "id": "wildshape",
   "version": "${version}",
   "name": "Towns & Kingdoms: Wildshape",
   "description": "A TerraForged-family terrain mod for Towns & Kingdoms with connected caverns and native biome compatibility.",
   "authors": [
     "Mikaaah (Wildshape)",
-    "pandaismyname1 (UltraTerraForged original)"
+    "pandaismyname1 (upstream author)"
   ],
   "contributors": [
     "dags (TerraForged)",
@@ -23,16 +23,16 @@
     "issues": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues"
   },
   "license": "MIT",
-  "icon": "assets/ultraterraforged/icon.png",
+  "icon": "assets/wildshape/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.pandaismyname1.ultraterraforged.fabric.UTFFabric"
+      "nl.townsandkingdoms.wildshape.fabric.WildshapeFabric"
     ]
   },
   "mixins": [
-    "tnkterraforged-common.mixins.json",
-    "tnkterraforged-fabric.mixins.json"
+    "wildshape-common.mixins.json",
+    "wildshape-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.0",

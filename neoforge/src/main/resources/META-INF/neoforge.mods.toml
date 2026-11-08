@@ -4,46 +4,46 @@ license="GPL-3.0-only"
 issueTrackerURL="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues"
 
 [[mods]]
-modId="ultraterraforged"
+modId="wildshape"
 displayName="Towns & Kingdoms: Wildshape"
 version="${version}"
-authors="Mikaaah (Wildshape); pandaismyname1 (UltraTerraForged original)"
-credits="A continuation of ReTerraForged by raccoonman, Steveplays28 and EdoEquin0x, itself a continuation of TerraForged by dags and Won-Ton"
+authors="Mikaaah"
+credits="Based on UltraTerraForged by pandaismyname1, ReTerraForged by raccoonman, Steveplays28 and EdoEquin0x, and TerraForged by dags and Won-Ton"
 logoFile="logo.png"
 displayURL="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape"
 description='''A TerraForged-family terrain mod for Towns & Kingdoms. Connected caverns, native biome ecosystems, rivers and selective dungeon compatibility.'''
 
 [[mixins]]
-config="tnkterraforged-common.mixins.json"
+config="wildshape-common.mixins.json"
 
 [[mixins]]
-config="tnkterraforged-neoforge.mixins.json"
+config="wildshape-neoforge.mixins.json"
 
 [[mixins]]
-config="tnkterraforged-streams.mixins.json"
+config="wildshape-streams.mixins.json"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="neoforge"
     type="required"
     versionRange="[${neoforge_version},)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="minecraft"
     type="required"
     versionRange="[${minecraft_version},1.21.2)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="terrablender"
     type="optional"
     versionRange="[4.1.0.0,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="alexscaves"
     type="optional"
     versionRange="[2.0.10,)"
@@ -51,7 +51,7 @@ config="tnkterraforged-streams.mixins.json"
     side="BOTH"
 
 # Integrated native-current adapter; Streams itself stays a separate optional mod.
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="streamsreflowing"
     type="optional"
     versionRange="[2.15.2,2.15.3),[2.16.2,2.16.3)"
@@ -59,21 +59,28 @@ config="tnkterraforged-streams.mixins.json"
     side="BOTH"
 
 # Do not load the old standalone compatibility addon alongside this integration.
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
+    modId="ultraterraforged"
+    type="incompatible"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.wildshape]]
     modId="utfstreams"
     type="incompatible"
     versionRange="[0,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="tfacfix"
     type="incompatible"
     versionRange="[0,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.ultraterraforged]]
+[[dependencies.wildshape]]
     modId="utfoptimizer"
     type="incompatible"
     versionRange="[0,)"

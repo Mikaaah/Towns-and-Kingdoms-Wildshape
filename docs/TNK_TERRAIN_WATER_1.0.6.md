@@ -1,8 +1,8 @@
-# TNKTerraForged 1.0.6 terrain patch
+# Wildshape 1.0.6 terrain patch
 
-For Minecraft 1.21.1 / NeoForge 21.1.x. Replace the previous TNKTerraForged JAR; keep only one version installed. The mod ID and upstream registry/API namespace remain `ultraterraforged` for compatibility. The embedded Streams integration remains included.
+For Minecraft 1.21.1 / NeoForge 21.1.x. Replace the previous Wildshape JAR; keep only one version installed. The mod ID and upstream registry/API namespace remain `wildshape` for compatibility. The embedded Streams integration remains included.
 
-Copy the supplied Balanced/Grand presets to `config/tnkterraforged/presets/`, replacing the older copies, then select the intended preset while creating a **new world**. Generated chunks and existing saved world datapacks are not repaired by replacing a preset on disk. Use a new world for a clean comparison; generating new chunks beside old terrain can expose generation boundaries.
+Copy the supplied Balanced/Grand presets to `config/wildshape/presets/`, replacing the older copies, then select the intended preset while creating a **new world**. Generated chunks and existing saved world datapacks are not repaired by replacing a preset on disk. Use a new world for a clean comparison; generating new chunks beside old terrain can expose generation boundaries.
 
 ## Changes
 

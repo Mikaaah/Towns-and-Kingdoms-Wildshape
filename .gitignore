@@ -131,3 +131,7 @@ run-servertest/
 .project
 
 *.launch
+
+# Python helper caches
+__pycache__/
+*.py[cod]

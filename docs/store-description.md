@@ -1,16 +1,16 @@
-> **UltraTerraForged is a new project that continues the old one.** It is an **unofficial port** of [TerraForged](https://github.com/TerraForged/TerraForged) (by dags and Won-Ton) and its continuation [ReTerraForged](https://github.com/racoonman2/ReTerraForged) (by raccoonman, Steveplays28 and EdoEquin0x). It is not made or endorsed by their authors, so please report UltraTerraForged problems [here](https://github.com/Pandaismyname1/ultraterraforged/issues), not to them.
+> **Wildshape is a new project that continues the old one.** It is an **unofficial port** of [TerraForged](https://github.com/TerraForged/TerraForged) (by dags and Won-Ton) and its continuation [ReTerraForged](https://github.com/racoonman2/ReTerraForged) (by raccoonman, Steveplays28 and EdoEquin0x). It is not made or endorsed by their authors, so please report Wildshape problems [here](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues), not to them.
 >
-> UltraTerraForged is developed **with the help of AI**, so it can move fast and keep up with the latest Minecraft releases.
+> Wildshape is developed **with the help of AI**, so it can move fast and keep up with the latest Minecraft releases.
 
 Realistic, configurable terrain for Minecraft: continents and mountain ranges, rivers that follow the land, coasts, caves and sea floors worth exploring, all set up from a Terrain tab when you create a world. It only shapes the world: it adds no biomes, and works alongside the mods that do.
 
 - **Minecraft 1.21.1** on **Fabric** (with Fabric API) and **NeoForge** 21.1, and **Minecraft 1.20.1** on **Fabric**, **Forge** 47.1+ and **NeoForge** 47.1. Next: the 26.x releases (Fabric and NeoForge).
-- Has its own mod id, `ultraterraforged`: it isn't compatible with worlds made with TerraForged or ReTerraForged, and can be installed next to ReTerraForged. The first start copies `config/reterraforged` to `config/ultraterraforged`, keeping saved presets and modpack setups.
-- Source, changelog and issues: [github.com/Pandaismyname1/ultraterraforged](https://github.com/Pandaismyname1/ultraterraforged)
+- Has its own mod id, `wildshape`: it isn't compatible with worlds made with TerraForged or ReTerraForged, and can be installed next to ReTerraForged. The first start copies `config/reterraforged` to `config/wildshape`, keeping saved presets and modpack setups.
+- Source, changelog and issues: [github.com/Mikaaah/Towns-and-Kingdoms-Wildshape](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape)
 
 ## Why a continuation
 
-ReTerraForged was left partway through: its 1.20.1 branch no longer compiled, and the newest work, for 1.20.2, was unfinished (plateau-only terrain, rivers generated before the terrain they cut, and cave and structure settings removed). The mod did nothing until a preset was applied, and its settings were hidden behind a Customize button. UltraTerraForged picks it up to:
+ReTerraForged was left partway through: its 1.20.1 branch no longer compiled, and the newest work, for 1.20.2, was unfinished (plateau-only terrain, rivers generated before the terrain they cut, and cave and structure settings removed). The mod did nothing until a preset was applied, and its settings were hidden behind a Customize button. Wildshape picks it up to:
 
 1. make it work, polished, on 1.20.1 for Fabric, Forge and NeoForge, with settings anyone can find;
 2. take the terrain much further, with landforms, coasts, oceans and caves the original never had;
@@ -21,10 +21,10 @@ ReTerraForged was left partway through: its 1.20.1 branch no longer compiled, an
 
 ### Creating a world
 
-- **Terrain tab** in Create World: pick a preset, adjust the main settings with sliders, and watch a live map of the result (biomes, terrain types, heights). UltraTerraForged is the default world type (configurable).
+- **Terrain tab** in Create World: pick a preset, adjust the main settings with sliders, and watch a live map of the result (biomes, terrain types, heights). Wildshape is the default world type (configurable).
 - **Full editor** a click away: every setting, with search, per-page reset, a marker on what differs from the preset you started from, and translated names.
 - **Presets**: a set of distinct built-in worlds (Default, Archipelago, Supercontinent, Highlands, Prairie, Badlands, Frozen North, Tropics, Volcanic Isles, Waterlands, Patchwork) plus the original TerraForged presets. Save your own, or share one as a short code to copy and paste.
-- **Dedicated servers** create UltraTerraForged worlds from a preset file (see below).
+- **Dedicated servers** create Wildshape worlds from a preset file (see below).
 
 ### Landforms
 
@@ -56,38 +56,38 @@ Caves shaped by the land above them, without changing any biome: underground riv
 
 ### Finding things
 
-`/utf locate <terrain>` finds the nearest landform, coast or sea-floor feature and puts you on its surface, e.g. `/utf locate cirque`, `/utf locate blue_hole`.
+`/wildshape locate <terrain>` finds the nearest landform, coast or sea-floor feature and puts you on its surface, e.g. `/wildshape locate cirque`, `/wildshape locate blue_hole`.
 
 ### Performance
 
-- The Terrain tab recommends performance mods and shows which of them are installed: C2ME, Noisium(ed), Lithium, ModernFix, AllTheLeaks and Sodium (on 1.20.1 Forge, Radium or Canary stand in for Lithium and Embeddium for Sodium, and C2ME runs through Sinytra Connector). With them, UltraTerraForged generates new land as fast as vanilla, or faster.
+- The Terrain tab recommends performance mods and shows which of them are installed: C2ME, Noisium(ed), Lithium, ModernFix, AllTheLeaks and Sodium (on 1.20.1 Forge, Radium or Canary stand in for Lithium and Embeddium for Sodium, and C2ME runs through Sinytra Connector). With them, Wildshape generates new land as fast as vanilla, or faster.
 - Rock shelters no longer recompute the terrain for every block around a chunk (up to a third faster chunk generation in badlands and plateaus).
 
 ### Fixes over ReTerraForged
 
-Rivers generated before the terrain (no rivers at all), cave and structure settings missing, terrain presets losing their scales, `/rtf locate` (now `/utf locate`) sending players to random places, bare rock over every sea floor, crashes when generating chunks and when placing some trees, and a startup crash on Forge next to mods that bundle MixinExtras (ModernFix, Noisium, AllTheLeaks and many more).
+Rivers generated before the terrain (no rivers at all), cave and structure settings missing, terrain presets losing their scales, `/rtf locate` (now `/wildshape locate`) sending players to random places, bare rock over every sea floor, crashes when generating chunks and when placing some trees, and a startup crash on Forge next to mods that bundle MixinExtras (ModernFix, Noisium, AllTheLeaks and many more).
 
 ## Dedicated servers
 
-Set `level-type=ultraterraforged:ultraterraforged` in `server.properties` before the world is created. The first start writes the default preset to `config/tnkterraforged/server-preset.json`; edit it, or ship your own, to choose the server's terrain.
+Set `level-type=wildshape:wildshape` in `server.properties` before the world is created. The first start writes the default preset to `config/wildshape/server-preset.json`; edit it, or ship your own, to choose the server's terrain.
 
 ## For modpack authors
 
-A modpack can choose the terrain its players start with, without taking away their ability to change it: save a preset from the Terrain tab, put it in `config/tnkterraforged/modpack-presets/`, and pick it as the default in `config/tnkterraforged/modpack.json`. Players can still switch presets, edit every setting and save their own. Details are in the [README](https://github.com/Pandaismyname1/ultraterraforged#for-modpack-authors).
+A modpack can choose the terrain its players start with, without taking away their ability to change it: save a preset from the Terrain tab, put it in `config/wildshape/modpack-presets/`, and pick it as the default in `config/wildshape/modpack.json`. Players can still switch presets, edit every setting and save their own. Details are in the [README](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape#for-modpack-authors).
 
 ## Compatibility
 
-- Biome mods (TerraBlender-based ones included) place their biomes into UltraTerraForged's terrain.
-- World Preview shows UltraTerraForged worlds.
+- Biome mods (TerraBlender-based ones included) place their biomes into Wildshape's terrain.
+- World Preview shows Wildshape worlds.
 - Rock mods join the rock layers automatically when they tag their stone as vanilla does.
 
 ## Credits and contributors
 
-UltraTerraForged stands on years of other people's work:
+Wildshape stands on years of other people's work:
 
 - **[TerraForged](https://github.com/TerraForged/TerraForged)**, by **[dags](https://github.com/dags-)** and **[Won-Ton](https://github.com/Won-Ton)** (with a contribution from [codehz](https://github.com/codehz)), created the terrain engine: continents, climate, terrain regions, rivers and erosion. The heart of the world generation is still theirs.
 - **[ReTerraForged](https://github.com/racoonman2/ReTerraForged)**, by **[raccoonman](https://github.com/racoonman2)**, with **[Steveplays28](https://github.com/Steveplays28)** and **[EdoEquin0x](https://github.com/EdoEquin0x)** (and contributions from Nicolas Bourgois and meteorshower2004), brought TerraForged to Minecraft 1.19 and later, rebuilt on the vanilla noise router, with presets as datapacks.
-- **UltraTerraForged** is maintained by **[pandaismyname1](https://github.com/Pandaismyname1)**. Its repository is a fork of ReTerraForged, so the full history of both projects, and everyone's commits, are kept in it.
+- **UltraTerraForged**, by **[pandaismyname1](https://github.com/Pandaismyname1)**, continued the upstream terrain engine. **Wildshape** is maintained by **Mikaaah / Towns & Kingdoms**, retaining the original authors' history and notices.
 
 All three are MIT licensed, and the original copyright notices are kept. If you enjoy this mod, the credit for the ideas it's built on belongs to them.
 
@@ -95,7 +95,7 @@ All three are MIT licensed, and the original copyright notices are kept. If you 
 
 ## The original TerraForged description
 
-*Kept as it was. Its installation steps and FAQ describe the original mod: for UltraTerraForged, see above.*
+*Kept as it was. Its installation steps and FAQ describe the original mod: for Wildshape, see above.*
 
 ### About:
 

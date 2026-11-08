@@ -2,7 +2,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Suggest landforms, settings and other improvements to world generation, and upvote the ideas you'd like most: votes help decide what comes next. UltraTerraForged leaves biomes to other mods, so new biomes are out of scope.
+        Suggest landforms, settings and other improvements to world generation, and upvote the ideas you'd like most: votes help decide what comes next. Wildshape leaves biomes to other mods, so new biomes are out of scope.
 
   - type: textarea
     id: idea

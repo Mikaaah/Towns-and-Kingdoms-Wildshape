@@ -16,15 +16,15 @@ loom {
                 property "wildshape.compatSmoke", "true"
             }
             if (project.findProperty("tnk.natureSmoke") == "true") {
-                property "utfstreams.natureSmoke", "true"
+                property "wildshape.streams.natureSmoke", "true"
             }
             if (project.findProperty("tnk.streamsSmoke") == "true") {
-                property "utfstreams.integrationTest", "native"
+                property "wildshape.streams.integrationTest", "native"
             }
         }
         // new worlds in the dev game start in creative with cheats, to fly around and inspect terrain
         client {
-            property "ultraterraforged.dev.creative", "true"
+            property "wildshape.dev.creative", "true"
         }
         // ./gradlew :neoforge:runData regenerates the translation files into neoforge/src/generated; copy them into
         // common resources. The dev datagen JVM does not exit on its own once it prints "All providers took", so stop
@@ -34,12 +34,12 @@ loom {
             server()
             name = "Server Test"
             runDir = "run-servertest"
-            // system properties for this server, to switch other mods' options: -Putf.serverTestProps=<key=value, separated by commas>
-            project.findProperty("utf.serverTestProps")?.split(",")?.each { def kv = it.split("=", 2); property kv[0], kv[1] }
+            // system properties for this server, to switch other mods' options: -Pwildshape.serverTestProps=<key=value, separated by commas>
+            project.findProperty("wildshape.serverTestProps")?.split(",")?.each { def kv = it.split("=", 2); property kv[0], kv[1] }
         }
         data {
             data()
-            programArgs "--mod", "ultraterraforged", "--all", "--output", file("src/generated/resources").absolutePath
+            programArgs "--mod", "wildshape", "--all", "--output", file("src/generated/resources").absolutePath
         }
     }
 }
@@ -82,10 +82,10 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive = false }
     shadowBundle(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 
-    // Performance mods, in the dev runs only: the ones PerformanceMods lists for NeoForge on this version. -Putf.perfMods=false
+    // Performance mods, in the dev runs only: the ones PerformanceMods lists for NeoForge on this version. -Pwildshape.perfMods=false
     // leaves them out. See docs/porting/performance-mods.md and unpackDevMods below.
     def unpacked = []
-    if (project.findProperty("utf.perfMods") != "false") {
+    if (project.findProperty("wildshape.perfMods") != "false") {
         unpacked += [
             // Embeddium 1.0.15 rather than Sodium: Sodium's jar is an early-loading service with the mod nested in it, and
             // the mod uses the service's classes, which the dev game can't give it once Loom has remapped them
@@ -99,25 +99,25 @@ dependencies {
         ]
     }
     // other mods unpacked the same way, for those whose nested libraries the dev game needs (Generator Accelerator's
-    // MixinSquared): -Putf.unpackMods=<their download URLs, separated by commas>
-    project.findProperty("utf.unpackMods")?.split(",")?.each { unpacked << it }
+    // MixinSquared): -Pwildshape.unpackMods=<their download URLs, separated by commas>
+    project.findProperty("wildshape.unpackMods")?.split(",")?.each { unpacked << it }
     if (!unpacked.isEmpty()) {
         def dir = unpackDevMods(unpacked)
         modLocalRuntime fileTree(new File(dir, "mods")) { include "*.jar" }
         localRuntime fileTree(new File(dir, "libs")) { include "*.jar" }
     }
-    // Streams Reflowing 2.15.2, to see UltraTerraForged's river currents in a dev run: -Putf.streams=true
-    if (project.findProperty("utf.streams") == "true") {
+    // Streams Reflowing 2.15.2, to see Wildshape's river currents in a dev run: -Pwildshape.streams=true
+    if (project.findProperty("wildshape.streams") == "true") {
         modLocalRuntime "maven.modrinth:streams-reflowing:vbJ5meb8"
     }
-    // other mods for a dev run, e.g. to try a compat: -Putf.extraMod=<paths to their jars, or dependencies such as
+    // other mods for a dev run, e.g. to try a compat: -Pwildshape.extraMod=<paths to their jars, or dependencies such as
     // curse.maven:bye-pregen-1567378:9206739, separated by commas>
-    project.findProperty("utf.extraMod")?.split(",")?.each { mod ->
+    project.findProperty("wildshape.extraMod")?.split(",")?.each { mod ->
         modLocalRuntime(new File(mod).exists() ? files(mod) : mod)
     }
 }
 
-// The performance mods (and -Putf.unpackMods) for the dev game, unpacked into build/devmods/{mods,libs}; done while Gradle configures the
+// The performance mods (and -Pwildshape.unpackMods) for the dev game, unpacked into build/devmods/{mods,libs}; done while Gradle configures the
 // project, as Loom remaps mod dependencies then.
 // - Released NeoForge mods name some of Minecraft's methods as javac does (lambda$fillFromNoise$11), and the dev game's
 //   jar doesn't keep those names, so the mods have to go through Loom, which renames them to match.
@@ -277,7 +277,7 @@ components.java {
     }
 }
 
-// Maven: <group>:ultraterraforged-neoforge:<version>, published to the repository given by -PmavenUrl (CI publishes to a folder
+// Maven: <group>:wildshape-neoforge:<version>, published to the repository given by -PmavenUrl (CI publishes to a folder
 // and pushes it to the "maven" branch)
 publishing {
     publications {

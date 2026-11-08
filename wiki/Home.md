@@ -2,7 +2,7 @@
 
 # Towns & Kingdoms — Wildshape
 
-Terrain-generation fork for TNK3, formerly presented as TNKTerraForged. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited.
+Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. Since 1.0.12-beta.2, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
 
 ## Guides
 

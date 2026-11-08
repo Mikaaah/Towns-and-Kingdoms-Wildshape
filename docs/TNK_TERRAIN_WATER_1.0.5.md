@@ -1,4 +1,4 @@
-# TNKTerraForged 1.0.5 terrain and water patch
+# Wildshape 1.0.5 terrain and water patch
 
 ## Confirmed defects
 
@@ -19,8 +19,8 @@ The included Balanced and Grand Expanse presets retain raised rivers and giant c
 
 ## Install
 
-1. Replace the old TNKTerraForged JAR with the supplied NeoForge 1.21.1 JAR. Keep only one copy.
-2. Copy the two JSON files to config/tnkterraforged/presets/ if you want the revised presets, replacing the earlier copies.
+1. Replace the old Wildshape JAR with the supplied NeoForge 1.21.1 JAR. Keep only one copy.
+2. Copy the two JSON files to config/wildshape/presets/ if you want the revised presets, replacing the earlier copies.
 3. Select the desired preset when creating a new world. Terrain, cave and preset changes do not rebuild existing chunks. A new world provides a clean comparison without old terrain boundaries.
 4. Keep Streams Reflowing installed separately. The existing integrated adapter remains included; do not add the older standalone utfstreams compatibility JAR.
 

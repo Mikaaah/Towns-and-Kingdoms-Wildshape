@@ -1,6 +1,6 @@
-# TNKTerraForged 1.0.8: structure compatibility
+# Wildshape 1.0.8: structure compatibility
 
-Install the NeoForge 1.21.1 TNKTerraForged JAR alongside the desired structure mods and their own required dependencies. TNK does not include or replace those mods. Keep the existing `ultraterraforged` world type and choose the intended TNK3 terrain preset when making a new world.
+Install the NeoForge 1.21.1 Wildshape JAR alongside the desired structure mods and their own required dependencies. TNK does not include or replace those mods. Keep the existing `wildshape` world type and choose the intended TNK3 terrain preset when making a new world.
 
 The supplied JARs include ATi Structures, Epic Structures: Villages, YUNG's Bridges, Cave Biomes, Better Dungeons, Mineshafts, Desert and Jungle Temples, Ocean Monuments, Witch Huts and Nether Fortresses; Integrated API, IDAS, Integrated Dungeons Arise, Integrated Stronghold, Cataclysm, Mowzie's Mobs, Seven Seas and Patches. Most register native or custom jigsaw structures. Epic Structures replaces vanilla village templates, so its pieces continue to use vanilla village placement. YUNG's Bridges uses a placed feature in river biomes rather than a structure start.
 

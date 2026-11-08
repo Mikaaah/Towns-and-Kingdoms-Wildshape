@@ -1,8 +1,8 @@
-# TNKTerraForged 1.0.7 for Minecraft 1.21.1
+# Wildshape 1.0.7 for Minecraft 1.21.1
 
-Replace the previous TNKTerraForged/UltraTerraForged JAR with the matching loader build. Install only one edition. Keep Nature's Spirit installed separately; it is optional and is not bundled.
+Replace the previous Wildshape JAR with the matching loader build. Install only one edition. Keep Nature's Spirit installed separately; it is optional and is not bundled.
 
-The ZIP includes the NeoForge JAR and revised Balanced/Grand Expanse JSON presets. Import a preset in the world creation screen. For a dedicated server, place the selected JSON at `config/tnkterraforged/server-preset.json` before creating the world and use `level-type=ultraterraforged:ultraterraforged`.
+The ZIP includes the NeoForge JAR and revised Balanced/Grand Expanse JSON presets. Import a preset in the world creation screen. For a dedicated server, place the selected JSON at `config/wildshape/server-preset.json` before creating the world and use `level-type=wildshape:wildshape`.
 
 New chunks receive the code fixes. A new world is needed to adopt a different terrain preset; existing world datapacks retain their saved parameters. Already generated river trenches, stone fields, pillars and caves are not repaired retroactively. Cave-biome boundaries can meet older generation at explored chunk edges.
 
