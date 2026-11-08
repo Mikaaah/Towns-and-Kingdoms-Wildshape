@@ -1,63 +1,60 @@
-<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms — Wildshape" width="100%"></p>
+# Towns & Kingdoms: Wildshape
 
-# Towns & Kingdoms — Wildshape
+Expansive terrain, enormous connected caverns and mod-aware exploration for **Towns & Kingdoms 3 | Beyond the Forge**.
 
-**Wildshape (formerly TNKTerraForged).**
+Wildshape is Mikaaah’s maintained Minecraft **1.21.1 / NeoForge / Java 21** fork of UltraTerraForged, ReTerraForged and TerraForged. Original authors, history and notices remain credited below. The current development build is **1.0.12-beta.2**.
 
-[Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Technical changelog](CHANGELOG-PERSONAL.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
+## Terrain and compatibility
 
-**Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
+- Large, connected caverns with lush, dripstone and lantern styles, rock supports and rare coastal coves.
+- Terrain-aware river banks, coastlines and native Streams Reflowing currents, including explicit Flow Control overrides. NeoForge supports the verified Streams 2.15.2 and 2.16.2 APIs; Flow Control 0.2.2 uses 2.16.2.
+- Native mod biome surfaces, decorations and creatures. Nature’s Spirit, BOP and Regions Unexplored keep their biome identities and materials.
+- Protected native cave habitats, including Alex’s Caves, tagged third-party underground biomes and Deep Dark.
+- Dungeon carving protection uses individual structure pieces and neighboring chunk references. Selected large Overworld dungeons receive explicit spacing rules; resource landmarks and other dimensions retain native placement.
+- Habitat tag bridges connect actual TNK3 biomes to native dungeon and creature rules without duplicating spawn tables or changing their weights.
+- Ores cannot become synthetic stone layers; Create’s decorative rocks remain eligible. Terrain caches have bounded retention and do not recycle arrays still held by readers.
 
-An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based on **UltraTerraForged** (pandaismyname1), **ReTerraForged** (raccoonman and contributors), and **TerraForged** (dags, Won-Ton and contributors). Their code, history, notices and credits are retained.
-
-> **TNK3-specific preview:** This is *not* an official UltraTerraForged build, nor an unrelated replacement written from scratch. It replaces the original JAR in your modpack and changes world generation in newly generated chunks.
-
-## What makes this fork different?
-
-- **Massive caves:** enormous, noisy caverns roughly 230–350 blocks across, with interconnected passages and roofs typically no higher than Y=30.
-- **Better for modded dungeons:** don't globally reject Integrated, YUNG or Cataclysm structure sites because of a village-only terrain restriction. Carving tries to preserve already-known structure footprints.
-- **More exploration, fewer tiny caves:** shipped terrain presets favor large underground spaces, without forcing hard progression stages.
-- **River and memory improvements:** water transitions, cave-water repair, tile failure recovery, cache fixes and a capped worldgen worker pool inherited from the source audit.
-- **Optional Alex's Caves support (NeoForge):** compatibility from Mikaaah's own Alex's Caves fix is integrated without requiring the port for normal play.
-
-## Editions
-
-| Edition | Minecraft | Details |
-| --- | --- | --- |
-| [NeoForge 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/neoforge-1.21.1) | Java 21 | Primary TNK3 build; optional Alex's Caves source integration |
-| [Fabric 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/fabric-1.21.1) | Java 21 | Shared terrain core; no NeoForge Alex's Caves integration |
-
-### Technical compatibility: legacy mod ID
-
-To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. Wildshape is the documentation brand. Current builds still use **TNKTerraForged** in the mod selector and `tnkterraforged` in artifact names; these legacy names refer to this fork. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
-
-The mod's core `ultraterraforged` data/resource namespace and config paths remain unchanged. Its baseline implementation version remains `1.0.2+1.21.1` to preserve exact-version compatibility with existing addons.
-
-## Dungeon and biome compatibility
-
-The first integration uses **vanilla structure starts** to protect generated dungeon footprints; no dependency on an individual dungeon mod is introduced. The old globally applied village-only structure placement veto is disabled to prevent rejecting modded dungeon candidates.
-
-The [TNK3 compatibility matrix](docs/TNK3_COMPATIBILITY.md) covers **Integrated Dungeons & Structures, Integrated Dungeons Arise, Integrated Stronghold, Integrated Cataclysm, YUNG's Better Dungeons, Cataclysm, Alex's Caves, Biomes O' Plenty, Oh The Biomes We've Gone, Twilight Forest and the Nether/End overhauls**. Mod-list presence is based on pack planning documents, not an automatically verified running instance.
-
-**This fork does not duplicate dungeon NBT structures, bypass LootJS/FTB Quests progression or override dungeon loot.** Dungeon-frequency balancing should be handled with TNK3 structure-set datapacks once the actual mod versions and registry keys are checked.
-
-### Built-in Streams Reflowing compatibility (NeoForge)
-
-The native river-current adapter from Mikaaah's [UltraTerraForged × Streams Reflowing 0.2.1](https://github.com/Mikaaah/UltraTerraForged-Streams-Currents) is integrated into TNKTerraForged's **NeoForge 1.21.1** edition. When optional **Streams Reflowing 2.15.2** is installed, TNKTerraForged provides height-aware native river currents and corrects current directions using nearby loaded water—including boats, water particles and baked stream blocks—while respecting explicit manual Flow Control overrides.
-
-**Install Streams Reflowing separately. Remove the old standalone `utfstreams` compatibility JAR** to avoid duplicate Mixins. Fabric does not yet include this adapter. See [Streams integration instructions](docs/TNK3_STREAMS_REFLOWING.md).
+The [November audit](docs/WILDSHAPE_AUDIT_2026-11-08.md) records findings, implementation and verification. The [compatibility matrix](docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and all 264 entries from the latest retrievable TNK3 export. These records distinguish static inspection, focused tests and runtime evidence.
 
 ## Installation
 
-Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
+Install **one NeoForge 1.21.1 Wildshape JAR**. Remove the previous terrain JAR and superseded standalone adapters `utfstreams`, `tfacfix` and `utfoptimizer`; their relevant fixes are integrated. **Keep Flow Control** when using its tools. Optional mods remain separate installations.
 
-Read the [technical changelog](CHANGELOG-PERSONAL.md), [installation guide](wiki/Getting-Started.md) and [developer notes](docs/DEVELOPMENT.md). Generate new chunks to see terrain changes.
+Select **Wildshape** in Create World. On a dedicated server use:
 
-## Authors, origins and licensing
+```properties
+level-type=wildshape:wildshape
+```
 
-- **TNKTerraForged-specific work / Alex's Caves compatibility:** Mikaaah / Towns & Kingdoms
+The FML mod ID and resource namespace are **`wildshape`**. Configuration is written to **`config/wildshape/`**. Missing settings and custom presets are imported from the previous directories without replacing current settings or altering the originals. New share codes use `WILDSHAPE1:`; previously shared codes still import. Commands use `/wildshape`, with `/wildshape streams status` when Streams is installed.
+
+**This version changes registry identity. Use a fresh world.** Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](docs/WILDSHAPE_IDENTITY.md).
+
+| Build | Minecraft | Java | Scope |
+|---|---|---|---|
+| NeoForge | 1.21.1 | 21 | Primary TNK3 build; native Alex’s Caves and actual-water current corrections |
+
+## Development
+
+```sh
+./gradlew :common:test :neoforge:build -Pwildshape.perfMods=false
+```
+
+Set `RELEASE=1` for versioned release filenames. Optional performance mods are excluded from this build command so they are not silently made requirements. The [published project Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) contains the project overview. See [development notes](docs/DEVELOPMENT.md), [changelog](CHANGELOG.md) and the [JAR inventory utility](tools/audit-compat-jars.py).
+
+The opt-in dedicated-server check is enabled with JVM argument `-Dwildshape.compatSmoke=true` (or `-Ptnk.compatSmoke=true` for the NeoForge development run). It checks live registries, habitats, dimension ownership and generation, writes `wildshape-compat-results.json`, then stops the server. Leave this argument out for normal play.
+
+## Preserved TNK3 decisions
+
+The [24 excluded BOP/RU biomes](docs/TNK3_BIOME_EXCLUSIONS.md), BOP Grassland, Cherry Grove promotion, enormous cavern geometry, native mod surfaces and gentle river transitions remain. Artificial underground water tunnels remain disabled. Other dimensions keep their own generators. Recipes, quest progression, loot and boss access stay with the pack’s existing scripts and mods.
+
+See [upstream comparison](docs/UPSTREAM_1.0.3_COMPARISON.md), [Streams details](docs/TNK3_STREAMS_REFLOWING.md), [cavern and surface notes](docs/TNK_CAVERNS_BIOMES_1.0.7.md) and [structure protection details](docs/TNK_STRUCTURE_COMPAT_1.0.8.md).
+
+## Authors and licensing
+
+- **Wildshape / TNK integration:** Mikaaah / Towns & Kingdoms
 - **UltraTerraForged:** [pandaismyname1](https://github.com/Pandaismyname1/ultraterraforged)
 - **ReTerraForged:** [raccoonman](https://github.com/racoonman2/ReTerraForged) and contributors
-- **TerraForged:** [dags](https://github.com/TerraForged/TerraForged) and contributors
+- **TerraForged:** [dags](https://github.com/TerraForged/TerraForged), Won-Ton and contributors
 
-Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution includes your GPL-3.0-licensed Alex's Caves integration; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Branding does not remove upstream attribution or existing obligations.
+Original MIT copyright notices are retained in [LICENSE](LICENSE). The NeoForge distribution retains GPL-3.0-licensed compatibility code; see [LICENSE-ALEX-COMPAT-GPL-3.0](LICENSE-ALEX-COMPAT-GPL-3.0). Optional third-party mods and dungeon templates are not bundled.

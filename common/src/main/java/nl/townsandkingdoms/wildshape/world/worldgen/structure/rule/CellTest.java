@@ -1,0 +1,67 @@
+package nl.townsandkingdoms.wildshape.world.worldgen.structure.rule;
+
+import java.util.List;
+import java.util.Set;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.google.common.collect.ImmutableSet;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.StructureTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import nl.townsandkingdoms.wildshape.world.worldgen.GeneratorContext;
+import nl.townsandkingdoms.wildshape.world.worldgen.WildshapeRandomState;
+import nl.townsandkingdoms.wildshape.world.worldgen.cell.Cell;
+import nl.townsandkingdoms.wildshape.world.worldgen.heightmap.WorldLookup;
+import nl.townsandkingdoms.wildshape.world.worldgen.terrain.Terrain;
+import nl.townsandkingdoms.wildshape.world.worldgen.terrain.TerrainType;
+
+// targets: the structures it's for; presets saved before it was kept had only villages in mind
+record CellTest(TagKey<Structure> targets, float cutoff, Set<Terrain> terrainTypeBlacklist) implements StructureRule {
+	public static final Codec<CellTest> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		TagKey.hashedCodec(Registries.STRUCTURE).optionalFieldOf("targets", StructureTags.VILLAGE).forGetter(CellTest::targets),
+		Codec.FLOAT.fieldOf("cutoff").forGetter(CellTest::cutoff),
+		Codec.STRING.xmap(TerrainType::get, Terrain::getName).listOf().fieldOf("terrain_type_blacklist").forGetter((set) -> set.terrainTypeBlacklist().stream().toList())
+	).apply(instance, CellTest::new));
+
+	public CellTest(TagKey<Structure> targets, float cutoff, List<Terrain> terrainTypeBlacklist) {
+		this(targets, cutoff, ImmutableSet.copyOf(terrainTypeBlacklist));
+	}
+
+	@Override
+	public boolean appliesTo(Holder<Structure> structure) {
+		return structure.is(this.targets);
+	}
+
+	@Override
+	public boolean test(RandomState randomState, BlockPos pos) {
+		if((Object) randomState instanceof WildshapeRandomState wildshapeRandomState) {
+			@Nullable
+			GeneratorContext generatorContext = wildshapeRandomState.generatorContext();
+			if(generatorContext != null) {
+				WorldLookup worldLookup = generatorContext.lookup;
+				Cell cell = new Cell();
+				worldLookup.applyAsGenerated(cell.reset(), pos.getX(), pos.getZ());
+				if (cell.riverDistance < this.cutoff || this.terrainTypeBlacklist.contains(cell.terrain)) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			// Structure tests must never crash another dimension's generator.
+            return true;
+		}
+	}
+
+	@Override
+	public Codec<CellTest> codec() {
+		return CODEC;
+	}
+}

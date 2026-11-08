@@ -1,42 +1,67 @@
-# TNKTerraForged — Towns & Kingdoms 3 compatibility plan
+# Wildshape — TNK3 compatibility
 
-Minecraft **1.21.1**; primary loader **NeoForge 21.1.x**. This is the pack-oriented fork based on UltraTerraForged, ReTerraForged, and TerraForged, not an official upstream update.
+Minecraft **1.21.1**, NeoForge, Java **21**. This describes **1.0.12-beta.2**, retaining the audited 1.0.11/beta.1 terrain and compatibility work while completing the Wildshape identity rename. Exact new-binary validation is recorded in [identity evidence](audit/identity/).
 
-## Implemented in this preview
+## Evidence
 
-- **Generic protection of known structures:** Before carving a block, TNKTerraForged checks bounding boxes of valid structure starts recorded in the current chunk and protects the footprint plus a two-block safety margin. Works by vanilla structure API; no hard dependency on a dungeon mod. Structures *not yet recorded* at build-surface stage, structures starting outside this chunk, and structure pieces with inaccurate boxes are **not guaranteed protected**.
-- **Prevent unintended global structure rejection:** the original `Structure.isValidBiome` mixin applied village-specific terrain restrictions to all structures. Disabled by default for this fork; reenable temporarily with `-Dtnkterraforged.legacyGlobalStructureRules=true`. Terrain-safe placement should eventually be a **targeted** per-structure policy, not a global veto.
-- **Large caves:** existing configurable enormous caverns and passage connections are preserved. Cave-water fixes and optional protected Alex's Caves biomes are preserved.
-- **Optional Alex's Caves NeoForge integration:** already authored as the TNK-owned compatibility module. Uses the port 2.0.10; don't include the separate tfacfix JAR at the same time.
-- **Separate dimensions:** No TNK overrides to Twilight Forest, Amplified Nether/BetterNether or BetterEnd world generators.
+The latest retrievable pack export has 264 entries (258 CurseForge manifest entries and six bundled JARs). The 25 October TNK3 launch log and November’s 20 uploaded JARs supplement it. The newer Planescape log is unrelated and excluded. This is an evidence-based inventory, not a claim that every November installation is identical.
 
-## TNK3 mods to validate next
+- [Full 264-entry disposition](audit/tnk3-mod-compatibility.csv)
+- [Inspected dependency versions and SHA-256 hashes](audit/verified-dependencies.csv)
+- [Verified structure-set resources](audit/verified-structure-sets.csv)
+- [Findings and validation record](WILDSHAPE_AUDIT_2026-11-08.md)
 
-The names below come from TNK3 project mod-list documentation and the Alpha 1.0 project listing; **they do not guarantee installed JAR versions in the currently running instance**.
+## Integration matrix
 
-| Mod / group | Goal | Current status |
-| --- | --- | --- |
-| Integrated Dungeons & Structures (IDAS), Integrated Dungeons Arise | Large Create-heavy dungeons should not be cut by caves; sparse placement | Generic start protection implemented; spacing profiles pending verified structure-set IDs |
-| Integrated Stronghold, Integrated Villages | Retain accessibility and foundations; don't reject sites globally | Generic start protection + global veto removed; multi-chunk validation pending |
-| Integrated Cataclysm, Cataclysm, Integrated Mowzie's Mobs | Boss arenas should not intersect cavern carving or water unexpectedly | Generic start protection; verify arena footprint and spawn conditions |
-| YUNG's Better Dungeons | Preserve underground dungeon pieces, spawners, corridors | Generic start protection; verify where starts are registered relative to surface stage |
-| Alex's Caves port | Native biome placement and landmark chambers survive UTF terrain | NeoForge optional source integration exists; verify port version |
-| Biomes O' Plenty, Oh The Biomes We've Gone, TerraBlender | Biomes retained across TNK's terrain/climate | Existing TerraBlender hooks retained; full pack integration test pending |
-| Atmospheric, Environmental, Autumnity, Upgrade Aquatic, BloomingNature | Keep vegetation, aquatic ecosystems, vanilla-biome additions | Do not overwrite mod features; verify feature placement by biome |
-| Twilight Forest, BetterEnd: New Dawn, BetterNether: New Dawn, Amplified Nether | Preserve other dimensions' own generation and structures | TNKTerraForged customization is Overworld-focused |
-| ModernFix, FerriteCore, Lithium, C2ME, AllTheLeaks | Avoid memory contention, thread oversubscription and async gen hazards | Existing bounded worker pool; heap/JFR and pregeneration benchmarks pending |
+| Mods / area | Implemented policy | Practical limits |
+|---|---|---|
+| BOP, Regions Unexplored, Nature’s Spirit, TerraBlender | Native biome identities, materials, decorations and spawn settings; existing exclusions and surface adapters preserved | Biome distribution follows the selected preset and installed biome regions |
+| Alex’s Caves 2.0.10 | Existing native climate adapter; cave carving preserves its biome cells; acid pits and other landmarks keep native spacing | Requires its normal dependencies; remove standalone `tfacfix` |
+| RU/BOP and other tagged cave biomes; Deep Dark | Native `c:is_cave` / `c:is_underground` habitats protected; extensible `wildshape:protected_cave_biomes` tag | Untagged third-party underground biomes require an explicit entry; ordinary vanilla lush/dripstone remain available for authored cavern styles |
+| IDAS / Integrated Dungeons Arise / Integrated Villages | Explicit spacing for verified sets; native templates, weights and loot retained | Runtime placement and biome availability still come from those mods |
+| Integrated API | Append modern common habitat tags to its legacy biome collections | Optional tags cannot create an absent biome |
+| Integrated Stronghold / Cataclysm / Mowzie’s / Seven Seas | Native registry replacements retained; known structure pieces protected during cavern carving | No copied templates or global boss spacing rewrite |
+| YUNG structures | Explicit Overworld spacing for verified dungeon/temple/hut/monument sets; mineshaft, stronghold, Nether and End placement retained | Feature-placed geometry and inaccurate piece boxes cannot be protected universally |
+| Cataclysm | Desert, snowy-plains and explicit deep-ocean habitat bridges; native arenas, mob weights and predicates | Alex’s Caves’ abyssal habitat is not broadly admitted into ordinary ocean tags |
+| Alex’s Mobs 1.22.17 | Modern common tags bridged into its five verified legacy habitat tags | Native placement checks and configuration still determine actual spawns |
+| Hybrid Aquatic / HAPI | RU deep ocean/bayou/fens and Nature’s Spirit marsh, tropical rivers and beaches added to matching native habitat tags | Spawn frequency, group size and water requirements remain native; RU reefs retain their coral classification |
+| Starcatcher / Bosses’Rise / Legendary Monsters | Verified fishing and arena habitat tags extended to matching modded biomes; native encounter rules retained | No automatic global boss density change |
+| Knight Quest / Legendary Monsters fixed spawn lists | Read installed native spawn modifiers; extend to matching modded habitats during ADD, avoiding existing entries | Later REMOVE rules retain priority; native weights/groups and placement predicates remain |
+| WilderNature | Plains, desert and forest habitat bridges to native creature tags | No duplicate biome modifier or replacement spawn table |
+| BloomingNature / Alpine Whispers / Autumnity / Upgrade Aquatic | Native vanilla-biome modifications retained | No global habitat or feature replacement |
+| Ars / Iron’s Spells / Apotheosis | Native mobs, features and loot; selected Iron’s/Apotheosis Overworld tower spacing only | Gameplay, progression and loot stay with the pack |
+| AE2 / Create / Immersive Engineering / modded ores | Meteorites and ore modifiers retain native placement; ore/storage blocks excluded from decorative strata; Create stone remains eligible | This does not modify ore yields or recipes |
+| Streams Reflowing 2.15.2 or 2.16.2 / Flow Control | Version-specific native-current and loaded-water adapters; Flow Control 0.2.2 uses Streams 2.16.2; manual overrides respected; terrain surveys avoid full tile generation | Remove old `utfstreams`; retain Flow Control; visual/boat behavior requires client playtesting |
+| Nether / End / Twilight / Aether / other dimensions | Their generator ownership retained; automatic dungeon spacing targets only the explicit Overworld list | Does not promise new compatibility with untested custom dimension generators |
+| Storage, UI, combat and utility mods | No invented worldgen integration; optional dependencies remain optional | Inventory presence alone is not a runtime certification |
 
-## Avoid accidentally changing progression
+Habitat bridges are append-only and optional. They are exported with the Wildshape world preset, so unrelated vanilla worlds are not given this pack’s habitat rules.
 
-- Do **not** bundle or transplant Integrated or YUNG structure NBT files into TNKTerraForged.
-- Do **not** alter structure loot tables or inject extra Create machines; TNK3 should handle loot, difficulty and chapter progression with its existing scripts/mods.
-- Large Create-rich dungeons may need *rarer* structure-set placement; implement this with a **TNK-owned datapack once exact registry keys and versioned structure-set files are verified**.
-- Keep new integration classes optional and narrowly scoped; missing mods should not crash startup.
+## Structure rules
 
-## Compatibility constraints
+Wildshape no longer increases the spacing of every modded random-spread set. The selected minimum spacings are defined in [`StructureSetPolicy`](../common/src/main/java/nl/townsandkingdoms/wildshape/data/preset/StructureSetPolicy.java). Native larger spacings are retained. Explicit saved preset structure overrides take priority. Placement salts, weights, exclusion zones and custom placement types are retained. Dedicated servers bind these changes while world registry resources load, so modded sets absent from the initial vanilla-only export receive the same policy.
 
-- **Only one terrain fork:** TNKTerraForged keeps the registry ID `ultraterraforged` for compatibility and **must replace**, not sit alongside, the original UltraTerraForged. FreeTerraForged is a separate terrain generator; do not expect its custom world type and TNK's world type to compose automatically.
-- Minecraft **1.21.1**, Java **21**. Use the loader-specific JAR.
-- Pack testing must compare seed and preset with a matching mod list, fresh chunks, a structure locator, server memory snapshots and repeated / reload tests.
-- For structure protection troubleshooting, use JVM arg `-Dtnkterraforged.structureProtection=false` temporarily to isolate differences. This is not an in-game GUI setting.
-- Original game IDs and preset files stay `ultraterraforged` until an explicit migration version is designed.
+Resource landmarks such as **AE2 meteorites**, **Alex’s Caves acid pits**, aquatic whale falls and Nether/End structures keep their own spacing. This matters because worldgen registries are shared across dimensions.
+
+Carving protection follows individual structure pieces and neighboring chunk references with a four-block margin. It avoids carving through known dungeon walls without shielding a huge mineshaft’s entire aggregate volume. Structures that do not provide pieces at that generation stage, feature-generated buildings and inaccurate boxes remain limitations. No Structure Overlap retains its own checks.
+
+## Extending native cave protection
+
+Append entries or optional references to this biome tag in a datapack:
+
+```json
+{
+  "replace": false,
+  "values": [
+    {"id": "example:native_cave", "required": false}
+  ]
+}
+```
+
+Path: `data/wildshape/tags/worldgen/biome/protected_cave_biomes.json`.
+
+## Installation and migration
+
+Install one NeoForge 1.21.1 JAR. Remove the previous terrain JAR and superseded `utfstreams`, `tfacfix` and `utfoptimizer`; keep Flow Control. Version 1.0.12-beta.2 uses `wildshape` for the FML ID, resource namespace, configuration folder and world type. Legacy settings import without overwriting current settings. Use a fresh world: old saves and exported world datapacks require a separate registry migration. See [identity migration](WILDSHAPE_IDENTITY.md).
+
+Automated checks and dedicated-server evidence are recorded in the audit. Exhaustive visual checks of every dungeon, mob habitat, seed, custom preset and full client pack remain separate work; a clean compile is not evidence of those outcomes.

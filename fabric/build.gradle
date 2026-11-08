@@ -42,15 +42,24 @@ dependencies {
     shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
 
     // Performance mods, in the dev runs only: the ones PerformanceMods lists for Fabric on this version, pinned to
-    // Modrinth version ids (the version numbers are shared between loaders). -Putf.perfMods=false leaves them out, to
-    // measure or debug UltraTerraForged on its own. See docs/porting/performance-mods.md.
-    if (project.findProperty("utf.perfMods") != "false") {
+    // Modrinth version ids (the version numbers are shared between loaders). -Pwildshape.perfMods=false leaves them out, to
+    // measure or debug Wildshape on its own. See docs/porting/performance-mods.md.
+    if (project.findProperty("wildshape.perfMods") != "false") {
         // C2ME 0.4.0-alpha.0.29: its modules are nested jars. Not C2ME OpenCL: it needs Java 25, the dev game runs on 21.
         devModsFolder "maven.modrinth:c2me-fabric:RMHYO1LJ"
         modLocalRuntime "maven.modrinth:noisiumed:8mNj0Di8"     // Noisiumed 3.0.6
         modLocalRuntime "maven.modrinth:lithium:N08Z8wog"       // Lithium 0.15.4
         modLocalRuntime "maven.modrinth:modernfix:NnNX8LBn"     // ModernFix 5.25.1
         modLocalRuntime "maven.modrinth:sodium:SMxNOGZ6"        // Sodium 0.8.13
+    }
+    // Streams Reflowing 2.15.2, to see Wildshape's river currents in a dev run: -Pwildshape.streams=true
+    if (project.findProperty("wildshape.streams") == "true") {
+        modLocalRuntime "maven.modrinth:streams-reflowing:OBnu1pc1"
+    }
+    // other mods for a dev run, e.g. to try a compat: -Pwildshape.extraMod=<paths to their jars, or dependencies such as
+    // maven.modrinth:alexs-caves-continued:T5wPX7t2, separated by commas>
+    project.findProperty("wildshape.extraMod")?.split(",")?.each { mod ->
+        modLocalRuntime(new File(mod).exists() ? files(mod) : mod)
     }
 }
 
@@ -126,23 +135,29 @@ loom {
         }
         // new worlds in the dev game start in creative with cheats, to fly around and inspect terrain
         client {
-            property "ultraterraforged.dev.creative", "true"
+            property "wildshape.dev.creative", "true"
         }
         clientTest {
             client()
             name = "Client Test"
             source sourceSets.clienttest
             runDir = "run-clienttest"
-            property "ultraterraforged.clienttest.out", file("build/clienttest").absolutePath
-            // -Dultraterraforged.clienttest.tour=true visits the landforms in a default world instead
-            property "ultraterraforged.clienttest.tour", System.getProperty("ultraterraforged.clienttest.tour", "false")
-            property "ultraterraforged.clienttest.stops", System.getProperty("ultraterraforged.clienttest.stops", "river,salt_flat,alluvial_fan,glacial_valley,cirque,drumlins,moraine,barrier_island,karst,sinkhole,delta,wetland,lake,peninsula,coastal_island,sand_bar,skerry,volcanic_island,river_island,submarine_canyon,seamount,guyot,blue_hole,coral_reef,ocean_trench,ocean_ridge,sand_waves")
-            property "ultraterraforged.dev.creative", "true"
+            property "wildshape.clienttest.out", file("build/clienttest").absolutePath
+            // -Dwildshape.clienttest.tour=true visits the landforms in a default world instead
+            property "wildshape.clienttest.tour", System.getProperty("wildshape.clienttest.tour", "false")
+            // -Dwildshape.clienttest.seed=<seed> makes the tour's world with that seed
+            property "wildshape.clienttest.seed", System.getProperty("wildshape.clienttest.seed", "")
+            property "wildshape.clienttest.stops", System.getProperty("wildshape.clienttest.stops", "river,salt_flat,alluvial_fan,glacial_valley,cirque,drumlins,moraine,barrier_island,karst,sinkhole,delta,wetland,lake,peninsula,coastal_island,sand_bar,skerry,volcanic_island,river_island,submarine_canyon,seamount,guyot,blue_hole,coral_reef,ocean_trench,ocean_ridge,sand_waves")
+            property "wildshape.dev.creative", "true"
+            // a flight recording of the run, e.g. to find who started a thread: -Dwildshape.jfr=<file>
+            if (System.getProperty("wildshape.jfr") != null) {
+                vmArg "-XX:StartFlightRecording=filename=" + System.getProperty("wildshape.jfr") + ",settings=profile"
+            }
         }
     }
 }
 
-// Maven: <group>:ultraterraforged-fabric:<version>, published to the repository given by -PmavenUrl (CI publishes to a folder
+// Maven: <group>:wildshape-fabric:<version>, published to the repository given by -PmavenUrl (CI publishes to a folder
 // and pushes it to the "maven" branch)
 publishing {
     publications {

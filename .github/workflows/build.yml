@@ -30,18 +30,23 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
-      - name: Build Fabric
-        run: ./gradlew :fabric:build -Putf.perfMods=false
+      - name: Check terrain and compatibility regressions
+        run: >-
+          ./gradlew :common:test -Pwildshape.perfMods=false
+          --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
+          --tests '*StructureSet*Test' --tests '*OptionalHabitatDatapackTest'
+          --tests '*StrataMaterialsTest' --tests '*FastPoissonContextTest'
+          --tests '*SkerriesWaterTest' --tests '*WorldGenLookupTest'
+          --tests '*TileCacheTest' --tests '*StructureRuleTest'
 
+      # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge
-        run: ./gradlew :neoforge:build -Putf.perfMods=false
+        run: ./gradlew :neoforge:build -Pwildshape.perfMods=false
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: |
-            fabric/build/libs/
             neoforge/build/libs/
 

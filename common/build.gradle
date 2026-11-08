@@ -1,9 +1,9 @@
 architectury {
-    common("fabric", "neoforge")
+    common("neoforge")
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/ultraterraforged.accesswidener")
+    accessWidenerPath = file("src/main/resources/wildshape.accesswidener")
 }
 
 // Fabric's Mixin 0.17.4 turned the "at" of @Redirect, @ModifyArg, @ModifyArgs and @ModifyVariable into an array. Common
@@ -19,8 +19,17 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     compileOnly "com.github.glitchfiend:TerraBlender-common:${rootProject.minecraft_version}-${rootProject.terrablender_version}"
     compileOnly "com.electronwill.night-config:toml:3.6.7"
-    // C2ME OpenCL compat: C2ME bundles MixinSquared 0.3.7-beta.1 on both loaders
-    compileOnly "com.github.bawnorton.mixinsquared:mixinsquared-common:0.3.7-beta.1"
+    // C2ME OpenCL compat: C2ME bundles MixinSquared 0.3.7-beta.1 on both loaders. Its jar (MIT, licence inside) is kept
+    // here, as its own maven can be down, and only its @TargetHandler is compiled against
+    compileOnly files("libs/mixinsquared-common-0.3.7-beta.1.jar")
+    // Streams Reflowing 2.15.2 (All Rights Reserved: compiled against, never shipped), for the currents of Wildshape's
+    // rivers. A Modrinth version id, not 2.15.2, which every loader's and Minecraft version's build shares. Its common
+    // code is the same in the Fabric and NeoForge builds.
+    modCompileOnly "maven.modrinth:streams-reflowing:OBnu1pc1"
+}
+
+configurations {
+    mockitoAgent
 }
 
 dependencies {
@@ -28,23 +37,26 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher"
     testImplementation "org.mockito:mockito-core:5.14.2"
+    mockitoAgent("org.mockito:mockito-core:5.14.2") { transitive = false }
 }
 
 test {
     useJUnitPlatform()
-    systemProperty "utf.updateGolden", System.getProperty("utf.updateGolden", "false")
+    jvmArgs "-javaagent:${configurations.mockitoAgent.asPath}"
+    // Explicit instrumentation works on JDK 21 without dynamic self-attachment.
+    systemProperty "wildshape.updateGolden", System.getProperty("wildshape.updateGolden", "false")
     maxHeapSize = "2G"
-    testLogging.showStandardStreams = Boolean.getBoolean("utf.showOutput")
-    systemProperty "utf.showOutput", System.getProperty("utf.showOutput", "false")
-    systemProperty "utf.render", System.getProperty("utf.render", "false")
-    systemProperty "utf.bench", System.getProperty("utf.bench", "false")
-    if (System.getProperty("utf.profile") != null) systemProperty "utf.profile", "true"
-    // a flight recording of the tests, for finding where the time goes: -Dutf.jfr=<file>
-    if (System.getProperty("utf.jfr") != null) {
-        jvmArgs "-XX:StartFlightRecording=filename=" + System.getProperty("utf.jfr") + ",settings=profile"
+    testLogging.showStandardStreams = Boolean.getBoolean("wildshape.showOutput")
+    systemProperty "wildshape.showOutput", System.getProperty("wildshape.showOutput", "false")
+    systemProperty "wildshape.render", System.getProperty("wildshape.render", "false")
+    systemProperty "wildshape.bench", System.getProperty("wildshape.bench", "false")
+    if (System.getProperty("wildshape.profile") != null) systemProperty "wildshape.profile", "true"
+    // a flight recording of the tests, for finding where the time goes: -Dwildshape.jfr=<file>
+    if (System.getProperty("wildshape.jfr") != null) {
+        jvmArgs "-XX:StartFlightRecording=filename=" + System.getProperty("wildshape.jfr") + ",settings=profile"
     }
     // hand-run surveys and measurements
-    System.properties.findAll { it.key.startsWith("utf.survey") }.each { systemProperty it.key, it.value }
+    System.properties.findAll { it.key.startsWith("wildshape.survey") }.each { systemProperty it.key, it.value }
     testLogging {
         events "failed"
         exceptionFormat "full"

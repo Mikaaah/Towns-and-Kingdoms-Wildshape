@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "ultraterraforged",
+  "id": "wildshape",
   "version": "${version}",
-  "name": "TNKTerraForged",
-  "description": "TNK3-focused overworld terrain based on UltraTerraForged, ReTerraForged and TerraForged. Large caverns and modded structure safeguards.",
+  "name": "Towns & Kingdoms: Wildshape",
+  "description": "A TerraForged-family terrain mod for Towns & Kingdoms with connected caverns and native biome compatibility.",
   "authors": [
-    "Mikaaah (TNKTerraForged)",
-    "pandaismyname1 (UltraTerraForged original)"
+    "Mikaaah (Wildshape)",
+    "pandaismyname1 (upstream author)"
   ],
   "contributors": [
     "dags (TerraForged)",
@@ -15,24 +15,24 @@
     "Steveplays28 (ReTerraForged)",
     "EdoEquin0x (ReTerraForged)",
     "Mikaaah (community fork)",
-    "Mikaaah (TNKTerraForged)"
+    "Mikaaah (Wildshape)"
   ],
   "contact": {
-    "homepage": "https://github.com/Mikaaah/ultraterraforged-personal",
-    "sources": "https://github.com/Mikaaah/ultraterraforged-personal",
-    "issues": "https://github.com/Mikaaah/ultraterraforged-personal/issues"
+    "homepage": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
+    "sources": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
+    "issues": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues"
   },
   "license": "MIT",
-  "icon": "assets/ultraterraforged/icon.png",
+  "icon": "assets/wildshape/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.pandaismyname1.ultraterraforged.fabric.UTFFabric"
+      "nl.townsandkingdoms.wildshape.fabric.WildshapeFabric"
     ]
   },
   "mixins": [
-    "ultraterraforged-common.mixins.json",
-    "ultraterraforged-fabric.mixins.json"
+    "wildshape-common.mixins.json",
+    "wildshape-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.0",

@@ -1,0 +1,188 @@
+{
+  "tests": 55,
+  "failures": 0,
+  "skipped": 0,
+  "errors": 0,
+  "classes": [
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.NewLandformsTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:32.027Z",
+      "hostname": "822596cbe423",
+      "time": "4.399"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.OptionalHabitatDatapackTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:36.427Z",
+      "hostname": "822596cbe423",
+      "time": "0.536"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.WorldGenLookupTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:48.777Z",
+      "hostname": "822596cbe423",
+      "time": "1.719"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.surface.rule.StrataMaterialsTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:59.071Z",
+      "hostname": "822596cbe423",
+      "time": "0.002"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.landform.SkerriesWaterTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:58.907Z",
+      "hostname": "822596cbe423",
+      "time": "0.102"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.TileChunkRefTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:46.403Z",
+      "hostname": "822596cbe423",
+      "time": "2.372"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.cave.CaveBiomeProtectionTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:50.497Z",
+      "hostname": "822596cbe423",
+      "time": "0.061"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.surface.ModSurfaceRulesTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:59.017Z",
+      "hostname": "822596cbe423",
+      "time": "0.053"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.MushroomIslandsTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:31.867Z",
+      "hostname": "822596cbe423",
+      "time": "0.159"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.BiomeExclusionsTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:44:07.990Z",
+      "hostname": "822596cbe423",
+      "time": "0.009"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.StructureOptionsTest",
+      "tests": "6",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:36.964Z",
+      "hostname": "822596cbe423",
+      "time": "0.115"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.structure.rule.StructureRuleTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:59.010Z",
+      "hostname": "822596cbe423",
+      "time": "0.007"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.BuiltinPresetRenderTest",
+      "tests": "16",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:44:08.001Z",
+      "hostname": "822596cbe423",
+      "time": "141.299"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.TileCacheTest",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:37.079Z",
+      "hostname": "822596cbe423",
+      "time": "9.322"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.test.CoastsTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:29.304Z",
+      "hostname": "822596cbe423",
+      "time": "2.561"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.feature.placement.poisson.FastPoissonContextTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:58.815Z",
+      "hostname": "822596cbe423",
+      "time": "0.091"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.data.preset.StructureSetPolicyTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:44:02.898Z",
+      "hostname": "822596cbe423",
+      "time": "5.091"
+    },
+    {
+      "name": "com.pandaismyname1.ultraterraforged.world.worldgen.cave.CavernStyleTest",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-08T08:46:50.559Z",
+      "hostname": "822596cbe423",
+      "time": "8.255"
+    }
+  ]
+}

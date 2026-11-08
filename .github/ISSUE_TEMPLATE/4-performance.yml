@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        UltraTerraForged generates more detailed terrain than vanilla, so new land takes more work. The Terrain tab in Create World lists performance mods that help a lot (C2ME, Lithium, ModernFix and others). If it's still slow with those, a profile shows where the time goes.
+        Wildshape generates more detailed terrain than vanilla, so new land takes more work. The Terrain tab in Create World lists performance mods that help a lot (C2ME, Lithium, ModernFix and others). If it's still slow with those, a profile shows where the time goes.
 
   - type: textarea
     id: what
@@ -60,7 +60,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: UltraTerraForged version
+      label: Wildshape version
       placeholder: 1.0.1
     validations:
       required: true

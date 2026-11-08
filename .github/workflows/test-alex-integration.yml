@@ -1,7 +1,7 @@
-name: UTF Alex Caves NeoForge integration smoke
+name: Wildshape Alex Caves NeoForge integration smoke
 on:
   push:
-    branches: [neoforge-1.21.1]
+    branches: [update/upstream-1.0.3-tnk, neoforge-1.21.1]
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,14 +24,14 @@ jobs:
           target.mkdir(parents=True,exist_ok=True)
           for ver in ('pC1MYhqR','mIylVpkN'):
               req=urllib.request.Request('https://api.modrinth.com/v2/version/'+ver,
-                                          headers={'User-Agent':'UltraTerraForged-Integration-CI/1.0'})
+                                          headers={'User-Agent':'Wildshape-Integration-CI/1.0'})
               with urllib.request.urlopen(req,timeout=45) as response:
                   record=json.load(response)
               file=next((x for x in record['files'] if x.get('primary')),record['files'][0])
               if not file['url'].startswith('https://cdn.modrinth.com/'):
                   raise RuntimeError('Unexpected mod distribution host '+file['url'])
               destination=target/file['filename']
-              req=urllib.request.Request(file['url'],headers={'User-Agent':'UltraTerraForged-Integration-CI/1.0'})
+              req=urllib.request.Request(file['url'],headers={'User-Agent':'Wildshape-Integration-CI/1.0'})
               with urllib.request.urlopen(req,timeout=180) as response, destination.open('wb') as out:
                   import shutil
                   shutil.copyfileobj(response,out)
@@ -39,13 +39,13 @@ jobs:
                   assert hashlib.sha512(destination.read_bytes()).hexdigest()==file['hashes']['sha512']
               print('Verified',record['name'],destination.name,destination.stat().st_size)
           PY
-      - name: Configure new UTF Overworld
+      - name: Configure new Wildshape Overworld
         run: |
           mkdir -p neoforge/run
           printf 'eula=true\n' > neoforge/run/eula.txt
           cat > neoforge/run/server.properties <<'PROPS'
-          level-name=utf-alex-smoke
-          level-type=ultraterraforged:ultraterraforged
+          level-name=wildshape-alex-smoke
+          level-type=wildshape:wildshape
           level-seed=2031102026
           view-distance=3
           simulation-distance=3
@@ -54,7 +54,7 @@ jobs:
       - name: Check combined mod startup and initial terrain
         run: |
           set +e
-          timeout --signal=TERM --kill-after=15s 420s ./gradlew :neoforge:runServer -Putf.perfMods=false --no-daemon > alex-server.log 2>&1
+          timeout --signal=TERM --kill-after=15s 420s ./gradlew :neoforge:runServer -Pwildshape.perfMods=false --no-daemon > alex-server.log 2>&1
           exitCode=$?
           set -e
           tail -n 200 alex-server.log
@@ -67,11 +67,11 @@ jobs:
             echo "Potential fatal mixin or classloading error found."
             exit 1
           fi
-          echo "Alex-enabled UTF startup passed."
+          echo "Alex-enabled Wildshape startup passed."
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: utf-alex-2.0.10-server-smoke-logs
+          name: wildshape-alex-2.0.10-server-smoke-logs
           path: |
             alex-server.log
             neoforge/run/logs/

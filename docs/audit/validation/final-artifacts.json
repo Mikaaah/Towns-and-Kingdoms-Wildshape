@@ -1,0 +1,14 @@
+[
+  {
+    "filename": "wildshape-1.0.12-beta.1+1.21.1-neoforge.jar",
+    "loader": "neoforge",
+    "bytes": 2028562,
+    "sha256": "bd173b362a8b9489751aa57d6590737f445b4547034d3dbab5313b3037433fb1"
+  },
+  {
+    "filename": "wildshape-1.0.12-beta.1+1.21.1-fabric.jar",
+    "loader": "fabric",
+    "bytes": 1873493,
+    "sha256": "3f28a1f17e1f05f8fbdf788d50e71ab7f1e8e111859f964b8edd3852de524e0f"
+  }
+]
