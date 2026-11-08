@@ -31,7 +31,7 @@ The latest retrievable pack export has 264 entries (258 CurseForge manifest entr
 | BloomingNature / Alpine Whispers / Autumnity / Upgrade Aquatic | Native vanilla-biome modifications retained | No global habitat or feature replacement |
 | Ars / Iron’s Spells / Apotheosis | Native mobs, features and loot; selected Iron’s/Apotheosis Overworld tower spacing only | Gameplay, progression and loot stay with the pack |
 | AE2 / Create / Immersive Engineering / modded ores | Meteorites and ore modifiers retain native placement; ore/storage blocks excluded from decorative strata; Create stone remains eligible | This does not modify ore yields or recipes |
-| Streams Reflowing 2.15.2 or 2.16.2 / Flow Control | Version-specific native-current and loaded-water adapters; Flow Control 0.2.2 uses Streams 2.16.2; manual overrides respected | Remove old `utfstreams`; retain Flow Control; visual/boat behavior requires client playtesting |
+| Streams Reflowing 2.15.2 or 2.16.2 / Flow Control | Version-specific native-current and loaded-water adapters; Flow Control 0.2.2 uses Streams 2.16.2; manual overrides respected; terrain surveys avoid full tile generation | Remove old `utfstreams`; retain Flow Control; visual/boat behavior requires client playtesting |
 | Nether / End / Twilight / Aether / other dimensions | Their generator ownership retained; automatic dungeon spacing targets only the explicit Overworld list | Does not promise new compatibility with untested custom dimension generators |
 | Storage, UI, combat and utility mods | No invented worldgen integration; optional dependencies remain optional | Inventory presence alone is not a runtime certification |
 
@@ -39,7 +39,7 @@ Habitat bridges are append-only and optional. They are exported with the Wildsha
 
 ## Structure rules
 
-Wildshape no longer increases the spacing of every modded random-spread set. The selected minimum spacings are defined in [`StructureSetPolicy`](../common/src/main/java/com/pandaismyname1/ultraterraforged/data/preset/StructureSetPolicy.java). Native larger spacings are retained. Explicit saved preset structure overrides take priority. Placement salts, weights, exclusion zones and custom placement types are retained.
+Wildshape no longer increases the spacing of every modded random-spread set. The selected minimum spacings are defined in [`StructureSetPolicy`](../common/src/main/java/com/pandaismyname1/ultraterraforged/data/preset/StructureSetPolicy.java). Native larger spacings are retained. Explicit saved preset structure overrides take priority. Placement salts, weights, exclusion zones and custom placement types are retained. Dedicated servers bind these changes while world registry resources load, so modded sets absent from the initial vanilla-only export receive the same policy.
 
 Resource landmarks such as **AE2 meteorites**, **Alex’s Caves acid pits**, aquatic whale falls and Nether/End structures keep their own spacing. This matters because worldgen registries are shared across dimensions.
 

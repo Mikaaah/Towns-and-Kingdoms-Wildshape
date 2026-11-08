@@ -44,7 +44,7 @@ public final class ServerPresets {
 		}
 		try {
 			Preset preset = loadOrCreatePreset(ConfigUtil.utf(PRESET_FILE), PresetLibrary::defaultPreset);
-			// the server hasn't loaded its registries yet, so generate against vanilla's built-in worldgen
+			// Prepare the core preset from vanilla; modded structure rules bind when pack resources load.
 			PresetPacks.export(preset, VanillaRegistries.createLookup(), datapackDir.resolve(PresetPacks.WORLD_PACK_NAME));
 			UTFCommon.LOGGER.info("Creating a TNKTerraForged world with the preset from {}", ConfigUtil.utf(PRESET_FILE));
 		} catch (IOException | RuntimeException e) {

@@ -1,0 +1,18 @@
+{
+  "tests": 270,
+  "failures": 2,
+  "skipped": 20,
+  "errors": 0,
+  "failed": [
+    {
+      "class": "com.pandaismyname1.ultraterraforged.test.CoastsTest",
+      "method": "headlandsAndBaysRaggedTheCoast()",
+      "message": "org.opentest4j.AssertionFailedError: the coastline is barely more ragged: 1934 against 1817 ==> expected: <true> but was: <false>"
+    },
+    {
+      "class": "com.pandaismyname1.ultraterraforged.test.NewLandformsTest",
+      "method": "drumlinsAndMorainesOnlyAddGround()",
+      "message": "org.opentest4j.AssertionFailedError: only 604 drumlin cells ==> expected: <true> but was: <false>"
+    }
+  ]
+}

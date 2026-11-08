@@ -34,7 +34,7 @@ jobs:
         run: >-
           ./gradlew :common:test -Putf.perfMods=false
           --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
-          --tests '*StructureSetPolicyTest' --tests '*OptionalHabitatDatapackTest'
+          --tests '*StructureSet*Test' --tests '*OptionalHabitatDatapackTest'
           --tests '*StrataMaterialsTest' --tests '*FastPoissonContextTest'
           --tests '*SkerriesWaterTest' --tests '*WorldGenLookupTest'
           --tests '*TileCacheTest' --tests '*StructureRuleTest'

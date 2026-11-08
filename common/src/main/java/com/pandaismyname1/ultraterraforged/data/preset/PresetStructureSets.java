@@ -56,7 +56,7 @@ public class PresetStructureSets {
 			Optional<StructureSet> original = registered.get(key).map(Holder::value);
 			if (original.isEmpty()) {
 				// e.g. the preset was made with a mod that isn't installed now
-				UTFCommon.LOGGER.warn("Preset changes structure set {}, which doesn't exist; ignoring it", id);
+				UTFCommon.LOGGER.debug("Structure set {} is absent from this snapshot; resolve it when world resources load", id);
 				return;
 			}
 			ctx.register(key, apply(original.get(), entry, structures, structureSets, biomes, sourceOps));

@@ -5,8 +5,10 @@
 * Connect verified TNK3 biomes to Integrated API, Alex’s Mobs, HAPI/Hybrid Aquatic, WilderNature, Cataclysm, Starcatcher, Bosses’Rise and Legendary Monsters habitat tags, retaining native spawn behavior.
 * Reuse native Knight Quest/Legendary Monsters spawn data in matching modded habitats without copying weights or bypassing later removal rules.
 * Add NeoForge Streams 2.16.2 / Flow Control 0.2.2 bindings while preserving the verified 2.15.2 adapter.
+* Apply modded structure rules when dedicated-server registry resources load, after the initial vanilla-only preset export.
 * Retain Integrated/YUNG custom placement codecs and exclusion zones when adjusting dungeon spacing.
 * Prevent ores and storage blocks from becoming decorative rock strata.
+* Keep Streams’ broad terrain surveys from generating filtered terrain tiles; preserve accurate structure heights.
 * Make generated terrain column queries independent of cache contents and worker thread; restore temporary search state even after failures.
 * Bound retained terrain tiles and keep published arrays safe for readers after eviction.
 * Fix skerries flattening empty shallow ocean, null terrain context in Poisson placement, non-Wildshape spawn-finder interception and server retention in diagnostic logging.

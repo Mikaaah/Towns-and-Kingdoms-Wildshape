@@ -26,6 +26,15 @@ public final class StreamsSmokeChecks {
         }
         report.put("streamsEightHeadingBindings", true);
         var context = UtfStreams.context(level);
+        var engine = dev.streamsreflowing.worldgen.StreamsWorldgen.engine(level);
+        if (context.cache.provideAtChunkIfPresent(42000 >> 4, -36000 >> 4) != null)
+            throw new AssertionError("Survey probe was already generated");
+        double surveyed = engine.sampler().height(42000, -36000);
+        if (!Double.isFinite(surveyed) || context.cache.provideAtChunkIfPresent(42000 >> 4, -36000 >> 4) != null)
+            throw new AssertionError("Streams survey allocated a full terrain tile");
+        if (com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags.fastLookups())
+            throw new AssertionError("Streams survey leaked its lookup scope");
+        report.put("streamsSurveyDoesNotGenerateTiles", true);
         var sample = IntegrationChecks.findElevatedMain(context);
         if (sample == null) throw new AssertionError("No elevated native river sample");
         var pos = new BlockPos(sample.x(), sample.surfaceY(), sample.z());
@@ -42,7 +51,6 @@ public final class StreamsSmokeChecks {
                     method.getName().equals("proprietary1") && method.getReturnType() == byte[].class
                     && method.getParameterCount() == 7).findFirst().orElseThrow();
             // Wildshape supplies its own native river layer; vanilla-river classification is disabled.
-            var engine = dev.streamsreflowing.worldgen.StreamsWorldgen.engine(level);
             build.invoke(null, level, engine, null, null, false, sample.x() >> 4, sample.z() >> 4);
             if (StreamsRuntime.angleAt(sample.x(), sample.surfaceY(), sample.z()) == -1)
                 throw new AssertionError("Native current did not reach the public cached grid");

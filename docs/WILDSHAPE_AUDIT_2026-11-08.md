@@ -62,6 +62,10 @@ Relevant primary evidence: [river embankments #6](https://github.com/Pandaismyna
 | W19 | Medium | The spawn-finder interface is injected into every climate sampler; checking only interface presence intercepts non-Wildshape worlds as well. | Require an active terrain context before replacing the spawn finder. |
 | W20 | Low | Historical coast and drumlin tests assume fixed density thresholds that already fail on 1.0.11: coastline 1934 vs 1817; 604 drumlin cells, a seven-block rise and zero lowered cells. The October golden file also predates later TNK terrain fixes. | Preserve production terrain. Compare feature-on/off behavior, retain height/no-lowering checks, and refresh terrain fingerprints after baseline comparison. |
 
+| W21 | High | Dedicated-server preset export uses `VanillaRegistries.createLookup()` before modded registries load. Consequently, even correctly authored modded spacing rules and explicit modded preset entries were absent from the server’s generated datapack. The live test reproduced a native spacing of 40 instead of 64 for Dungeons Arise. | Bind eligible structure-set JSON to the active world’s preset when registry resources load, before the owning mod’s codec runs. Preserve metadata, type, weights, exclusion fields and explicit preset choices; do nothing in worlds without a Wildshape preset resource. |
+
+| W22 | High | Streams’ broad terrain sampler calls the generator’s height API. Making all unscoped height queries accurate caused its survey to allocate thousands of filtered tiles; its prefetch worker could also request tile work during JVM shutdown. | Scope the verified Streams terrain-survey height/batch methods to cheap column lookup, retaining accurate structure generation. Verify that a far-away survey does not allocate a terrain tile and that the scope is restored. |
+
 ### Implemented changes
 
 - Native cave protection is tag-driven and extensible; Deep Dark and known native cave namespaces are protected. Vanilla lush/dripstone remain eligible for the confirmed cavern styles.
@@ -75,4 +79,45 @@ Relevant primary evidence: [river embankments #6](https://github.com/Pandaismyna
 
 ### Verification record
 
-Final build, test counts, runtime manifests and deliverable hashes are recorded below after the last verification pass. The initial no-optional-mod NeoForge 21.1.262 server passed generation and clean shutdown; larger runtime tests use the actual versioned dependency JARs and are reported separately.
+The production source matches the isolated release checkout byte for byte. Both loader builds use Java 21; the NeoForge runtime is **21.1.262**. The container required a local build-tool workaround: Loom’s Unix-socket capability probe was forced off to select its normal TCP fallback. That cached build-tool change is not part of either mod JAR; final game launches used the ordinary packaged artifacts. The static audit inspected **111 dependency JAR files**, including alternate versions: **170 structure-set resources, 317 structure resources, 439 biome resources, 1,212 biome-tag files and 671 biome modifiers**, with no unparsed JSON resources. Counts are resource records across files, not distinct winning registry entries.
+
+| Verification | Result | Scope |
+|---|---|---|
+| Broad common regression run | 270 tests: 248 passed, 20 opt-in surveys/benchmarks skipped, two historical density assertions failed | Completed in a 2 GiB test JVM after the tile-retention fix; failures reproduced with the original skerries implementation |
+| Corrected regression/preset pass | 55 passed, zero failed/skipped | Includes both corrected behavior checks and deterministic renders/fingerprints for all 16 built-in presets |
+| Final structure/survey pass | 10 passed, zero failed/skipped | Native JSON/type preservation, explicit preset priority, untouched resource/dimension sets, ordinary-world no-op, scoped lookups and survey allocation |
+| Native flow rule checks | 25 passed | Seven flow rules and 18 downhill-search checks, also run by the NeoForge build |
+| Final combined NeoForge runtime | Passed | 89 outer JARs, **111 loaded IDs including Minecraft/NeoForge**, **418 registered biomes**, seven loaded dimensions with sample chunk generation |
+| Flow Control 0.2.2 + Create 6.0.10 | 18 reported functional groups passed | Manual direction priority, stillness, boats, persistence, packet codecs, controllers, sensors, mooring and actual Create RPM/reverse/stress/stop behavior |
+| Streams setting controls | Passed | `vanillaWaterFlow=false` and `flowVanillaRivers=false` each deactivate the automatic correction path |
+| Vanilla-world control | Passed | Ordinary Overworld keeps the adapter inactive; Nether/End remain inactive |
+| Streams 2.15.2 | Passed | Legacy native-water/grid/physics/codec regressions; final survey check also verifies no filtered tile is allocated |
+| Optional-mod absence | Passed on the final binary, fresh seed 2222 | Wildshape starts and generates without the ecology/dungeon/Streams mods; optional references are not hard dependencies |
+| Habitat reference graph | No introduced cycles | 46 new tag-to-tag references checked against inspected dependency resources |
+
+The two historical density tests were repaired after reproducing their exact results with the unchanged baseline: headlands increased coastline from 1,817 to 1,934 cells, and drumlins raised terrain by seven blocks without lowering cells. The replacement checks assert actual feature behavior, rather than changing terrain to satisfy a stale single-window population target. The broad 270-test invocation was not repeated wholesale; corrected cases and affected paths were rerun directly. The October golden file also predates existing TNK changes; the baseline comparison and deterministic preset rerun inform its refresh.
+
+The combined live registry verifies IDAS common spacing **36**, Dungeons Arise major spacing **64**, AE2 meteorites **32**, AC acid pits **6**, whale falls **16**, and Nether fortresses **30**. Integrated and YUNG placement types and exclusion-zone fields survive. RU fen receives its native HAPI fish spawn; a RU forest receives one Knight Quest entry with the native weight/group size. Generated heights agree on separate threads at four coordinates. The elevated native river at **6723, 2596, Y=78** supplies a layer to Streams’ public grid and physics API. The final survey does not allocate a terrain tile at its far-away probe.
+
+The other generated dimensions are the End, Nether (with its installed overhaul), Aether/Deep Aether, Twilight Forest, Iron’s pocket dimension and AE2 spatial storage. Their RandomStates retain no Wildshape terrain context. This is sample generation and ownership validation, not an exhaustive survey of every structure in each dimension.
+
+Machine-readable results are in [validation/](audit/validation/); exact outer runtime JAR hashes are in [runtime-fixtures.csv](audit/runtime-fixtures.csv). The runtime manifests include nested dependencies. They distinguish the inspected October export from newer supplied artifacts. In particular, Deep Aether 1.1.5.1 matches the newer TNK log; WorldWeaver 21.0.29 is the inspected export fixture, while that log lists 21.0.30.
+
+### Remaining limits and external findings
+
+- **Beta, not exhaustive full-pack certification.** The full 264-entry client installation, every seed/preset, client particles/boats/rendering, long pregeneration and visual inspection of every dungeon remain unverified. Fabric compiled successfully but did not receive a Fabric game launch. Performance-mod combinations outside the recorded runtime fixture remain unverified.
+- IDAS ships absent-BYG tag references, mismatched optional lumber-camp tag names, and Ice and Fire loot/spawner references in this fixture. Its dread citadel is explicitly gated by `required_mods=iceandfire`; that mod is absent here. Aether Villages also references absent Ancient Aether/Redux tags. These external data messages do not prevent the recorded server run; this change preserves those mods’ loot/templates and does not invent replacement rewards or add missing mods.
+- Biolith resolves native feature-order cycles in the installed flora combination. Some dependencies attempt client-class probing or background update requests on the dedicated server. Mojang key fetches fail in this offline test environment. These messages are not treated as proof of a Wildshape terrain failure, and the pack is not described as warning-free.
+- Running two large server fixtures concurrently exceeded the test environment’s memory allowance and the OS killed those JVMs. The successful combined run was performed alone with a **4 GiB heap**. This is not a recommended RAM requirement or a sustained performance benchmark.
+- Known structure-piece boxes can be protected at carving time; feature-placed buildings, inaccurate boxes and pieces not yet available at that stage remain limits. The change does not guarantee zero structure overlap or eliminate every river issue on every seed.
+
+### Build matrix and installation
+
+| Artifact | Target | Verification |
+|---|---|---|
+| `wildshape-1.0.12-beta.1+1.21.1-neoforge.jar` | Minecraft 1.21.1, Java 21, NeoForge 21.1.252+ | Built; game/server checks on 21.1.262 |
+| `wildshape-1.0.12-beta.1+1.21.1-fabric.jar` | Minecraft 1.21.1, Java 21, Fabric | Built; shared tests; Fabric runtime pending |
+
+Install one terrain fork. Replace the old Wildshape/UltraTerraForged JAR and remove superseded **`utfstreams`, `tfacfix`, `utfoptimizer`** adapters. Keep Flow Control; **0.2.2 requires Streams 2.16.2**. The older 2.15.2 adapter remains available for installations using that Streams version. Existing internal IDs and `config/tnkterraforged/` stay stable.
+
+Use a fresh test world for the beta and back up existing worlds. Existing chunks do not regenerate; saved preset datapacks can retain old registry decisions, and terrain fixes can produce boundaries at new chunks. Final SHA-256 values and file sizes are in [final-artifacts.json](audit/validation/final-artifacts.json).

@@ -41,7 +41,7 @@ Use a fresh test world for this beta. Changes affect new chunks; existing chunks
 ./gradlew :common:test :neoforge:build :fabric:build -Putf.perfMods=false
 ```
 
-Set `RELEASE=1` for versioned release filenames. Optional performance mods are excluded from this build command so they are not silently made requirements. See [development notes](docs/DEVELOPMENT.md), [changelog](CHANGELOG.md) and the [JAR inventory utility](tools/audit-compat-jars.py).
+Set `RELEASE=1` for versioned release filenames. Optional performance mods are excluded from this build command so they are not silently made requirements. The [published project Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) contains the project overview. See [development notes](docs/DEVELOPMENT.md), [changelog](CHANGELOG.md) and the [JAR inventory utility](tools/audit-compat-jars.py).
 
 The opt-in dedicated-server check is enabled with JVM argument `-Dwildshape.compatSmoke=true` (or `-Ptnk.compatSmoke=true` for the NeoForge development run). It checks live registries, habitats, dimension ownership and generation, writes `wildshape-compat-results.json`, then stops the server. Leave this argument out for normal play.
 

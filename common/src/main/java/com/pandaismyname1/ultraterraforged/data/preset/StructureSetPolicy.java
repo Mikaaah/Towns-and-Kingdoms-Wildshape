@@ -33,6 +33,10 @@ final class StructureSetPolicy {
 
     private StructureSetPolicy() {}
 
+    static boolean selected(ResourceLocation id) {
+        return MINIMUM_SPACING.containsKey(id);
+    }
+
     static int spacing(ResourceLocation id, int nativeSpacing) {
         return Math.max(nativeSpacing, MINIMUM_SPACING.getOrDefault(id, nativeSpacing));
     }

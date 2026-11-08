@@ -35,6 +35,7 @@
     "streams.MixinRiverCarverFeature",
     "streams.MixinStreamFlowGrid",
     "streams.MixinWorldGenRegion",
+    "streams.MixinStreamsTerrainSampler",
     "alexscaves.MixinBiomeGenerationNoiseCondition",
     "alexscaves.MixinClimateSampler",
     "generatoraccelerator.MixinNoiseBasedChunkGenerator"

@@ -9,6 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.google.gson.JsonElement;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.packs.resources.ResourceManager;
+import com.pandaismyname1.ultraterraforged.data.preset.PresetStructureResources;
 import com.mojang.serialization.Decoder;
 import com.mojang.serialization.Lifecycle;
 
@@ -42,7 +46,9 @@ class MixinRegistryDataLoader {
 		),
 		require = 1
 	)
-	private static <E> void ultraterraforged$loadElement(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> key, Resource resource, RegistrationInfo info) throws IOException {
+	private static <E> void ultraterraforged$loadElement(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> key, Resource resource, RegistrationInfo info, @Local(argsOnly = true) ResourceManager resources) throws IOException {
+        if (registry.key().equals(Registries.STRUCTURE_SET))
+            resource = PresetStructureResources.patch(resources, key.location(), resource);
 		if (PresetPacks.isPresetPack(resource.sourcePackId())) {
 			info = new RegistrationInfo(Optional.empty(), Lifecycle.stable());
 		}

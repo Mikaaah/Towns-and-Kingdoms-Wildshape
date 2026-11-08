@@ -29,6 +29,16 @@ class WorldGenLookupTest {
         }
     }
 
+    @Test void broadSurveyScopesDoNotAllocateFilteredTiles() {
+        var context = GeneratorContext.makeCached(BuiltinPresetRenderTest.presets().get("default").get(), 1111, 3, 6, false);
+        Cell cell = new Cell();
+        assertEquals(0, context.cache.retainedTileCount());
+        WorldGenFlags.approximately(() -> context.lookup.applyAsGenerated(cell, 42000, -36000));
+        assertTrue(Float.isFinite(cell.height));
+        assertEquals(0, context.cache.retainedTileCount());
+        assertFalse(WorldGenFlags.fastLookups());
+    }
+
     @Test void generatedColumnsUseFilteredTilesOnEveryThread() throws Exception {
         var preset = BuiltinPresetRenderTest.presets().get("default").get();
         var context = GeneratorContext.makeCached(preset, 1111, 3, 6, false);

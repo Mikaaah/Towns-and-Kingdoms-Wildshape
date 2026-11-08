@@ -95,9 +95,13 @@ cataclysm:soul_black_smith,cf-551586-8931182.jar,cataclysm:cataclysm_random_spre
 cataclysm:sunken_city,cf-1164949-7808552.jar,cataclysm:cataclysm_random_spread,100,70,cataclysm:sunken_city
 cataclysm:sunken_city,cf-551586-8931182.jar,cataclysm:cataclysm_random_spread,100,70,cataclysm:sunken_city
 deep_aether:altar_camp,cf-852465-7843283.jar,minecraft:random_spread,8,3,deep_aether:altar_camp
+deep_aether:altar_camp,deep_aether-1.21.1-1.1.5.1.jar,minecraft:random_spread,8,3,deep_aether:altar_camp
 deep_aether:brass_dungeon,cf-852465-7843283.jar,minecraft:random_spread,20,12,deep_aether:brass_dungeon
+deep_aether:brass_dungeon,deep_aether-1.21.1-1.1.5.1.jar,minecraft:random_spread,20,12,deep_aether:brass_dungeon
 deep_aether:campfire,cf-852465-7843283.jar,minecraft:random_spread,8,3,deep_aether:campfire
+deep_aether:campfire,deep_aether-1.21.1-1.1.5.1.jar,minecraft:random_spread,8,3,deep_aether:campfire
 deep_aether:combiner_corridor,cf-852465-7843283.jar,minecraft:random_spread,8,3,deep_aether:combiner_corridor
+deep_aether:combiner_corridor,deep_aether-1.21.1-1.1.5.1.jar,minecraft:random_spread,8,3,deep_aether:combiner_corridor
 dungeons_arise:major_structures,cf-1325457-9015554.jar,integrated_api:advanced_random_spread,40,30,"dungeons_arise:desert_hall,dungeons_arise:ceryneian_hind,dungeons_arise:greenwood_pub,dungeons_arise:mechanical_nest,dungeons_arise:keep_kayra,dungeons_arise:kisegi_sanctuary,dungeons_arise:infested_temple,dungeons_arise:bandit_towers,dungeons_arise:bandit_village,dungeons_arise:merchant_campsite,dungeons_arise:illager_campsite,dungeons_arise:aviary,dungeons_arise:heavenly_rider,dungeons_arise:heavenly_conqueror,dungeons_arise:heavenly_challenger,dungeons_arise:thornborn_towers,dungeons_arise:typhon,dungeons_arise:small_blimp,dungeons_arise:scorched_mines,dungeons_arise:foundry,dungeons_arise:plague_asylum,dungeons_arise:mining_complex"
 dungeons_arise:minor_structures,cf-1325457-9015554.jar,integrated_api:advanced_random_spread,30,15,"dungeons_arise:bathhouse,dungeons_arise:wishing_well,dungeons_arise:abandoned_temple,dungeons_arise:lighthouse"
 dungeons_arise_seven_seas:minor_structures,cf-1482366-8203979.jar,minecraft:random_spread,58,50,"dungeons_arise_seven_seas:unicorn_galleon,dungeons_arise_seven_seas:pirate_junk,dungeons_arise_seven_seas:small_yacht,dungeons_arise_seven_seas:corsair_corvette"
