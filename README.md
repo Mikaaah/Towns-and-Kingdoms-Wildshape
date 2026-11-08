@@ -11,6 +11,10 @@
 
 
 
+**TNK preview: 1.0.12-beta.2 · Minecraft 1.21.1 · NeoForge · Java 21.**
+
+Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
+
 ## Terrain and compatibility
 
 - Large, connected caverns with lush, dripstone and lantern styles, rock supports and rare coastal coves.
