@@ -31,6 +31,9 @@ public class UTFNeoForge {
             throw new IllegalStateException("Cannot initialize TNKTerraForged configuration", e);
         }
 	UTFCommon.bootstrap();
+        if (Boolean.getBoolean("wildshape.compatSmoke")) {
+            com.pandaismyname1.ultraterraforged.neoforge.compat.CompatibilitySmokeChecks.register();
+        }
         // Native currents are a built-in, optional NeoForge feature.
         if (ModList.get().isLoaded("streamsreflowing")) {
             nl.townsandkingdoms.terraforged.compat.streams.UtfStreams.initialize(modBus, modContainer);

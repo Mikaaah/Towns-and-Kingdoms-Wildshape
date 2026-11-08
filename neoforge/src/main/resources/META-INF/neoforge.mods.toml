@@ -1,17 +1,17 @@
 modLoader="javafml"
 loaderVersion="[1,)"
 license="GPL-3.0-only"
-issueTrackerURL="https://github.com/Mikaaah/ultraterraforged-personal/issues"
+issueTrackerURL="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues"
 
 [[mods]]
 modId="ultraterraforged"
-displayName="TNKTerraForged"
+displayName="Towns & Kingdoms: Wildshape"
 version="${version}"
-authors="Mikaaah (TNKTerraForged); pandaismyname1 (UltraTerraForged original)"
+authors="Mikaaah (Wildshape); pandaismyname1 (UltraTerraForged original)"
 credits="A continuation of ReTerraForged by raccoonman, Steveplays28 and EdoEquin0x, itself a continuation of TerraForged by dags and Won-Ton"
 logoFile="logo.png"
-displayURL="https://github.com/Mikaaah/ultraterraforged-personal"
-description='''TNK3-focused overworld terrain generation built from UltraTerraForged, ReTerraForged and TerraForged. Massive caves and modded structure safeguards.'''
+displayURL="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape"
+description='''A TerraForged-family terrain mod for Towns & Kingdoms. Connected caverns, native biome ecosystems, rivers and selective dungeon compatibility.'''
 
 [[mixins]]
 config="tnkterraforged-common.mixins.json"
@@ -25,7 +25,7 @@ config="tnkterraforged-streams.mixins.json"
 [[dependencies.ultraterraforged]]
     modId="neoforge"
     type="required"
-    versionRange="[21.1.0,)"
+    versionRange="[${neoforge_version},)"
     ordering="NONE"
     side="BOTH"
 
@@ -54,13 +54,27 @@ config="tnkterraforged-streams.mixins.json"
 [[dependencies.ultraterraforged]]
     modId="streamsreflowing"
     type="optional"
-    versionRange="[2.15.2,2.15.3)"
+    versionRange="[2.15.2,2.15.3),[2.16.2,2.16.3)"
     ordering="AFTER"
     side="BOTH"
 
 # Do not load the old standalone compatibility addon alongside this integration.
 [[dependencies.ultraterraforged]]
     modId="utfstreams"
+    type="incompatible"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.ultraterraforged]]
+    modId="tfacfix"
+    type="incompatible"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.ultraterraforged]]
+    modId="utfoptimizer"
     type="incompatible"
     versionRange="[0,)"
     ordering="NONE"

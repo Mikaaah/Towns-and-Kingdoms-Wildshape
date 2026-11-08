@@ -28,7 +28,6 @@ import com.pandaismyname1.ultraterraforged.data.preset.settings.Preset;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState;
-import com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags;
 import com.pandaismyname1.ultraterraforged.world.worldgen.densityfunction.CellSampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.densityfunction.CellSampler.Cache2d;
 import com.pandaismyname1.ultraterraforged.world.worldgen.tile.TileChunkRef;
@@ -93,13 +92,13 @@ class MixinNoiseChunk {
 		this.generatorSettings = noiseGeneratorSettings;
 		GeneratorContext generatorContext;
 		if((Object) this.randomState instanceof UTFRandomState utfRandomState && (generatorContext = utfRandomState.generatorContext()) != null) {
-			boolean cache = !WorldGenFlags.fastLookups() || CellSampler.isCachedNoiseChunk(cellCountXZ);
+			boolean cache = !generatorContext.lookup.approximate() || CellSampler.isCachedNoiseChunk(cellCountXZ);
 
 //			if(beardifierOrMarker instanceof Beardifier beardifier && (beardifier.pieceIterator.hasNext() || beardifier.junctionIterator.hasNext())) {
 //				this.generationHeight = noiseSettings.height();
 //				System.out.println(this.generationHeight);
 //			} else {
-				this.generationHeight = generatorContext.lookup.getGenerationHeight(this.chunkX, this.chunkZ, noiseGeneratorSettings, cache);
+				this.generationHeight = cache ? generatorContext.lookup.getGenerationHeight(this.chunkX, this.chunkZ, noiseGeneratorSettings, true) : noiseSettings.height();
 //			}
 
 			this.cellCountY = Math.min(this.cellCountY, this.generationHeight / this.cellHeight);

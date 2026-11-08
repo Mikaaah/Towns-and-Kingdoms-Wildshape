@@ -17,11 +17,18 @@ public class TileCache implements TileFactory {
 	private boolean queue;
 	private Cache<CacheEntry<Entry>> cache;
 	private TileGenerator generator;
+	private final int retainedTileLimit;
 
 	public TileCache(int tileSize, boolean queue, TileGenerator generator) {
+		this(tileSize, queue, generator, Math.max(2, Integer.getInteger("wildshape.tileCacheLimit", 64)));
+	}
+
+	public TileCache(int tileSize, boolean queue, TileGenerator generator, int retainedTileLimit) {
 		this.tileSize = tileSize;
 		this.queue = queue;
-		// Tile arrays belong to chunks still using them: retire only after drop().
+		this.retainedTileLimit = Math.max(1, retainedTileLimit);
+		// Published cells may be held by readers outside the cache. Forgetting an
+		// entry must never reset/recycle its arrays while those readers are active.
         this.cache = CacheManager.createCache(256, Long.MAX_VALUE, 20L, TimeUnit.MINUTES, StampedLongMap::new);
 		this.generator = generator;
 	}
@@ -53,7 +60,9 @@ public class TileCache implements TileFactory {
 		long key = PosUtil.pack(tileX, tileZ);
         CacheEntry<Entry> entry = this.computeEntry(tileX, tileZ);
         try {
-            return entry.get().tile;
+            Tile tile = entry.get().tile;
+            this.trim(entry);
+            return tile;
         } catch (RuntimeException failure) {
             this.discardFailed(key, entry);
             throw failure;
@@ -63,7 +72,7 @@ public class TileCache implements TileFactory {
 	@Override
 	public void queue(int tileX, int tileZ) {
 		if(this.queue) {
-			this.computeEntry(tileX, tileZ);
+			this.trim(this.computeEntry(tileX, tileZ));
 		}
 	}
 
@@ -72,16 +81,24 @@ public class TileCache implements TileFactory {
 		long packedTilePos = PosUtil.pack(this.chunkToTile(chunkX), this.chunkToTile(chunkZ));
 		CacheEntry<Entry> entry = this.cache.get(packedTilePos);
 		if(entry != null && entry.get().drop(chunkX, chunkZ)) {
-			// out of the cache first, so nothing new picks the tile up while it's being closed
-			this.cache.remove(packedTilePos);
-			entry.get().tile.close();
+			// Identity removal cannot discard a replacement installed concurrently.
+			// A late column reader can still hold this tile: leave its arrays to GC.
+			this.cache.forget(entry);
 		}
+	}
+
+	public int retainedTileCount() {
+		return this.cache.size();
+	}
+
+	private void trim(CacheEntry<Entry> keep) {
+		this.cache.trimWithoutClosing(this.retainedTileLimit, entry -> entry != keep && entry.isDone());
 	}
 
     // A failed tile must not poison the same coordinates forever.
     // Check identity to avoid evicting a replacement entry that another thread created.
     private void discardFailed(long key, CacheEntry<Entry> failed) {
-        if (failed.isDone() && this.cache.get(key) == failed) this.cache.remove(key);
+        if (failed.isDone()) this.cache.forget(failed);
     }
 
 	@Override
@@ -97,8 +114,8 @@ public class TileCache implements TileFactory {
 
 	private class Entry {
 		private AtomicInteger refCount;
-		// the chunks done with the tile, a bit each: a chunk done twice (a mod running a chunk's features again, on a
-		// copy) counts once, and doesn't have the tile closed while other chunks still need it
+		// The chunks done with a tile, one bit each. Repeated feature passes count
+		// once; finishing the full tile releases its cache entry before the capacity limit.
 		private AtomicLongArray dropped;
 		private int chunkCount;
 		private Tile tile;

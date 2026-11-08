@@ -280,7 +280,7 @@ public final class IntegrationChecks {
         report.put("actualWaterCorrectedVector",java.util.List.of(flow.x,flow.z));
     }
 
-    private static NativeCapture.Sample findElevatedMain(GeneratorContext context) throws Exception {
+    static NativeCapture.Sample findElevatedMain(GeneratorContext context) throws Exception {
         var networksField = Rivermap.class.getDeclaredField("networks");
         networksField.setAccessible(true);
         var seen = new HashSet<Long>();

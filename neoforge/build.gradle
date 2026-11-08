@@ -12,6 +12,9 @@ loom {
 
     runs {
         server {
+            if (project.findProperty("tnk.compatSmoke") == "true") {
+                property "wildshape.compatSmoke", "true"
+            }
             if (project.findProperty("tnk.natureSmoke") == "true") {
                 property "utfstreams.natureSmoke", "true"
             }

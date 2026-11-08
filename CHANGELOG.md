@@ -1,3 +1,20 @@
+### Wildshape 1.0.12-beta.1 — 2026-11-08
+
+* Protect native tagged cave habitats and Deep Dark from generic cavern repainting.
+* Replace blanket modded structure spacing with explicit TNK3 Overworld dungeon rules. Restore native resource-landmark and other-dimension spacing.
+* Connect verified TNK3 biomes to Integrated API, Alex’s Mobs, HAPI/Hybrid Aquatic, WilderNature, Cataclysm, Starcatcher, Bosses’Rise and Legendary Monsters habitat tags, retaining native spawn behavior.
+* Reuse native Knight Quest/Legendary Monsters spawn data in matching modded habitats without copying weights or bypassing later removal rules.
+* Add NeoForge Streams 2.16.2 / Flow Control 0.2.2 bindings while preserving the verified 2.15.2 adapter.
+* Retain Integrated/YUNG custom placement codecs and exclusion zones when adjusting dungeon spacing.
+* Prevent ores and storage blocks from becoming decorative rock strata.
+* Make generated terrain column queries independent of cache contents and worker thread; restore temporary search state even after failures.
+* Bound retained terrain tiles and keep published arrays safe for readers after eviction.
+* Fix skerries flattening empty shallow ocean, null terrain context in Poisson placement, non-Wildshape spawn-finder interception and server retention in diagnostic logging.
+* Apply Wildshape display/build branding while preserving existing registry IDs, presets, approved rivers, caverns, biome exclusions and mod surfaces.
+* Add reproducible dependency inventory, regression coverage and an opt-in live-server compatibility check. See the November audit for verification and remaining limits.
+
+---
+
 ### TNKTerraForged 1.0.3 — 2026-10-20
 * Prevent unsupported raised-water slabs and process the full exposed water face.
 * Smooth steep river-mouth drops instead of keeping a large fall to satisfy the preferred gorge depth.

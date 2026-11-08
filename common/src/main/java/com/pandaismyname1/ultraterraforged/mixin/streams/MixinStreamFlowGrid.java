@@ -19,7 +19,9 @@ import com.pandaismyname1.ultraterraforged.compat.streams.StreamsCompat;
 class MixinStreamFlowGrid {
 
 	@ModifyVariable(
-		method = { "getOrBuild", "buildProvisional" },
+		method = { "getOrBuild", "buildProvisional",
+                "proprietary1(Lnet/minecraft/server/level/ServerLevel;Ldev/streamsreflowing/core/RiverEngine;Ldev/streamsreflowing/core/river/SourceGivenToAuthorizedOnly_001$ProprietaryNiceJohn_001;Ldev/streamsreflowing/core/river/SourceGivenToAuthorizedOnly_001$SourceGivenToAuthorizedOnly_001;ZII)[B",
+                "seeAiNotice1(Lnet/minecraft/server/level/ServerLevel;Ldev/streamsreflowing/core/RiverEngine;Ldev/streamsreflowing/core/river/SourceGivenToAuthorizedOnly_001$ProprietaryNiceJohn_001;Ldev/streamsreflowing/core/river/SourceGivenToAuthorizedOnly_001$SourceGivenToAuthorizedOnly_001;ZII)[B" },
 		at = @At("HEAD"),
 		argsOnly = true,
 		ordinal = 0,

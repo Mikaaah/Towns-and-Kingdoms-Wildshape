@@ -155,7 +155,10 @@ public class BiomeSurveyTest {
 					continue;
 				}
 				land++;
-				if (cell.continentalness < Continentalness.COAST.min()) {
+				// Mushroom Fields intentionally use vanilla's isolated-island climate
+				// below the ocean range; ordinary dry land must still use land climate.
+				if (cell.continentalness < Continentalness.COAST.min()
+						&& cell.terrain != com.pandaismyname1.ultraterraforged.world.worldgen.terrain.TerrainType.MUSHROOM_FIELDS) {
 					sea++;
 				}
 			}

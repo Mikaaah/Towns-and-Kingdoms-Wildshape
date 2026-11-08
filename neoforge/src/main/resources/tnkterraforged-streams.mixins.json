@@ -6,13 +6,16 @@
   "mixins": [
     "ActualWaterMixin",
     "ActualBakedFlowMixin",
-    "ActualGridMixin"
+    "ActualGridMixin",
+    "ModernGridMixin",
+    "ModernBakedFlowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "ActualParticleMixin"
+    "ActualParticleMixin",
+    "ModernParticleMixin"
   ],
   "plugin": "nl.townsandkingdoms.terraforged.compat.streams.mixin.OptionalStreamsMixinPlugin"
 }

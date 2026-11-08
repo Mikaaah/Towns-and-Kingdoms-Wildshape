@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -67,6 +69,20 @@ public class TileCacheTest {
 			}
 		}
 		assertNull(cache.provideIfPresent(tileX, tileZ), "every chunk is done, but the tile stayed");
+		assertTrue(tile.lookup(firstX << 4, firstZ << 4).height > 0,
+				"finishing chunks reset published cells still held by a column reader");
+	}
+
+	@Test
+	void partialTilesAreBoundedWithoutInvalidatingExistingReaders() {
+		TileCache cache = new TileCache(TILE_SIZE, false, context().generator, 2);
+		Tile retained = cache.provide(0, 0);
+		float height = retained.lookup(4, 4).height;
+		for (int x = 1; x <= 8; x++) cache.provide(x, 0);
+		assertTrue(cache.retainedTileCount() <= 2, "lookup-only tiles accumulated without a limit");
+		assertNull(cache.provideIfPresent(0, 0));
+		assertEquals(height, retained.lookup(4, 4).height, "eviction recycled a reader's cells");
+		assertEquals(height, cache.provide(0, 0).lookup(4, 4).height, "regeneration changed terrain");
 	}
 
 	private static GeneratorContext context() {

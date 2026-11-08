@@ -3,8 +3,6 @@ package nl.townsandkingdoms.terraforged.compat.streams;
 import com.mojang.logging.LogUtils;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
 import com.pandaismyname1.ultraterraforged.world.worldgen.UTFRandomState;
-import dev.streamsreflowing.flow.StreamFlowGrid;
-import dev.streamsreflowing.platform.Services;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -46,14 +44,14 @@ public final class UtfStreams {
     private static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             // Native layers are supplied once by upstream's common StreamsCompat.
-            LOG.info("TNKTerraForged integrated native currents for Streams 2.15.2; terrain is not modified.");
+            LOG.info("Wildshape integrated native currents for Streams {}; terrain is not modified.", StreamsRuntime.modern() ? "2.16.2" : "2.15.2");
         });
     }
     public static GeneratorContext context(ServerLevel level) {
         if (level == null || !level.dimension().equals(Level.OVERWORLD) || !ENABLED.get()) return null;
         // All hooks must agree on activation. Preserve the original baked-fluid path
         // when ordinary-water currents or natural-river currents are disabled.
-        if (!Services.PLATFORM.vanillaWaterFlow() || !Services.PLATFORM.flowVanillaRivers()) return null;
+        if (!StreamsRuntime.waterFlowEnabled() || !StreamsRuntime.riverFlowEnabled()) return null;
         Object random = level.getChunkSource().randomState();
         GeneratorContext context = random instanceof UTFRandomState state && state.usesCells()
                 ? state.generatorContext() : null;
@@ -82,8 +80,7 @@ public final class UtfStreams {
                         c.getSource().sendFailure(Component.literal("Stand in or directly above the affected water.")); return 0;
                     }
                     var flow=state.getFlow(level,pos);
-                    byte[] grid=StreamFlowGrid.peek(pos.getX()>>4,pos.getZ()>>4);
-                    byte raw=StreamFlowGrid.angleOf(grid,pos.getX(),pos.getZ(),pos.getY());
+                    byte raw=StreamsRuntime.angleAt(pos.getX(),pos.getY(),pos.getZ());
                     final String info="TNKTerraForged Streams at "+pos.toShortString()+"; fluid="
                         +net.minecraft.core.registries.BuiltInRegistries.FLUID.getKey(state.getType())
                         +"; grid angle="+raw+"; actual flow="+flow+"; runtime fix="+ACTUAL_WATER.get();

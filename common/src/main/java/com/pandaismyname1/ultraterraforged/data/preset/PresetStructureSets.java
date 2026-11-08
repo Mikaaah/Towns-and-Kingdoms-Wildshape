@@ -2,6 +2,9 @@ package com.pandaismyname1.ultraterraforged.data.preset;
 
 import java.util.List;
 import java.util.Optional;
+import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.resources.RegistryOps;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -28,21 +31,24 @@ import com.pandaismyname1.ultraterraforged.data.preset.settings.StructureSetting
  */
 public class PresetStructureSets {
 
-	public static void bootstrap(Preset preset, BootstrapContext<StructureSet> ctx, HolderLookup.RegistryLookup<StructureSet> registered) {
+	public static void bootstrap(Preset preset, BootstrapContext<StructureSet> ctx, HolderLookup.Provider registries) {
+        HolderLookup.RegistryLookup<StructureSet> registered = registries.lookupOrThrow(Registries.STRUCTURE_SET);
+        RegistryOps<JsonElement> sourceOps = registries.createSerializationContext(JsonOps.INSTANCE);
 		HolderGetter<Structure> structures = ctx.lookup(Registries.STRUCTURE);
 		HolderGetter<StructureSet> structureSets = ctx.lookup(Registries.STRUCTURE_SET);
 		HolderGetter<Biome> biomes = ctx.lookup(Registries.BIOME);
-		// Independent mod structure sets can each be reasonably spaced yet pile
-		// several different structures into one small area. Spread the common
-		// random-spread sets in TNK worlds, without modifying other world types.
+		// Spread verified Overworld dungeon sets only. These registries are also
+		// shared by other dimensions: a namespace-wide rule alters Nether content,
+		// cave landmarks, resources and wildlife as well as adventure structures.
 		registered.listElements().forEach(holder -> {
 			ResourceLocation id = holder.key().location();
-			if ("minecraft".equals(id.getNamespace()) || preset.structures().entries.containsKey(id)) return;
+			if (preset.structures().entries.containsKey(id)) return;
 			if (!(holder.value().placement() instanceof RandomSpreadStructurePlacement spread)) return;
-			if (spread.spacing() >= 48 || spread.spacing() <= 2) return;
+			int spacing = StructureSetPolicy.spacing(id, spread.spacing());
+			if (spacing == spread.spacing()) return;
 			StructureSetEntry entry = new StructureSetEntry();
-			entry.spacing = spaced(spread.spacing());
-			ctx.register(holder.key(), apply(holder.value(), entry, structures, structureSets, biomes));
+			entry.spacing = spacing;
+			ctx.register(holder.key(), apply(holder.value(), entry, structures, structureSets, biomes, sourceOps));
 		});
 
 		preset.structures().entries.forEach((id, entry) -> {
@@ -53,25 +59,42 @@ public class PresetStructureSets {
 				UTFCommon.LOGGER.warn("Preset changes structure set {}, which doesn't exist; ignoring it", id);
 				return;
 			}
-			ctx.register(key, apply(original.get(), entry, structures, structureSets, biomes));
+			ctx.register(key, apply(original.get(), entry, structures, structureSets, biomes, sourceOps));
 		});
 	}
 
-	static int spaced(int spacing) {
-		return Math.max(spacing + 12, (int) Math.ceil(spacing * 1.5));
-	}
-
 	public static StructureSet apply(StructureSet original, StructureSetEntry entry, HolderGetter<Structure> structures, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes) {
-		List<StructureSet.StructureSelectionEntry> entries = Boolean.FALSE.equals(entry.enabled) ? List.of() : original.structures().stream().map((selection) -> {
+		return apply(original, entry, structures, structureSets, biomes, null);
+    }
+
+    private static StructureSet apply(StructureSet original, StructureSetEntry entry, HolderGetter<Structure> structures,
+            HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes, RegistryOps<JsonElement> sourceOps) {
+        List<StructureSet.StructureSelectionEntry> entries = Boolean.FALSE.equals(entry.enabled) ? List.of() : original.structures().stream().map((selection) -> {
 			return new StructureSet.StructureSelectionEntry(reference(structures, selection.structure()), selection.weight());
 		}).toList();
-		return new StructureSet(entries, placement(original.placement(), entry, structureSets, biomes));
+		return new StructureSet(entries, placement(original.placement(), entry, structureSets, biomes, sourceOps));
 	}
 
-	private static StructurePlacement placement(StructurePlacement original, StructureSetEntry entry, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes) {
+	private static StructurePlacement placement(StructurePlacement original, StructureSetEntry entry, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes, RegistryOps<JsonElement> sourceOps) {
 		float frequency = entry.frequency != null ? entry.frequency : original.frequency;
 		int salt = entry.salt != null ? entry.salt : original.salt;
 		Optional<StructurePlacement.ExclusionZone> exclusionZone = original.exclusionZone.map((zone) -> new StructurePlacement.ExclusionZone(reference(structureSets, zone.otherSet()), zone.chunkCount()));
+
+		if (original instanceof RandomSpreadStructurePlacement randomSpread
+                && original.getClass() != RandomSpreadStructurePlacement.class) {
+            // Integrated/YUNG placements subclass vanilla but add exclusion zones and terrain checks.
+            // Reconstruct through their own registered codec; a vanilla constructor erases those rules.
+            if (sourceOps == null) return original;
+            var encoded = StructurePlacement.CODEC.encodeStart(sourceOps, original).getOrThrow().getAsJsonObject();
+            int spacing = Math.max(1, entry.spacing != null ? entry.spacing : randomSpread.spacing());
+            int separation = Math.max(0, Math.min(spacing - 1,
+                    entry.separation != null ? entry.separation : randomSpread.separation()));
+            encoded.addProperty("spacing", spacing);
+            encoded.addProperty("separation", separation);
+            if (entry.frequency != null) encoded.addProperty("frequency", frequency);
+            if (entry.salt != null) encoded.addProperty("salt", salt);
+            return StructurePlacement.CODEC.parse(sourceOps, encoded).getOrThrow();
+        }
 
 		if (original instanceof RandomSpreadStructurePlacement randomSpread) {
 			int spacing = entry.spacing != null ? entry.spacing : randomSpread.spacing();

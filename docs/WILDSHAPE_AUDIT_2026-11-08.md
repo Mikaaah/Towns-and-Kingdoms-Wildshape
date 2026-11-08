@@ -50,4 +50,29 @@ Relevant primary evidence: [river embankments #6](https://github.com/Pandaismyna
 
 ## Acceptance and implementation log
 
-The first-pass audit is complete. Code changes, regression outcomes, exact build filenames and runtime evidence will be recorded here after implementation. No full compatibility or runtime pass is claimed at this checkpoint.
+### Additional findings exposed during implementation
+
+| ID | Priority | Evidence | Resolution |
+|---|---|---|---|
+| W14 | High | Completed terrain tiles were retained indefinitely unless every constituent chunk reached the drop hook. Lookup-only or partially generated tiles could exhaust the 2 GiB regression JVM. Published cell arrays could also be recycled while late readers still held them. | Bound completed tile retention (64 by default); identity-based eviction; do not recycle published arrays. In-flight work may temporarily exceed the retention limit. Add eviction/churn and late-reader regressions. |
+| W15 | High | Custom Integrated and YUNG placements extend `RandomSpreadStructurePlacement`; reconstructing them with the vanilla constructor erased their placement type, enhanced/super exclusion zones and custom checks. | Reconstruct custom placements with their registered codecs and alter only requested fields. Check type and exclusion-zone retention in live registries. |
+| W16 | High | Flow Control 0.2.2 requires Streams 2.16.2. The existing Wildshape adapter and October export target 2.15.2. The two JARs have different binary APIs; simply widening the dependency range is insufficient. | Add explicit NeoForge bindings and gated Mixins for each verified version. Preserve the existing 2.15.2 path. Verify 2.16.2 with the actual newer Flow Control JAR; no dependency JAR is bundled. |
+| W17 | Medium | Alex’s Mobs 1.22.17 queries five legacy flat `c:` tag names; modern BOP/RU/NS tags use hierarchical names. Several Integrated API collections have similar legacy references. | Append modern habitats to the verified legacy tags in the world’s preset datapack. |
+| W18 | Medium | Several Knight Quest and Legendary Monsters native spawn modifiers name only vanilla biomes. Tag-only bridges cannot extend a fixed biome list. | During NeoForge’s ADD phase, reuse the installed native modifier’s spawn data for matching modded Overworld habitats. Avoid existing entries, protected cave habitats and vanilla biomes. Missing/disabled modifiers stay disabled; later REMOVE phases retain priority. |
+| W19 | Medium | The spawn-finder interface is injected into every climate sampler; checking only interface presence intercepts non-Wildshape worlds as well. | Require an active terrain context before replacing the spawn finder. |
+| W20 | Low | Historical coast and drumlin tests assume fixed density thresholds that already fail on 1.0.11: coastline 1934 vs 1817; 604 drumlin cells, a seven-block rise and zero lowered cells. The October golden file also predates later TNK terrain fixes. | Preserve production terrain. Compare feature-on/off behavior, retain height/no-lowering checks, and refresh terrain fingerprints after baseline comparison. |
+
+### Implemented changes
+
+- Native cave protection is tag-driven and extensible; Deep Dark and known native cave namespaces are protected. Vanilla lush/dripstone remain eligible for the confirmed cavern styles.
+- Explicit Overworld structure-set rules replace namespace-wide spacing changes. User preset entries take priority; custom placement types and exclusion zones survive adjustment.
+- Ore/storage tags, experience-dropping ore types and ore-name segments are excluded from decorative strata. Create decorative stones remain eligible.
+- Accurate generated column sampling is independent of cache contents and thread identity. Approximate biome/structure searches use nested, exception-safe scopes. World Preview has its own approximation setting.
+- Tile retention, failed-entry removal, Poisson context fallback, server logging references and non-Wildshape spawn lookup are corrected.
+- Habitat bridges cover Integrated API, Alex’s Mobs, Cataclysm, HAPI/Hybrid Aquatic, WilderNature, Starcatcher, Bosses’Rise and Legendary Monsters. Knight Quest’s fixed selectors use live native spawn data on NeoForge. No boss catalysts, recipes, dungeon loot, template NBT or entity AI are replaced.
+- Wildshape display/build branding is consistent. Existing mod ID, registry namespace, config directory and preset filenames remain stable. Superseded `utfstreams`, `tfacfix` and `utfoptimizer` adapters are marked incompatible; Flow Control remains supported.
+- CI exercises focused terrain/compatibility regressions. An opt-in dedicated-server check records loaded versions, live spacing/types, habitat application, dimension ownership, thread-independent heights, generation and Streams integration.
+
+### Verification record
+
+Final build, test counts, runtime manifests and deliverable hashes are recorded below after the last verification pass. The initial no-optional-mod NeoForge 21.1.262 server passed generation and clean shutdown; larger runtime tests use the actual versioned dependency JARs and are reported separately.

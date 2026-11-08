@@ -74,7 +74,7 @@ public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings 
 		this.addPatch(builder, Registries.CONFIGURED_CARVER, (preset, ctx) -> {
 			PresetConfiguredCarvers.bootstrap(preset, ctx);	
 		});
-		this.addPatch(builder, Registries.STRUCTURE_SET, (preset, ctx) -> PresetStructureSets.bootstrap(preset, ctx, registries.lookupOrThrow(Registries.STRUCTURE_SET)));
+		this.addPatch(builder, Registries.STRUCTURE_SET, (preset, ctx) -> PresetStructureSets.bootstrap(preset, ctx, registries));
 		this.addPatch(builder, Registries.PLACED_FEATURE, PresetPlacedFeatures::bootstrap);
 		this.addPatch(builder, Registries.BIOME, PresetBiomeData::bootstrap);
 		this.addPatch(builder, Registries.DIMENSION_TYPE, PresetDimensionTypes::bootstrap);

@@ -102,7 +102,9 @@ public record StrataRule(ResourceLocation cacheId, Holder<Noise> selector, Holde
 		List<BlockState> materials = new ArrayList<>();
 		for (Block block : blocks) {
 			BlockState state = block.defaultBlockState();
-			if (block == this.base || state.is(this.excluded) || block instanceof FallingBlock || block instanceof EntityBlock || !state.isCollisionShapeFullBlock(EmptyBlockGetter.INSTANCE, BlockPos.ZERO)) {
+			if (block == this.base || state.is(this.excluded) || StrataMaterials.isResource(state)
+					|| block instanceof FallingBlock || block instanceof EntityBlock
+					|| !state.isCollisionShapeFullBlock(EmptyBlockGetter.INSTANCE, BlockPos.ZERO)) {
 				continue;
 			}
 			materials.add(state);

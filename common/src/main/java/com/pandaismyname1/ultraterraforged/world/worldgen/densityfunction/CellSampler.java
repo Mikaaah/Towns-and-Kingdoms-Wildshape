@@ -25,7 +25,7 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 	@Override
 	public double compute(FunctionContext ctx) {
 		WorldLookup worldLookup = this.generatorContext.get().lookup;
-		Cell cell = LOCAL_CELL.get().getAndUpdate(worldLookup, ctx.blockX(), ctx.blockZ());
+		Cell cell = LOCAL_CELL.get().getAndUpdate(worldLookup, ctx.blockX(), ctx.blockZ(), true);
 		return this.field.read(cell);
 	}
 
@@ -51,18 +51,26 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 		private long lastPos = Long.MAX_VALUE;
 		private WeakReference<WorldLookup> lastLookup = new WeakReference<>(null);
 		private Cell cell = new Cell();
+		private int lastMode = -1;
 
 		public Cell getAndUpdate(WorldLookup lookup, int blockX, int blockZ) {
+			return this.getAndUpdate(lookup, blockX, blockZ, false);
+		}
+
+		public Cell getAndUpdate(WorldLookup lookup, int blockX, int blockZ, boolean asGenerated) {
 			blockX = QuartPos.toBlock(QuartPos.fromBlock(blockX));
 			blockZ = QuartPos.toBlock(QuartPos.fromBlock(blockZ));
 
 			long packedPos = PosUtil.pack(blockX, blockZ);
-			if(this.lastPos != packedPos || this.lastLookup.get() != lookup) {
+			int mode = asGenerated ? (lookup.approximate() ? 1 : 2) : 0;
+			if(this.lastPos != packedPos || this.lastLookup.get() != lookup || this.lastMode != mode) {
 				// Failed lookups must not leave a partially overwritten cell cached.
 				this.lastPos = Long.MAX_VALUE;
 				this.lastLookup = new WeakReference<>(null);
-				lookup.apply(this.cell.reset(), blockX, blockZ);
+				if (asGenerated) lookup.applyAsGenerated(this.cell.reset(), blockX, blockZ);
+				else lookup.apply(this.cell.reset(), blockX, blockZ);
 				this.lastPos = packedPos;
+				this.lastMode = mode;
 				if(this.lastLookup.get() != lookup) {
 					this.lastLookup = new WeakReference<>(lookup);
 				}
@@ -97,7 +105,7 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			WorldLookup worldLookup = CellSampler.this.generatorContext.get().lookup;
 			Cell cell = (this.chunk != null && this.chunkX == chunkX && this.chunkZ == chunkZ) ?
 				this.chunk.get().getCell(blockX, blockZ) :
-				this.cache2d.getAndUpdate(worldLookup, quartBlockX, quartBlockZ);
+				this.cache2d.getAndUpdate(worldLookup, quartBlockX, quartBlockZ, true);
 			return CellSampler.this.field.read(cell);
 		}
 

@@ -325,11 +325,7 @@ public final class CaveCarving {
         if (cached != null) return cached;
         var biomeHolder = this.chunk.getNoiseBiome(qx, qy, qz);
         // Synthetic test chunks and unfinished worldgen may return no holder.
-        boolean protectedBiome = biomeHolder != null && biomeHolder.unwrapKey()
-            .map(biome -> {
-                String namespace = biome.location().getNamespace();
-                return "alexscaves".equals(namespace) || "yungscavebiomes".equals(namespace);
-            }).orElse(false);
+        boolean protectedBiome = CaveBiomeProtection.protects(biomeHolder);
         this.protectedBiomeCache.put(key, protectedBiome);
         return protectedBiome;
     }

@@ -69,6 +69,7 @@ public class SampleUtilsMixin {
 			// the preview reads every section: its own world isn't culled, and no other is touched
 			if(utfRandomState.generatorContext() != null) {
 				utfRandomState.generatorContext().lookup.setCullNoiseSections(false);
+				utfRandomState.generatorContext().lookup.setApproximateColumns(true);
 			}
 
 			UTFCommon.LOGGER.info("initialized utf data");

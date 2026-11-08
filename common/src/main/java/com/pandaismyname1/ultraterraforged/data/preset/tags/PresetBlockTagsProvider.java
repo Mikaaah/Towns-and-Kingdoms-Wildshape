@@ -45,7 +45,10 @@ public class PresetBlockTagsProvider extends IntrinsicHolderTagsProvider<Block> 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "veridium"));
 		// deepslate is layered on its own, with the rocks ores turn into deepslate ores in
 		this.tag(UTFBlockTags.DEEP_ROCK).addOptionalTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES.location());
-		this.tag(UTFBlockTags.STRATA_EXCLUDED).add(Blocks.DEEPSLATE);
+		this.tag(UTFBlockTags.STRATA_EXCLUDED).add(Blocks.DEEPSLATE)
+			.addOptionalTag(ResourceLocation.parse("c:ores"))
+			.addOptionalTag(ResourceLocation.parse("forge:ores"))
+			.addOptionalTag(ResourceLocation.parse("c:storage_blocks"));
 		this.tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(Blocks.CLAY);
 	}
 }

@@ -7,6 +7,8 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import com.pandaismyname1.ultraterraforged.data.preset.settings.MiscellaneousSettings;
@@ -25,6 +27,13 @@ public class PresetBiomeTagsProvider extends TagsProvider<Biome> {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		MiscellaneousSettings miscellaneous = this.preset.miscellaneous();
+		PresetBiomeCompat.BRIDGES.forEach((target, references) -> {
+			var builder = this.tag(TagKey.create(Registries.BIOME, ResourceLocation.parse(target)));
+			for (String reference : references) {
+				if (reference.startsWith("#")) builder.addOptionalTag(ResourceLocation.parse(reference.substring(1)));
+				else builder.addOptional(ResourceLocation.parse(reference));
+			}
+		});
 
 		this.tag(UTFBiomeTags.HAS_SWAMP_SURFACE).add(Biomes.SWAMP);
 		this.tag(UTFBiomeTags.EROSION_BLACKLIST).add(Biomes.DESERT, Biomes.BADLANDS, Biomes.WOODED_BADLANDS);

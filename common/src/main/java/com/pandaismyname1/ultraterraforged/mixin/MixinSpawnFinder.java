@@ -14,52 +14,15 @@ import net.minecraft.world.level.biome.Climate.Sampler;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.spawn.SpawnFinderFix;
 import com.pandaismyname1.ultraterraforged.world.worldgen.biome.UTFClimateSampler;
 
-// FIXME the mixin that we should actually be using just refuses to work for some reason
-
-//@Mixin(targets = "net.minecraft.world.level.biome.Climate$SpawnFinder")
+/** Custom spawn search is scoped to active Wildshape terrain. */
 @Mixin(Climate.class)
 class MixinSpawnFinder {
-
-	@Inject(at = @At("HEAD"), method = "findSpawnPosition", cancellable = true)
-    private static void findSpawnPosition(List<ParameterPoint> list, Sampler sampler, CallbackInfoReturnable<BlockPos> callback) {
-    	if ((Object) sampler instanceof UTFClimateSampler) {
-            SpawnFinderFix.Result result = new SpawnFinderFix(list, sampler).result;
+    @Inject(at = @At("HEAD"), method = "findSpawnPosition", cancellable = true)
+    private static void findSpawnPosition(List<ParameterPoint> points, Sampler sampler, CallbackInfoReturnable<BlockPos> callback) {
+        if ((Object) sampler instanceof UTFClimateSampler utf && utf.getGeneratorContext() != null) {
+            SpawnFinderFix.Result result = com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags.approximately(
+                    () -> new SpawnFinderFix(points, sampler).result);
             if (result != null) callback.setReturnValue(result.location());
         }
     }
-//	@ModifyArg(
-//		at = @At(
-//			value = "INVOKE",
-//			target = "Lnet/minecraft/world/level/biome/Climate$SpawnFinder;getSpawnPositionAndFitness(Ljava/util/List;Lnet/minecraft/world/level/biome/Climate$Sampler;II)Lnet/minecraft/world/level/biome/Climate$SpawnFinder$Result;"
-//		),
-//		method = "<init>",
-//		index = 2,
-//		require = 1
-//	)
-//	private static int modifyX(List<ParameterPoint> points, Climate.Sampler sampler, int x, int z) {
-//		if((Object) sampler instanceof UTFClimateSampler utfClimateSampler) {
-//			BlockPos center = utfClimateSampler.getSpawnSearchCenter();
-//			return center != null ? center.getX() : 0;
-//		} else {
-//			return 0;
-//		}
-//	}
-//	
-//	@ModifyArg(
-//		at = @At(
-//			value = "INVOKE",
-//			target = "Lnet/minecraft/world/level/biome/Climate$SpawnFinder;getSpawnPositionAndFitness(Ljava/util/List;Lnet/minecraft/world/level/biome/Climate$Sampler;II)Lnet/minecraft/world/level/biome/Climate$SpawnFinder$Result;"
-//		),
-//		method = "<init>",
-//		index = 3,
-//		require = 1
-//	)
-//	private static int modifyZ(List<ParameterPoint> points, Climate.Sampler sampler, int x, int z) {
-//		if((Object) sampler instanceof UTFClimateSampler utfClimateSampler) {
-//			BlockPos center = utfClimateSampler.getSpawnSearchCenter();
-//			return center != null ? center.getZ() : 0;
-//		} else {
-//			return 0;
-//		}
-//	}
 }

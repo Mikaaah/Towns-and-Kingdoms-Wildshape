@@ -1,7 +1,6 @@
 package nl.townsandkingdoms.terraforged.compat.streams;
 
 import dev.streamsreflowing.flow.StreamFlowGrid;
-import dev.streamsreflowing.neoforge.fluid.StreamLiquidBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -107,13 +106,10 @@ public final class ActualWaterFlow {
             Level world=view(level);
             if(!active(world) || !loaded(world,x,z)) return original;
             var state=world.getBlockState(pos);
-            if(state.getBlock() instanceof StreamLiquidBlock) {
-                int f=state.getValue(StreamLiquidBlock.FLOW);
-                if(f<8) original=StreamFlowGrid.encode(StreamLiquidBlock.DIRS[f].x,StreamLiquidBlock.DIRS[f].z);
-            }
+            original=StreamsRuntime.bakedAngle(state);
         }
         if(original==-1) return original;
-        Vec3 dir=direction(level,pos,StreamFlowGrid.vx(original),StreamFlowGrid.vz(original));
+        Vec3 dir=direction(level,pos,StreamsRuntime.vx(original),StreamsRuntime.vz(original));
         return dir==null ? original : dir.lengthSqr()<1e-8 ? (byte)-1 : StreamFlowGrid.encode(dir.x,dir.z);
     }
     public static void clear() { synchronized(CACHE) {CACHE.clear();} }

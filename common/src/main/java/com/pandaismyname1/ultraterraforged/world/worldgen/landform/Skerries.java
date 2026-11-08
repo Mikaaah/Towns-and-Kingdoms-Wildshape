@@ -51,7 +51,7 @@ public record Skerries(int seed, float shoreline, Noise field, float fieldLow, f
 		}
 		int gridX = NoiseUtil.floor(x / GRID);
 		int gridZ = NoiseUtil.floor(z / GRID);
-		float best = 0.0F;
+		float best = Float.NEGATIVE_INFINITY;
 		for (int gx = gridX - 1; gx <= gridX + 1; gx++) {
 			for (int gz = gridZ - 1; gz <= gridZ + 1; gz++) {
 				if (Landform.random(this.seed, gx, gz, 0) >= CHANCE * mask) {

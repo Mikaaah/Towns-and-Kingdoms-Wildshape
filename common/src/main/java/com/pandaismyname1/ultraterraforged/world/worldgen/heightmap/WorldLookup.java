@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 import com.pandaismyname1.ultraterraforged.world.worldgen.GeneratorContext;
+import com.pandaismyname1.ultraterraforged.world.worldgen.WorldGenFlags;
 import com.pandaismyname1.ultraterraforged.world.worldgen.cell.Cell;
 import com.pandaismyname1.ultraterraforged.world.worldgen.rivermap.Rivermap;
 import com.pandaismyname1.ultraterraforged.world.worldgen.cell.noise.CellSampler;
@@ -20,6 +21,7 @@ public class WorldLookup {
 	private Levels levels;
 	// whether chunks are generated only as high as their terrain: off for a world preview, which reads every section
 	private volatile boolean cullNoiseSections = true;
+	private volatile boolean approximateColumns;
 
 	public WorldLookup(GeneratorContext context) {
 		this.context = context;
@@ -31,6 +33,19 @@ public class WorldLookup {
 
 	public void setCullNoiseSections(boolean cullNoiseSections) {
 		this.cullNoiseSections = cullNoiseSections;
+	}
+
+	public void setApproximateColumns(boolean approximateColumns) {
+		this.approximateColumns = approximateColumns;
+	}
+
+	public boolean approximate() {
+		return this.approximateColumns || WorldGenFlags.fastLookups();
+	}
+
+	/** Generation must not depend on which filtered tiles happen to be cached. */
+	public boolean applyAsGenerated(Cell cell, int x, int z) {
+		return this.approximate() ? this.compute(cell, x, z) : this.apply(cell, x, z, true);
 	}
 
 	public int getGenerationHeight(int chunkX, int chunkZ, NoiseGeneratorSettings generatorSettings, boolean load) {

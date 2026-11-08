@@ -78,17 +78,9 @@ public class FastPoissonModifier extends PlacementModifier {
 		return UTFPlacementModifiers.FAST_POISSON;
 	}
 
-	private DensityNoise getDensityNoise(int seed, ChunkPos chunkPos, RandomState randomState) {
-		BiomeVariance biomeVariance = BiomeVariance.NONE;
-		
-		if (this.biomeFade > BiomeVariance.MIN_FADE) {
-			if((Object) randomState instanceof UTFRandomState utfRandomState) {
-				Tile.Chunk reader = utfRandomState.generatorContext().cache.provideAtChunk(chunkPos.x, chunkPos.z).getChunkReader(chunkPos.x, chunkPos.z);
-				if (reader != null) {
-					biomeVariance = new BiomeVariance(reader, this.biomeFade);
-				}
-			}
-		}
+	DensityNoise getDensityNoise(int seed, ChunkPos chunkPos, RandomState randomState) {
+		BiomeVariance biomeVariance = this.biomeVariance(chunkPos,
+				(Object) randomState instanceof UTFRandomState utf ? utf : null);
 
 		Noise densityVariance = Noises.one();
 		if (this.densityVariation > 0) {
@@ -98,5 +90,14 @@ public class FastPoissonModifier extends PlacementModifier {
 		}
 
 		return new DensityNoise(biomeVariance, densityVariance);
+	}
+
+	BiomeVariance biomeVariance(ChunkPos chunkPos, UTFRandomState state) {
+		var context = state == null ? null : state.generatorContext();
+		if (this.biomeFade > BiomeVariance.MIN_FADE && context != null && context.cache != null) {
+			Tile.Chunk reader = context.cache.provideAtChunk(chunkPos.x, chunkPos.z).getChunkReader(chunkPos.x, chunkPos.z);
+			if (reader != null) return new BiomeVariance(reader, this.biomeFade);
+		}
+		return BiomeVariance.NONE;
 	}
 }

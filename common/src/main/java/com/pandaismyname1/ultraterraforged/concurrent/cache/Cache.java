@@ -61,6 +61,28 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
         return this.map.computeIfAbsent(key, func);
     }
 
+    public int size() {
+        return this.map.size();
+    }
+
+    /**
+     * Forget least-recently-read entries without closing their contents. Readers may still hold them;
+     * the GC, rather than a reusable-array pool, must reclaim published worldgen data safely.
+     */
+    public int trimWithoutClosing(int capacity, java.util.function.Predicate<V> eligible) {
+        int excess = this.map.size() - capacity;
+        if (excess <= 0) return 0;
+        var candidates = new java.util.ArrayList<V>();
+        this.map.removeIf(entry -> {
+            if (eligible.test(entry)) candidates.add(entry);
+            return false;
+        });
+        candidates.sort(java.util.Comparator.comparingLong(ExpiringEntry::getTimestamp));
+        var discard = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<V, Boolean>());
+        candidates.stream().limit(excess).forEach(discard::add);
+        return this.map.removeIf(discard::contains);
+    }
+
     public void poll() {
         this.timeout = System.currentTimeMillis() - this.lifetimeMS;
         this.map.removeIf((entry) -> entry.getTimestamp() < this.timeout);

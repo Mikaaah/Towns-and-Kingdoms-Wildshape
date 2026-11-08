@@ -28,21 +28,22 @@ dependencies {
     modCompileOnly "maven.modrinth:streams-reflowing:OBnu1pc1"
 }
 
+configurations {
+    mockitoAgent
+}
+
 dependencies {
     testImplementation platform("org.junit:junit-bom:5.11.4")
     testImplementation "org.junit.jupiter:junit-jupiter"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher"
     testImplementation "org.mockito:mockito-core:5.14.2"
+    mockitoAgent("org.mockito:mockito-core:5.14.2") { transitive = false }
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs "-javaagent:${configurations.mockitoAgent.asPath}"
     // Explicit instrumentation works on JDK 21 without dynamic self-attachment.
-    doFirst {
-        jvmArgs "-javaagent:" + configurations.testRuntimeClasspath.files.find {
-            it.name.startsWith("mockito-core-") && it.name.endsWith(".jar")
-        }.absolutePath
-    }
     systemProperty "utf.updateGolden", System.getProperty("utf.updateGolden", "false")
     maxHeapSize = "2G"
     testLogging.showStandardStreams = Boolean.getBoolean("utf.showOutput")

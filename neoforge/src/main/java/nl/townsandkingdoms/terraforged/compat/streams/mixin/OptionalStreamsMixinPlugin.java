@@ -12,7 +12,13 @@ public final class OptionalStreamsMixinPlugin implements IMixinConfigPlugin {
     @Override public void onLoad(String mixinPackage) {}
     @Override public String getRefMapperConfig() { return null; }
     @Override public boolean shouldApplyMixin(String target, String mixin) {
-        return ModLoaderUtil.isLoaded("streamsreflowing");
+        if (!ModLoaderUtil.isLoaded("streamsreflowing")) return false;
+        var file = net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
+        boolean modern = file.getMods().getFirst().getVersion().toString().startsWith("2.16.2");
+        if (mixin.contains(".Modern")) return modern;
+        if (mixin.endsWith("ActualGridMixin") || mixin.endsWith("ActualBakedFlowMixin")
+                || mixin.endsWith("ActualParticleMixin")) return !modern;
+        return true;
     }
     @Override public void acceptTargets(Set<String> mine, Set<String> other) {}
     @Override public List<String> getMixins() { return null; }
