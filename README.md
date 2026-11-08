@@ -1,10 +1,15 @@
-# TNKTerraForged
+<p align="center"><img src="https://i.imgur.com/0yL04dQ.png" alt="Towns & Kingdoms Wildshape" width="100%"></p>
 
-**Massive terrain, expansive underground caves, and dungeon-aware world generation for Towns & Kingdoms 3.**
+<h1 align="center">Towns & Kingdoms Wildshape</h1>
 
-An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based on **UltraTerraForged** (pandaismyname1), **ReTerraForged** (raccoonman and contributors), and **TerraForged** (dags, Won-Ton and contributors). Their code, history, notices and credits are retained.
+<p align="center"><strong>Big landscapes. Bigger caverns. Terrain made for long journeys and underground discoveries.</strong></p>
 
-> **TNK3-specific preview:** This is *not* an official UltraTerraForged build, nor an unrelated replacement written from scratch. It replaces the original JAR in your modpack and changes world generation in newly generated chunks.
+<p align="center"><a href="https://www.curseforge.com/members/mikaaah/projects">Downloads</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/update/upstream-1.0.3-tnk/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
+
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
+
+
+**TNK development edition · 1.0.11 · Minecraft 1.21.1**
 
 ## What makes this fork different?
 
@@ -18,12 +23,12 @@ An unofficial Minecraft **1.21.1** terrain-generator fork by **Mikaaah**, based 
 
 | Edition | Minecraft | Details |
 | --- | --- | --- |
-| [NeoForge 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Primary TNK3 build; native Alex/Streams compatibility and actual-water corrections |
-| [Fabric 1.21.1](https://github.com/Mikaaah/ultraterraforged-personal/tree/main) | Java 21 | Shared terrain core and native Streams producer; no NeoForge-specific water corrections |
+| [NeoForge 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/update/upstream-1.0.3-tnk) | Java 21 | Primary TNK3 build; native Alex/Streams compatibility and actual-water corrections |
+| [Fabric 1.21.1](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/update/upstream-1.0.3-tnk) | Java 21 | Shared terrain core and native Streams producer; no NeoForge-specific water corrections |
 
 ### Technical compatibility: legacy mod ID
 
-To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The project and build files use **TNKTerraForged** branding; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
+To preserve existing TNK3 world presets, datapacks, registry names and dependencies, this preview intentionally retains **`ultraterraforged` as the internal mod ID**. The in-game selector and artifacts use the legacy **TNKTerraForged** name; the legacy ID remains a compatibility detail. **Do not install the original UltraTerraForged JAR alongside TNKTerraForged.**
 
 The `ultraterraforged` registry namespace and upstream Java API packages remain stable for existing worlds and compatible addons. Active configuration lives in **`config/tnkterraforged/`**. Missing files are imported from the old UltraTerraForged/ReTerraForged configuration directories without overwriting current settings. Those original files are retained as backups. Project, build resources and the integrated current adapter use TNKTerraForged naming. This build is **1.0.11+1.21.1**.
 
@@ -47,15 +52,10 @@ See the [1.0.3 water and performance notes](docs/TNK3_WATER_PERFORMANCE_FIX.md) 
 
 Use one matching loader JAR, select the TNKTerraForged world type in Create World, and generate **new chunks** for changes to apply. Preserve world backups. For optional Alex's Caves 2.0.10 support on NeoForge, keep its Citadel port installed but **remove the separate tfacfix JAR** to prevent double Mixins.
 
-Build on Java 21:
 
-```sh
-./gradlew :neoforge:build -Putf.perfMods=false
-./gradlew :fabric:build -Putf.perfMods=false
-./gradlew :common:test -Putf.perfMods=false
-```
 
-Read the [technical changelog](CHANGELOG-PERSONAL.md) and [23-finding audit matrix](AUDIT-STATUS.md). Successful automated builds do **not** prove modpack stability: test generation on multiple seeds, very high terrain, river junctions and all dungeon types with TNK3's full mod list.
+
+Read the [technical changelog](CHANGELOG-PERSONAL.md) for release history. Generate new chunks to see terrain changes, and keep a backup when changing world-generation builds.
 
 ## Authors, origins and licensing
 
@@ -85,3 +85,10 @@ Giant chambers now have lush, dripstone and lantern variants, with curved rock s
 ### Terrain and water patch (1.0.6)
 
 See the [terrain/water patch notes](docs/TNK_TERRAIN_WATER_1.0.6.md) for submerged coastal relief, connected river-bank repairs, disabled water springs, isolated-pool and wall-pock cleanup, and revised [TNK3 presets](presets/tnk3). These changes affect new chunks; use a new world when selecting a revised preset.
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
