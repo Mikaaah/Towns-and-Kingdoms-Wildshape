@@ -1,0 +1,31 @@
+{
+  "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+  "releaseMarker": {
+    "schema": 1,
+    "project": "wildshape",
+    "version": "1.0.0",
+    "edition": "standard",
+    "target": "neoforge-1.21.1",
+    "minecraft": "1.21.1",
+    "loader": "neoforge",
+    "java": 21,
+    "source_commit": "74a2f78cb22675415ff33fe57e5d0a7496842fe0",
+    "source_dirty": false
+  },
+  "classCount": 837,
+  "testedClassPayloadsIdentical": true,
+  "tests": {
+    "tests": 54,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nativeFlowChecks": 25,
+  "releaseToolFixtureTests": 26,
+  "buildOnlyLoomTcpFallback": true,
+  "gameLaunchesUseBuildHelper": false,
+  "artifactFilename": "wildshape-1.0.0-neoforge-1.21.1.jar",
+  "fmlModId": "wildshape",
+  "fmlVersion": "1.0.0",
+  "maxClassMajor": 65
+}

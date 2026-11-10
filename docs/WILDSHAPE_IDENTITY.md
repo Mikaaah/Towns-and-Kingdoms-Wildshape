@@ -1,6 +1,6 @@
-# Wildshape identity — 1.0.12-beta.2
+# Wildshape identity — 1.0.0
 
-This release completes the rename requested after the compatibility audit. The previous build changed the display branding while retaining the former internal identity. This build changes the actual FML identity and serialized resource namespace too.
+Version 1.0.0 retains the complete rename introduced in 1.0.12-beta.2 and standardizes the release version. The older beta.1 JAR bundled in the Beta 1.0 pack changed display branding while retaining the former internal identity; replace it with the 1.0.0 artifact. Current verification is recorded in the [Beta 1.0 follow-up audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
 
 | Component | Current identity |
 |---|---|
@@ -26,11 +26,13 @@ The former names occur only where needed to recognize imports, reject duplicate 
 
 ## World compatibility
 
-**Use a fresh world with this release.** A saved world or exported datapack may contain the former namespace in registry keys, density-function codecs, preset resources and `level.dat`. Copying settings does not migrate these references. This release does not rewrite existing worlds or claim that replacing only the JAR migrates them. Keep the earlier JAR with existing saves until a separate registry migration has been prepared and verified on a copy.
+**Use a fresh world when replacing a JAR that registered `ultraterraforged`.** Version 1.0.0 does not rename registry identities again relative to the renamed beta.2 build. A saved world or exported datapack may contain the former namespace in registry keys, density-function codecs, preset resources and `level.dat`. Copying settings does not migrate these references. This release does not rewrite existing worlds or claim that replacing only the JAR migrates them. Keep the earlier JAR with existing saves until a separate registry migration has been prepared and verified on a copy.
 
-Remove the previous terrain JAR before installing this one. The old terrain mod and superseded `utfstreams`, `tfacfix`, and `utfoptimizer` adapters are explicitly incompatible. Flow Control remains optional and supported; Flow Control 0.2.2 uses Streams Reflowing 2.16.2.
+Remove the previous terrain JAR before installing this one. The old terrain mod and superseded `utfstreams`, `tfacfix`, and `utfoptimizer` adapters are explicitly incompatible. Flow Control remains optional and supported; the exported Flow Control 0.2.2 uses Streams Reflowing 2.16.2, and the separate Flow Control 1.0.0 update uses Streams Reflowing 2.17.1.
 
-## Verification
+## Historical beta.2 verification
+
+The following results describe the earlier beta.2 artifact, not 1.0.0. Current 1.0.0 results and hashes are in the [follow-up audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
 
 The Java 21 NeoForge release build passed, along with 50 focused common tests and both native flow-rule verification tasks (25 checks). The packaged JAR and generated preset were scanned: no former package/resource paths or unexpected old-identity references remain. All workflow YAML parses, and the renamed source-diagnostic parser was exercised against the new package.
 

@@ -34,11 +34,35 @@ Production changes add optional habitat tags for the current Epic Structures and
 
 The supplied TNK Gradle release adapter is installed at the end of the root build and targets `:neoforge:remapJar`. `release.json` is the version input; FML metadata and the final filename are checked by `tnkReleaseCheck`. Historical fingerprints are retained in `release-tools/registry.json`. A clean source commit is embedded in the candidate artifact. No Fabric artifact is built.
 
-Static inspection covers 110 exact export dependency JARs, with 171 structure-set records, 345 structure records, 360 biome JSON records, 1,249 biome-tag records and 758 biome-modifier records; zero JSON parse errors. Counts are resource records across JARs, not distinct winning registry entries or loaded mod IDs. The audit utility now excludes NeoForge biome data maps from biome-definition counts. Required fixture dependency closure was checked including nested JAR metadata.
+Static inspection covers 111 exact export dependency JARs, with 171 structure-set records, 345 structure records, 360 biome JSON records, 1,249 biome-tag records and 758 biome-modifier records; zero JSON parse errors. Counts are resource records across JARs, not distinct winning registry entries or loaded mod IDs. The audit utility now excludes NeoForge biome data maps from biome-definition counts. Required fixture dependency closure was checked across 510 relationships, including nested JAR metadata. The first fixture launch exposed an older `required=true` declaration for Aether’s nested Accessories dependency on oωo; the exact exported oωo file 9215303 was added, and both older dependency keys and modern `type=required` were included in the closure check. All server-side required dependency IDs are present.
 
-Build and runtime outcomes will be recorded separately after verification. The earlier beta.1/beta.2 evidence remains historical; it is not relabelled as a test of 1.0.0.
+Build and runtime outcomes are recorded below and in the linked machine-readable evidence. The earlier beta.1/beta.2 evidence remains historical; it is not relabelled as a test of 1.0.0.
 
 
 The separate current Flow Control 1.0.0 artifact and Streams 2.17.1 were also inspected. Their shared platform/layer interfaces are byte-identical to 2.16.2, but two registered baked-fluid implementation classes were renamed. Exact version-gated hooks were added for those two targets; the common grid and particle signatures were checked. Supported ranges remain restricted to the three verified Streams releases. These are additional update fixtures, not substituted versions in the exported-mod-list evidence.
 
 The initial release build passed 54 focused common tests, 25 pure flow checks, and `tnkReleaseCheck`; the version-system fixture suite passed 26 tests. Final artifact and dedicated-server evidence is recorded after building the reachable GitHub source commit. The build uses a private Gradle cache and a build-only Loom TCP fallback because this workspace disallows Unix-domain sockets. That helper does not modify game classes or ship in the mod JAR. Dedicated game launches use the ordinary packaged JAR without the helper.
+
+
+## Release artifact and completed checks
+
+The final remapped JAR is `wildshape-1.0.0-neoforge-1.21.1.jar`, SHA-256 `7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a`. It was built from reachable GitHub source commit `74a2f78cb22675415ff33fe57e5d0a7496842fe0`, with a clean source tree. The packaged FML ID is `wildshape`, packaged version is exactly `1.0.0`, and maximum Java class major is 65 (Java 21). All 837 class payloads match the compilation used for the focused tests. The source and release manifest are in that commit; subsequent evidence/ledger documentation does not change production code.
+
+| Check | Observed result |
+|---|---|
+| NeoForge release build and `tnkReleaseCheck` | Passed |
+| Focused common regression tests | 54 passed; zero failures/errors/skips |
+| Pure water-search/flow checks | 25 passed |
+| Supplied release-tool fixtures | 26 passed |
+| Streams 2.17.1 + Flow Control 1.0.0 + Create 6.0.10 | Passed: new fluid hooks, elevated native river water/current, public grid and server physics, eight headings, tile-free survey, three sample chunks |
+| Flow Control 1.0.0 integration with the final Wildshape JAR | All 19 functional groups passed, including both baked fluid variants, manual priority, boat stillness, persistence/networking and actual Create network behavior |
+| No optional mods installed | Passed: identity, world type, command root, generator ownership, threaded heights and three sample chunks |
+| Combined exported worldgen/creature fixture | In progress; not yet certified by the checks above |
+
+Evidence: [build verification](audit/beta-1.0/build-verification.json), [Streams update](audit/beta-1.0/runtime-streams-2171.json), [Flow integration](audit/beta-1.0/runtime-flow-100.json), [optional absence](audit/beta-1.0/runtime-optional-absence.json), [release receipt](audit/beta-1.0/release-receipt.json), [checksums](audit/beta-1.0/SHA256SUMS), and [fixture dependency closure](audit/beta-1.0/fixture-dependency-closure.json).
+
+The receipt's `git_tag` and upload fields describe prepared release metadata; they do not mean a tag, marketplace upload or merge was performed. Earlier beta.2 fingerprints remain in the registry, and the 1.0.0 fingerprint is appended as a verified development artifact.
+
+The first combined launch lacked the fixture's nested oωo dependency and was corrected. A later 5 GB-heap attempt ended with signal 9 before producing a result; it is not counted as a pass. The 3 GB-heap combined run uses the exact exported dependencies and configuration with a bounded worker count. A temporary execution-environment disconnect did not stop its data loading. Completion of that fixture is recorded separately. Third-party optional-Mixin, POI and unavailable external-network warnings are not presented as a clean warning-free startup.
+
+Full graphical-client rendering, every dungeon/seed, multiplayer sessions, the entire 318-entry client installation, and migration of old-namespace worlds are not certified by these checks. Use a fresh world for the bundled pre-rename `ultraterraforged` build; 1.0.0 retains the renamed beta.2 namespace. Do not install both terrain JARs.
