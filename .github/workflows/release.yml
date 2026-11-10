@@ -39,34 +39,35 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Get Mod Version
-        id: mod_version
-        run: grep "mod_version" gradle.properties | sed "s/\s//g" >> $GITHUB_OUTPUT
-
-      - name: Get Platform Version
-        id: minecraft_version
-        run: grep "minecraft_version" gradle.properties | sed "s/\s//g" >> $GITHUB_OUTPUT
-
-      - name: Get Composite Version
-        id: composite_version
-        run: echo "composite_version=${{ steps.mod_version.outputs.mod_version }}+${{ steps.minecraft_version.outputs.minecraft_version }}" >> $GITHUB_OUTPUT
+      - name: Read release identity
+        id: identity
+        run: |
+          python3 - <<'PYID'
+          import json, os
+          release = json.load(open('release.json'))
+          target = release['targets'][0]
+          version = release['version']
+          filename = f"{release['artifact_id']}-{version}-{target['loader']}-{target['minecraft']}.jar"
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"version={version}\nfilename={filename}\nminecraft={target['minecraft']}\n")
+          PYID
 
       - name: Build NeoForge
         env:
           RELEASE: true
-        run: ./gradlew :neoforge:build -Pwildshape.perfMods=false
+        run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.composite_version.outputs.composite_version }}
+          tag_name: v${{ steps.identity.outputs.version }}
           # the commit released; a new tag otherwise lands on the default branch, 1.20.1, whichever branch is released
           target_commitish: ${{ github.sha }}
-          name: Wildshape ${{ steps.composite_version.outputs.composite_version }}
+          name: Wildshape ${{ steps.identity.outputs.version }}
           body_path: CHANGELOG.md
           prerelease: ${{ inputs.version_type != 'release' }}
           files: |
-            neoforge/build/libs/wildshape-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
+            neoforge/build/libs/${{ steps.identity.outputs.filename }}
 
       # mc-publish skips a platform whose token is empty, so the upload below
       # only run once MODRINTH_TOKEN / CURSEFORGE_TOKEN exist as repository secrets.
@@ -78,15 +79,15 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-id: ${{ env.CURSEFORGE_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          name: Wildshape ${{ steps.composite_version.outputs.composite_version }} NeoForge
-          version: ${{ steps.composite_version.outputs.composite_version }}-neoforge
+          name: ${{ steps.identity.outputs.filename }}
+          version: ${{ steps.identity.outputs.version }}
           version-type: ${{ inputs.version_type }}
           changelog-file: CHANGELOG.md
           loaders: |
             neoforge
-          game-versions: ${{ steps.minecraft_version.outputs.minecraft_version }}
+          game-versions: ${{ steps.identity.outputs.minecraft }}
           java: 21
-          files: neoforge/build/libs/wildshape-${{ steps.composite_version.outputs.composite_version }}-neoforge.jar
+          files: neoforge/build/libs/${{ steps.identity.outputs.filename }}
 
   maven:
     needs: build

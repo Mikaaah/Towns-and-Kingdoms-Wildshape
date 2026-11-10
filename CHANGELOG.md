@@ -1,3 +1,14 @@
+# 1.0.0
+
+- Updated Wildshape for the TNK3 Beta 1.0 mod list, including Nature’s Spirit 2.3.2 and the new dungeon and dimension mods.
+- Extended Epic Structures’ dungeon and temple habitats into matching modded biomes while preserving native placement and linked dungeon/obelisk layouts.
+- Added Croptopia crop and fruit-tree habitats for Regions Unexplored and Nature’s Spirit, retaining native generation rates.
+- Preserved native cave ecosystems, creature spawning, structure protection and Streams/Flow Control support.
+- Added verified Streams Reflowing 2.17.1 fluid hooks alongside the existing 2.15.2 and 2.16.2 integrations.
+- Standardized the FML version and release filename as `1.0.0` using the TNK release system. NeoForge 1.21.1 / Java 21 only.
+
+The mod ID remains `wildshape`. Replace the earlier terrain JAR; old `ultraterraforged` saves still require a separate migration.
+
 # Wildshape 1.0.12-beta.2
 
 - Completed the Wildshape rename: FML ID, registry/resource namespace, Java packages, config paths, commands, packets, translations, preset exports and developer/release tooling.

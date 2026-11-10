@@ -9,7 +9,7 @@ import java.util.Map;
  * Registry names were checked against the TNK3 dependency JARs; see the November 2026 audit.
  */
 final class PresetBiomeCompat {
-    static final Map<String, List<String>> BRIDGES = Map.ofEntries(
+    private static final Map<String, List<String>> BASE_BRIDGES = Map.ofEntries(
             // Alex's Mobs 1.22.17 still queries these older flat common-tag names.
             Map.entry("c:is_hot_overworld", List.of("#c:is_hot/overworld")),
             Map.entry("c:is_cold_overworld", List.of("#c:is_cold/overworld")),
@@ -66,6 +66,14 @@ final class PresetBiomeCompat {
             Map.entry("cataclysm:has_structure/sunken_city_biomes", List.of("regions_unexplored:hyacinth_deeps",
                     "hybrid_aquatic:deep_coral_reef", "hybrid_aquatic:tropical_deep_coral_reef", "hybrid_aquatic:deep_warm_ocean"))
     );
+
+    static final Map<String, List<String>> BRIDGES = withBetaPackHabitats();
+
+    private static Map<String, List<String>> withBetaPackHabitats() {
+        var bridges = new java.util.LinkedHashMap<>(BASE_BRIDGES);
+        BetaPackHabitats.addTo(bridges);
+        return Map.copyOf(bridges);
+    }
 
     private PresetBiomeCompat() {}
 }

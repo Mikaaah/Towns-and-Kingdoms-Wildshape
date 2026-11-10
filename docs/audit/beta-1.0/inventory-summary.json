@@ -1,0 +1,16 @@
+{
+  "packManifestEntries": 315,
+  "bundledJars": 3,
+  "manifestSha256": "79bd0a90937faea6d98e9cf510ccc2066074b56d3f002381e25639bc7c6e839c",
+  "counts": {
+    "jars": 110,
+    "mods": 110,
+    "structureSets": 171,
+    "structures": 345,
+    "biomes": 360,
+    "biomeTags": 1249,
+    "biomeModifiers": 758
+  },
+  "parseErrors": 0,
+  "multipleProviderCount": 139
+}

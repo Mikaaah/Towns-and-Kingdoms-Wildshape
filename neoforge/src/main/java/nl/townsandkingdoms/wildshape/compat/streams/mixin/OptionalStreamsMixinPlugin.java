@@ -14,7 +14,11 @@ public final class OptionalStreamsMixinPlugin implements IMixinConfigPlugin {
     @Override public boolean shouldApplyMixin(String target, String mixin) {
         if (!ModLoaderUtil.isLoaded("streamsreflowing")) return false;
         var file = net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
-        boolean modern = file.getMods().getFirst().getVersion().toString().startsWith("2.16.2");
+        String version = file.getMods().getFirst().getVersion().toString();
+        boolean latest = version.startsWith("2.17.1");
+        boolean modern = version.startsWith("2.16.2") || latest;
+        if (mixin.endsWith("Modern217BakedFlowMixin")) return latest;
+        if (mixin.endsWith("ModernBakedFlowMixin")) return modern && !latest;
         if (mixin.contains(".Modern")) return modern;
         if (mixin.endsWith("ActualGridMixin") || mixin.endsWith("ActualBakedFlowMixin")
                 || mixin.endsWith("ActualParticleMixin")) return !modern;

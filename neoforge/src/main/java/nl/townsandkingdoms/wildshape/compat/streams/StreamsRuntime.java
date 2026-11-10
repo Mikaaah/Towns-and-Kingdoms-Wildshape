@@ -9,7 +9,7 @@ import dev.streamsreflowing.platform.services.IPlatformHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.fml.loading.FMLLoader;
 
-/** Explicit bindings for the two verified Streams ABIs. No third-party classes are bundled. */
+/** Explicit bindings for verified legacy and 2.16.2/2.17.1 Streams ABIs. */
 public final class StreamsRuntime {
     private StreamsRuntime() {}
 
@@ -19,7 +19,9 @@ public final class StreamsRuntime {
 
     private static boolean detectModern() {
         var file = FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
-        return file != null && file.getMods().getFirst().getVersion().toString().startsWith("2.16.2");
+        if (file == null) return false;
+        String version = file.getMods().getFirst().getVersion().toString();
+        return version.startsWith("2.16.2") || version.startsWith("2.17.1");
     }
 
     public static boolean waterFlowEnabled() {
@@ -64,7 +66,7 @@ public final class StreamsRuntime {
     }
 
     private static final class Modern {
-        // Names checked against the exact 2.16.2 NeoForge JAR. Do not widen the supported range blindly.
+        // Exact 2.16.2 and 2.17.1 JARs share these APIs; their fluid classes differ.
         static final MethodHandle PEEK = bind("niceJohn1", MethodType.methodType(byte[].class, int.class, int.class));
         static final MethodHandle ANGLE = bind("proprietary1", MethodType.methodType(byte.class, byte[].class, int.class, int.class, int.class));
         static final MethodHandle X = bindStatic("proprietary1");

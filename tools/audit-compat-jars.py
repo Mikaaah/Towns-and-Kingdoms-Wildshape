@@ -42,7 +42,7 @@ def inventory(jar):
             bucket = folder = None
             if "/tags/worldgen/biome/" in path:
                 bucket, folder = "biomeTags", "/tags/worldgen/biome/"
-            elif "/worldgen/biome/" in path:
+            elif path.split("/")[2:4] == ["worldgen", "biome"]:
                 bucket, folder = "biomes", "/worldgen/biome/"
             elif "/tags/" not in path:
                 for marker, target in (("/worldgen/structure_set/", "structureSets"),

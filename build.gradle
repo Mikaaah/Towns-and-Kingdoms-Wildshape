@@ -4,6 +4,8 @@ plugins {
     id "com.gradleup.shadow" version "9.6.1" apply false
 }
 
+def tnkReleaseVersion = new groovy.json.JsonSlurper().parse(file('release.json')).version
+
 architectury {
     minecraft = rootProject.minecraft_version
 }
@@ -29,13 +31,9 @@ allprojects {
     base {
         archivesName = rootProject.archives_base_name
     }
-    // releases are built with RELEASE set (see .github/workflows); anything else is a snapshot
-    ext.mavenVersion = "${rootProject.mod_version}"
-    if (System.getenv("RELEASE") == null) {
-        ext.mavenVersion += "-SNAPSHOT"
-    }
-    ext.mavenVersion += "+${rootProject.minecraft_version}"
-    version = project.ext.mavenVersion
+    // One deliberate release version; Minecraft and loader are separate identity fields.
+    ext.mavenVersion = tnkReleaseVersion
+    version = tnkReleaseVersion
     group = rootProject.maven_group
 
     repositories {
@@ -84,3 +82,6 @@ allprojects {
         withSourcesJar()
     }
 }
+
+// Enforce identity on the final NeoForge remapped artifact.
+apply from: 'release-tools/gradle/release.gradle'

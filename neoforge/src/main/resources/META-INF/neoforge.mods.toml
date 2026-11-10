@@ -54,7 +54,7 @@ config="wildshape-streams.mixins.json"
 [[dependencies.wildshape]]
     modId="streamsreflowing"
     type="optional"
-    versionRange="[2.15.2,2.15.3),[2.16.2,2.16.3)"
+    versionRange="[2.15.2,2.15.3),[2.16.2,2.16.3),[2.17.1,2.17.2)"
     ordering="AFTER"
     side="BOTH"
 

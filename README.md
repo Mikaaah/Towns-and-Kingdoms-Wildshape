@@ -11,7 +11,7 @@
 
 
 
-**TNK preview: 1.0.12-beta.2 · Minecraft 1.21.1 · NeoForge · Java 21.**
+**Wildshape 1.0.0 · Minecraft 1.21.1 · NeoForge · Java 21.**
 
 Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
 
@@ -25,7 +25,7 @@ Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and 
 - Habitat tag bridges connect actual TNK3 biomes to native dungeon and creature rules without duplicating spawn tables or changing their weights.
 - Ores cannot become synthetic stone layers; Create’s decorative rocks remain eligible. Terrain caches have bounded retention and do not recycle arrays still held by readers.
 
-The [November audit](docs/WILDSHAPE_AUDIT_2026-11-08.md) records findings, implementation and verification. The [compatibility matrix](docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and all 264 entries from the latest retrievable TNK3 export. These records distinguish static inspection, focused tests and runtime evidence.
+The [Beta 1.0 follow-up](docs/WILDSHAPE_BETA_1_AUDIT_2026-11-10.md) compares the new pack export, while the [initial audit](docs/WILDSHAPE_AUDIT_2026-11-08.md) retains the original findings and evidence. The [compatibility matrix](docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and the current Beta 1.0 export’s 318 entries. These records distinguish static inspection, focused tests and runtime evidence.
 
 ## Installation
 

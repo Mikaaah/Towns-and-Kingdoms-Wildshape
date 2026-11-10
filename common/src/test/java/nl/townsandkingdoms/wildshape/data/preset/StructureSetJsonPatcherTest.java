@@ -52,7 +52,9 @@ class StructureSetJsonPatcherTest {
     @Test void unselectedResourceAndOtherDimensionSetsStayNative() {
         TestBootstrap.init();
         var preset = BuiltinPresetRenderTest.presets().get("default").get();
-        for (String id : new String[]{"ae2:meteorite", "alexscaves:acid_pit", "idas:idas_nether", "example:unknown"}) {
+        for (String id : new String[]{"ae2:meteorite", "alexscaves:acid_pit", "idas:idas_nether", "example:unknown",
+                "epic:large_dungeons", "epic:large_dungeons_obelisks", "epic:epic_temple",
+                "deeperdarker:ancient_temples"}) {
             var json = structure(); var before = json.deepCopy();
             assertFalse(StructureSetJsonPatcher.patch(preset, ResourceLocation.parse(id), json));
             assertEquals(before, json);

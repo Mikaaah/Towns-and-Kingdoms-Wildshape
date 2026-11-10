@@ -30,4 +30,15 @@ The archive's configurations and native third-party resources are evidence, not 
 
 ## Implementation and verification
 
-Pending the changes and checks recorded in the release commit. The previous beta.1/beta.2 evidence remains historical; it is not relabelled as a test of 1.0.0.
+Production changes add optional habitat tags for the current Epic Structures and 85 Croptopia crop/tree selectors, plus the enchanted apple cow’s native tropical-woods tag. All 49 explicitly selected crop counterpart biome IDs were checked against RU 0.6.3 and Nature’s Spirit 2.3.2 resources, and none is in the approved exclusion list. Linked Epic dungeon/obelisk pairs receive identical additions and keep their native salt, spacing and separation. No native feature modifier, spawn weight, structure template, loot table or other-dimension generator is replaced.
+
+The supplied TNK Gradle release adapter is installed at the end of the root build and targets `:neoforge:remapJar`. `release.json` is the version input; FML metadata and the final filename are checked by `tnkReleaseCheck`. Historical fingerprints are retained in `release-tools/registry.json`. A clean source commit is embedded in the candidate artifact. No Fabric artifact is built.
+
+Static inspection covers 110 exact export dependency JARs, with 171 structure-set records, 345 structure records, 360 biome JSON records, 1,249 biome-tag records and 758 biome-modifier records; zero JSON parse errors. Counts are resource records across JARs, not distinct winning registry entries or loaded mod IDs. The audit utility now excludes NeoForge biome data maps from biome-definition counts. Required fixture dependency closure was checked including nested JAR metadata.
+
+Build and runtime outcomes will be recorded separately after verification. The earlier beta.1/beta.2 evidence remains historical; it is not relabelled as a test of 1.0.0.
+
+
+The separate current Flow Control 1.0.0 artifact and Streams 2.17.1 were also inspected. Their shared platform/layer interfaces are byte-identical to 2.16.2, but two registered baked-fluid implementation classes were renamed. Exact version-gated hooks were added for those two targets; the common grid and particle signatures were checked. Supported ranges remain restricted to the three verified Streams releases. These are additional update fixtures, not substituted versions in the exported-mod-list evidence.
+
+The initial release build passed 54 focused common tests, 25 pure flow checks, and `tnkReleaseCheck`; the version-system fixture suite passed 26 tests. Final artifact and dedicated-server evidence is recorded after building the reachable GitHub source commit. The build uses a private Gradle cache and a build-only Loom TCP fallback because this workspace disallows Unix-domain sockets. That helper does not modify game classes or ship in the mod JAR. Dedicated game launches use the ordinary packaged JAR without the helper.

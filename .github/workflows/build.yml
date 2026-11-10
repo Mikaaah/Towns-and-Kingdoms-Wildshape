@@ -41,7 +41,7 @@ jobs:
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge
-        run: ./gradlew :neoforge:build -Pwildshape.perfMods=false
+        run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

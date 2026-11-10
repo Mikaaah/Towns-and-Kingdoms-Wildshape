@@ -104,6 +104,23 @@ public final class CompatibilitySmokeChecks {
                     }));
             report.put("customStructurePlacementTypes", customTypes);
 
+            var epicSpacing = new LinkedHashMap<String, Integer>();
+            Map.of("epic:large_dungeons", 61, "epic:large_dungeons_obelisks", 61,
+                    "epic:medium_dungeons", 45, "epic:small_dungeons", 31,
+                    "epic:epic_temple", 141, "epic:epic_temple_ruin", 32)
+                    .forEach((id, wanted) -> sets.getOptional(ResourceLocation.parse(id)).ifPresent(set -> {
+                        require(set.placement() instanceof RandomSpreadStructurePlacement,
+                                "Epic placement codec changed for " + id);
+                        var placement = (RandomSpreadStructurePlacement) set.placement();
+                        require(placement.spacing() == wanted, "Native Epic layout changed for " + id);
+                        if (id.equals("epic:large_dungeons") || id.equals("epic:large_dungeons_obelisks")) {
+                            require(placement.separation() == 60 && placement.salt == 3456745,
+                                    "Linked Epic dungeon/obelisk placement is no longer aligned");
+                        }
+                        epicSpacing.put(id, placement.spacing());
+                    }));
+            report.put("nativeEpicPlacementPreserved", epicSpacing);
+
             var biomes = level.registryAccess().registryOrThrow(Registries.BIOME);
             var aliases = Map.of("is_hot_overworld", "is_hot/overworld", "is_cold_overworld", "is_cold/overworld",
                     "is_dry_overworld", "is_dry/overworld", "is_dense_overworld", "is_dense_vegetation/overworld",
@@ -118,6 +135,28 @@ public final class CompatibilitySmokeChecks {
                 });
             });
             report.put("legacyHabitats", habitatSizes);
+            if (ModList.get().isLoaded("croptopia") && ModList.get().isLoaded("natures_spirit")) {
+                var aspen = biomes.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.BIOME,
+                        ResourceLocation.parse("natures_spirit:aspen_forest")));
+                require(aspen.is(TagKey.create(Registries.BIOME,
+                        ResourceLocation.parse("croptopia:has_crop/tomato"))), "Croptopia missed Nature's Spirit forest");
+                require(aspen.value().getGenerationSettings().features().stream().flatMap(holders -> holders.stream())
+                        .anyMatch(feature -> feature.unwrapKey().map(key -> key.location().toString()
+                                .equals("croptopia:tomato_crop_placed")).orElse(false)),
+                        "Native Croptopia feature modifier did not apply to its new habitat");
+                require(!biomes.getHolderOrThrow(net.minecraft.world.level.biome.Biomes.DEEP_DARK)
+                        .is(TagKey.create(Registries.BIOME, ResourceLocation.parse("croptopia:has_crop/tomato"))),
+                        "Crop habitat leaked underground");
+                report.put("nativeCroptopiaFeatureApplied", "natures_spirit:aspen_forest");
+            }
+            if (ModList.get().isLoaded("mr_epic_structuresdungeons") && ModList.get().isLoaded("natures_spirit")) {
+                var prairie = biomes.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.BIOME,
+                        ResourceLocation.parse("natures_spirit:prairie")));
+                require(prairie.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("epic:large_dungeon")))
+                        && prairie.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("epic:plains_obelisk"))),
+                        "Epic dungeon and obelisk habitats no longer match");
+                report.put("pairedEpicHabitatApplied", "natures_spirit:prairie");
+            }
             if (ModList.get().isLoaded("hybrid_aquatic") && ModList.get().isLoaded("regions_unexplored")) {
                 var fen = biomes.getOptional(ResourceLocation.parse("regions_unexplored:fen")).orElseThrow();
                 long spawns = java.util.Arrays.stream(MobCategory.values()).flatMap(category ->

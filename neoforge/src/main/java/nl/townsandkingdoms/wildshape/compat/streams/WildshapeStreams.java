@@ -44,7 +44,9 @@ public final class WildshapeStreams {
     private static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             // Native layers are supplied once by upstream's common StreamsCompat.
-            LOG.info("Wildshape integrated native currents for Streams {}; terrain is not modified.", StreamsRuntime.modern() ? "2.16.2" : "2.15.2");
+            LOG.info("Wildshape integrated native currents for Streams {}; terrain is not modified.",
+                    net.neoforged.fml.ModList.get().getModContainerById("streamsreflowing")
+                            .map(container -> container.getModInfo().getVersion().toString()).orElse("unknown"));
         });
     }
     public static GeneratorContext context(ServerLevel level) {
