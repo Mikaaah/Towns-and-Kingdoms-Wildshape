@@ -1,0 +1,73 @@
+{
+  "case": "targeted-beta-habitats",
+  "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+  "exactExportedDependencyJars": [
+    "cf-1018043-9490146.jar",
+    "cf-1044992-9326605.jar",
+    "cf-1105855-9190296.jar",
+    "cf-1111833-8707156.jar",
+    "cf-1158628-8707151.jar",
+    "cf-1335768-8383193.jar",
+    "cf-1415723-7982052.jar",
+    "cf-1420348-7981977.jar",
+    "cf-1501318-8837503.jar",
+    "cf-1581408-9376530.jar",
+    "cf-1586838-8398146.jar",
+    "cf-1600197-8611815.jar",
+    "cf-1750740-9424424.jar",
+    "cf-220318-8288121.jar",
+    "cf-328085-7963363.jar",
+    "cf-351264-8335665.jar",
+    "cf-388172-8893490.jar",
+    "cf-415438-7958876.jar",
+    "cf-616457-7264731.jar",
+    "cf-659011-8201775.jar",
+    "cf-659110-9252522.jar",
+    "cf-834427-9063977.jar",
+    "cf-883374-9063597.jar",
+    "cf-885449-5872111.jar",
+    "cf-936015-9170709.jar",
+    "cf-940057-6054947.jar",
+    "cf-955399-8109792.jar"
+  ],
+  "selectedModIds": [
+    "alexscaves",
+    "apple_cows",
+    "biomesoplenty",
+    "create",
+    "croptopia",
+    "deeperdarker",
+    "hybrid_aquatic",
+    "knightquest",
+    "mr_epic_structuresdungeons",
+    "mr_epic_structuresjungletemples",
+    "mr_epic_structureswitchhuts",
+    "natures_spirit",
+    "netherexp",
+    "regions_unexplored",
+    "streamcontrol",
+    "streamsreflowing"
+  ],
+  "heapMb": 2304,
+  "activeProcessors": 2,
+  "worldSeed": 1111,
+  "generateOtherDimensions": true,
+  "languageProviders": [
+    "Kotlin for Forge, exact exported file 8335665"
+  ],
+  "fixtureConfigChanges": [
+    "Removed the FML dependency override for absent Sable; worldgen settings retained"
+  ],
+  "exit": "timeout",
+  "finalSmokeReportPresent": false,
+  "reportedPass": null,
+  "serverStartupSeconds": 312.9,
+  "lastCompletedStageEvidence": "Logged final elevated-native-river lookup after the preceding CompatibilitySmokeChecks assertions returned; no final passing report.",
+  "streamsProfile": {
+    "version": "2.16.2",
+    "terrainAccuracy": "HIGH",
+    "watershedSize": 1536
+  },
+  "timeoutSeconds": 600,
+  "note": "A targeted fixture, not a full client-pack certification. Native Streams planning exceeded the fixture budget with two active processors. No native settings were changed to obtain a passing result."
+}

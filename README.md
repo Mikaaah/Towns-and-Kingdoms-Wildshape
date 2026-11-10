@@ -18,7 +18,7 @@ Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and 
 ## Terrain and compatibility
 
 - Large, connected caverns with lush, dripstone and lantern styles, rock supports and rare coastal coves.
-- Terrain-aware river banks, coastlines and native Streams Reflowing currents, including explicit Flow Control overrides. NeoForge supports the verified Streams 2.15.2 and 2.16.2 APIs; Flow Control 0.2.2 uses 2.16.2.
+- Terrain-aware river banks, coastlines and native Streams Reflowing currents, including explicit Flow Control overrides. NeoForge supports the verified Streams 2.15.2, 2.16.2 and 2.17.1 APIs; Flow Control 0.2.2 uses 2.16.2, and Flow Control 1.0.0 uses 2.17.1.
 - Native mod biome surfaces, decorations and creatures. Nature’s Spirit, BOP and Regions Unexplored keep their biome identities and materials.
 - Protected native cave habitats, including Alex’s Caves, tagged third-party underground biomes and Deep Dark.
 - Dungeon carving protection uses individual structure pieces and neighboring chunk references. Selected large Overworld dungeons receive explicit spacing rules; resource landmarks and other dimensions retain native placement.

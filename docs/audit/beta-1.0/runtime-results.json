@@ -1,0 +1,150 @@
+{
+  "artifact": "wildshape-1.0.0-neoforge-1.21.1.jar",
+  "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.262",
+  "java": 21,
+  "completedFixtures": [
+    {
+      "case": "streams-2171",
+      "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+      "exit": 0,
+      "identity": {
+        "fmlModId": "wildshape",
+        "configDirectory": "wildshape",
+        "worldType": "wildshape:wildshape",
+        "commandRoot": "wildshape"
+      },
+      "mods": [
+        "create@6.0.10",
+        "flywheel@1.0.6",
+        "minecraft@1.21.1",
+        "neoforge@21.1.262",
+        "ponder@1.0.82+mc1.21.1",
+        "streamcontrol@1.0.0",
+        "streamsreflowing@2.17.1",
+        "wildshape@1.0.0"
+      ],
+      "otherDimensionsRetainTheirGenerators": [
+        "minecraft:the_nether",
+        "minecraft:the_end"
+      ],
+      "generatedOtherDimensionSamples": false,
+      "structureSpacing": {},
+      "customStructurePlacementTypes": {},
+      "nativeEpicPlacementPreserved": {},
+      "legacyHabitats": {
+        "is_coniferous": 5,
+        "is_hot_overworld": 13,
+        "is_dry_overworld": 7,
+        "is_cold_overworld": 20,
+        "is_dense_overworld": 6
+      },
+      "threadIndependentColumnHeights": {
+        "13,2": 63,
+        "2560,2048": 85,
+        "-4096,5120": 94,
+        "13312,2144": 63
+      },
+      "biomeSearchRestoresLookupScope": true,
+      "generatedSampleChunks": 3,
+      "registeredBiomes": 65,
+      "protectedCaveTagMembers": 1,
+      "streamsSettingsRespected": true,
+      "streamsEightHeadingBindings": true,
+      "streamsSurveyDoesNotGenerateTiles": true,
+      "streamsPublicGridAndPhysics": true,
+      "elevatedNativeRiver": {
+        "x": 6723,
+        "surfaceY": 78,
+        "z": 2596
+      },
+      "streamsNativeLayerAndWaterCorrection": true,
+      "passed": true
+    },
+    {
+      "case": "flow-100",
+      "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+      "exit": 0,
+      "vanillaWaterAndVesselFlow": true,
+      "manualDirectionRetainsPriorityOverDownhillGuard": true,
+      "bakedWaterStillnessAndOverlap": true,
+      "streamsSourceAndFlowingFluidHooks": true,
+      "mooredBoatTwentyTicks": true,
+      "savedDataRoundTrip": true,
+      "connectedWaterIsolationAndPersistence": true,
+      "networkCodecRoundTrip": true,
+      "dimensionIsolation": true,
+      "masterSwitch": true,
+      "controllerRedstoneAndRemoval": true,
+      "eightHeadingPhysicsPersistenceAndPackets": true,
+      "profileModesPersistenceAndMigration": true,
+      "controllerLinkPropagationCycleAndMissingSource": true,
+      "calibratorCopyPasteLinkAndLegacyCleanup": true,
+      "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+      "mooringHoldBoardingRedstoneAndCooldown": true,
+      "engineeringPacketRoundTrips": true,
+      "createRealNetworkRpmReverseStressAndStop": true,
+      "passed": true
+    },
+    {
+      "case": "optional-absence",
+      "jarSha256": "7f51a889a2df1f76776819b53c43a1e3776d6e2b3eb942ec412226c700a3143a",
+      "exit": 0,
+      "identity": {
+        "commandRoot": "wildshape",
+        "worldType": "wildshape:wildshape",
+        "configDirectory": "wildshape",
+        "fmlModId": "wildshape"
+      },
+      "mods": [
+        "minecraft@1.21.1",
+        "neoforge@21.1.262",
+        "wildshape@1.0.0"
+      ],
+      "otherDimensionsRetainTheirGenerators": [
+        "minecraft:the_end",
+        "minecraft:the_nether"
+      ],
+      "generatedOtherDimensionSamples": false,
+      "structureSpacing": {},
+      "customStructurePlacementTypes": {},
+      "nativeEpicPlacementPreserved": {},
+      "legacyHabitats": {
+        "is_cold_overworld": 20,
+        "is_dry_overworld": 7,
+        "is_hot_overworld": 13,
+        "is_coniferous": 5,
+        "is_dense_overworld": 6
+      },
+      "threadIndependentColumnHeights": {
+        "13,2": 63,
+        "2560,2048": 85,
+        "-4096,5120": 94,
+        "13312,2144": 63
+      },
+      "biomeSearchRestoresLookupScope": true,
+      "generatedSampleChunks": 3,
+      "registeredBiomes": 64,
+      "protectedCaveTagMembers": 1,
+      "passed": true
+    }
+  ],
+  "incompleteFixtures": [
+    {
+      "case": "exported-pack-111-dependencies",
+      "status": "environment interrupted; no final result recovered",
+      "earlierAttemptExit": -9
+    },
+    {
+      "case": "targeted-beta-habitats",
+      "status": "timeout",
+      "timeoutSeconds": 600,
+      "serverStarted": true,
+      "serverStartupSeconds": 312.9,
+      "finalSmokeReportPresent": false
+    }
+  ],
+  "fullClientPackCertified": false,
+  "graphicalClientTested": false
+}

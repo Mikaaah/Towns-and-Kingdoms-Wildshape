@@ -1,8 +1,8 @@
 # Wildshape × Streams Reflowing
 
-**Built-in optional integration — Minecraft 1.21.1, Wildshape 1.0.11**
+**Built-in optional integration — Minecraft 1.21.1, Wildshape 1.0.0**
 
-Native river layers now use upstream terrain code 1.0.3's built-in producer. NeoForge retains additional actual-water corrections derived from Mikaaah's own [Wildshape Streams Currents](https://github.com/Mikaaah/Wildshape-Streams-Currents). Streams Reflowing and its water-flow implementation remain a separate installed mod.
+Native river layers use the built-in terrain producer. NeoForge retains additional actual-water corrections derived from Mikaaah's own [Wildshape Streams Currents](https://github.com/Mikaaah/Wildshape-Streams-Currents). Streams Reflowing and its water-flow implementation remain a separate installed mod.
 
 ## What is integrated
 
@@ -18,11 +18,11 @@ Native river layers now use upstream terrain code 1.0.3's built-in producer. Neo
 | Component | Required? | Version |
 | --- | --- | --- |
 | Wildshape | Required | Minecraft 1.21.1 / NeoForge 21.1.x |
-| Streams Reflowing | **Optional** | **2.15.2** NeoForge |
-| Streams Flow Control | Optional | Its own compatible version |
+| Streams Reflowing | **Optional** | Verified NeoForge releases **2.15.2**, **2.16.2**, **2.17.1** |
+| Streams Flow Control | Optional | Exported 0.2.2 with Streams 2.16.2; 1.0.0 with Streams 2.17.1 |
 | Standalone Wildshape Streams Currents / `utfstreams` | **Do not install** | Included in Wildshape |
 
-Use the original Streams JAR from [Modrinth](https://modrinth.com/mod/streams-reflowing/version/vbJ5meb8) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/streams-reflowing). Wildshape **does not redistribute it**, and still works with Streams absent.
+Use the matching original Streams JAR from [Modrinth](https://modrinth.com/mod/streams-reflowing) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/streams-reflowing). Wildshape **does not redistribute it**, and still works with Streams absent.
 
 Upstream's native producer supports TNK terrain, including legacy sea-level rivers. NeoForge's additional actual-water corrections need at least one of **winding rivers** or **raised water** enabled. In `config/streamsreflowing.properties`, keep:
 
@@ -40,11 +40,11 @@ On NeoForge, `config/wildshape/streams.toml` controls the additional actual-wate
 
 Neither command is registered if Streams Reflowing is missing.
 
-A dedicated Gradle integration run can be started using `-Ptnk.streamsSmoke=true` with `:neoforge:runServer`. This enables the original 0.2.1 source's server-side verification harness and writes `neoforge/run/wildshape-streams-integration-results.json`.
+For developer verification only, start a disposable dedicated world with JVM flag `-Dwildshape.compatSmoke=true`. The live identity, generation and optional Streams checks write `wildshape-compat-results.json` in the game directory and stop the server afterward. Current artifact hashes and completed fixtures are recorded in the [1.0.0 audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
 
 ## Loader and version boundaries
 
-Native currents use upstream's common implementation on **NeoForge and Fabric**. Additional actual-water corrections, diagnostics and the integration harness remain NeoForge-only. The exact Streams API of **2.15.2** is targeted; later releases require explicit compatibility verification before widening the dependency range.
+This release targets **NeoForge 1.21.1 / Java 21**. It uses version-specific hooks for the verified Streams **2.15.2**, **2.16.2** and **2.17.1** APIs. The two baked-fluid classes renamed in 2.17.1 have separate hooks; unverified later versions are outside the supported ranges. Flow Control remains optional, and manual overrides retain priority over automatic downhill correction.
 
 **Never load both the old standalone addon and this integrated variant.** Wildshape marks the `utfstreams` mod ID as incompatible, because applying both sets of Mixins could corrupt river physics or crash during initialization.
 
