@@ -2,14 +2,14 @@
 
 # Towns & Kingdoms — Wildshape
 
-Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. Since 1.0.12-beta.2, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
+Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. In the current 1.0.0 edition, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
 
 ## Guides
 
-- [Getting started](Getting-Started.md)
-- [Compatibility](Compatibility.md)
-- [Terrain and caves](Terrain-and-Caves.md)
-- [Troubleshooting](Troubleshooting.md)
-- [Credits and license](Credits-and-License.md)
+- [Getting started](Getting-Started)
+- [Compatibility](Compatibility)
+- [Terrain and caves](Terrain-and-Caves)
+- [Troubleshooting](Troubleshooting)
+- [Credits and license](Credits-and-License)
 
 [Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)

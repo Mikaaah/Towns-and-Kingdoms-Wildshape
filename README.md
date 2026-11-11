@@ -11,9 +11,11 @@
 
 
 
-**Wildshape 1.0.0 · Minecraft 1.21.1 · NeoForge · Java 21.**
+**Current edition: Wildshape 1.0.0 · Minecraft 1.21.1 · NeoForge · Java 21.**
 
 Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
+
+The [current Wildshape source](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/tree/audit/tnk3-compat-1.0.12) is maintained separately from the legacy `main` source snapshot. This guide describes the renamed Wildshape build.
 
 ## Terrain and compatibility
 
@@ -25,7 +27,7 @@ Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and 
 - Habitat tag bridges connect actual TNK3 biomes to native dungeon and creature rules without duplicating spawn tables or changing their weights.
 - Ores cannot become synthetic stone layers; Create’s decorative rocks remain eligible. Terrain caches have bounded retention and do not recycle arrays still held by readers.
 
-The [Beta 1.0 follow-up](docs/WILDSHAPE_BETA_1_AUDIT_2026-11-10.md) compares the new pack export, while the [initial audit](docs/WILDSHAPE_AUDIT_2026-11-08.md) retains the original findings and evidence. The [compatibility matrix](docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and the current Beta 1.0 export’s 318 entries. These records distinguish static inspection, focused tests and runtime evidence.
+The [Beta 1.0 follow-up](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_BETA_1_AUDIT_2026-11-10.md) compares the new pack export, while the [initial audit](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_AUDIT_2026-11-08.md) retains the original findings and evidence. The [compatibility matrix](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and the current Beta 1.0 export’s 318 entries. These records distinguish static inspection, focused tests and runtime evidence.
 
 ## Installation
 
@@ -39,7 +41,7 @@ level-type=wildshape:wildshape
 
 The FML mod ID and resource namespace are **`wildshape`**. Configuration is written to **`config/wildshape/`**. Missing settings and custom presets are imported from the previous directories without replacing current settings or altering the originals. New share codes use `WILDSHAPE1:`; previously shared codes still import. Commands use `/wildshape`, with `/wildshape streams status` when Streams is installed.
 
-**This version changes registry identity. Use a fresh world.** Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](docs/WILDSHAPE_IDENTITY.md).
+**This version changes registry identity. Use a fresh world.** Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_IDENTITY.md).
 
 | Build | Minecraft | Java | Scope |
 |---|---|---|---|
@@ -47,9 +49,9 @@ The FML mod ID and resource namespace are **`wildshape`**. Configuration is writ
 
 ## Preserved TNK3 decisions
 
-The [24 excluded BOP/RU biomes](docs/TNK3_BIOME_EXCLUSIONS.md), BOP Grassland, Cherry Grove promotion, enormous cavern geometry, native mod surfaces and gentle river transitions remain. Artificial underground water tunnels remain disabled. Other dimensions keep their own generators. Recipes, quest progression, loot and boss access stay with the pack’s existing scripts and mods.
+The [24 excluded BOP/RU biomes](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK3_BIOME_EXCLUSIONS.md), BOP Grassland, Cherry Grove promotion, enormous cavern geometry, native mod surfaces and gentle river transitions remain. Artificial underground water tunnels remain disabled. Other dimensions keep their own generators. Recipes, quest progression, loot and boss access stay with the pack’s existing scripts and mods.
 
-See [upstream comparison](docs/UPSTREAM_1.0.3_COMPARISON.md), [Streams details](docs/TNK3_STREAMS_REFLOWING.md), [cavern and surface notes](docs/TNK_CAVERNS_BIOMES_1.0.7.md) and [structure protection details](docs/TNK_STRUCTURE_COMPAT_1.0.8.md).
+See [upstream comparison](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/UPSTREAM_1.0.3_COMPARISON.md), [Streams details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK3_STREAMS_REFLOWING.md), [cavern and surface notes](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK_CAVERNS_BIOMES_1.0.7.md) and [structure protection details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK_STRUCTURE_COMPAT_1.0.8.md).
 
 ## Authors and licensing
 

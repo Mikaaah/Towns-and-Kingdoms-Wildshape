@@ -8,4 +8,4 @@ Fork work: Mikaaah / Towns & Kingdoms.
 
 Original MIT notices and the GPL-3.0 Alex’s Caves integration license remain in the repository. See [license details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape#authors-origins-and-licensing).
 
-[Documentation home](Home.md)
+[Documentation home](Home)

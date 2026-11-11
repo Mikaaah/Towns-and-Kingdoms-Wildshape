@@ -1,13 +1,7 @@
-# Wildshape — Development
+# Contributor reference
 
-Documentation branding does not rename registry IDs, configuration paths, artifacts or mod metadata. The current technical name is Wildshape; the internal mod ID is `wildshape`.
+[Player guide](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Support](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
 
-Build on Java 21:
+Match the installed edition before reporting behavior or proposing a change. Include exact dependencies, a reproducible example and the expected result. Keep changes focused and preserve saved data and optional integrations.
 
-```sh
-./gradlew :neoforge:build -Pwildshape.perfMods=false
-./gradlew :fabric:build -Pwildshape.perfMods=false
-./gradlew :common:test -Pwildshape.perfMods=false
-```
-
-Read the [23-finding audit matrix](../AUDIT-STATUS.md). Automated builds do not establish full-pack stability. Test multiple seeds, high terrain, river junctions, caves and dungeon types with the actual TNK3 mod list.
+The repository's pinned build files and existing automated workflows define its development environment. Release evidence remains with the corresponding release notes and validation records.

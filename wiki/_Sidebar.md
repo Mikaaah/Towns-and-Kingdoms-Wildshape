@@ -2,9 +2,9 @@
 
 **Towns & Kingdoms — Wildshape**
 
-- [Home](Home.md)
-- [Getting started](Getting-Started.md)
-- [Compatibility](Compatibility.md)
-- [Terrain and caves](Terrain-and-Caves.md)
-- [Troubleshooting](Troubleshooting.md)
-- [Credits and license](Credits-and-License.md)
+- [Home](Home)
+- [Getting started](Getting-Started)
+- [Compatibility](Compatibility)
+- [Terrain and caves](Terrain-and-Caves)
+- [Troubleshooting](Troubleshooting)
+- [Credits and license](Credits-and-License)
