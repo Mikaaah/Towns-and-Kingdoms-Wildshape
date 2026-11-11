@@ -2,7 +2,7 @@
 
 Audit: 9 November 2026. Historical aliases are preserved; version numbers alone do not establish build equivalence.
 
-Wildshape follow-up: 10 November 2026, verified development artifact `1.0.0`; other rows retain the original audit snapshot.
+Wildshape follow-up: 11 November 2026, verified development artifact `1.0.1`; other rows retain the original audit snapshot.
 
 | Mod | Published label → internal | Development reference | Matching |
 | --- | --- | --- | --- |
@@ -13,7 +13,7 @@ Wildshape follow-up: 10 November 2026, verified development artifact `1.0.0`; ot
 | Workshop | 0.11.7 → 0.11.7 | 0.11.11 | Different builds — review changes |
 | TNK Progression | 1.0.0 → 1.2.0-private.1 | 1.5.0-private.1 | Different builds — review changes |
 | Unidentified Loot | 1.1 → 0.17.0-alpha | 1.0.2-tnk-neoforge-1.21.1 | Separate editions — review independently |
-| Wildshape | — | 1.0.0 | No public artifact recorded |
+| Wildshape | — | 1.0.1 | No public artifact recorded |
 | Combat Afloat | — | 0.1.0-beta.2 | No public artifact recorded |
 | Duskdelvers | — | 0.4.0 | No public artifact recorded |
 | UltraTerraForged Alexs Caves Fix | — | Unverified | Deprecated — frozen |

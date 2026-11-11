@@ -699,7 +699,7 @@
       "artifact_id": "wildshape",
       "repository": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
       "development_ref": "audit/tnk3-compat-1.0.12",
-      "development_version": "1.0.0",
+      "development_version": "1.0.1",
       "editions": [
         "standard"
       ],
@@ -737,6 +737,18 @@
           "payload_sha256": "1e8b2b5d406cc6a9d2edd1940ac1b9e41f06280f74c313f8a7a3bb30652edc5d",
           "filename": "wildshape-1.0.0-neoforge-1.21.1.jar",
           "source_commit": "74a2f78cb22675415ff33fe57e5d0a7496842fe0",
+          "evidence": "Verified development artifact and release identity"
+        },
+        {
+          "role": "development",
+          "target": "neoforge-1.21.1",
+          "edition": "standard",
+          "mod_id": "wildshape",
+          "internal_version": "1.0.1",
+          "sha256": "5af33eb20acdfd2c24aa814cb3fdd6714dc0e7e11f62546950ccf3b5d7a56463",
+          "payload_sha256": "0d559054bfc23adde80cb3003e04d0a62c6cc00cd178cb4210a1eb37e538b0ee",
+          "filename": "wildshape-1.0.1-neoforge-1.21.1.jar",
+          "source_commit": "58b1ad3dead1cbeef725b69300f7b0e9b1ac4803",
           "evidence": "Verified development artifact and release identity"
         }
       ]
