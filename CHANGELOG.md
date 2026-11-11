@@ -1,3 +1,11 @@
+# 1.0.1
+
+- Fixed the client preset-export failure that blocked Wildshape world creation with Integrated Villages and other custom structure placements containing tagged exclusion zones.
+- Kept custom placements in their native worldgen resources and applied preset spacing, salt, frequency and disable settings during world-resource loading, preserving native avoidance tags and placement codecs.
+- Added regression coverage for tagged modded structure sets, saved custom settings and custom placements registered under vanilla IDs.
+
+Minecraft 1.21.1 / NeoForge / Java 21. The mod ID, world type and configuration namespace remain `wildshape`; this patch does not introduce another registry rename.
+
 # 1.0.0
 
 - Updated Wildshape for the TNK3 Beta 1.0 mod list, including Nature’s Spirit 2.3.2 and the new dungeon and dimension mods.

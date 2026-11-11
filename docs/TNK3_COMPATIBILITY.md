@@ -1,6 +1,6 @@
 # Wildshape — TNK3 compatibility
 
-Minecraft **1.21.1**, NeoForge **21.1.262**, Java **21**. This describes **1.0.0**, preserving the renamed Wildshape identity and previously audited terrain/compatibility work.
+Minecraft **1.21.1**, NeoForge **21.1.262**, Java **21**. This describes **1.0.1**, preserving the renamed Wildshape identity and previously audited terrain/compatibility work.
 
 ## Evidence
 
@@ -43,7 +43,7 @@ Habitat bridges are append-only and optional. They are exported with the Wildsha
 
 ## Structure rules
 
-Wildshape no longer increases the spacing of every modded random-spread set. The selected minimum spacings are defined in [`StructureSetPolicy`](../common/src/main/java/nl/townsandkingdoms/wildshape/data/preset/StructureSetPolicy.java). Native larger spacings are retained. Explicit saved preset structure overrides take priority. Placement salts, weights, exclusion zones and custom placement types are retained. Dedicated servers bind these changes while world registry resources load, so modded sets absent from the initial vanilla-only export receive the same policy.
+Wildshape no longer increases the spacing of every modded random-spread set. The selected minimum spacings are defined in [`StructureSetPolicy`](../common/src/main/java/nl/townsandkingdoms/wildshape/data/preset/StructureSetPolicy.java). Native larger spacings are retained. Explicit saved preset structure overrides take priority. Placement salts, weights, exclusion zones and custom placement types are retained. World registry loading binds custom-placement changes on clients and dedicated servers. Version 1.0.1 leaves custom placement objects in their native resources during preset export, preserving tagged exclusion zones without carrying holder sets between registry owners. Saved spacing, frequency, salt and disable settings are still applied by the scoped resource patcher. See the [world-creation fix](WILDSHAPE_WORLD_CREATION_FIX_2026-11-11.md).
 
 Resource landmarks such as **AE2 meteorites**, **Alex’s Caves acid pits**, aquatic whale falls and Nether/End structures keep their own spacing. This matters because worldgen registries are shared across dimensions.
 
@@ -68,4 +68,4 @@ Path: `data/wildshape/tags/worldgen/biome/protected_cave_biomes.json`.
 
 Install one NeoForge 1.21.1 JAR. Remove the previous terrain JAR and superseded `utfstreams`, `tfacfix` and `utfoptimizer`; keep Flow Control. Version 1.0.0 retains `wildshape` for the FML ID, resource namespace, configuration folder and world type. Legacy settings import without overwriting current settings. Use a fresh world: old saves and exported world datapacks require a separate registry migration. See [identity migration](WILDSHAPE_IDENTITY.md).
 
-The release build, 54 regressions and three completed dedicated-server fixtures passed. The focused exported HIGH-accuracy Streams run reached the native habitat assertions but exceeded its total time budget during later current planning; the larger combined fixture was interrupted. These results and exact scope are recorded in the audit. Exhaustive visual checks of every dungeon, mob habitat, seed, custom preset and full client pack remain separate work; a clean compile is not evidence of those outcomes.
+Historical 1.0.0 evidence includes its release build, 54 regressions and three completed dedicated-server fixtures. The separate 1.0.1 world-creation correction passed 41 focused registry/export tests; current packaging evidence is recorded in its fix report. The focused exported HIGH-accuracy Streams run reached the native habitat assertions but exceeded its total time budget during later current planning; the larger combined fixture was interrupted. These results and exact scope are recorded in the audit. Exhaustive visual checks of every dungeon, mob habitat, seed, custom preset and full client pack remain separate work; a clean compile is not evidence of those outcomes.

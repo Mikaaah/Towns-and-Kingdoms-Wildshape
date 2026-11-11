@@ -2,7 +2,7 @@
   "schema": 1,
   "project": "wildshape",
   "artifact_id": "wildshape",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "edition": "standard",
   "changelog": "CHANGELOG.md",
   "targets": [

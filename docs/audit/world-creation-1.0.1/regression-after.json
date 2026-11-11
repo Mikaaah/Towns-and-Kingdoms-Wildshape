@@ -1,0 +1,66 @@
+{
+  "counts": {
+    "tests": 41,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "name": "nl.townsandkingdoms.wildshape.data.preset.StructureSetJsonPatcherTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.data.preset.StructureSetPolicyTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.server.ServerPresetsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.test.OptionalHabitatDatapackTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.test.PresetDatapackTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.test.PresetPackIdentityTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.test.StructureOptionsTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "nl.townsandkingdoms.wildshape.test.TaggedStructurePresetExportTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

@@ -35,6 +35,7 @@ jobs:
           ./gradlew :common:test -Pwildshape.perfMods=false
           --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
           --tests '*StructureSet*Test' --tests '*OptionalHabitatDatapackTest'
+          --tests '*TaggedStructurePresetExportTest' --tests '*PresetDatapackTest'
           --tests '*StrataMaterialsTest' --tests '*FastPoissonContextTest'
           --tests '*SkerriesWaterTest' --tests '*WorldGenLookupTest'
           --tests '*TileCacheTest' --tests '*StructureRuleTest'

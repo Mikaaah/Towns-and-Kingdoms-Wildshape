@@ -39,11 +39,16 @@ public final class PresetDatapack {
 
 	public static Result generate(Preset preset) {
 		TestBootstrap.init();
+		return generate(preset, VanillaRegistries.createLookup());
+	}
+
+	public static Result generate(Preset preset, HolderLookup.Provider registries) {
+		TestBootstrap.init();
 		HolderLookup.Provider patch;
 		try (MockedStatic<BiomeModifiers> biomeModifiers = Mockito.mockStatic(BiomeModifiers.class, (invocation) -> {
 			return invocation.getMethod().getReturnType() == BiomeModifier.class ? Mockito.mock(BiomeModifier.class) : null;
 		})) {
-			patch = preset.buildPatch(VanillaRegistries.createLookup());
+			patch = preset.buildPatch(registries);
 		}
 
 		RegistryOps<JsonElement> ops = patch.createSerializationContext(JsonOps.INSTANCE);

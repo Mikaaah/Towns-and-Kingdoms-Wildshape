@@ -2,9 +2,6 @@ package nl.townsandkingdoms.wildshape.data.preset;
 
 import java.util.List;
 import java.util.Optional;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
-import net.minecraft.resources.RegistryOps;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -27,13 +24,13 @@ import nl.townsandkingdoms.wildshape.data.preset.settings.StructureSettings.Stru
 /**
  * Overrides the structure sets a preset changes, starting from the set as registered so structures, weights and
  * other placement values are kept. A disabled set keeps its placement but loses its structures; vanilla skips
- * structure sets that have no structures.
+ * structure sets that have no structures. Custom placements are patched by PresetStructureResources while world
+ * resources load, so tagged exclusion zones retain the registry owner supplied by their native codec.
  */
 public class PresetStructureSets {
 
 	public static void bootstrap(Preset preset, BootstrapContext<StructureSet> ctx, HolderLookup.Provider registries) {
         HolderLookup.RegistryLookup<StructureSet> registered = registries.lookupOrThrow(Registries.STRUCTURE_SET);
-        RegistryOps<JsonElement> sourceOps = registries.createSerializationContext(JsonOps.INSTANCE);
 		HolderGetter<Structure> structures = ctx.lookup(Registries.STRUCTURE);
 		HolderGetter<StructureSet> structureSets = ctx.lookup(Registries.STRUCTURE_SET);
 		HolderGetter<Biome> biomes = ctx.lookup(Registries.BIOME);
@@ -44,11 +41,12 @@ public class PresetStructureSets {
 			ResourceLocation id = holder.key().location();
 			if (preset.structures().entries.containsKey(id)) return;
 			if (!(holder.value().placement() instanceof RandomSpreadStructurePlacement spread)) return;
+			if (!canExport(spread)) return;
 			int spacing = StructureSetPolicy.spacing(id, spread.spacing());
 			if (spacing == spread.spacing()) return;
 			StructureSetEntry entry = new StructureSetEntry();
 			entry.spacing = spacing;
-			ctx.register(holder.key(), apply(holder.value(), entry, structures, structureSets, biomes, sourceOps));
+			ctx.register(holder.key(), apply(holder.value(), entry, structures, structureSets, biomes));
 		});
 
 		preset.structures().entries.forEach((id, entry) -> {
@@ -59,42 +57,34 @@ public class PresetStructureSets {
 				WildshapeCommon.LOGGER.debug("Structure set {} is absent from this snapshot; resolve it when world resources load", id);
 				return;
 			}
-			ctx.register(key, apply(original.get(), entry, structures, structureSets, biomes, sourceOps));
+			if (!canExport(original.get().placement())) {
+				WildshapeCommon.LOGGER.debug("Structure set {} uses a custom placement; apply its preset settings when world resources load", id);
+				return;
+			}
+			ctx.register(key, apply(original.get(), entry, structures, structureSets, biomes));
 		});
 	}
 
-	public static StructureSet apply(StructureSet original, StructureSetEntry entry, HolderGetter<Structure> structures, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes) {
-		return apply(original, entry, structures, structureSets, biomes, null);
-    }
+	private static boolean canExport(StructurePlacement placement) {
+		// Decoding a custom placement with source registry ops retains source-owned HolderSets. Those cannot be
+		// serialized by the new preset registry set, as Integrated API's tagged super_exclusion_zone demonstrates.
+		return placement.getClass() == RandomSpreadStructurePlacement.class
+				|| placement.getClass() == ConcentricRingsStructurePlacement.class;
+	}
 
-    private static StructureSet apply(StructureSet original, StructureSetEntry entry, HolderGetter<Structure> structures,
-            HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes, RegistryOps<JsonElement> sourceOps) {
+	public static StructureSet apply(StructureSet original, StructureSetEntry entry, HolderGetter<Structure> structures, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes) {
         List<StructureSet.StructureSelectionEntry> entries = Boolean.FALSE.equals(entry.enabled) ? List.of() : original.structures().stream().map((selection) -> {
 			return new StructureSet.StructureSelectionEntry(reference(structures, selection.structure()), selection.weight());
 		}).toList();
-		return new StructureSet(entries, placement(original.placement(), entry, structureSets, biomes, sourceOps));
+		return new StructureSet(entries, placement(original.placement(), entry, structureSets, biomes));
 	}
 
-	private static StructurePlacement placement(StructurePlacement original, StructureSetEntry entry, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes, RegistryOps<JsonElement> sourceOps) {
+	private static StructurePlacement placement(StructurePlacement original, StructureSetEntry entry, HolderGetter<StructureSet> structureSets, HolderGetter<Biome> biomes) {
 		float frequency = entry.frequency != null ? entry.frequency : original.frequency;
 		int salt = entry.salt != null ? entry.salt : original.salt;
 		Optional<StructurePlacement.ExclusionZone> exclusionZone = original.exclusionZone.map((zone) -> new StructurePlacement.ExclusionZone(reference(structureSets, zone.otherSet()), zone.chunkCount()));
 
-		if (original instanceof RandomSpreadStructurePlacement randomSpread
-                && original.getClass() != RandomSpreadStructurePlacement.class) {
-            // Integrated/YUNG placements subclass vanilla but add exclusion zones and terrain checks.
-            // Reconstruct through their own registered codec; a vanilla constructor erases those rules.
-            if (sourceOps == null) return original;
-            var encoded = StructurePlacement.CODEC.encodeStart(sourceOps, original).getOrThrow().getAsJsonObject();
-            int spacing = Math.max(1, entry.spacing != null ? entry.spacing : randomSpread.spacing());
-            int separation = Math.max(0, Math.min(spacing - 1,
-                    entry.separation != null ? entry.separation : randomSpread.separation()));
-            encoded.addProperty("spacing", spacing);
-            encoded.addProperty("separation", separation);
-            if (entry.frequency != null) encoded.addProperty("frequency", frequency);
-            if (entry.salt != null) encoded.addProperty("salt", salt);
-            return StructurePlacement.CODEC.parse(sourceOps, encoded).getOrThrow();
-        }
+		if (!canExport(original)) return original;
 
 		if (original instanceof RandomSpreadStructurePlacement randomSpread) {
 			int spacing = entry.spacing != null ? entry.spacing : randomSpread.spacing();
