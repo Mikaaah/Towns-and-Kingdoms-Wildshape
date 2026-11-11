@@ -1,9 +1,7 @@
-[← Guide home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Project](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Get help](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
-
 # Getting started
 
-Use one matching NeoForge or Fabric 1.21.1 build with Java 21. Current artifacts and the world selector retain the TNKTerraForged name. Do not install the original UltraTerraForged JAR alongside this fork. Back up worlds and generate new chunks to see changes.
+Use one NeoForge 1.21.1 build with Java 21. Select Wildshape in Create World, or use `level-type=wildshape:wildshape` on a dedicated server. Replace the earlier terrain JAR. The renamed Wildshape edition changes registry identity and requires a fresh world or a separately verified migration of an existing save; importing settings alone does not migrate worlds.
 
-See the [edition table](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape#editions).
+See the [edition table](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Compatibility).
 
-[Documentation home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Home)
+[Documentation home](Home)

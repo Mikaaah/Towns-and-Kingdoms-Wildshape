@@ -1,7 +1,5 @@
-[← Guide home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki) · [Project](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape) · [Get help](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues)
-
 # Terrain and caves
 
 Large interconnected caves, terrain presets and dungeon-aware generation are described in the [README](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape#what-makes-this-fork-different). Modpack stability and every structure interaction still require testing with the actual pack. Existing chunks are not regenerated.
 
-[Documentation home](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/wiki/Home)
+[Documentation home](Home)
