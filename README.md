@@ -11,7 +11,7 @@
 
 
 
-**Current edition: Wildshape 1.0.1 · Minecraft 1.21.1 · NeoForge · Java 21.**
+**Current edition: Wildshape 1.0.2 · Minecraft 1.21.1 · NeoForge · Java 21.**
 
 Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
 
@@ -20,7 +20,7 @@ The [current Wildshape source](https://github.com/Mikaaah/Towns-and-Kingdoms-Wil
 ## Terrain and compatibility
 
 - Large, connected caverns with lush, dripstone and lantern styles, rock supports and rare coastal coves.
-- Terrain-aware river banks, coastlines and native Streams Reflowing currents, including explicit Flow Control overrides. NeoForge supports the verified Streams 2.15.2, 2.16.2 and 2.17.1 APIs; Flow Control 0.2.2 uses 2.16.2, and Flow Control 1.0.0 uses 2.17.1.
+- Terrain-aware river banks, coastlines and native Streams Reflowing currents, including explicit Flow Control overrides. NeoForge contains inspected bindings for Streams 2.15.2, 2.16.2, 2.17.1, 2.17.3 and 2.17.4; optional mods remain separate installations.
 - Native mod biome surfaces, decorations and creatures. Nature’s Spirit, BOP and Regions Unexplored keep their biome identities and materials.
 - Protected native cave habitats, including Alex’s Caves, tagged third-party underground biomes and Deep Dark.
 - Dungeon carving protection uses individual structure pieces and neighboring chunk references. Selected large Overworld dungeons receive explicit spacing rules; resource landmarks and other dimensions retain native placement.
@@ -30,6 +30,8 @@ The [current Wildshape source](https://github.com/Mikaaah/Towns-and-Kingdoms-Wil
 The [Beta 1.0 follow-up](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_BETA_1_AUDIT_2026-11-10.md) compares the new pack export, while the [initial audit](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_AUDIT_2026-11-08.md) retains the original findings and evidence. The [compatibility matrix](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and the current Beta 1.0 export’s 318 entries. These records distinguish static inspection, focused tests and runtime evidence.
 
 World-creation fix in **1.0.1**: custom structure placements keep their native tags during preset export; see the [fix and regression evidence](docs/WILDSHAPE_WORLD_CREATION_FIX_2026-11-11.md).
+
+Worldgen fixes in **1.0.2**: stable concurrent cache eviction, underground aquifer cleanup, scoped Streams water protection and actual-ground surface checks. See the [changelog](CHANGELOG.md). Generation corrections affect new chunks; saved terrain is not rewritten. Nature's Spirit's native highland terracotta remains part of those biomes.
 
 ## Installation
 
@@ -43,7 +45,7 @@ level-type=wildshape:wildshape
 
 The FML mod ID and resource namespace are **`wildshape`**. Configuration is written to **`config/wildshape/`**. Missing settings and custom presets are imported from the previous directories without replacing current settings or altering the originals. New share codes use `WILDSHAPE1:`; previously shared codes still import. Commands use `/wildshape`, with `/wildshape streams status` when Streams is installed.
 
-**Worlds from the former `ultraterraforged` namespace require a fresh world or separate migration.** Version 1.0.1 keeps the same registry identity as Wildshape 1.0.0. Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_IDENTITY.md).
+**Worlds from the former `ultraterraforged` namespace require a fresh world or separate migration.** Wildshape 1.0.2 keeps the same registry identity as 1.0.0 and 1.0.1. Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/audit/tnk3-compat-1.0.12/docs/WILDSHAPE_IDENTITY.md).
 
 | Build | Minecraft | Java | Scope |
 |---|---|---|---|

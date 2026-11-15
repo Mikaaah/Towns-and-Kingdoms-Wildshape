@@ -172,7 +172,7 @@ public final class CaveCarving {
 	}
 
 	/**
-	 * Hollows out an ellipsoid: water up to the given level, air above it. Bedrock and fluids are left alone, and so
+	 * Hollows out an ellipsoid: water up to the given level, air above it. Bedrock and surface water are left alone, and so
 	 * is the ground within roof blocks of the surface, unless roof is OPEN.
 	 */
 	public void hollow(float cx, float cy, float cz, float rx, float ry, float rz, int water, int roof) {
@@ -224,6 +224,7 @@ public final class CaveCarving {
     }
 
 	public void clear(int x, int y, int z, int water) {
+        if (!this.contains(x, z) || y < this.bottom || y >= this.chunk.getMaxBuildHeight()) return;
         if (y >= this.bottom && this.contains(x,z) && this.protectedPillars.get(
                 ((y-this.bottom)<<8)|((z-this.minZ)<<4)|(x-this.minX))) return;
         if (this.insideStructure(x, y, z) || this.isProtectedCaveBiome(x, y, z)) return;
@@ -231,18 +232,30 @@ public final class CaveCarving {
 		BlockState state = this.chunk.getBlockState(this.pos);
 		int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
 		boolean drainingOwnWater = water == DRY && this.authoredWater.get(bit);
+        int surface = this.ground[(z - this.minZ) << 4 | (x - this.minX)];
+        // Natural aquifers inside a new chamber belong to that chamber's cut.
+        // Keeping every old source and its one-block bed leaves floating water,
+        // lava and clay shelves after the surrounding rock has been removed.
+        boolean undergroundAquifer = y < surface - 1
+                && (state.is(Blocks.WATER) || state.is(Blocks.LAVA))
+                && !this.authoredWater.get(bit);
 		if (state.is(Blocks.BEDROCK) || (!state.getFluidState().isEmpty()
-                && !drainingOwnWater)) {
+                && !drainingOwnWater && !undergroundAquifer)) {
 			return;
 		}
 		BlockState fill = y <= water ? WATER : AIR;
 		// Another cave may already be open here. Filling that air makes a
 		// free-standing ellipsoid of water in the middle of a large chamber.
 		if (fill == WATER && state.isAir()) return;
-        // Preserve the bed beneath existing fluid, as in upstream's #9 fix.
-        // Stay within this generation chunk and reset the mutable position.
-        if (fill == AIR && !drainingOwnWater
-                && !this.chunk.getBlockState(this.pos.set(x, y + 1, z)).getFluidState().isEmpty()) return;
+        if (fill == AIR && !drainingOwnWater && y + 1 < this.chunk.getMaxBuildHeight()) {
+            BlockState above = this.chunk.getBlockState(this.pos.set(x, y + 1, z));
+            if (!above.getFluidState().isEmpty()) {
+                boolean naturalUnderground = y < surface - 1
+                        && (above.is(Blocks.WATER) || above.is(Blocks.LAVA))
+                        && !this.authoredWater.get(bit + 256);
+                if (!naturalUnderground) return;
+            }
+        }
         this.pos.set(x, y, z);
 		if (state != fill) {
             if (fill == WATER) this.authoredWater.set(bit);
@@ -377,7 +390,7 @@ public final class CaveCarving {
     }
 
     /**
-     * Wake existing water exposed by carving. Never manufacture source blocks:
+     * Wake existing water and lava exposed by carving. Never manufacture source blocks:
      * a spring opening onto a slope must flow down it, not flood every connected
      * air block up to its height (including open sky within this chunk).
      * Authored sea caves and cavern lakes already supply their own waterline.
@@ -402,7 +415,9 @@ public final class CaveCarving {
         int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
         if (scheduled.get(bit)) return;
         BlockState state = this.chunk.getBlockState(this.pos.set(x, y, z));
-        if (state.is(Blocks.WATER) || state.getFluidState().is(net.minecraft.tags.FluidTags.WATER)) {
+        if (state.is(Blocks.WATER) || state.is(Blocks.LAVA)
+                || state.getFluidState().is(net.minecraft.tags.FluidTags.WATER)
+                || state.getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) {
             scheduled.set(bit);
             this.chunk.markPosForPostprocessing(this.pos);
         }

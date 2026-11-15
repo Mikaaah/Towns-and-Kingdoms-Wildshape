@@ -39,6 +39,10 @@ jobs:
           --tests '*StrataMaterialsTest' --tests '*FastPoissonContextTest'
           --tests '*SkerriesWaterTest' --tests '*WorldGenLookupTest'
           --tests '*TileCacheTest' --tests '*StructureRuleTest'
+          --tests '*CacheTrimTest' --tests '*CaveFluidIntersectionTest'
+          --tests '*StreamsCarvingGuardTest' --tests '*StreamsVersionTest'
+          --tests '*NearGroundConditionTest' --tests '*CaveWaterSafetyTest'
+          --tests '*RaisedWaterPlacementTest' --tests '*ModSurfaceRulesTest'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge

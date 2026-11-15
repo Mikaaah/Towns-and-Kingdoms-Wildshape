@@ -72,16 +72,20 @@ public class Cache<V extends ExpiringEntry> implements AutoCloseable {
     public int trimWithoutClosing(int capacity, java.util.function.Predicate<V> eligible) {
         int excess = this.map.size() - capacity;
         if (excess <= 0) return 0;
-        var candidates = new java.util.ArrayList<V>();
+        var candidates = new java.util.ArrayList<TrimCandidate<V>>();
         this.map.removeIf(entry -> {
-            if (eligible.test(entry)) candidates.add(entry);
+            if (eligible.test(entry)) candidates.add(new TrimCandidate<>(entry, entry.getTimestamp()));
             return false;
         });
-        candidates.sort(java.util.Comparator.comparingLong(ExpiringEntry::getTimestamp));
+        // Readers update access times concurrently. Sorting the live entries can
+        // change a comparison halfway through TimSort and abort chunk generation.
+        candidates.sort(java.util.Comparator.comparingLong(TrimCandidate<V>::timestamp));
         var discard = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<V, Boolean>());
-        candidates.stream().limit(excess).forEach(discard::add);
+        candidates.stream().limit(excess).map(TrimCandidate::entry).forEach(discard::add);
         return this.map.removeIf(discard::contains);
     }
+
+    private record TrimCandidate<T>(T entry, long timestamp) {}
 
     public void poll() {
         this.timeout = System.currentTimeMillis() - this.lifetimeMS;

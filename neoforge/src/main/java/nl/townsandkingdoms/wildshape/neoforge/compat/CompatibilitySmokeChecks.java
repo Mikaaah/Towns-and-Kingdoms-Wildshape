@@ -208,6 +208,19 @@ public final class CompatibilitySmokeChecks {
             report.put("biomeSearchRestoresLookupScope", true);
             for (int[] point : new int[][] {{0, 0}, {2, -1}, {-2, 1}}) level.getChunk(point[0], point[1]);
             report.put("generatedSampleChunks", 3);
+            if (Boolean.getBoolean("wildshape.issue158Smoke")) {
+                var generated = new java.util.ArrayList<Object>();
+                for (int[] point : new int[][] {{-92, -238}, {-114, -224}, {-7, -24}}) {
+                    var chunk = level.getChunk(point[0], point[1]);
+                    require(chunk instanceof net.minecraft.world.level.chunk.LevelChunk,
+                            "Issue #158 chunk did not reach FULL: " + chunk.getPos());
+                    generated.add(Map.of("x", point[0], "z", point[1], "status", "FULL"));
+                }
+                report.put("issue158GeneratedChunks", generated);
+                report.put("fixtureSeed", level.getSeed());
+                report.put("retainedTerrainTiles", ((WildshapeRandomState)(Object)random)
+                        .generatorContext().cache.retainedTileCount());
+            }
             report.put("registeredBiomes", biomes.size());
             report.put("protectedCaveTagMembers", biomes.getTag(TagKey.create(Registries.BIOME,
                     ResourceLocation.parse("wildshape:protected_cave_biomes"))).map(values -> values.size()).orElse(0));

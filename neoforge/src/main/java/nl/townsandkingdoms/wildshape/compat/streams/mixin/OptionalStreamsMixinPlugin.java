@@ -1,6 +1,7 @@
 package nl.townsandkingdoms.wildshape.compat.streams.mixin;
 
 import nl.townsandkingdoms.wildshape.platform.ModLoaderUtil;
+import nl.townsandkingdoms.wildshape.compat.streams.StreamsVersion;
 import java.util.List;
 import java.util.Set;
 import org.objectweb.asm.tree.ClassNode;
@@ -15,8 +16,10 @@ public final class OptionalStreamsMixinPlugin implements IMixinConfigPlugin {
         if (!ModLoaderUtil.isLoaded("streamsreflowing")) return false;
         var file = net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
         String version = file.getMods().getFirst().getVersion().toString();
-        boolean latest = version.startsWith("2.17.1");
-        boolean modern = version.startsWith("2.16.2") || latest;
+        StreamsVersion profile = StreamsVersion.of(version);
+        if (profile == StreamsVersion.UNSUPPORTED) return false;
+        boolean latest = profile == StreamsVersion.MODERN_217;
+        boolean modern = profile.modern();
         if (mixin.endsWith("Modern217BakedFlowMixin")) return latest;
         if (mixin.endsWith("ModernBakedFlowMixin")) return modern && !latest;
         if (mixin.contains(".Modern")) return modern;

@@ -35,31 +35,78 @@ public class StreamsCompat {
 	}
 
 	// set on a worldgen thread while Streams carves one of its own rivers (MixinRiverCarverFeature)
-	private static final ThreadLocal<Boolean> CARVING = ThreadLocal.withInitial(() -> false);
+	private static final ThreadLocal<CarvingState> CARVING = new ThreadLocal<>();
+
+    private static final class CarvingState {
+        final java.util.Map<Long, WaterColumn> columns = new java.util.HashMap<>();
+    }
+
+    private record WaterColumn(int bed, int surface) {
+        static final WaterColumn NONE = new WaterColumn(0, 0);
+        boolean contains(int y) { return y > bed && y <= surface; }
+    }
 
 	public static boolean carving() {
-		return CARVING.get();
+		return CARVING.get() != null;
 	}
 
 	public static void setCarving(boolean carving) {
-		CARVING.set(carving);
+		if (carving) CARVING.set(new CarvingState());
+        else CARVING.remove();
 	}
+
+    public static <T> T whileCarving(java.util.function.Supplier<T> action) {
+        CarvingState previous = CARVING.get();
+        CARVING.set(new CarvingState());
+        try {
+            return action.get();
+        } finally {
+            if (previous == null) CARVING.remove();
+            else CARVING.set(previous);
+        }
+    }
 
 	/**
 	 * Streams also carves rivers of its own, which in an Wildshape world cut into its rivers and lakes above the
-	 * sea: water put in before the features was turned to air, and so was the ground under it, leaving water hanging.
-	 * Its rivers still come; water just stays water, and the ground under water isn't hollowed out. Ground put in where
-	 * there was none, such as the bed Streams seals its own water with, is always let through.
+	 * sea. Protect only those native raised-water volumes and their existing beds.
+     * Streams must still be able to lower its own water and clear obsolete sources
+     * above a native waterline; preserving every fluid block leaves water columns.
 	 */
 	public static boolean keeps(net.minecraft.server.level.WorldGenRegion region, net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-		boolean keeps = state.getFluidState().isEmpty()
-			&& (!region.getFluidState(pos).isEmpty() || state.isAir() && !region.getBlockState(pos).isAir() && !region.getFluidState(pos.above()).isEmpty())
-			&& context(region.getLevel()) != null;
+		if (!state.getFluidState().isEmpty()) return false;
+        GeneratorContext context = context(region.getLevel());
+        if (context == null) return false;
+        CarvingState carving = CARVING.get();
+        long key = net.minecraft.core.BlockPos.asLong(pos.getX(), 0, pos.getZ());
+        WaterColumn column = carving == null ? waterColumn(region, context, pos)
+                : carving.columns.computeIfAbsent(key, ignored -> waterColumn(region, context, pos));
+        if (column == WaterColumn.NONE) return false;
+        boolean keeps = (column.contains(pos.getY()) && water(region.getBlockState(pos)))
+                || (state.isAir() && pos.getY() == column.bed()
+                    && !region.getBlockState(pos).isAir()
+                    && water(region.getBlockState(pos.above())));
 		if (keeps) {
 			KEPT.incrementAndGet();
 		}
 		return keeps;
 	}
+
+    private static boolean water(net.minecraft.world.level.block.state.BlockState state) {
+        return state.is(net.minecraft.world.level.block.Blocks.WATER)
+                || state.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+    }
+
+    private static WaterColumn waterColumn(net.minecraft.server.level.WorldGenRegion region,
+            GeneratorContext context, net.minecraft.core.BlockPos pos) {
+        var cell = new nl.townsandkingdoms.wildshape.world.worldgen.cell.Cell();
+        context.lookup.apply(cell, pos.getX(), pos.getZ(), true);
+        if (cell.waterLevel <= 0.0F) return WaterColumn.NONE;
+        int surface = context.levels.scale(cell.waterLevel);
+        if (surface <= context.levels.waterY) return WaterColumn.NONE;
+        int bed = region.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.OCEAN_FLOOR_WG,
+                pos.getX(), pos.getZ());
+        return bed < surface ? new WaterColumn(bed, surface) : WaterColumn.NONE;
+    }
 
 	// how many blocks keeps has kept this session, for tests
 	private static final java.util.concurrent.atomic.AtomicLong KEPT = new java.util.concurrent.atomic.AtomicLong();

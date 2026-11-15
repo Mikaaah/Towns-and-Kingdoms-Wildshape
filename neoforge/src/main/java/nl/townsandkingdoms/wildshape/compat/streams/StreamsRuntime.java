@@ -9,19 +9,20 @@ import dev.streamsreflowing.platform.services.IPlatformHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.fml.loading.FMLLoader;
 
-/** Explicit bindings for verified legacy and 2.16.2/2.17.1 Streams ABIs. */
+/** Explicit bindings for the inspected legacy, 2.16.2 and 2.17.x Streams ABIs. */
 public final class StreamsRuntime {
     private StreamsRuntime() {}
 
-    private static final boolean MODERN = detectModern();
+    private static final StreamsVersion VERSION = detectVersion();
 
-    public static boolean modern() { return MODERN; }
+    public static boolean modern() { return VERSION.modern(); }
+    public static boolean supported() { return VERSION != StreamsVersion.UNSUPPORTED; }
 
-    private static boolean detectModern() {
+    private static StreamsVersion detectVersion() {
         var file = FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
-        if (file == null) return false;
+        if (file == null) return StreamsVersion.UNSUPPORTED;
         String version = file.getMods().getFirst().getVersion().toString();
-        return version.startsWith("2.16.2") || version.startsWith("2.17.1");
+        return StreamsVersion.of(version);
     }
 
     public static boolean waterFlowEnabled() {
@@ -66,7 +67,7 @@ public final class StreamsRuntime {
     }
 
     private static final class Modern {
-        // Exact 2.16.2 and 2.17.1 JARs share these APIs; their fluid classes differ.
+        // Inspected 2.16.2, 2.17.1, 2.17.3 and 2.17.4 share these entry points.
         static final MethodHandle PEEK = bind("niceJohn1", MethodType.methodType(byte[].class, int.class, int.class));
         static final MethodHandle ANGLE = bind("proprietary1", MethodType.methodType(byte.class, byte[].class, int.class, int.class, int.class));
         static final MethodHandle X = bindStatic("proprietary1");

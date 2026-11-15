@@ -1,3 +1,14 @@
+# 1.0.2
+
+- Fixed the concurrent cache-eviction crash reported in TNK3 issue #158. Eviction sorts immutable access-time snapshots, removes entries by identity and never closes published terrain data.
+- Fixed underground aquifer sources and their clay beds surviving inside newly carved chambers as floating shelves. Surface water, authored cavern lakes, waterlogged blocks and protected cave habitats retain their safeguards.
+- Scheduled both water and lava exposed by custom cave carving for fluid updates.
+- Restricted the Streams carving guard to Wildshape's native raised-water volumes, allowing Streams to clear its own water and obsolete sources outside those volumes. Carving state is restored after exceptions and nested features.
+- Added explicit compatibility profiles for Streams Reflowing 2.17.3 and 2.17.4, retaining the existing 2.15.2, 2.16.2 and 2.17.1 bindings. Unknown releases no longer activate the legacy actual-water hooks.
+- Based surface-height checks on the chunk's actual solid ground, fixing missing topsoil when density shaping or structure adjustment differs from the predicted terrain height. Native biome materials, including Nature's Spirit highland terracotta, are preserved.
+
+Minecraft 1.21.1 / NeoForge / Java 21. Existing worldgen corrections apply when new chunks generate; this update does not rewrite saved terrain or change the `wildshape` registry namespace.
+
 # 1.0.1
 
 - Fixed the client preset-export failure that blocked Wildshape world creation with Integrated Villages and other custom structure placements containing tagged exclusion zones.

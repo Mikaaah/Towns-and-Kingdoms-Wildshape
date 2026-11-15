@@ -9,7 +9,7 @@ import nl.townsandkingdoms.wildshape.compat.streams.ActualWaterFlow;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-/** Both registered 2.17.1 stream fluids; selected only for the verified release. */
+/** Both registered stream fluids in the inspected 2.17.1, 2.17.3 and 2.17.4 releases. */
 @Mixin(targets = {"streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$ProprietaryNiceJohn_001",
         "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$SeeAiNoticeConstant_001"}, remap = false, priority = 400)
 public abstract class Modern217BakedFlowMixin {

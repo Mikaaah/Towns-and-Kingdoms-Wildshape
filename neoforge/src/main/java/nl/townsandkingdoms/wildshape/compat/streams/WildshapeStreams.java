@@ -31,6 +31,10 @@ public final class WildshapeStreams {
     }
     /** Initialize within Wildshape, only when Streams Reflowing is installed. */
     public static void initialize(IEventBus bus, ModContainer container) {
+        if (!StreamsRuntime.supported()) {
+            LOG.warn("Wildshape actual-water corrections are disabled for this unverified Streams release.");
+            return;
+        }
         GeneratorContext.retainRiverData = true;
         container.registerConfig(ModConfig.Type.COMMON, SPEC, "wildshape/streams.toml");
         bus.addListener(WildshapeStreams::setup);
