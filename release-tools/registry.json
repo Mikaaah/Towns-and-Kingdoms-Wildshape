@@ -698,8 +698,8 @@
       ],
       "artifact_id": "wildshape",
       "repository": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
-      "development_ref": "compat/skylands-0.9.4",
-      "development_version": "1.0.3",
+      "development_ref": "fix/worldgen-performance-1.0.4",
+      "development_version": "1.0.4",
       "editions": [
         "standard"
       ],

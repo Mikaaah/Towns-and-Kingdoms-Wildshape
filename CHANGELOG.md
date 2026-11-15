@@ -1,3 +1,11 @@
+# 1.0.4
+
+- Fixed structure searches performing full river-network surveys on the server thread. Broad structure-locator checks now use a coarse terrain and climate estimate; actual chunk generation and ordinary biome searches retain their existing terrain paths.
+- Prevented SkyLands island-anchor and structure-intersection biome probes from requesting full filtered Wildshape terrain tiles at remote sites, including neighboring-site checks.
+- Isolated structure-search cell caching from normal and approximate generation queries, with scope restoration after nested calls and failures.
+
+Minecraft 1.21.1 / NeoForge / Java 21. Saved preset data, noise height, terrain filters and generated chunks are preserved. C2ME remains optional. Full-pack TPS must be checked in the affected server; these changes address the paths identified in the two watchdog reports.
+
 # 1.0.3
 
 - Added optional SkyLands NeoForge Port 0.9.4 compatibility. Wildshape worlds receive the extra Overworld build space required for native sky islands, biomes, foliage and structures.

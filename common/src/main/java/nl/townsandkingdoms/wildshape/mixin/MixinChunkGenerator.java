@@ -17,6 +17,6 @@ class MixinChunkGenerator {
     @WrapMethod(method = "findNearestMapStructure")
     private Pair<BlockPos, Holder<Structure>> wildshape$locate(ServerLevel level, HolderSet<Structure> structures,
             BlockPos origin, int radius, boolean skipKnown, Operation<Pair<BlockPos, Holder<Structure>>> original) {
-        return WorldGenFlags.approximately(() -> original.call(level, structures, origin, radius, skipKnown));
+        return WorldGenFlags.locatingStructure(() -> original.call(level, structures, origin, radius, skipKnown));
     }
 }

@@ -75,6 +75,7 @@ public class WorldLookup {
 	}
 
 	public boolean apply(Cell cell, int x, int z, boolean load) {
+		if (WorldGenFlags.structureSearch()) return this.computeStructureSearch(cell, x, z);
 		if (load && this.computeAccurate(cell, x, z)) {
 			return true;
 		}
@@ -110,6 +111,7 @@ public class WorldLookup {
 	}
 
 	public boolean compute(Cell cell, int x, int z) {
+		if (WorldGenFlags.structureSearch()) return this.computeStructureSearch(cell, x, z);
 		Heightmap heightmap = this.context.localHeightmap.get();
 		CellSampler.Provider cellProvider = heightmap.cellProvider();
 
@@ -128,6 +130,24 @@ public class WorldLookup {
 			return false;
 		} finally {
 			cellProvider.setCacheCell(oldCell);
+		}
+	}
+
+	/** Coarse candidate checks only. Actual chunks and biome searches retain their river profiles. */
+	private boolean computeStructureSearch(Cell cell, int x, int z) {
+		Heightmap heightmap = this.context.localHeightmap.get();
+		cell.copyFrom(heightmap.sampleClimateGround(x, z));
+		CellSampler.Provider provider = heightmap.cellProvider();
+		Cell previous = provider.getCacheCell();
+		provider.setCacheCell(cell);
+		try {
+			if (cell.terrain == TerrainType.COAST && cell.height > this.waterLevel && cell.height <= this.beachLevel) {
+				cell.terrain = TerrainType.BEACH;
+			}
+			heightmap.applyPost(cell, x, z);
+			return false;
+		} finally {
+			provider.setCacheCell(previous);
 		}
 	}
 }

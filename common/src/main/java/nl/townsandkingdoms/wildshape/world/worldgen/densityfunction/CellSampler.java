@@ -13,6 +13,7 @@ import net.minecraft.core.QuartPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.KeyDispatchDataCodec;
 import nl.townsandkingdoms.wildshape.world.worldgen.GeneratorContext;
+import nl.townsandkingdoms.wildshape.world.worldgen.WorldGenFlags;
 import nl.townsandkingdoms.wildshape.world.worldgen.cell.Cell;
 import nl.townsandkingdoms.wildshape.world.worldgen.cell.CellField;
 import nl.townsandkingdoms.wildshape.world.worldgen.heightmap.WorldLookup;
@@ -62,7 +63,7 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			blockZ = QuartPos.toBlock(QuartPos.fromBlock(blockZ));
 
 			long packedPos = PosUtil.pack(blockX, blockZ);
-			int mode = asGenerated ? (lookup.approximate() ? 1 : 2) : 0;
+			int mode = WorldGenFlags.structureSearch() ? 3 : asGenerated ? (lookup.approximate() ? 1 : 2) : 0;
 			if(this.lastPos != packedPos || this.lastLookup.get() != lookup || this.lastMode != mode) {
 				// Failed lookups must not leave a partially overwritten cell cached.
 				this.lastPos = Long.MAX_VALUE;

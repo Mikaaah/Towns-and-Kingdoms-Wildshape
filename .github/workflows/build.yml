@@ -44,6 +44,7 @@ jobs:
           --tests '*NearGroundConditionTest' --tests '*CaveWaterSafetyTest'
           --tests '*RaisedWaterPlacementTest' --tests '*ModSurfaceRulesTest'
           --tests '*SkylandsDimensionResourcesTest'
+          --tests '*SkylandsProbeMixinTest' --tests '*MixinAnnotationsTest'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge
@@ -55,4 +56,5 @@ jobs:
           name: Artifacts
           path: |
             neoforge/build/libs/
+            common/build/test-results/test/
 

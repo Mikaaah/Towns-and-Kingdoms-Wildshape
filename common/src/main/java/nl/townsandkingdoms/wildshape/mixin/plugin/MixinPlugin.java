@@ -18,6 +18,7 @@ import nl.townsandkingdoms.wildshape.compat.byepregen.ByePregenCompat;
 import nl.townsandkingdoms.wildshape.compat.streams.StreamsCompat;
 import nl.townsandkingdoms.wildshape.compat.alexscaves.AlexsCavesCompat;
 import nl.townsandkingdoms.wildshape.compat.generatoraccelerator.GeneratorAcceleratorCompat;
+import nl.townsandkingdoms.wildshape.platform.ModLoaderUtil;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 	private static final String MIXIN_PACKAGE_PREFIX = "nl.townsandkingdoms.wildshape.mixin.";
@@ -28,6 +29,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	public static final List<String> STREAMS_MIXINS = ImmutableList.of(mixinClassName("streams.MixinStreamFlowGrid"), mixinClassName("streams.MixinRiverCarverFeature"), mixinClassName("streams.MixinWorldGenRegion"), mixinClassName("streams.MixinStreamsTerrainSampler"));
 	public static final List<String> AC_MIXINS = ImmutableList.of(mixinClassName("alexscaves.MixinBiomeGenerationNoiseCondition"), mixinClassName("alexscaves.MixinClimateSampler"));
 	public static final List<String> GA_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinNoiseBasedChunkGenerator"));
+	public static final List<String> SKYLANDS_MIXINS = ImmutableList.of(mixinClassName("skylands.MixinSkyTerrainFeature"), mixinClassName("skylands.MixinSkyTerrainStructureGuard"));
 
 	@Override
 	public void onLoad(String mixinPackage) {
@@ -54,6 +56,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 			   STREAMS_MIXINS.contains(mixinClassName) ? StreamsCompat.isEnabled() :
 			   AC_MIXINS.contains(mixinClassName) ? AlexsCavesCompat.isEnabled() :
 			   GA_MIXINS.contains(mixinClassName) ? GeneratorAcceleratorCompat.isEnabled() :
+			   SKYLANDS_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("skylands") :
 			   true;
 	}
 
@@ -63,7 +66,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public List<String> getMixins() {
-		return Stream.of(TB_MIXINS, WP_MIXINS, C2ME_OPENCL_MIXINS, BYE_PREGEN_MIXINS, STREAMS_MIXINS, AC_MIXINS, GA_MIXINS).flatMap(List::stream).map((str) -> {
+		return Stream.of(TB_MIXINS, WP_MIXINS, C2ME_OPENCL_MIXINS, BYE_PREGEN_MIXINS, STREAMS_MIXINS, AC_MIXINS, GA_MIXINS, SKYLANDS_MIXINS).flatMap(List::stream).map((str) -> {
 			return str.replace(MIXIN_PACKAGE_PREFIX, "");
 		}).toList();
 	}
