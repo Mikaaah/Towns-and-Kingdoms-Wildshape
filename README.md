@@ -31,7 +31,7 @@ The [Beta 1.0 follow-up](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape
 
 World-creation fix in **1.0.1**: custom structure placements keep their native tags during preset export; see the [fix and regression evidence](docs/WILDSHAPE_WORLD_CREATION_FIX_2026-11-11.md).
 
-Worldgen fixes in **1.0.2**: stable concurrent cache eviction, underground aquifer cleanup, scoped Streams water protection and actual-ground surface checks. See the [changelog](CHANGELOG.md). Generation corrections affect new chunks; saved terrain is not rewritten. Nature's Spirit's native highland terracotta remains part of those biomes.
+Worldgen fixes in **1.0.2**: stable concurrent cache eviction, underground aquifer cleanup, scoped Streams water protection and actual-ground surface checks. See the [changelog](CHANGELOG.md) and [audit with save/reload evidence](docs/WILDSHAPE_WORLDGEN_FIX_2026-11-15.md). Generation corrections affect new chunks; saved terrain is not rewritten. Nature's Spirit's native highland terracotta remains part of those biomes.
 
 ## Installation
 

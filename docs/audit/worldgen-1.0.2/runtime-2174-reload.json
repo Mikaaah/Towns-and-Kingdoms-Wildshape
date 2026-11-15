@@ -1,0 +1,90 @@
+{
+  "identity": {
+    "commandRoot": "wildshape",
+    "fmlModId": "wildshape",
+    "configDirectory": "wildshape",
+    "worldType": "wildshape:wildshape"
+  },
+  "mods": [
+    "c2me@0.4.0-alpha.0.124+1.21.1",
+    "c2me_base@0.4.0-alpha.0.124+1.21.1",
+    "c2me_client_uncapvd@0.4.0-alpha.0.124+1.21.1",
+    "c2me_fixes_chunkio_threading_issues@0.4.0-alpha.0.124+1.21.1",
+    "c2me_fixes_general_threading_issues@0.4.0-alpha.0.124+1.21.1",
+    "c2me_fixes_worldgen_threading_issues@0.4.0-alpha.0.124+1.21.1",
+    "c2me_fixes_worldgen_vanilla_bugs@0.4.0-alpha.0.124+1.21.1",
+    "c2me_notickvd@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_allocs@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_chunkio@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_dfc@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_math@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_natives_math@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_scheduling@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_worldgen_general@0.4.0-alpha.0.124+1.21.1",
+    "c2me_opts_worldgen_vanilla@0.4.0-alpha.0.124+1.21.1",
+    "c2me_rewrites_chunk_system@0.4.0-alpha.0.124+1.21.1",
+    "c2me_rewrites_chunkio@0.4.0-alpha.0.124+1.21.1",
+    "c2me_server_utils@0.4.0-alpha.0.124+1.21.1",
+    "c2me_threading_lighting@0.4.0-alpha.0.124+1.21.1",
+    "minecraft@1.21.1",
+    "natures_spirit@2.3.2-1.21.1",
+    "neoforge@21.1.266",
+    "streamsreflowing@2.17.4",
+    "wildshape@1.0.2"
+  ],
+  "otherDimensionsRetainTheirGenerators": [
+    "minecraft:the_nether",
+    "minecraft:the_end"
+  ],
+  "generatedOtherDimensionSamples": false,
+  "structureSpacing": {},
+  "customStructurePlacementTypes": {},
+  "nativeEpicPlacementPreserved": {},
+  "legacyHabitats": {
+    "is_cold_overworld": 33,
+    "is_dense_overworld": 10,
+    "is_coniferous": 6,
+    "is_hot_overworld": 38,
+    "is_dry_overworld": 27
+  },
+  "threadIndependentColumnHeights": {
+    "13,2": 63,
+    "2560,2048": 63,
+    "-4096,5120": 98,
+    "13312,2144": 79
+  },
+  "biomeSearchRestoresLookupScope": true,
+  "generatedSampleChunks": 3,
+  "issue158GeneratedChunks": [
+    {
+      "x": -92,
+      "status": "FULL",
+      "z": -238
+    },
+    {
+      "x": -114,
+      "status": "FULL",
+      "z": -224
+    },
+    {
+      "x": -7,
+      "status": "FULL",
+      "z": -24
+    }
+  ],
+  "fixtureSeed": 2031102026,
+  "retainedTerrainTiles": 9,
+  "registeredBiomes": 132,
+  "protectedCaveTagMembers": 1,
+  "streamsSettingsRespected": true,
+  "streamsEightHeadingBindings": true,
+  "streamsSurveyDoesNotGenerateTiles": true,
+  "streamsPublicGridAndPhysics": true,
+  "elevatedNativeRiver": {
+    "x": 2085,
+    "surfaceY": 75,
+    "z": -4528
+  },
+  "streamsNativeLayerAndWaterCorrection": true,
+  "passed": true
+}
