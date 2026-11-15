@@ -1,0 +1,68 @@
+[
+  {
+    "suite": "nl.townsandkingdoms.wildshape.world.worldgen.cave.CaveBiomeProtectionTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.world.worldgen.surface.ModSurfaceRulesTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.test.PresetDatapackTest",
+    "tests": 22,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.concurrent.cache.CacheTrimTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.compat.skylands.SkylandsDimensionResourcesTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.world.worldgen.cave.CaveFluidIntersectionTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.test.TaggedStructurePresetExportTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.test.BiomeExclusionsTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.compat.streams.StreamsVersionTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.compat.streams.StreamsCarvingGuardTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "nl.townsandkingdoms.wildshape.test.MixinAnnotationsTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  }
+]

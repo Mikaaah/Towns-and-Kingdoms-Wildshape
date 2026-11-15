@@ -2,7 +2,9 @@
 
 # Towns & Kingdoms — Wildshape
 
-Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. In the current 1.0.2 edition, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
+Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. In the current 1.0.3 edition, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
+
+Version **1.0.3** adds optional [SkyLands compatibility](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/SKYLANDS_COMPATIBILITY.md), including extra build space for existing Wildshape worlds. Native islands generate in new chunks; saved chunks and terrain presets are retained.
 
 Version **1.0.2** fixes concurrent cache eviction, suspended cave-fluid/clay remnants and surface-height checks, and adds Streams Reflowing 2.17.3/2.17.4 support. The 1.0.1 world-creation fix remains included. Terrain corrections apply to new chunks; the `wildshape` registry identity is unchanged.
 

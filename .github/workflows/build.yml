@@ -43,6 +43,7 @@ jobs:
           --tests '*StreamsCarvingGuardTest' --tests '*StreamsVersionTest'
           --tests '*NearGroundConditionTest' --tests '*CaveWaterSafetyTest'
           --tests '*RaisedWaterPlacementTest' --tests '*ModSurfaceRulesTest'
+          --tests '*SkylandsDimensionResourcesTest'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge

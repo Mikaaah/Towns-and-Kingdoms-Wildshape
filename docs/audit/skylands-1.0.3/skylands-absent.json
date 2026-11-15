@@ -1,0 +1,23 @@
+{
+  "mode": "absent",
+  "noiseHeight": 576,
+  "minY": -64,
+  "maxYExclusive": 512,
+  "previousMaxYExclusive": 512,
+  "mods": [
+    "minecraft@1.21.1",
+    "neoforge@21.1.266",
+    "wildshape@1.0.3"
+  ],
+  "otherDimensions": {
+    "minecraft:the_nether": {
+      "minY": 0,
+      "height": 256
+    },
+    "minecraft:the_end": {
+      "minY": 0,
+      "height": 256
+    }
+  },
+  "passed": true
+}

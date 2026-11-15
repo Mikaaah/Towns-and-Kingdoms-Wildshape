@@ -8,7 +8,7 @@
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-**Current edition: Wildshape 1.0.2 · Minecraft 1.21.1 · NeoForge · Java 21.**
+**Current edition: Wildshape 1.0.3 · Minecraft 1.21.1 · NeoForge · Java 21.**
 
 Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
 
@@ -23,6 +23,7 @@ The maintained Wildshape source is on [`main`](https://github.com/Mikaaah/Towns-
 - Dungeon carving protection uses individual structure pieces and neighboring chunk references. Selected large Overworld dungeons receive explicit spacing rules; resource landmarks and other dimensions retain native placement.
 - Habitat tag bridges connect actual TNK3 biomes to native dungeon and creature rules without duplicating spawn tables or changing their weights.
 - Ores cannot become synthetic stone layers; Create’s decorative rocks remain eligible. Terrain caches have bounded retention and do not recycle arrays still held by readers.
+- Optional [SkyLands 0.9.4 compatibility](docs/SKYLANDS_COMPATIBILITY.md) expands Overworld build space for native sky islands, including existing Wildshape saves. The saved terrain preset and noise height stay intact. Islands appear in new chunks, including beyond any pregenerated area.
 
 The [Beta 1.0 follow-up](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/WILDSHAPE_BETA_1_AUDIT_2026-11-10.md) compares the new pack export, while the [initial audit](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/WILDSHAPE_AUDIT_2026-11-08.md) retains the original findings and evidence. The [compatibility matrix](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/TNK3_COMPATIBILITY.md) links the exact dependency inventory, structure sets and the current Beta 1.0 export’s 318 entries. These records distinguish static inspection, focused tests and runtime evidence.
 
@@ -42,7 +43,7 @@ level-type=wildshape:wildshape
 
 The FML mod ID and resource namespace are **`wildshape`**. Configuration is written to **`config/wildshape/`**. Missing settings and custom presets are imported from the previous directories without replacing current settings or altering the originals. New share codes use `WILDSHAPE1:`; previously shared codes still import. Commands use `/wildshape`, with `/wildshape streams status` when Streams is installed.
 
-**Worlds from the former `ultraterraforged` namespace require a fresh world or separate migration.** Wildshape 1.0.2 keeps the same registry identity as 1.0.0 and 1.0.1. Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/WILDSHAPE_IDENTITY.md).
+**Worlds from the former `ultraterraforged` namespace require a fresh world or separate migration.** Wildshape 1.0.3 keeps the registry identity used by 1.0.0–1.0.2. Existing saves and exported datapacks referring to the previous namespace require a separate migration; copying settings does not migrate a world's registries. The mod does not rewrite existing worlds. See [identity and migration details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/WILDSHAPE_IDENTITY.md).
 
 | Build | Minecraft | Java | Scope |
 |---|---|---|---|
