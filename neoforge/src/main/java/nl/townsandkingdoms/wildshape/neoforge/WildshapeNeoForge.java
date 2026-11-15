@@ -34,6 +34,9 @@ public class WildshapeNeoForge {
         if (Boolean.getBoolean("wildshape.compatSmoke")) {
             nl.townsandkingdoms.wildshape.neoforge.compat.CompatibilitySmokeChecks.register();
         }
+        if (System.getProperty("wildshape.skylandsSmoke") != null) {
+            nl.townsandkingdoms.wildshape.neoforge.compat.SkylandsSmokeChecks.register();
+        }
         // Native currents are a built-in, optional NeoForge feature.
         if (ModList.get().isLoaded("streamsreflowing")) {
             nl.townsandkingdoms.wildshape.compat.streams.WildshapeStreams.initialize(modBus, modContainer);

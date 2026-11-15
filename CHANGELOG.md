@@ -1,3 +1,12 @@
+# 1.0.3
+
+- Added optional SkyLands NeoForge Port 0.9.4 compatibility. Wildshape worlds receive the extra Overworld build space required for native sky islands, biomes, foliage and structures.
+- Applied the height adjustment when world resources load, including saved Wildshape presets from 1.0.0–1.0.2. Preset ZIPs, world depth, terrain noise and other dimensions remain unchanged. Higher configured ceilings are retained.
+- Kept SkyLands' own Lithostitched biome injection, island features, generation settings and spawn rules. SkyLands and its normal dependencies remain separate installations; Wildshape gains no required dependency.
+- Added resource-policy regressions and an installed-server upgrade/save/reload fixture using the audited TNK3 biome stack.
+
+Minecraft 1.21.1 / NeoForge / Java 21. Islands appear in newly generated chunks; previously generated or pregenerated chunks are not regenerated. The `wildshape` registry identity is unchanged.
+
 # 1.0.2
 
 - Fixed the concurrent cache-eviction crash reported in TNK3 issue #158. Eviction sorts immutable access-time snapshots, removes entries by identity and never closes published terrain data.

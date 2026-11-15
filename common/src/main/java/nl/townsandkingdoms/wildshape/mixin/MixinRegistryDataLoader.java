@@ -13,6 +13,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.packs.resources.ResourceManager;
 import nl.townsandkingdoms.wildshape.data.preset.PresetStructureResources;
+import nl.townsandkingdoms.wildshape.compat.skylands.SkylandsDimensionResources;
+import nl.townsandkingdoms.wildshape.platform.ModLoaderUtil;
 import com.mojang.serialization.Decoder;
 import com.mojang.serialization.Lifecycle;
 
@@ -49,6 +51,9 @@ class MixinRegistryDataLoader {
 	private static <E> void wildshape$loadElement(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> key, Resource resource, RegistrationInfo info, @Local(argsOnly = true) ResourceManager resources) throws IOException {
         if (registry.key().equals(Registries.STRUCTURE_SET))
             resource = PresetStructureResources.patch(resources, key.location(), resource);
+        if (registry.key().equals(Registries.DIMENSION_TYPE))
+            resource = SkylandsDimensionResources.patch(resources, key.location(), resource,
+                    ModLoaderUtil.isLoaded("skylands"));
 		if (PresetPacks.isPresetPack(resource.sourcePackId())) {
 			info = new RegistrationInfo(Optional.empty(), Lifecycle.stable());
 		}

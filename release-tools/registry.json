@@ -698,8 +698,8 @@
       ],
       "artifact_id": "wildshape",
       "repository": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
-      "development_ref": "audit/tnk3-compat-1.0.12",
-      "development_version": "1.0.2",
+      "development_ref": "compat/skylands-0.9.4",
+      "development_version": "1.0.3",
       "editions": [
         "standard"
       ],
