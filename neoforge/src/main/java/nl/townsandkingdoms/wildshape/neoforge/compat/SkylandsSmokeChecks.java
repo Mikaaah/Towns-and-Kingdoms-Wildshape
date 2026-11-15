@@ -54,11 +54,16 @@ public final class SkylandsSmokeChecks {
                     "Wildshape terrain was replaced");
             var generator = (NoiseBasedChunkGenerator) level.getChunkSource().getGenerator();
             int noiseHeight = generator.generatorSettings().value().noiseSettings().height();
-            require(noiseHeight == 384, "The baseline noise terrain height changed: " + noiseHeight);
-            require(level.getMinBuildHeight() == -64, "The baseline world bottom changed");
+            var baseline = JsonParser.parseString(Files.readString(FMLPaths.GAMEDIR.get()
+                    .resolve("skylands-baseline.json"))).getAsJsonObject();
+            require(noiseHeight == baseline.get("noiseHeight").getAsInt(),
+                    "The saved baseline noise terrain height changed: " + noiseHeight);
+            require(level.getMinBuildHeight() == baseline.get("minY").getAsInt(),
+                    "The saved baseline world bottom changed");
             report.put("noiseHeight", noiseHeight);
             report.put("minY", level.getMinBuildHeight());
             report.put("maxYExclusive", level.getMaxBuildHeight());
+            report.put("previousMaxYExclusive", baseline.get("maxYExclusive").getAsInt());
             report.put("mods", ModList.get().getMods().stream()
                     .map(mod -> mod.getModId() + "@" + mod.getVersion()).sorted().toList());
             var dimensions = new LinkedHashMap<String, Object>();
@@ -73,7 +78,8 @@ public final class SkylandsSmokeChecks {
 
             if (mode.equals("absent")) {
                 require(!ModList.get().isLoaded("skylands"), "Absent fixture has SkyLands installed");
-                require(level.getMaxBuildHeight() == 320, "Height expanded without SkyLands");
+                require(level.getMaxBuildHeight() == baseline.get("maxYExclusive").getAsInt(),
+                        "Height expanded without SkyLands");
                 level.getChunk(0, 0);
             } else {
                 require(ModList.get().isLoaded("skylands"), "SkyLands is missing");
@@ -121,6 +127,13 @@ public final class SkylandsSmokeChecks {
                 }
                 report.put("islandX", x); report.put("islandZ", z);
                 var chunk = level.getChunk(Math.floorDiv(x, 16), Math.floorDiv(z, 16));
+                var ceilingMarker = new BlockPos(x, 527, z);
+                if (mode.equals("generate"))
+                    require(level.setBlock(ceilingMarker, Blocks.EMERALD_BLOCK.defaultBlockState(), 2),
+                            "Cannot write the newly available Y=527 build layer");
+                require(level.getBlockState(ceilingMarker).is(Blocks.EMERALD_BLOCK),
+                        "The new-ceiling marker did not survive reload");
+                report.put("newCeilingMarkerY", 527);
                 int blocks = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
                 var position = new BlockPos.MutableBlockPos();
                 int startX = chunk.getPos().getMinBlockX(), startZ = chunk.getPos().getMinBlockZ();
@@ -131,8 +144,8 @@ public final class SkylandsSmokeChecks {
                             blocks++; min = Math.min(min, y); max = Math.max(max, y);
                         }
                     }
-                require(blocks > 100, "Native islands did not generate above the old ceiling: " + blocks);
-                report.put("skyBlocksAboveOldCeiling", blocks);
+                require(blocks > 100, "Native islands did not generate in the sky layer: " + blocks);
+                report.put("skyBlocksInSkyLayer", blocks);
                 report.put("skyBlockMinY", min); report.put("skyBlockMaxY", max);
                 require(level.getBlockState(new BlockPos(8, 90, 8)).is(Blocks.DIAMOND_BLOCK),
                         "Baseline existing-world marker was lost");

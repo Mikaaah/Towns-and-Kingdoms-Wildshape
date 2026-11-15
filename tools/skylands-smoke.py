@@ -257,13 +257,20 @@ def main():
     world = server / "upgrade-world"
     preset_file = world / "datapacks/wildshape-preset.zip"
     preset_hash = hashlib.sha256(preset_file.read_bytes()).hexdigest()
-    before = snapshot(world, 0, 0, 20)
+    with zipfile.ZipFile(preset_file) as pack:
+        dimension = json.loads(pack.read("data/minecraft/dimension_type/overworld.json"))
+        noise = json.loads(pack.read("data/minecraft/worldgen/noise_settings/overworld.json"))
+    baseline_info = {"version": "1.0.2", "noiseHeight": noise["noise"]["height"],
+                     "minY": dimension["min_y"], "maxYExclusive": dimension["min_y"] + dimension["height"]}
+    (server / "skylands-baseline.json").write_text(json.dumps(baseline_info, indent=2))
+    (root / "skylands-baseline.json").write_text(json.dumps(baseline_info, indent=2))
+    before = snapshot(world, 0, 0, baseline_info["maxYExclusive"] // 16)
     (root / "existing-chunk-before.json").write_text(json.dumps(before, indent=2))
     shutil.copyfile(args.artifact, mods / "wildshape.jar")
     for jar in deps.glob("*.jar"):
         shutil.copyfile(jar, mods / jar.name)
     generated = run_server(root, server, "generate")
-    after = snapshot(world, 0, 0, 20)
+    after = snapshot(world, 0, 0, baseline_info["maxYExclusive"] // 16)
     (root / "existing-chunk-after.json").write_text(json.dumps(after, indent=2))
     assert before == after, "Existing chunk blocks or biomes changed during upgrade"
     assert hashlib.sha256(preset_file.read_bytes()).hexdigest() == preset_hash, "Saved terrain preset was rewritten"
@@ -274,7 +281,7 @@ def main():
     island_after = snapshot(world, x, z, 33)
     (root / "island-after-reload.json").write_text(json.dumps(island_after, indent=2))
     assert island_before == island_after, "Saved island blocks or biomes changed after reload"
-    assert generated["skyBlocksAboveOldCeiling"] == reloaded["skyBlocksAboveOldCeiling"]
+    assert generated["skyBlocksInSkyLayer"] == reloaded["skyBlocksInSkyLayer"]
     for jar in mods.glob("*.jar"):
         if jar.name != "wildshape.jar":
             jar.unlink()
