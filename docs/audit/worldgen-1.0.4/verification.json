@@ -1,0 +1,53 @@
+{
+  "sourceCommit": "80607f57ddd176482cc7d48f12dafbc4804ecf8f",
+  "artifactSha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0",
+  "buildWorkflow": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/actions/runs/43719882216",
+  "commonRegressionTests": 84,
+  "testFailures": 0,
+  "runtimeNeoForge": "21.1.266",
+  "java": 21,
+  "processorsExposed": 4,
+  "c2meInstalled": false,
+  "skylands": "0.9.4.1",
+  "streams": "2.17.3",
+  "coldChunkRequest": {
+    "blockPosition": [
+      7141,
+      350,
+      5709
+    ],
+    "baseline103Seconds": 38.39730421100103,
+    "patched104Seconds": 24.706686331999663
+  },
+  "structureLocate": {
+    "command": "execute positioned -1984 18 -16 run locate structure minecraft:village_plains",
+    "baseline103Seconds": 3.929542477000723,
+    "patched104Seconds": 3.0988293789996533,
+    "result": "The nearest minecraft:village_plains is at [-1824, ~, 2848] (2868 blocks away)\n"
+  },
+  "savedChunkStatus": "minecraft:full",
+  "nativeSkylandsBlockTypes": [
+    "skylands:blow_flower",
+    "skylands:celestium_ore",
+    "skylands:celestium_spike",
+    "skylands:golden_fern",
+    "skylands:golden_grass",
+    "skylands:golden_grass_block",
+    "skylands:golden_mossy_skyrock",
+    "skylands:golden_short_grass",
+    "skylands:skyrock",
+    "skylands:smoke_flower_plant"
+  ],
+  "savedPresetUnchanged": true,
+  "savedPresetSha256": "db4745f9bf850de99b79fb9b6d64ed5c490cbb8ad2c55c012efb14eef8425d4c",
+  "watchdogMillis": 60000,
+  "watchdogTriggered": false,
+  "cleanShutdown": true,
+  "limits": [
+    "One reduced-stack, fixed-seed comparison; this is not a full-pack TPS benchmark.",
+    "The affected server world and complete modpack were not run.",
+    "Cold generation still paused the server for about 25 seconds in this setup.",
+    "A synchronous chunk request exercises the generation wait seen during teleporting, not a network-player teleport.",
+    "An immediate execute-if-loaded check was false on both versions; the saved FULL chunk and native island block data were verified after shutdown."
+  ]
+}

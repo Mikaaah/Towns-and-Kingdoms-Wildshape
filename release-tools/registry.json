@@ -774,6 +774,18 @@
           "filename": "wildshape-1.0.3-neoforge-1.21.1.jar",
           "source_commit": "228f0a6c6c6b941090ec14a31614c5011c55f41f",
           "evidence": "Verified development artifact and release identity"
+        },
+        {
+          "role": "development",
+          "target": "neoforge-1.21.1",
+          "edition": "standard",
+          "mod_id": "wildshape",
+          "internal_version": "1.0.4",
+          "sha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0",
+          "payload_sha256": "ec0b4280316b1a5a1b099404e87c954f1ffb8e687f6c3e8c2e82f85e26af4a3e",
+          "filename": "wildshape-1.0.4-neoforge-1.21.1.jar",
+          "source_commit": "80607f57ddd176482cc7d48f12dafbc4804ecf8f",
+          "evidence": "Verified development artifact and release identity"
         }
       ]
     },
