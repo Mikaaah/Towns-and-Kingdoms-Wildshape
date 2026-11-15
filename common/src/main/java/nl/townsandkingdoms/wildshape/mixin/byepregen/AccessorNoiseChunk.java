@@ -1,0 +1,13 @@
+package nl.townsandkingdoms.wildshape.mixin.byepregen;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+import net.minecraft.world.level.levelgen.NoiseChunk;
+
+@Mixin(NoiseChunk.class)
+public interface AccessorNoiseChunk {
+	// as tall as the terrain in Wildshape's worlds (MixinNoiseChunk)
+	@Accessor
+	int getCellCountY();
+}

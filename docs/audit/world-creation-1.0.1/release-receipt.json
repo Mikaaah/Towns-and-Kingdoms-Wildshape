@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "project": "wildshape",
+  "version": "1.0.1",
+  "edition": "standard",
+  "git_tag": "v1.0.1",
+  "files": [
+    {
+      "target": "neoforge-1.21.1",
+      "filename": "wildshape-1.0.1-neoforge-1.21.1.jar",
+      "version": "1.0.1",
+      "sha256": "5af33eb20acdfd2c24aa814cb3fdd6714dc0e7e11f62546950ccf3b5d7a56463",
+      "payload_sha256": "0d559054bfc23adde80cb3003e04d0a62c6cc00cd178cb4210a1eb37e538b0ee",
+      "source_commit": "58b1ad3dead1cbeef725b69300f7b0e9b1ac4803",
+      "minecraft": "1.21.1",
+      "loader": "neoforge",
+      "java": 21,
+      "curseforge_title": "wildshape-1.0.1-neoforge-1.21.1.jar",
+      "curseforge_type": "release"
+    }
+  ]
+}

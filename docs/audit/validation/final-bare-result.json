@@ -1,0 +1,32 @@
+{
+  "mods": [
+    "minecraft@1.21.1",
+    "neoforge@21.1.262",
+    "ultraterraforged@1.0.12-beta.1+1.21.1"
+  ],
+  "otherDimensionsRetainTheirGenerators": [
+    "minecraft:the_nether",
+    "minecraft:the_end"
+  ],
+  "generatedOtherDimensionSamples": false,
+  "structureSpacing": {},
+  "customStructurePlacementTypes": {},
+  "legacyHabitats": {
+    "is_coniferous": 5,
+    "is_hot_overworld": 13,
+    "is_dry_overworld": 7,
+    "is_cold_overworld": 20,
+    "is_dense_overworld": 6
+  },
+  "threadIndependentColumnHeights": {
+    "13,2": 71,
+    "2560,2048": 187,
+    "-4096,5120": 111,
+    "13312,2144": 102
+  },
+  "biomeSearchRestoresLookupScope": true,
+  "generatedSampleChunks": 3,
+  "registeredBiomes": 64,
+  "protectedCaveTagMembers": 1,
+  "passed": true
+}

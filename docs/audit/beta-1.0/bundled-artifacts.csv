@@ -1,0 +1,4 @@
+filename,bytes,sha256,mod_id,version,scope
+towns-and-kingdoms-workshop-0.11.10-neoforge-1.21.1.jar,947251,5eb10292d38905f8f6cc2bb866eea43dc4502eef4f22144d23bd41a1c1386f59,tnkcore,0.11.10,Inventory only; existing owned mod is not rebuilt by this task
+tnkloot-0.19.15-tnk-beta.1.jar,650118,de63791209f89b9bd635206b5ecfa38fe4e3f8f230ebe52230253a231397bfe0,tnkloot,0.19.15-tnk-beta.1,Inventory only; existing owned mod is not rebuilt by this task
+wildshape-1.0.12-beta.1+1.21.1-neoforge.jar,2028562,bd173b362a8b9489751aa57d6590737f445b4547034d3dbab5313b3037433fb1,ultraterraforged,1.0.12-beta.1+1.21.1,Replace old terrain JAR with the new release

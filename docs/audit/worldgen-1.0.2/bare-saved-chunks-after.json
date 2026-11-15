@@ -1,0 +1,33 @@
+{
+  "world": "worldgen-bare",
+  "chunks": [
+    {
+      "x": -92,
+      "z": -238,
+      "status": "minecraft:full",
+      "dataVersion": 3955,
+      "sections": 36,
+      "compression": 2,
+      "sectionPaletteSha256": "15bcacfcba9902a1289455598f267dbc8ab03546fc251df630227fc47331bfdd"
+    },
+    {
+      "x": -114,
+      "z": -224,
+      "status": "minecraft:full",
+      "dataVersion": 3955,
+      "sections": 36,
+      "compression": 2,
+      "sectionPaletteSha256": "53b8d721e586ad931d90bd9b0f3adba8b0f1eb9ecf8456c166aee181378abda3"
+    },
+    {
+      "x": -7,
+      "z": -24,
+      "status": "minecraft:full",
+      "dataVersion": 3955,
+      "sections": 36,
+      "compression": 2,
+      "sectionPaletteSha256": "8d65b3926d1f0f28fee741c54c71da1e5ce4137cab835836ad32eb4718ddec4e"
+    }
+  ],
+  "passed": true
+}

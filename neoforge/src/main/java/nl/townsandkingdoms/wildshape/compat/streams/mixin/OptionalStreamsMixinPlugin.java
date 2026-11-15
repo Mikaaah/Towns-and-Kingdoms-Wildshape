@@ -1,0 +1,34 @@
+package nl.townsandkingdoms.wildshape.compat.streams.mixin;
+
+import nl.townsandkingdoms.wildshape.platform.ModLoaderUtil;
+import nl.townsandkingdoms.wildshape.compat.streams.StreamsVersion;
+import java.util.List;
+import java.util.Set;
+import org.objectweb.asm.tree.ClassNode;
+import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
+import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+
+/** Do not resolve Streams-dependent target classes unless the optional mod is present. */
+public final class OptionalStreamsMixinPlugin implements IMixinConfigPlugin {
+    @Override public void onLoad(String mixinPackage) {}
+    @Override public String getRefMapperConfig() { return null; }
+    @Override public boolean shouldApplyMixin(String target, String mixin) {
+        if (!ModLoaderUtil.isLoaded("streamsreflowing")) return false;
+        var file = net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById("streamsreflowing");
+        String version = file.getMods().getFirst().getVersion().toString();
+        StreamsVersion profile = StreamsVersion.of(version);
+        if (profile == StreamsVersion.UNSUPPORTED) return false;
+        boolean latest = profile == StreamsVersion.MODERN_217;
+        boolean modern = profile.modern();
+        if (mixin.endsWith("Modern217BakedFlowMixin")) return latest;
+        if (mixin.endsWith("ModernBakedFlowMixin")) return modern && !latest;
+        if (mixin.contains(".Modern")) return modern;
+        if (mixin.endsWith("ActualGridMixin") || mixin.endsWith("ActualBakedFlowMixin")
+                || mixin.endsWith("ActualParticleMixin")) return !modern;
+        return true;
+    }
+    @Override public void acceptTargets(Set<String> mine, Set<String> other) {}
+    @Override public List<String> getMixins() { return null; }
+    @Override public void preApply(String target, ClassNode node, String mixin, IMixinInfo info) {}
+    @Override public void postApply(String target, ClassNode node, String mixin, IMixinInfo info) {}
+}

@@ -1,0 +1,1251 @@
+{
+  "note": "Required server-side dependency IDs, including nested JAR manifests; live loader checks version ranges. Supports type=required, mandatory=true and required=true.",
+  "outerJars": 111,
+  "metadata": [
+    {
+      "jar": "cf-1001614-8345326.jar",
+      "mods": [
+        "lionfishapi"
+      ]
+    },
+    {
+      "jar": "cf-1005676-8466444.jar",
+      "mods": [
+        "create_aquatic_ambitions"
+      ]
+    },
+    {
+      "jar": "cf-1015096-5812193.jar",
+      "mods": [
+        "bettermineshafts"
+      ]
+    },
+    {
+      "jar": "cf-1015100-8894736.jar",
+      "mods": [
+        "yungsapi"
+      ]
+    },
+    {
+      "jar": "cf-1015114-6276955.jar",
+      "mods": [
+        "betterdeserttemples"
+      ]
+    },
+    {
+      "jar": "cf-1015115-5924487.jar",
+      "mods": [
+        "betteroceanmonuments"
+      ]
+    },
+    {
+      "jar": "cf-1015118-6606621.jar",
+      "mods": [
+        "betterfortresses"
+      ]
+    },
+    {
+      "jar": "cf-1015127-6300968.jar",
+      "mods": [
+        "betterendisland"
+      ]
+    },
+    {
+      "jar": "cf-1018043-9490146.jar",
+      "mods": [
+        "knightquest"
+      ]
+    },
+    {
+      "jar": "cf-1044992-9326605.jar",
+      "mods": [
+        "natures_spirit"
+      ]
+    },
+    {
+      "jar": "cf-1071657-9176454.jar",
+      "mods": [
+        "wildernature"
+      ]
+    },
+    {
+      "jar": "cf-1071657-9176454.jar!/META-INF/jars/foundation-neoforge-1.0.6.jar",
+      "mods": [
+        "foundation"
+      ]
+    },
+    {
+      "jar": "cf-1073197-5895490.jar",
+      "mods": [
+        "aether_villages"
+      ]
+    },
+    {
+      "jar": "cf-1082132-9187053.jar",
+      "mods": [
+        "natures_delight"
+      ]
+    },
+    {
+      "jar": "cf-1105855-9190296.jar",
+      "mods": [
+        "knightlib"
+      ]
+    },
+    {
+      "jar": "cf-1111833-8707156.jar",
+      "mods": [
+        "netherexp"
+      ]
+    },
+    {
+      "jar": "cf-1111833-8707156.jar!/META-INF/jarjar/biolith-neoforge-3.0.10.jar",
+      "mods": [
+        "biolith"
+      ]
+    },
+    {
+      "jar": "cf-1123977-9202578.jar",
+      "mods": [
+        "fragmentum"
+      ]
+    },
+    {
+      "jar": "cf-1123977-9202578.jar!/META-INF/jarjar/yet-another-config-lib-3.6.6+1.21.1-neoforge.jar",
+      "mods": [
+        "yet_another_config_lib_v3"
+      ]
+    },
+    {
+      "jar": "cf-1125946-9428115.jar",
+      "mods": [
+        "witchery"
+      ]
+    },
+    {
+      "jar": "cf-1125946-9428115.jar!/META-INF/jarjar/sable-companion-common-1.21.1-1.4.2.jar",
+      "mods": [
+        "sablecompanion"
+      ]
+    },
+    {
+      "jar": "cf-1158628-8707151.jar",
+      "mods": [
+        "elysium_api"
+      ]
+    },
+    {
+      "jar": "cf-1164949-7808552.jar",
+      "mods": [
+        "integrated_cataclysm"
+      ]
+    },
+    {
+      "jar": "cf-1173950-9366366.jar",
+      "mods": [
+        "guideme"
+      ]
+    },
+    {
+      "jar": "cf-1312371-8673825.jar",
+      "mods": [
+        "sable"
+      ]
+    },
+    {
+      "jar": "cf-1312371-8673825.jar!/META-INF/jarjar/sable-companion-common-1.21.1-1.6.0.jar",
+      "mods": [
+        "sablecompanion"
+      ]
+    },
+    {
+      "jar": "cf-1312371-8673825.jar!/META-INF/jarjar/veil-neoforge-1.21.1-4.3.2.jar",
+      "mods": [
+        "veil"
+      ]
+    },
+    {
+      "jar": "cf-1314084-8123167.jar",
+      "mods": [
+        "block_factorys_bosses"
+      ]
+    },
+    {
+      "jar": "cf-1325457-9015554.jar",
+      "mods": [
+        "integrated_dungeons_arise"
+      ]
+    },
+    {
+      "jar": "cf-1335768-8383193.jar",
+      "mods": [
+        "mr_epic_structureswitchhuts"
+      ]
+    },
+    {
+      "jar": "cf-1345407-9243805.jar",
+      "mods": [
+        "nostructureoverlap"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar",
+      "mods": [
+        "starcatcher"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wdUtils-2.0-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "wdutils"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/fancytabsections-6.2.1-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "fancytabsections"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/libtooltips-2.3.2-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "libtooltips"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wds-selling-bin-1.6-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "selling_bin"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wds-selling-bin-1.6-NEOFORGE-1.21.1.jar!/META-INF/jarjar/wdUtils-1.8-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "wdutils"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wds-selling-bin-1.6-NEOFORGE-1.21.1.jar!/META-INF/jarjar/fancytabsections-6.2-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "fancytabsections"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wds-selling-bin-1.6-NEOFORGE-1.21.1.jar!/META-INF/jarjar/fancytabsections-6.2-NEOFORGE-1.21.1.jar!/META-INF/jarjar/wdUtils-1.7-NEOFORGE-1.21.1.jar",
+      "mods": [
+        "wdutils"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/wds-selling-bin-1.6-NEOFORGE-1.21.1.jar!/META-INF/jarjar/tiny-multiblock-lib-neoforge-1.21.1-4.0.0.jar",
+      "mods": [
+        "tinymultiblocklib"
+      ]
+    },
+    {
+      "jar": "cf-1357603-9204486.jar!/META-INF/jarjar/tiny-multiblock-lib-neoforge-1.21.1-4.0.1.jar",
+      "mods": [
+        "tinymultiblocklib"
+      ]
+    },
+    {
+      "jar": "cf-1399928-9149574.jar",
+      "mods": [
+        "alpinewhispers"
+      ]
+    },
+    {
+      "jar": "cf-1399928-9149574.jar!/META-INF/jars/foundation-neoforge-1.0.6.jar",
+      "mods": [
+        "foundation"
+      ]
+    },
+    {
+      "jar": "cf-1415721-7528193.jar",
+      "mods": [
+        "alexsmobs"
+      ]
+    },
+    {
+      "jar": "cf-1415723-7982052.jar",
+      "mods": [
+        "citadel"
+      ]
+    },
+    {
+      "jar": "cf-1420348-7981977.jar",
+      "mods": [
+        "alexscaves"
+      ]
+    },
+    {
+      "jar": "cf-1422273-9172421.jar",
+      "mods": [
+        "wunderlib"
+      ]
+    },
+    {
+      "jar": "cf-1422283-9259216.jar",
+      "mods": [
+        "bclib"
+      ]
+    },
+    {
+      "jar": "cf-1422284-9490293.jar",
+      "mods": [
+        "wover"
+      ]
+    },
+    {
+      "jar": "cf-1422293-9306678.jar",
+      "mods": [
+        "betternether"
+      ]
+    },
+    {
+      "jar": "cf-1422294-9306604.jar",
+      "mods": [
+        "betterend"
+      ]
+    },
+    {
+      "jar": "cf-1482366-8203979.jar",
+      "mods": [
+        "integrated_seven_seas"
+      ]
+    },
+    {
+      "jar": "cf-1492763-9328060.jar",
+      "mods": [
+        "irons_lib"
+      ]
+    },
+    {
+      "jar": "cf-1501318-8837503.jar",
+      "mods": [
+        "mr_epic_structuresdungeons"
+      ]
+    },
+    {
+      "jar": "cf-1581408-9376530.jar",
+      "mods": [
+        "streamsreflowing"
+      ]
+    },
+    {
+      "jar": "cf-1586838-8398146.jar",
+      "mods": [
+        "apple_cows"
+      ]
+    },
+    {
+      "jar": "cf-1587709-8960804.jar",
+      "mods": [
+        "integrated_mowzies_mobs"
+      ]
+    },
+    {
+      "jar": "cf-1600197-8611815.jar",
+      "mods": [
+        "mr_epic_structuresjungletemples"
+      ]
+    },
+    {
+      "jar": "cf-1620396-8983496.jar",
+      "mods": [
+        "archaion"
+      ]
+    },
+    {
+      "jar": "cf-1668579-9084406.jar",
+      "mods": [
+        "ancient_remnants"
+      ]
+    },
+    {
+      "jar": "cf-1676380-9239788.jar",
+      "mods": [
+        "hybrid_aquatic_starcatcher_compat"
+      ]
+    },
+    {
+      "jar": "cf-1690092-8995436.jar",
+      "mods": [
+        "integratedpatches"
+      ]
+    },
+    {
+      "jar": "cf-1750740-9424424.jar",
+      "mods": [
+        "streamcontrol"
+      ]
+    },
+    {
+      "jar": "cf-1783229-9433758.jar",
+      "mods": [
+        "boss_respawner"
+      ]
+    },
+    {
+      "jar": "cf-220318-8288121.jar",
+      "mods": [
+        "biomesoplenty"
+      ]
+    },
+    {
+      "jar": "cf-223794-8992605.jar",
+      "mods": [
+        "ae2"
+      ]
+    },
+    {
+      "jar": "cf-227639-7797302.jar",
+      "mods": [
+        "twilightforest"
+      ]
+    },
+    {
+      "jar": "cf-231951-6733669.jar",
+      "mods": [
+        "immersiveengineering"
+      ]
+    },
+    {
+      "jar": "cf-243121-9335735.jar",
+      "mods": [
+        "quark"
+      ]
+    },
+    {
+      "jar": "cf-243121-9335735.jar!/META-INF/jarjar/biolith-neoforge-3.0.14.jar",
+      "mods": [
+        "biolith"
+      ]
+    },
+    {
+      "jar": "cf-245755-8873000.jar",
+      "mods": [
+        "waystones"
+      ]
+    },
+    {
+      "jar": "cf-250498-7760267.jar",
+      "mods": [
+        "mowziesmobs"
+      ]
+    },
+    {
+      "jar": "cf-255308-7043502.jar",
+      "mods": [
+        "aether"
+      ]
+    },
+    {
+      "jar": "cf-255308-7043502.jar!/META-INF/jarjar/cumulus_menus-1.21.1-2.0.7-neoforge.jar",
+      "mods": [
+        "cumulus_menus"
+      ]
+    },
+    {
+      "jar": "cf-255308-7043502.jar!/META-INF/jarjar/nitrogen_internals-1.21.1-1.1.25-neoforge.jar",
+      "mods": [
+        "nitrogen_internals"
+      ]
+    },
+    {
+      "jar": "cf-255308-7043502.jar!/META-INF/jarjar/accessories-neoforge-1.1.0-beta.48+1.21.1.jar",
+      "mods": [
+        "accessories"
+      ]
+    },
+    {
+      "jar": "cf-283644-9153039.jar",
+      "mods": [
+        "placebo"
+      ]
+    },
+    {
+      "jar": "cf-306770-7730942.jar",
+      "mods": [
+        "patchouli"
+      ]
+    },
+    {
+      "jar": "cf-309927-6529130.jar",
+      "mods": [
+        "curios"
+      ]
+    },
+    {
+      "jar": "cf-313970-8993983.jar",
+      "mods": [
+        "apotheosis"
+      ]
+    },
+    {
+      "jar": "cf-326895-8892693.jar",
+      "mods": [
+        "upgrade_aquatic"
+      ]
+    },
+    {
+      "jar": "cf-328085-7963363.jar",
+      "mods": [
+        "create"
+      ]
+    },
+    {
+      "jar": "cf-328085-7963363.jar!/META-INF/jarjar/flywheel-neoforge-1.21.1-1.0.6.jar",
+      "mods": [
+        "flywheel"
+      ]
+    },
+    {
+      "jar": "cf-328085-7963363.jar!/META-INF/jarjar/ponder-neoforge-1.0.82+mc1.21.1.jar",
+      "mods": [
+        "ponder"
+      ]
+    },
+    {
+      "jar": "cf-351264-8335665.jar!/META-INF/jarjar/thedarkcolour.kffmod-5.12.0.jar",
+      "mods": [
+        "kotlinforforge"
+      ]
+    },
+    {
+      "jar": "cf-365045-7118591.jar",
+      "mods": [
+        "autumnity"
+      ]
+    },
+    {
+      "jar": "cf-382216-8819375.jar",
+      "mods": [
+        "blueprint"
+      ]
+    },
+    {
+      "jar": "cf-388172-8893490.jar",
+      "mods": [
+        "geckolib"
+      ]
+    },
+    {
+      "jar": "cf-398521-8765184.jar",
+      "mods": [
+        "farmersdelight"
+      ]
+    },
+    {
+      "jar": "cf-401955-9423156.jar",
+      "mods": [
+        "ars_nouveau"
+      ]
+    },
+    {
+      "jar": "cf-401955-9423156.jar!/META-INF/jarjar/nuggets-neoforge-1.21.1-1.1.0.48.jar",
+      "mods": [
+        "nuggets"
+      ]
+    },
+    {
+      "jar": "cf-401955-9423156.jar!/META-INF/jarjar/infiniverse-568341-5486311.jar",
+      "mods": [
+        "infiniverse"
+      ]
+    },
+    {
+      "jar": "cf-401955-9423156.jar!/META-INF/jarjar/lambdynamiclights-api-4.5.1+1.21.1-mojmap.jar",
+      "mods": [
+        "lambdynlights_api"
+      ]
+    },
+    {
+      "jar": "cf-404183-8503446.jar",
+      "mods": [
+        "endrem"
+      ]
+    },
+    {
+      "jar": "cf-412082-9211734.jar",
+      "mods": [
+        "supplementaries"
+      ]
+    },
+    {
+      "jar": "cf-412082-9211734.jar!/META-INF/jarjar/mixinsquared-forge-0.3.7.jar",
+      "mods": [
+        "mixinsquared"
+      ]
+    },
+    {
+      "jar": "cf-412082-9211734.jar!/META-INF/jarjar/sable-companion-common-1.21.1-1.6.0.jar",
+      "mods": [
+        "sablecompanion"
+      ]
+    },
+    {
+      "jar": "cf-415438-7958876.jar",
+      "mods": [
+        "croptopia"
+      ]
+    },
+    {
+      "jar": "cf-417430-9318571.jar",
+      "mods": [
+        "vanillabackport"
+      ]
+    },
+    {
+      "jar": "cf-419699-8492726.jar",
+      "mods": [
+        "architectury"
+      ]
+    },
+    {
+      "jar": "cf-422301-9431839.jar",
+      "mods": [
+        "sophisticatedbackpacks"
+      ]
+    },
+    {
+      "jar": "cf-499980-9458248.jar",
+      "mods": [
+        "moonlight"
+      ]
+    },
+    {
+      "jar": "cf-499980-9458248.jar!/META-INF/jarjar/codecui-neoforge-1.21.1-1.4.7.jar",
+      "mods": [
+        "codecui"
+      ]
+    },
+    {
+      "jar": "cf-531761-9406246.jar",
+      "mods": [
+        "balm"
+      ]
+    },
+    {
+      "jar": "cf-531761-9406246.jar!/META-INF/jarjar/kuma-api-neoforge-21.0.8+1.21.jar",
+      "mods": [
+        "kuma_api"
+      ]
+    },
+    {
+      "jar": "cf-532610-9215303.jar",
+      "mods": [
+        "owo"
+      ]
+    },
+    {
+      "jar": "cf-532610-9215303.jar!/META-INF/jars/fabric-api-base-0.4.42+d1308dedd1.jar",
+      "mods": [
+        "fabric_api_base"
+      ]
+    },
+    {
+      "jar": "cf-538392-9384356.jar",
+      "mods": [
+        "modonomicon"
+      ]
+    },
+    {
+      "jar": "cf-551586-8931182.jar",
+      "mods": [
+        "cataclysm"
+      ]
+    },
+    {
+      "jar": "cf-552176-8425271.jar",
+      "mods": [
+        "amplified_nether"
+      ]
+    },
+    {
+      "jar": "cf-561470-9057244.jar",
+      "mods": [
+        "ars_elemental"
+      ]
+    },
+    {
+      "jar": "cf-561470-9057244.jar!/META-INF/jarjar/sauce-1.21.1-0.0.61.100.jar",
+      "mods": [
+        "sauce"
+      ]
+    },
+    {
+      "jar": "cf-570073-5973188.jar",
+      "mods": [
+        "resourcefullib"
+      ]
+    },
+    {
+      "jar": "cf-605375-8232359.jar",
+      "mods": [
+        "idas"
+      ]
+    },
+    {
+      "jar": "cf-616457-7264731.jar",
+      "mods": [
+        "lodestone"
+      ]
+    },
+    {
+      "jar": "cf-618298-9477647.jar",
+      "mods": [
+        "sophisticatedcore"
+      ]
+    },
+    {
+      "jar": "cf-619320-9431872.jar",
+      "mods": [
+        "sophisticatedstorage"
+      ]
+    },
+    {
+      "jar": "cf-658587-7389814.jar",
+      "mods": [
+        "playeranimator"
+      ]
+    },
+    {
+      "jar": "cf-659011-8201775.jar",
+      "mods": [
+        "deeperdarker"
+      ]
+    },
+    {
+      "jar": "cf-659110-9252522.jar",
+      "mods": [
+        "regions_unexplored"
+      ]
+    },
+    {
+      "jar": "cf-659110-9252522.jar!/META-INF/jarjar/apollib-1.2.0-neoforge-21.1.jar",
+      "mods": [
+        "apollib"
+      ]
+    },
+    {
+      "jar": "cf-661376-8161672.jar",
+      "mods": [
+        "integrated_villages"
+      ]
+    },
+    {
+      "jar": "cf-676721-8763471.jar",
+      "mods": [
+        "aeronautics_bundled"
+      ]
+    },
+    {
+      "jar": "cf-676721-8763471.jar!/META-INF/jarjar/dev.eriksonn.aeronautics.aeronautics-neoforge-1.21.1-1.3.2.jar",
+      "mods": [
+        "aeronautics"
+      ]
+    },
+    {
+      "jar": "cf-676721-8763471.jar!/META-INF/jarjar/dev.ryanhcode.offroad.offroad-neoforge-1.21.1-1.3.2.jar",
+      "mods": [
+        "offroad"
+      ]
+    },
+    {
+      "jar": "cf-676721-8763471.jar!/META-INF/jarjar/dev.simulated_team.simulated.simulated-neoforge-1.21.1-1.3.2.jar",
+      "mods": [
+        "simulated"
+      ]
+    },
+    {
+      "jar": "cf-815548-7802495.jar",
+      "mods": [
+        "integrated_stronghold"
+      ]
+    },
+    {
+      "jar": "cf-817709-9151098.jar",
+      "mods": [
+        "integrated_api"
+      ]
+    },
+    {
+      "jar": "cf-834427-9063977.jar",
+      "mods": [
+        "hybrid_aquatic"
+      ]
+    },
+    {
+      "jar": "cf-852465-7843283.jar",
+      "mods": [
+        "deep_aether"
+      ]
+    },
+    {
+      "jar": "cf-852465-7843283.jar!/META-INF/jarjar/TerraBlender-neoforge-1.21.1-4.1.0.3.jar",
+      "mods": [
+        "terrablender"
+      ]
+    },
+    {
+      "jar": "cf-852465-7843283.jar!/META-INF/jarjar/aeroblender-1.21.1-1.0.0-neoforge.jar",
+      "mods": [
+        "aeroblender"
+      ]
+    },
+    {
+      "jar": "cf-852512-8435635.jar",
+      "mods": [
+        "biolith"
+      ]
+    },
+    {
+      "jar": "cf-855414-8680204.jar",
+      "mods": [
+        "irons_spellbooks"
+      ]
+    },
+    {
+      "jar": "cf-883374-9063597.jar",
+      "mods": [
+        "hapi"
+      ]
+    },
+    {
+      "jar": "cf-885449-5872111.jar",
+      "mods": [
+        "epherolib"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar",
+      "mods": [
+        "fabric_api",
+        "forgified_fabric_api"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-command-api-v2-2.2.28+36d727be19.jar",
+      "mods": [
+        "fabric_command_api_v2"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-networking-api-v1-4.3.1+204211bf19.jar",
+      "mods": [
+        "fabric_networking_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-convention-tags-v2-2.12.0+75d3639619.jar",
+      "mods": [
+        "fabric_convention_tags_v2"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-block-view-api-v2-1.0.11+e9036fd419.jar",
+      "mods": [
+        "fabric_block_view_api_v2"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-content-registries-v0-8.0.19+5e0d320019.jar",
+      "mods": [
+        "fabric_content_registries_v0"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-transfer-api-v1-5.4.4+6244b11119.jar",
+      "mods": [
+        "fabric_transfer_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-biome-api-v1-13.0.31+1e62d33c19.jar",
+      "mods": [
+        "fabric_biome_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-particles-v1-4.0.2+824f924c19.jar",
+      "mods": [
+        "fabric_particles_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-lifecycle-events-v1-2.6.0+e40d8add19.jar",
+      "mods": [
+        "fabric_lifecycle_events_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-api-base-0.4.42+d1308ded19.jar",
+      "mods": [
+        "fabric_api_base"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-message-api-v1-6.0.14+6a754fce19.jar",
+      "mods": [
+        "fabric_message_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-tag-api-v1-1.3.0+3e2bcb4b19.jar",
+      "mods": [
+        "fabric_tag_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-renderer-indigo-1.7.1+9125b6dc19.jar",
+      "mods": [
+        "fabric_renderer_indigo"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-object-builder-api-v1-15.2.1+cc242efd19.jar",
+      "mods": [
+        "fabric_object_builder_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-rendering-v1-5.1.0+1a09bd5a19.jar",
+      "mods": [
+        "fabric_rendering_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-renderer-registries-v1-3.2.69+df3654b319.jar",
+      "mods": [
+        "fabric_renderer_registries_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-item-group-api-v1-4.1.7+e324903319.jar",
+      "mods": [
+        "fabric_item_group_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-renderer-api-v1-3.4.1+9125b6dc19.jar",
+      "mods": [
+        "fabric_renderer_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-resource-conditions-api-v1-4.3.0+5bdd099819.jar",
+      "mods": [
+        "fabric_resource_conditions_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-game-rule-api-v1-1.0.53+36d727be19.jar",
+      "mods": [
+        "fabric_game_rule_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-rendering-fluids-v1-3.1.6+ddc51b4719.jar",
+      "mods": [
+        "fabric_rendering_fluids_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-screen-handler-api-v1-1.3.91+8dbc56dd19.jar",
+      "mods": [
+        "fabric_screen_handler_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-loot-api-v2-3.0.15+a3ee712d19.jar",
+      "mods": [
+        "fabric_loot_api_v2"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-model-loading-api-v1-2.1.0+6e8f52c719.jar",
+      "mods": [
+        "fabric_model_loading_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-blockrenderlayer-v1-1.1.52+c290471319.jar",
+      "mods": [
+        "fabric_blockrenderlayer_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-item-api-v1-11.3.0+b24c12f719.jar",
+      "mods": [
+        "fabric_item_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-registry-sync-v0-5.3.2+f9aace1619.jar",
+      "mods": [
+        "fabric_registry_sync_v0"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-transitive-access-wideners-v1-6.2.0+6c854b6f19.jar",
+      "mods": [
+        "fabric_transitive_access_wideners_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-key-binding-api-v1-1.0.47+62cc7ce119.jar",
+      "mods": [
+        "fabric_key_binding_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-screen-api-v1-2.0.26+9991ca2f19.jar",
+      "mods": [
+        "fabric_screen_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-convention-tags-v1-2.1.7+7f945d5b19.jar",
+      "mods": [
+        "fabric_convention_tags_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-loot-api-v3-1.0.3+333dfad919.jar",
+      "mods": [
+        "fabric_loot_api_v3"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-recipe-api-v1-5.0.16+59440bcc19.jar",
+      "mods": [
+        "fabric_recipe_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-resource-loader-v0-1.3.1+4ea8954419.jar",
+      "mods": [
+        "fabric_resource_loader_v0"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-data-generation-api-v1-20.3.0+3e2bcb4b19.jar",
+      "mods": [
+        "fabric_data_generation_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-api-lookup-api-v1-1.6.72+6244b11119.jar",
+      "mods": [
+        "fabric_api_lookup_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-events-interaction-v0-0.7.14+057f5afd19.jar",
+      "mods": [
+        "fabric_events_interaction_v0"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-gametest-api-v1-2.0.5+29f188ce19.jar",
+      "mods": [
+        "fabric_gametest_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-rendering-data-attachment-v1-0.3.49+73761d2e19.jar",
+      "mods": [
+        "fabric_rendering_data_attachment_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-sound-api-v1-1.0.23+10b84f8419.jar",
+      "mods": [
+        "fabric_sound_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-data-attachment-api-v1-1.4.7+26d408aa19.jar",
+      "mods": [
+        "fabric_data_attachment_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-block-api-v1-1.1.0+b0c22bb819.jar",
+      "mods": [
+        "fabric_block_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-client-tags-api-v1-1.2.0+5adff2d719.jar",
+      "mods": [
+        "fabric_client_tags_api_v1"
+      ]
+    },
+    {
+      "jar": "cf-889079-9195559.jar!/META-INF/jars/fabric-entity-events-v1-1.8.0+e46a02ca19.jar",
+      "mods": [
+        "fabric_entity_events_v1"
+      ]
+    },
+    {
+      "jar": "cf-896746-9388448.jar",
+      "mods": [
+        "amendments"
+      ]
+    },
+    {
+      "jar": "cf-898963-9006294.jar",
+      "mods": [
+        "apothic_attributes"
+      ]
+    },
+    {
+      "jar": "cf-936015-9170709.jar",
+      "mods": [
+        "lithostitched"
+      ]
+    },
+    {
+      "jar": "cf-936015-9170709.jar!/META-INF/jarjar/apollib-1.2.0-neoforge-21.1.jar",
+      "mods": [
+        "apollib"
+      ]
+    },
+    {
+      "jar": "cf-940057-6054947.jar",
+      "mods": [
+        "terrablender"
+      ]
+    },
+    {
+      "jar": "cf-944035-9301784.jar",
+      "mods": [
+        "legendary_monsters"
+      ]
+    },
+    {
+      "jar": "cf-955399-8109792.jar",
+      "mods": [
+        "glitchcore"
+      ]
+    },
+    {
+      "jar": "cf-962885-9097270.jar",
+      "mods": [
+        "bloomingnature"
+      ]
+    },
+    {
+      "jar": "cf-962885-9097270.jar!/META-INF/jars/foundation-neoforge-1.0.3.jar",
+      "mods": [
+        "foundation"
+      ]
+    },
+    {
+      "jar": "cf-968868-7980010.jar",
+      "mods": [
+        "zeta"
+      ]
+    },
+    {
+      "jar": "cf-979809-9239339.jar",
+      "mods": [
+        "aaa_particles"
+      ]
+    },
+    {
+      "jar": "cf-979809-9239339.jar!/META-INF/jarjar/architectury-neoforge-13.0.8.jar",
+      "mods": [
+        "architectury"
+      ]
+    },
+    {
+      "jar": "cf-989797-9056910.jar",
+      "mods": [
+        "createnuclear"
+      ]
+    },
+    {
+      "jar": "cf-997634-9318519.jar",
+      "mods": [
+        "platform"
+      ]
+    }
+  ],
+  "missing": [],
+  "requiredDependencyDeclarations": 510,
+  "checkedDependencyKeys": [
+    "type=required",
+    "mandatory=true",
+    "required=true"
+  ],
+  "checkedServerRequiredIds": [
+    "aaa_particles",
+    "aeroblender",
+    "aether",
+    "amendments",
+    "apollib",
+    "apothic_attributes",
+    "architectury",
+    "balm",
+    "bclib",
+    "biolith",
+    "blueprint",
+    "cataclysm",
+    "citadel",
+    "create",
+    "curios",
+    "elysium_api",
+    "epherolib",
+    "fabric_api_base",
+    "fabric_api_lookup_api_v1",
+    "fabric_block_view_api_v2",
+    "fabric_entity_events_v1",
+    "fabric_lifecycle_events_v1",
+    "fabric_networking_api_v1",
+    "fabric_object_builder_api_v1",
+    "fabric_renderer_api_v1",
+    "fabric_rendering_fluids_v1",
+    "fabric_rendering_v1",
+    "fabric_resource_loader_v0",
+    "farmersdelight",
+    "foundation",
+    "fragmentum",
+    "geckolib",
+    "glitchcore",
+    "hapi",
+    "hybrid_aquatic",
+    "integrated_api",
+    "irons_lib",
+    "knightlib",
+    "kotlinforforge",
+    "lionfishapi",
+    "lithostitched",
+    "lodestone",
+    "minecraft",
+    "modonomicon",
+    "moonlight",
+    "mowziesmobs",
+    "natures_spirit",
+    "neoforge",
+    "owo",
+    "placebo",
+    "platform",
+    "playeranimator",
+    "ponder",
+    "quark",
+    "sable",
+    "simulated",
+    "sophisticatedcore",
+    "starcatcher",
+    "streamsreflowing",
+    "supplementaries",
+    "terrablender",
+    "wover",
+    "wunderlib",
+    "yungsapi",
+    "zeta"
+  ]
+}

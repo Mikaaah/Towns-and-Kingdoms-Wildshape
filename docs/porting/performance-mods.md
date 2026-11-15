@@ -1,8 +1,8 @@
 # Performance mods
 
-UltraTerraForged recommends a set of performance mods, shows in the Create World screen which of them are installed, and
+Wildshape recommends a set of performance mods, shows in the Create World screen which of them are installed, and
 runs them in the dev environment. Which builds exist changes with every Minecraft version and loader, so this page
-records what was found for each version, what was tested with UltraTerraForged, and what to change when porting.
+records what was found for each version, what was tested with Wildshape, and what to change when porting.
 
 State as of 2026-09-28, on the 1.21.1 branch (Fabric and NeoForge). The 1.20.1 branch (Fabric and Forge, whose jar
 also covers NeoForge 47.1) keeps its own copy of this page; its findings are kept below too.
@@ -19,7 +19,7 @@ also covers NeoForge 47.1) keeps its own copy of this page; its findings are kep
 | Availability lookup | `docs/porting/tools/perfmods.py` |
 | Server tests: timing chunk generation, running console commands | `docs/porting/tools/servers/` |
 
-`-Putf.perfMods=false` runs the dev game without them, e.g. to measure or debug UltraTerraForged on its own.
+`-Pwildshape.perfMods=false` runs the dev game without them, e.g. to measure or debug Wildshape on its own.
 
 What the dev runs need that a real game doesn't:
 
@@ -48,7 +48,7 @@ What the dev runs need that a real game doesn't:
   - **C2ME** goes in `forge/run/mods` unremapped (`copyConnectorMods`): Connector only looks for Fabric mods there, and
     remaps them itself.
   - Connector brings its own Mixin, which ignores the `--mixin.config` arguments the dev game passes, so
-    `forge/src/main/resources/META-INF/MANIFEST.MF` names UltraTerraForged's mixin configs, as the released jar's does.
+    `forge/src/main/resources/META-INF/MANIFEST.MF` names Wildshape's mixin configs, as the released jar's does.
 - **Sodium refused the 1.20.1 dev game's LWJGL** (3.3.2 against the 3.3.1 launchers ship), so the Fabric runs set
   `sodium.checks.issue2561=false`. Check whether that's still needed after a port: newer Sodium versions require
   other LWJGL versions, and the property name follows Sodium's issue number.
@@ -111,26 +111,26 @@ The launcher runs 1.21.1 on Java 21, but C2ME's 0.4.0 line (June 2026 on) builds
   ("cannot inject into net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator"). Noisiumed is the one the light
   asks for (a release, on Java 21, no GPU needed); C2ME OpenCL is marked `optional`: shown as "Optional", with its
   description saying to pick one or the other, and counted only when installed.
-- **C2ME OpenCL can't compile UltraTerraForged's terrain**, which reads cells worked out in Java: its code generator
+- **C2ME OpenCL can't compile Wildshape's terrain**, which reads cells worked out in Java: its code generator
   throws "Unsupported density function type: CellSampler", and with `openclAccel.allowIncompatibilityFallback` off
   (the default) C2ME stops the game when the world loads. `mixin/c2me/MixinChunkMapOpenCL` turns the fallback on for
-  worlds whose terrain uses the cells (`UTFRandomState.usesCells`): C2ME logs "does not have compiled CL code" and
+  worlds whose terrain uses the cells (`WildshapeRandomState.usesCells`): C2ME logs "does not have compiled CL code" and
   generates them as usual, while the Nether, the End and vanilla worlds still use the graphics card. C2ME reads its
   config while its own mixins are set up, before other mods' apply, so the mixin changes the value C2ME's world loading
   handler reads, through MixinSquared (bundled by C2ME on both loaders, compiled against only). It's listed in the
   mixin config so the plugin leaves it out without C2ME OpenCL: mixins a plugin only returns from `getMixins()` aren't
   filtered, and without MixinSquared its handler selector doesn't parse.
 
-### Tested with UltraTerraForged
+### Tested with Wildshape
 
-Dedicated servers of each loader, seed 1111, default preset, `/utf locate river`, `/utf locate cirque`, 256
+Dedicated servers of each loader, seed 1111, default preset, `/wildshape locate river`, `/wildshape locate cirque`, 256
 forceloaded chunks, on Java 21:
 
 - Without performance mods, and with C2ME, Noisiumed, Lithium, ModernFix (and AllTheLeaks on NeoForge): both loaders
   generate and locate the same terrain (the nearest river at 3440, 1552; the nearest cirque at 6224, -48), with no
   errors. The only warnings are the mods' optional mixins probing for mods that aren't there (Starlight, Sodium on a
   server).
-- NeoForge applies the preset's biome modifiers through UTF's one NeoForge biome modifier
+- NeoForge applies the preset's biome modifiers through Wildshape's one NeoForge biome modifier
   (`Applying the 30 biome modifiers of the world's preset` in the log).
 
 ## 1.20.1 (the 1.20.1 branch)
@@ -150,7 +150,7 @@ What the dev runs use, pinned to Modrinth version ids because Noisiumed shares i
 So five of the seven count on either loader: on Fabric everything but C2ME OpenCL and AllTheLeaks, on Forge everything
 but C2ME and C2ME OpenCL, and six once Sinytra Connector is installed, which brings C2ME.
 
-### Tested with UltraTerraForged
+### Tested with Wildshape
 
 Dedicated servers, fresh world with the default preset, 1024 forceloaded chunks, Ryzen 7 9800X3D, measured with
 `tools/servers/bench.sh`:
@@ -158,16 +158,16 @@ Dedicated servers, fresh world with the default preset, 1024 forceloaded chunks,
 | Setup | Seed 1111 | Seed 2222 | Seed 3333 |
 |---|---|---|---|
 | Vanilla, Fabric | 14.5 s | 14.2 s | 14.3 s |
-| UltraTerraForged, Fabric | 16.8 s | 18.9 s | 18.8 s |
-| UltraTerraForged, Fabric + C2ME, Noisiumed, Lithium, ModernFix | 14.2 s | 14.2 s | 11.9 s |
-| UltraTerraForged, Forge | 19.0 s | | 16.4 s |
-| UltraTerraForged, Forge + Noisiumed, Radium, ModernFix, AllTheLeaks | 18.8 s | | |
-| UltraTerraForged, Forge + C2ME through Connector | 16.8 s | | 16.4 s |
-| UltraTerraForged, Forge + all of the above | 14.2 s | | 11.9 s |
+| Wildshape, Fabric | 16.8 s | 18.9 s | 18.8 s |
+| Wildshape, Fabric + C2ME, Noisiumed, Lithium, ModernFix | 14.2 s | 14.2 s | 11.9 s |
+| Wildshape, Forge | 19.0 s | | 16.4 s |
+| Wildshape, Forge + Noisiumed, Radium, ModernFix, AllTheLeaks | 18.8 s | | |
+| Wildshape, Forge + C2ME through Connector | 16.8 s | | 16.4 s |
+| Wildshape, Forge + all of the above | 14.2 s | | 11.9 s |
 
 C2ME does most of the work, but only with the rest: on Forge, C2ME alone gained 0–12 %, the others alone 1 %, all of
-them together 25–28 %, which brings UltraTerraForged to vanilla's speed or better on both loaders. Every setup passed the
-`/utf locate` smoke test with the same results.
+them together 25–28 %, which brings Wildshape to vanilla's speed or better on both loaders. Every setup passed the
+`/wildshape locate` smoke test with the same results.
 
 - **Forge crashed at startup with Noisiumed, ModernFix or AllTheLeaks** (a `ClassCastException` in MixinExtras'
   `FactoryRedirectWrapperMixinTransformer`, loading `NoiseBasedChunkGenerator`). Not the mods' fault: Fabric's Mixin
@@ -177,10 +177,10 @@ them together 25–28 %, which brings UltraTerraForged to vanilla's speed or bet
   sponge-mixin 0.17.3 (`common/build.gradle`); `MixinAnnotationsTest` fails if an array comes back. **Keep this in mind
   on every port**: whenever the Fabric loader is bumped, check the pin still applies, and run a NeoForge/Forge server
   with a MixinExtras-bundling mod (ModernFix is in most packs).
-- C2ME changes how chunks are scheduled. UltraTerraForged's hooks on the chunk status tasks (queueing tiles before
-  generation, dropping them after features) still run under it; `/utf locate` and generation work, no errors.
+- C2ME changes how chunks are scheduled. Wildshape's hooks on the chunk status tasks (queueing tiles before
+  generation, dropping them after features) still run under it; `/wildshape locate` and generation work, no errors.
 - **C2ME on Forge through Sinytra Connector works** (Connector 1.0.0-beta.49, Forgified Fabric API 0.92.6, C2ME
-  0.2.0+alpha.11.18): its modules load, UltraTerraForged generates and locates as on Fabric. The only errors in the log are
+  0.2.0+alpha.11.18): its modules load, Wildshape generates and locates as on Fabric. The only errors in the log are
   Forgified Fabric API's client screen mixins being skipped on a dedicated server. So `PerformanceMods` lists C2ME for
   Forge as a Connector build: it counts once Connector is installed, and its row links to Connector until then.
   The Forge dev runs include it too (see above for what that takes).
@@ -191,7 +191,7 @@ them together 25–28 %, which brings UltraTerraForged to vanilla's speed or bet
 
 ## Later versions
 
-From 1.21 on UltraTerraForged targets Fabric and NeoForge only. What exists (newest build per version, found
+From 1.21 on Wildshape targets Fabric and NeoForge only. What exists (newest build per version, found
 2026-09-27 with `tools/perfmods.py`; a = alpha, b = beta):
 
 | Mod | 1.21.1 | 1.21.4 – 1.21.5 | 1.21.8 – 1.21.11 | 26.1 / 26.1.2 | 26.2 | 26.3 |
@@ -227,7 +227,7 @@ What that means for the port:
 3. Update `PerformanceModsTest` for the new counts, and the dev dependencies in each loader's `build.gradle`.
 4. Check each mod's mod id in its jar (`fabric.mod.json` `id`, `META-INF/neoforge.mods.toml` `modId`); forks
    sometimes keep the original's id, and Connector turns `-` in Fabric ids into `_`.
-5. Run a dedicated server of each loader with the mods and UltraTerraForged (`tools/servers/bench.sh` and
-   `tools/servers/smoke.sh`): a fresh world, `/utf locate` a few landforms, forceload an area, no errors in the
-   log. C2ME and Noisium change the chunk pipeline UltraTerraForged hooks into, so this is the part most likely to break.
+5. Run a dedicated server of each loader with the mods and Wildshape (`tools/servers/bench.sh` and
+   `tools/servers/smoke.sh`): a fresh world, `/wildshape locate` a few landforms, forceload an area, no errors in the
+   log. C2ME and Noisium change the chunk pipeline Wildshape hooks into, so this is the part most likely to break.
 6. Run the dev client once to see the section: the light, and a click opening a mod's page.

@@ -1,4 +1,4 @@
-import nl.townsandkingdoms.utfstreams.FlowRules;
+import nl.townsandkingdoms.wildshape.compat.streams.FlowRules;
 
 public class FlowRulesTest {
     private static int checks;

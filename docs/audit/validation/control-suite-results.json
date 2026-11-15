@@ -1,0 +1,162 @@
+[
+  {
+    "case": "flowcontrol",
+    "exit": 0,
+    "vanillaWaterAndVesselFlow": true,
+    "manualDirectionRetainsPriorityOverDownhillGuard": true,
+    "bakedWaterStillnessAndOverlap": true,
+    "mooredBoatTwentyTicks": true,
+    "savedDataRoundTrip": true,
+    "connectedWaterIsolationAndPersistence": true,
+    "networkCodecRoundTrip": true,
+    "dimensionIsolation": true,
+    "masterSwitch": true,
+    "controllerRedstoneAndRemoval": true,
+    "eightHeadingPhysicsPersistenceAndPackets": true,
+    "profileModesPersistenceAndMigration": true,
+    "controllerLinkPropagationCycleAndMissingSource": true,
+    "calibratorCopyPasteLinkAndLegacyCleanup": true,
+    "sensorVerticalHorizontalDirectionBoatAndComparator": true,
+    "mooringHoldBoardingRedstoneAndCooldown": true,
+    "engineeringPacketRoundTrips": true,
+    "createRealNetworkRpmReverseStressAndStop": true,
+    "passed": true
+  },
+  {
+    "case": "water_off",
+    "exit": 0,
+    "mods": [
+      "create@6.0.10",
+      "flywheel@1.0.6",
+      "minecraft@1.21.1",
+      "neoforge@21.1.262",
+      "ponder@1.0.82+mc1.21.1",
+      "streamcontrol@0.2.2",
+      "streamsreflowing@2.16.2",
+      "ultraterraforged@1.0.12-beta.1+1.21.1"
+    ],
+    "otherDimensionsRetainTheirGenerators": [
+      "minecraft:the_end",
+      "minecraft:the_nether"
+    ],
+    "generatedOtherDimensionSamples": false,
+    "structureSpacing": {},
+    "customStructurePlacementTypes": {},
+    "legacyHabitats": {
+      "is_dense_overworld": 6,
+      "is_coniferous": 5,
+      "is_hot_overworld": 13,
+      "is_dry_overworld": 7,
+      "is_cold_overworld": 20
+    },
+    "threadIndependentColumnHeights": {
+      "13,2": 63,
+      "2560,2048": 85,
+      "-4096,5120": 94,
+      "13312,2144": 63
+    },
+    "biomeSearchRestoresLookupScope": true,
+    "generatedSampleChunks": 3,
+    "registeredBiomes": 65,
+    "protectedCaveTagMembers": 1,
+    "streamsSettingsRespected": true,
+    "passed": true
+  },
+  {
+    "case": "rivers_off",
+    "exit": 0,
+    "mods": [
+      "create@6.0.10",
+      "flywheel@1.0.6",
+      "minecraft@1.21.1",
+      "neoforge@21.1.262",
+      "ponder@1.0.82+mc1.21.1",
+      "streamcontrol@0.2.2",
+      "streamsreflowing@2.16.2",
+      "ultraterraforged@1.0.12-beta.1+1.21.1"
+    ],
+    "otherDimensionsRetainTheirGenerators": [
+      "minecraft:the_nether",
+      "minecraft:the_end"
+    ],
+    "generatedOtherDimensionSamples": false,
+    "structureSpacing": {},
+    "customStructurePlacementTypes": {},
+    "legacyHabitats": {
+      "is_dry_overworld": 7,
+      "is_cold_overworld": 20,
+      "is_dense_overworld": 6,
+      "is_coniferous": 5,
+      "is_hot_overworld": 13
+    },
+    "threadIndependentColumnHeights": {
+      "13,2": 63,
+      "2560,2048": 85,
+      "-4096,5120": 94,
+      "13312,2144": 63
+    },
+    "biomeSearchRestoresLookupScope": true,
+    "generatedSampleChunks": 3,
+    "registeredBiomes": 65,
+    "protectedCaveTagMembers": 1,
+    "streamsSettingsRespected": true,
+    "passed": true
+  },
+  {
+    "case": "vanilla",
+    "exit": 0,
+    "vanillaControlInactive": true,
+    "netherAndEndInactive": true,
+    "passed": true
+  },
+  {
+    "case": "legacy",
+    "exit": 0,
+    "coastalColumn0": {
+      "terrain": "ocean",
+      "z": 905,
+      "waterY": 62,
+      "x": 905,
+      "bedY": 59
+    },
+    "generatedCoastalWaterColumns": 1,
+    "highMainRiver": {
+      "dz": -16.9013671875,
+      "dx": 1.8837890625,
+      "bedY": 77,
+      "z": 2596,
+      "surfaceY": 78,
+      "x": 6723
+    },
+    "generatedWaterAtPredictedHeight": true,
+    "generatedRiverSnapshotRetained": true,
+    "sampleLayerBuildMs": 2.454754,
+    "elevatedLayerProduced": true,
+    "uncorrectedBakedUphillVector": [
+      1.0,
+      0.0
+    ],
+    "bakedUphillCurrentReversedAgainstActualWater": true,
+    "actualWaterBoatDirection": true,
+    "actualWaterCorrectedVector": [
+      -0.9999241101148306,
+      -0.012319659535238284
+    ],
+    "nativeLayerAndStreamsLayerPreserved": true,
+    "originalGridPreserved": true,
+    "fullGridAndServerPhysicsPassed": true,
+    "verticalBandIsolationPassed": true,
+    "networkGridBytes": 3072,
+    "provisionalGridPassed": true,
+    "packetCodecAndClientLookupPassed": true,
+    "nativeUphillCounterexample": [
+      118,
+      98,
+      140
+    ],
+    "uphillReversalPassed": true,
+    "statusCommandPassed": true,
+    "netherAndEndInactive": true,
+    "passed": true
+  }
+]

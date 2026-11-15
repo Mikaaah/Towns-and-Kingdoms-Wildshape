@@ -1,0 +1,93 @@
+{
+  "version": "1.0.12-beta.2+1.21.1",
+  "jarSha256": "ce842bf128433af690b5c993e362d0f17efaf9c122e552747c83206d86279889",
+  "fmlModId": "wildshape",
+  "oldPackagePaths": [],
+  "unexpectedOldIdentityReferences": [],
+  "sourceValidation": "NeoForge build and focused tests exit 0",
+  "testCounts": {
+    "tests": 50,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.PresetDatapackTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.PresetPackIdentityTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.data.preset.StructureSetPolicyTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.server.ServerPresetsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.data.preset.StructureSetJsonPatcherTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.MixinAnnotationsTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.ConfigMigrationTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.OptionalHabitatDatapackTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.PresetShareCodeTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.test.WorldGenLookupTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "nl.townsandkingdoms.wildshape.world.worldgen.cave.CaveBiomeProtectionTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

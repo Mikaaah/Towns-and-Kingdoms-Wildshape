@@ -1,0 +1,57 @@
+package nl.townsandkingdoms.wildshape.world.worldgen.landform;
+
+import nl.townsandkingdoms.wildshape.data.preset.settings.OceanSettings;
+import nl.townsandkingdoms.wildshape.world.worldgen.cell.Cell;
+import nl.townsandkingdoms.wildshape.world.worldgen.heightmap.Heightmap;
+import nl.townsandkingdoms.wildshape.world.worldgen.heightmap.Levels;
+import nl.townsandkingdoms.wildshape.world.worldgen.noise.NoiseUtil;
+import nl.townsandkingdoms.wildshape.world.worldgen.noise.module.Noise;
+import nl.townsandkingdoms.wildshape.world.worldgen.noise.module.Noises;
+
+/**
+ * Continental shelves: off every coast, a broad, shallow shelf sloping gently out from the shore, ending in a clear
+ * drop-off down to the deep sea floor. The sea floor is only ever raised to the shelf, never lowered.
+ *
+ * @param width how far the shelf reaches out, in continent values
+ * @param wobble roughens the shelf's edge
+ */
+public record Shelves(float shoreline, float width, Noise wobble, Levels levels) implements Landform {
+	// the shelf's depth, in blocks, at the shore and at its edge
+	private static final float SHORE_DEPTH = 2.0F;
+	private static final float EDGE_DEPTH = 13.0F;
+	// the drop-off takes up this much of the continent values past the shelf's edge
+	private static final float DROP = 0.04F;
+	private static final float WIDTH = 0.17F;
+
+	public static Shelves make(int seed, OceanSettings.Shelves settings, float shoreline, Levels levels) {
+		return new Shelves(shoreline, WIDTH * Math.max(0.1F, settings.width), Noises.perlin(seed, 300, 2), levels);
+	}
+
+	@Override
+	public void apply(Cell cell, float x, float z, Heightmap heightmap) {
+		if (cell.height >= this.levels.water || cell.terrain.isRiver() || cell.terrain.isLake()) {
+			return;
+		}
+		float edge = this.shoreline - this.width * NoiseUtil.lerp(0.75F, 1.25F, this.wobble.compute(x, z, 0));
+		if (cell.continentEdge < edge - DROP) {
+			return;
+		}
+		float out = NoiseUtil.clamp((this.shoreline - cell.continentEdge) / (this.shoreline - edge), 0.0F, 1.0F);
+		float depth = NoiseUtil.lerp(SHORE_DEPTH, EDGE_DEPTH, (float) Math.pow(out, 0.8F));
+		// Preserve small-scale relief across the broad shelf, not just at its edge.
+        depth += (this.wobble.compute(x * 4.3F + 1700, z * 4.3F - 1100, 0) - 0.5F) * 4.0F;
+        depth = Math.max(SHORE_DEPTH, depth);
+        float shelf = this.levels.water - depth * this.levels.unit;
+		// the drop-off
+		float mask = Landform.smoothstep(cell.continentEdge, edge - DROP, edge);
+		float height = NoiseUtil.lerp(cell.height, shelf, mask);
+		if (height > cell.height) {
+			cell.height = height;
+		}
+	}
+
+	@Override
+	public Landform mapNoise(Noise.Visitor visitor) {
+		return new Shelves(this.shoreline, this.width, this.wobble.mapAll(visitor), this.levels);
+	}
+}

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "ultraterraforged_clienttest",
+  "id": "wildshape_clienttest",
   "version": "0",
-  "name": "UltraTerraForged client test",
+  "name": "Wildshape client test",
   "description": "Drives the client through world creation and takes screenshots. Only on the clientTest run's classpath.",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.pandaismyname1.ultraterraforged.clienttest.ClientTest"
+      "nl.townsandkingdoms.wildshape.clienttest.ClientTest"
     ]
   },
   "depends": {
-    "ultraterraforged": "*",
+    "wildshape": "*",
     "fabric-lifecycle-events-v1": "*"
   }
 }

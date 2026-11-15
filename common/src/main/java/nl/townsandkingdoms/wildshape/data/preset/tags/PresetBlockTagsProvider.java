@@ -1,0 +1,54 @@
+package nl.townsandkingdoms.wildshape.data.preset.tags;
+
+import java.util.concurrent.CompletableFuture;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import nl.townsandkingdoms.wildshape.tags.WildshapeBlockTags;
+
+public class PresetBlockTagsProvider extends IntrinsicHolderTagsProvider<Block> {
+	
+	public PresetBlockTagsProvider(PackOutput packOutput, CompletableFuture<Provider> completableFuture) {
+		super(packOutput, Registries.BLOCK, completableFuture, (block) -> block.builtInRegistryHolder().key());
+	}
+
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
+		this.tag(WildshapeBlockTags.SOIL).add(Blocks.DIRT, Blocks.COARSE_DIRT);
+		this.tag(WildshapeBlockTags.CLAY).add(Blocks.CLAY);
+		this.tag(WildshapeBlockTags.SEDIMENT).add(Blocks.SAND, Blocks.GRAVEL);
+		this.tag(WildshapeBlockTags.ERODIBLE).add(Blocks.SNOW_BLOCK).add(Blocks.POWDER_SNOW).add(Blocks.PACKED_ICE).add(Blocks.GRAVEL).addOptionalTag(BlockTags.DIRT.location());
+
+		// Rock layers are built from the vanilla stone tags, which mods already add their natural stone to, so their rocks
+		// show up in the layers without the mods knowing about Wildshape. Ores generate in stone_ore_replaceables.
+		// The references are optional because this pack is generated on its own, where vanilla's tags don't exist yet;
+		// they resolve once the world loads the pack alongside vanilla.
+		this.tag(WildshapeBlockTags.ORE_COMPATIBLE_ROCK).addOptionalTag(BlockTags.STONE_ORE_REPLACEABLES.location());
+		this.tag(WildshapeBlockTags.ROCK)
+			.add(Blocks.CALCITE)
+			.addOptionalTag(BlockTags.STONE_ORE_REPLACEABLES.location())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD.location())
+			// Create's decorative stones, which it doesn't tag as stone
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "asurine"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "crimsite"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "limestone"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "ochrum"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "scorchia"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "scoria"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("create", "veridium"));
+		// deepslate is layered on its own, with the rocks ores turn into deepslate ores in
+		this.tag(WildshapeBlockTags.DEEP_ROCK).addOptionalTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES.location());
+		this.tag(WildshapeBlockTags.STRATA_EXCLUDED).add(Blocks.DEEPSLATE)
+			.addOptionalTag(ResourceLocation.parse("c:ores"))
+			.addOptionalTag(ResourceLocation.parse("forge:ores"))
+			.addOptionalTag(ResourceLocation.parse("c:storage_blocks"));
+		this.tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(Blocks.CLAY);
+	}
+}

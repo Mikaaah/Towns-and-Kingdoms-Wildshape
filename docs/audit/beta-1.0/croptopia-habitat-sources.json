@@ -1,0 +1,1136 @@
+{
+  "nativeJar": "cf-415438-7958876.jar",
+  "biomeFamilies": {
+    "plains": [
+      "regions_unexplored:barley_fields",
+      "regions_unexplored:clover_plains",
+      "regions_unexplored:flower_fields",
+      "regions_unexplored:poppy_fields",
+      "natures_spirit:prairie",
+      "natures_spirit:shrubland"
+    ],
+    "forest": [
+      "regions_unexplored:alpha_grove",
+      "regions_unexplored:deciduous_forest",
+      "regions_unexplored:maple_forest",
+      "regions_unexplored:temperate_grove",
+      "natures_spirit:aspen_forest",
+      "natures_spirit:maple_woodlands"
+    ],
+    "flower_forest": [
+      "regions_unexplored:wisteria_grove",
+      "regions_unexplored:mauve_hills",
+      "natures_spirit:lavender_fields",
+      "natures_spirit:carnation_fields",
+      "natures_spirit:floral_ridges"
+    ],
+    "birch_forest": [
+      "regions_unexplored:silver_birch_forest",
+      "natures_spirit:aspen_forest"
+    ],
+    "dark_forest": [
+      "regions_unexplored:old_growth_forest",
+      "natures_spirit:coniferous_covert"
+    ],
+    "taiga": [
+      "regions_unexplored:blackwood_taiga",
+      "regions_unexplored:boreal_taiga",
+      "regions_unexplored:pine_taiga",
+      "natures_spirit:boreal_taiga",
+      "natures_spirit:fir_forest"
+    ],
+    "jungle": [
+      "regions_unexplored:rainforest",
+      "regions_unexplored:sparse_rainforest",
+      "regions_unexplored:eucalyptus_forest",
+      "natures_spirit:tropical_woods",
+      "natures_spirit:sparse_tropical_woods",
+      "natures_spirit:bamboo_wetlands"
+    ],
+    "swamp": [
+      "regions_unexplored:bayou",
+      "regions_unexplored:fen",
+      "regions_unexplored:old_growth_bayou",
+      "natures_spirit:marsh",
+      "natures_spirit:cypress_fields"
+    ],
+    "desert": [
+      "regions_unexplored:joshua_desert",
+      "regions_unexplored:saguaro_desert",
+      "natures_spirit:stratified_desert",
+      "natures_spirit:lively_dunes"
+    ],
+    "savanna": [
+      "regions_unexplored:baobab_savanna",
+      "regions_unexplored:steppe",
+      "natures_spirit:arid_savanna",
+      "natures_spirit:oak_savanna",
+      "natures_spirit:wooded_drylands"
+    ],
+    "grove": [
+      "regions_unexplored:cold_boreal_taiga",
+      "natures_spirit:snowy_fir_forest"
+    ],
+    "windswept_forest": [
+      "regions_unexplored:windswept_maple_forest",
+      "natures_spirit:windswept_sugi_forest"
+    ]
+  },
+  "sources": [
+    {
+      "tag": "croptopia:has_crop/artichoke",
+      "nativeVanillaSelectors": [
+        "minecraft:swamp"
+      ],
+      "counterpartFamilies": [
+        "swamp"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/asparagus",
+      "nativeVanillaSelectors": [
+        "minecraft:swamp"
+      ],
+      "counterpartFamilies": [
+        "swamp"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/barley",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga"
+      ],
+      "counterpartFamilies": [
+        "plains",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/basil",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/bellpepper",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/blackbean",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/blackberry",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/blueberry",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/broccoli",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/cabbage",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/cantaloupe",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/cauliflower",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/celery",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/chile_pepper",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/coffee_beans",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/corn",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/cranberry",
+      "nativeVanillaSelectors": [
+        "minecraft:swamp"
+      ],
+      "counterpartFamilies": [
+        "swamp"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/cucumber",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/currant",
+      "nativeVanillaSelectors": [
+        "minecraft:swamp"
+      ],
+      "counterpartFamilies": [
+        "swamp"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/eggplant",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/elderberry",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/garlic",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/ginger",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/grape",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/greenbean",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/greenonion",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/honeydew",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/hops",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/kale",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/kiwi",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/leek",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/lettuce",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/mustard",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/oat",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/olive",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/onion",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/peanut",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/pepper",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/pineapple",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/radish",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/raspberry",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/rhubarb",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/rice",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/rutabaga",
+      "nativeVanillaSelectors": [
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:savanna_plateau",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/saguaro",
+      "nativeVanillaSelectors": [
+        "minecraft:desert"
+      ],
+      "counterpartFamilies": [
+        "desert"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/soybean",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/spinach",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/squash",
+      "nativeVanillaSelectors": [
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/strawberry",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove",
+        "taiga"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/sweetpotato",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/tea_leaves",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/tomatillo",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/tomato",
+      "nativeVanillaSelectors": [
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:grove"
+      ],
+      "counterpartFamilies": [
+        "birch_forest",
+        "dark_forest",
+        "flower_forest",
+        "forest",
+        "grove"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/turmeric",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/turnip",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/vanilla",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:bamboo_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/yam",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_crop/zucchini",
+      "nativeVanillaSelectors": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ],
+      "counterpartFamilies": [
+        "savanna"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/almond",
+      "nativeVanillaSelectors": [
+        "minecraft:dark_forest"
+      ],
+      "counterpartFamilies": [
+        "dark_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/apple",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/apricot",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/avocado",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/banana",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/cashew",
+      "nativeVanillaSelectors": [
+        "minecraft:dark_forest"
+      ],
+      "counterpartFamilies": [
+        "dark_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/cherry",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/cinnamon",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/coconut",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/date",
+      "nativeVanillaSelectors": [
+        "minecraft:jungle",
+        "minecraft:sparse_jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/dragonfruit",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/fig",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/grapefruit",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/kumquat",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/lemon",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/lime",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/mango",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/nectarine",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/nutmeg",
+      "nativeVanillaSelectors": [
+        "minecraft:sparse_jungle",
+        "minecraft:jungle"
+      ],
+      "counterpartFamilies": [
+        "jungle"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/orange",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:plains",
+        "minecraft:forest",
+        "minecraft:sunflower_plains",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "plains",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/peach",
+      "nativeVanillaSelectors": [
+        "minecraft:plains",
+        "minecraft:sunflower_plains"
+      ],
+      "counterpartFamilies": [
+        "plains"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/pear",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/pecan",
+      "nativeVanillaSelectors": [
+        "minecraft:dark_forest"
+      ],
+      "counterpartFamilies": [
+        "dark_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/persimmon",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/plum",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:windswept_forest",
+        "minecraft:forest",
+        "minecraft:flower_forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/starfruit",
+      "nativeVanillaSelectors": [
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:windswept_forest"
+      ],
+      "counterpartFamilies": [
+        "flower_forest",
+        "forest",
+        "windswept_forest"
+      ]
+    },
+    {
+      "tag": "croptopia:has_tree/walnut",
+      "nativeVanillaSelectors": [
+        "minecraft:dark_forest"
+      ],
+      "counterpartFamilies": [
+        "dark_forest"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "streams2162": {
+    "jar": "cf-1581408-9376530.jar",
+    "sha256": "70930ad6b943d9a359ddb573450f5114a6a54a676e32c1895f6eb4d2cd634a33"
+  },
+  "streams2171": {
+    "jar": "StreamsReflowing-1.21.1-neoforge-2.17.1.jar",
+    "sha256": "50d0a6879c7c79fc8c882209bad364b64920a6fafa660e9e98e650adf305332c"
+  },
+  "flow100": {
+    "jar": "flow-control-1.0.0-neoforge-1.21.1.jar",
+    "sha256": "1df4e982328774df1517aa74ba61c77589badf6a4f11cf2a073b0e43ce3d97bd"
+  },
+  "unchangedApiClasses": [
+    "dev/streamsreflowing/platform/services/IPlatformHelper.class",
+    "dev/streamsreflowing/flow/StreamFlowGrid$LayerProducer.class",
+    "dev/streamsreflowing/flow/StreamFlowGrid$Layer.class"
+  ],
+  "fluidOwners2171": [
+    "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$ProprietaryNiceJohn_001",
+    "streamsreflowing.proprietary.AllRightsReservedNiceJohn_006$SeeAiNoticeConstant_001"
+  ]
+}

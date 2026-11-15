@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "jar": "wildshape-1.0.2-neoforge-1.21.1.jar",
+  "sourceCommit": "ac44f923b79d666975b766e854c98d2325fef766",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.266",
+  "java": "21.0.13",
+  "fixtureSeed": 2031102026,
+  "terrainCacheLimit": 64,
+  "fixtureWatchdogDisabled": true,
+  "streamsAccuracy": "MEDIUM",
+  "watershedSize": 768,
+  "testedChunks": [
+    [
+      -92,
+      -238
+    ],
+    [
+      -114,
+      -224
+    ],
+    [
+      -7,
+      -24
+    ]
+  ],
+  "bareGenerateSaveReload": true,
+  "streams2174C2me124NatureSpirit232GenerateSaveReload": true,
+  "savedNbtStatusFull": true,
+  "sectionPalettesPreserved": true,
+  "fullPackClientRun": false,
+  "originalWorldSeedReplay": false
+}

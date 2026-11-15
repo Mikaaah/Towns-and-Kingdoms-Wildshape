@@ -1,0 +1,8 @@
+> Task :common:compileJava UP-TO-DATE
+> Task :common:processResources UP-TO-DATE
+> Task :common:classes UP-TO-DATE
+> Task :common:compileTestJava UP-TO-DATE
+> Task :common:processTestResources UP-TO-DATE
+> Task :common:testClasses UP-TO-DATE
+> Task :common:test
+BUILD SUCCESSFUL in 17s

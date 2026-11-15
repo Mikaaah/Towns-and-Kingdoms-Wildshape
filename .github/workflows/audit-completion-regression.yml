@@ -20,11 +20,11 @@ jobs:
       - name: Targeted hydrology / cave / settings regression
         run: |
           chmod +x gradlew
-          ./gradlew :common:test --tests '*WaterContinuityTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' --tests '*MassiveCavernTest' --tests '*PresetOptionsTest' --tests '*LazyCallableTest' --tests '*SiteCacheTest' -Putf.perfMods=false --no-daemon --stacktrace
+          ./gradlew :common:test --tests '*WaterContinuityTest' --tests '*CavesTest.giantCavernsHaveLakesAndPillars' --tests '*MassiveCavernTest' --tests '*PresetOptionsTest' --tests '*LazyCallableTest' --tests '*SiteCacheTest' -Pwildshape.perfMods=false --no-daemon --stacktrace
       - name: Release mode both loaders
         env:
           RELEASE: 'true'
-        run: ./gradlew :fabric:build :neoforge:build -Putf.perfMods=false --no-daemon
+        run: ./gradlew :neoforge:build -Pwildshape.perfMods=false --no-daemon
       - name: Verify mod metadata
         run: |
           python3 - <<'PY'
@@ -35,8 +35,8 @@ jobs:
           with zipfile.ZipFile(jars[0]) as archive:
               assert archive.testzip() is None
               text=archive.read('META-INF/neoforge.mods.toml').decode()
-              assert 'version="1.0.2+1.21.1"' in text
-              assert 'config="ultraterraforged-alex-caves.mixins.json"' in text
+              assert 'version="1.0.3+1.21.1"' in text
+              assert 'config="wildshape-alex-caves.mixins.json"' in text
               assert 'modId="alexscaves"' in text
               assert 'type="optional"' in text
               # The Alex port is only a compile-time dependency, never bundled.
@@ -47,9 +47,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: ultraterraforged-personal-audit-completion-1.21.1
+          name: wildshape-personal-audit-completion-1.21.1
           path: |
-            fabric/build/libs/*-fabric.jar
             neoforge/build/libs/*-neoforge.jar
       - uses: actions/upload-artifact@v4
         if: always()

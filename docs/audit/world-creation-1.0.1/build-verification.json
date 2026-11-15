@@ -1,0 +1,37 @@
+{
+  "filename": "wildshape-1.0.1-neoforge-1.21.1.jar",
+  "sha256": "5af33eb20acdfd2c24aa814cb3fdd6714dc0e7e11f62546950ccf3b5d7a56463",
+  "modId": "wildshape",
+  "version": "1.0.1",
+  "sourceMarker": {
+    "schema": 1,
+    "project": "wildshape",
+    "version": "1.0.1",
+    "edition": "standard",
+    "target": "neoforge-1.21.1",
+    "minecraft": "1.21.1",
+    "loader": "neoforge",
+    "java": 21,
+    "source_commit": "58b1ad3dead1cbeef725b69300f7b0e9b1ac4803",
+    "source_dirty": false
+  },
+  "classCount": 837,
+  "changedClassesFrom100": [
+    "architectury_inject_Wildshape_common_f2f18669d7e14ebf8a36516fa655ebf9_48d58d59fd593088ac53b7911420defa3f24d4095e1856041e6d1072f5e1b2a8wildshape101devjar/PlatformMethods.class",
+    "nl/townsandkingdoms/wildshape/data/preset/PresetStructureSets.class"
+  ],
+  "removedClassesFrom100": [
+    "architectury_inject_Wildshape_common_8b43ca8c40c14d02b0562af1e2155580_0f4723ebbd30cd38c52bc080bce1f4a83695ff3562d477447dfa5bfe5fa797e5wildshape100devjar/PlatformMethods.class"
+  ],
+  "maxClassMajor": 65,
+  "regressionTests": 41,
+  "pureFlowChecks": 25,
+  "graphicalClientTested": false,
+  "fullPackRuntimeTested": false,
+  "buildOnlyLoomTcpFallbackBundled": false,
+  "unchangedGameplayClassesFrom100": 835,
+  "changedGameplayClassesFrom100": [
+    "nl/townsandkingdoms/wildshape/data/preset/PresetStructureSets.class"
+  ],
+  "generatedLoaderBridgeRenamed": true
+}

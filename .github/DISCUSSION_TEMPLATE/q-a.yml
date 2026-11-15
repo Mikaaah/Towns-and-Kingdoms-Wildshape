@@ -2,9 +2,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Ask anything about using UltraTerraForged: presets and settings, servers, modpacks, other mods. When someone's answer solves it, mark it as the answer so the next person finds it.
+        Ask anything about using Wildshape: presets and settings, servers, modpacks, other mods. When someone's answer solves it, mark it as the answer so the next person finds it.
 
-        Found a bug or a crash? [Open an issue](https://github.com/Pandaismyname1/ultraterraforged/issues/new/choose) instead.
+        Found a bug or a crash? [Open an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/issues/new/choose) instead.
 
   - type: textarea
     id: question

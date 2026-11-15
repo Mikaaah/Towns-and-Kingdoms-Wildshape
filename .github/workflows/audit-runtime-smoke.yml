@@ -1,4 +1,4 @@
-name: UTF NeoForge server runtime smoke test
+name: Wildshape NeoForge server runtime smoke test
 on:
   push:
     paths:
@@ -17,13 +17,13 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Configure unattended UTF world
+      - name: Configure unattended Wildshape world
         run: |
           mkdir -p neoforge/run
           printf 'eula=true\n' > neoforge/run/eula.txt
           cat > neoforge/run/server.properties <<'PROPS'
-          level-name=utf-smoke
-          level-type=ultraterraforged:ultraterraforged
+          level-name=wildshape-smoke
+          level-type=wildshape:wildshape
           level-seed=1357913579
           initial-enabled-packs=vanilla
           view-distance=3
@@ -33,13 +33,13 @@ jobs:
       - name: Run headless NeoForge until initial generation
         run: |
           set +e
-          timeout --signal=TERM --kill-after=10s 220s ./gradlew :neoforge:runServer -Putf.perfMods=false --no-daemon > server-smoke.log 2>&1
+          timeout --signal=TERM --kill-after=10s 220s ./gradlew :neoforge:runServer -Pwildshape.perfMods=false --no-daemon > server-smoke.log 2>&1
           code=$?
           set -e
           tail -n 160 server-smoke.log
           echo "Exit code: $code (124 means the running server reached timeout)"
           if grep -Eiq 'Done \([[:digit:].]+s\)!|Done \(' server-smoke.log neoforge/run/logs/latest.log 2>/dev/null; then
-            echo "Server started and generated UTF overworld successfully."
+            echo "Server started and generated Wildshape overworld successfully."
           else
             echo "Server did not complete initial load; see logs."
             exit 1
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: utf-neoforge-startup-smoke-logs
+          name: wildshape-neoforge-startup-smoke-logs
           path: |
             server-smoke.log
             neoforge/run/logs/

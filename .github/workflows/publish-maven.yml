@@ -52,7 +52,7 @@ jobs:
       - name: Publish into it
         env:
           RELEASE: true
-        run: ./gradlew :fabric:publish :neoforge:publish -Putf.perfMods=false -PmavenUrl=file://$PWD/maven-out
+        run: ./gradlew :neoforge:publish -Pwildshape.perfMods=false -PmavenUrl=file://$PWD/maven-out
 
       - name: Push the maven branch
         run: |
