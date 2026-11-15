@@ -211,10 +211,12 @@ public final class CompatibilitySmokeChecks {
             if (Boolean.getBoolean("wildshape.issue158Smoke")) {
                 var generated = new java.util.ArrayList<Object>();
                 for (int[] point : new int[][] {{-92, -238}, {-114, -224}, {-7, -24}}) {
+                    WildshapeCommon.LOGGER.info("Wildshape runtime smoke: generating chunk [{}, {}]", point[0], point[1]);
                     var chunk = level.getChunk(point[0], point[1]);
                     require(chunk instanceof net.minecraft.world.level.chunk.LevelChunk,
                             "Issue #158 chunk did not reach FULL: " + chunk.getPos());
                     generated.add(Map.of("x", point[0], "z", point[1], "status", "FULL"));
+                    WildshapeCommon.LOGGER.info("Wildshape runtime smoke: chunk [{}, {}] reached FULL", point[0], point[1]);
                 }
                 report.put("issue158GeneratedChunks", generated);
                 report.put("fixtureSeed", level.getSeed());

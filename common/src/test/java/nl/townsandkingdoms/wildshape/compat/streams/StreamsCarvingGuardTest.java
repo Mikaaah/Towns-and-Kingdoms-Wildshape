@@ -58,7 +58,8 @@ class StreamsCarvingGuardTest {
             return true;
         });
         when(region.getLevel()).thenReturn(level);
-        when(region.getHeight(eq(Heightmap.Types.OCEAN_FLOOR_WG), anyInt(), anyInt())).thenReturn(90);
+        // WorldGenRegion adds one to ChunkAccess.getHeight: solid bed 90, first free 91.
+        when(region.getHeight(eq(Heightmap.Types.OCEAN_FLOOR_WG), anyInt(), anyInt())).thenReturn(91);
         when(region.getBlockState(any())).thenAnswer(call ->
                 call.<BlockPos>getArgument(0).getY() <= 90 ? Blocks.STONE.defaultBlockState() : Blocks.WATER.defaultBlockState());
         when(region.getFluidState(any())).thenAnswer(call -> region.getBlockState(call.getArgument(0)).getFluidState());

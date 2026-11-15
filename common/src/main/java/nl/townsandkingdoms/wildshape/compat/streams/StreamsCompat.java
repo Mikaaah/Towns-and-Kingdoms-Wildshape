@@ -104,7 +104,7 @@ public class StreamsCompat {
         int surface = context.levels.scale(cell.waterLevel);
         if (surface <= context.levels.waterY) return WaterColumn.NONE;
         int bed = region.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.OCEAN_FLOOR_WG,
-                pos.getX(), pos.getZ());
+                pos.getX(), pos.getZ()) - 1; // WorldGenRegion returns the first free block, not the solid bed.
         return bed < surface ? new WaterColumn(bed, surface) : WaterColumn.NONE;
     }
 

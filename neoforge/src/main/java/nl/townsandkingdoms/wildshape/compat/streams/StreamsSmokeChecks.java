@@ -35,9 +35,11 @@ public final class StreamsSmokeChecks {
         if (nl.townsandkingdoms.wildshape.world.worldgen.WorldGenFlags.fastLookups())
             throw new AssertionError("Streams survey leaked its lookup scope");
         report.put("streamsSurveyDoesNotGenerateTiles", true);
+        WildshapeStreams.LOG.info("Wildshape runtime smoke: checking an elevated native river with Streams");
         var sample = IntegrationChecks.findElevatedMain(context);
         if (sample == null) throw new AssertionError("No elevated native river sample");
         var pos = new BlockPos(sample.x(), sample.surfaceY(), sample.z());
+        WildshapeStreams.LOG.info("Wildshape runtime smoke: generating river sample at {}", pos);
         level.getChunkAt(pos);
         if (!level.getFluidState(pos).is(FluidTags.WATER)) throw new AssertionError("Elevated river has no actual water");
         var layers = RiverCurrents.INSTANCE.layers(level, null, sample.x() >> 4, sample.z() >> 4);
