@@ -33,6 +33,9 @@ public class BiomeNoise {
 	private Continent continent;
 	private ControlPoints controlPoints;
 	private Levels levels;
+	// Adjacent cells repeatedly sample the same biome-region centre. A value
+	// belongs to this seed/preset and this worker; no terrain data is retained.
+	private final ThreadLocal<LandValue> lastLandValue = ThreadLocal.withInitial(LandValue::new);
 	
 	public BiomeNoise(Seed seed, Continent continent, WorldSettings.ControlPoints controlPoints, ClimateSettings climateSettings, Levels levels) {
 		int biomeSize = climateSettings.biomeShape.biomeSize;
@@ -133,7 +136,7 @@ public class BiomeNoise {
 		cell.macroBiomeId = this.macroBiomeNoise.compute(centerX, centerZ, 0);
 		int posX = NoiseUtil.floor(centerX / this.biomeFreq);
 		int posZ = NoiseUtil.floor(centerZ / this.biomeFreq);
-		float continentEdge = this.continent.getLandValue(posX, posZ);
+		float continentEdge = this.landValue(posX, posZ);
 		if (mask) {
 			cell.biomeRegionEdge = edgeValue(edgeDistance, edgeDistance2);
 			this.modifyTerrain(cell, continentEdge);
@@ -145,6 +148,24 @@ public class BiomeNoise {
 
         cell.temperature = cell.biomeType.getTemperature(cell.biomeRegionId);
         cell.moisture = cell.biomeType.getMoisture(cell.biomeRegionId);
+	}
+
+	private float landValue(int x, int z) {
+		LandValue cached = this.lastLandValue.get();
+		if (!cached.valid || cached.x != x || cached.z != z) {
+			float value = this.continent.getLandValue(x, z);
+			cached.x = x;
+			cached.z = z;
+			cached.value = value;
+			cached.valid = true;
+		}
+		return cached.value;
+	}
+
+	private static final class LandValue {
+		private int x, z;
+		private float value;
+		private boolean valid;
 	}
 
 	private float modifyTemp(float height, float temp, float x, float z) {
