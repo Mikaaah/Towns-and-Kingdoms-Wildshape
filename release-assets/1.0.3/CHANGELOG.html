@@ -1,19 +1,44 @@
 <div style="font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif;font-size:16px;line-height:1.65">
+
 <p style="text-align:center"><img src="https://i.imgur.com/JGT2lvz.png" alt="Changelog" width="728" height="125" style="display:block;width:100%;height:auto;margin:auto"></p>
-<h2 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:27px;color:#b88bdf;text-align:center">WILDSHAPE — 1.0.3</h2>
-<p style="text-align:center"><strong>Optional SkyLands compatibility for new and existing Wildshape worlds.</strong></p>
-<p style="color:#b88bdf;text-align:center">Minecraft 1.21.1 · NeoForge · Java 21</p>
-<h2 style="color:#b88bdf">SkyLands integration</h2>
+
+<h2 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:27px;color:#b88bdf;text-align:center"><strong>WILDSHAPE — 1.0.3</strong></h2>
+
+<p style="font-size:18px;text-align:center"><strong>New adventures above familiar landscapes.</strong></p>
+
+<p style="color:#b88bdf;text-align:center"><strong>Minecraft 1.21.1 · NeoForge · Java 21</strong></p>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">SkyLands compatibility</h2>
+
 <ul>
-<li>Added compatibility with <strong>SkyLands NeoForge Port 0.9.4</strong>, supplying the Overworld build space required for its native sky islands and foliage.</li>
-<li>Existing Wildshape preset packs receive the height adjustment at startup. The saved preset, terrain noise, world depth, cave and river settings are retained.</li>
-<li>Higher configured ceilings are preserved. Other dimension-type resources remain under their native ownership.</li>
-<li>SkyLands keeps its own biome injection, island generation, structures, spawn rules, loot and configuration. No additional hard dependency or bundled third-party mod is introduced.</li>
+<li>Added optional support for <strong>SkyLands NeoForge Port 0.9.4</strong>.</li>
+<li>Adjusted Wildshape’s Overworld build space to accommodate SkyLands’ islands, vegetation and structures through <strong>Y=527</strong>, while retaining higher configured ceilings.</li>
+<li>SkyLands continues to control its own sky biomes, island generation, structure placement, creature spawning and configuration.</li>
+<li>The integration activates automatically when SkyLands is installed. SkyLands and its dependencies remain separate, optional installations.</li>
 </ul>
-<h2 style="color:#b88bdf">Updating</h2>
-<p>Replace the previous Wildshape JAR on the server and clients, install SkyLands and its normal dependencies separately, and restart. Existing saves using the <code>wildshape</code> namespace keep that identity.</p>
-<p><strong>New chunks only:</strong> existing generated and pregenerated chunks do not gain islands. Explore beyond the pregenerated area. Keep a backup before adding a worldgen mod.</p>
-<p>Earlier world-creation, cache, cave-fluid and Streams fixes remain included. Worlds using the former <code>ultraterraforged</code> namespace still need their separate migration.</p>
-<h2 style="color:#b88bdf">Verification</h2>
-<p>The NeoForge build, release identity check, 53 focused regressions and 25 pure flow/search checks passed. The packaged JAR passed an installed NeoForge 21.1.266 upgrade from a saved 1.0.2 world with SkyLands and the audited TNK biome stack. Native islands and a Y=527 marker saved and reloaded, while the sampled existing chunk and saved preset stayed unchanged. Startup without optional mods also passed. Full graphical client and original-server seed/preset verification remain separate checks.</p>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Existing world support</h2>
+
+<ul>
+<li>Existing Wildshape worlds receive the required height adjustment when loaded, without manually editing their saved preset.</li>
+<li>Retained existing terrain generation, world depth, river and cave settings, and saved preset data.</li>
+<li>Other dimension-type resources keep their native settings.</li>
+</ul>
+
+<p><strong>New chunks only:</strong> SkyLands islands appear in newly generated chunks. Existing generated and pregenerated chunks do not gain islands; explore beyond the pregenerated area to find them.</p>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Updating</h2>
+
+<p><strong>Update both client and server to Wildshape 1.0.3.</strong> Replace the previous Wildshape JAR, install SkyLands and its normal dependencies separately, and restart Minecraft or the server.</p>
+
+<p>The <code>wildshape</code> registry identity is unchanged. Worlds created under the former <code>ultraterraforged</code> namespace still require a separate migration or a fresh world.</p>
+
+<p>Includes the earlier world-creation, terrain-cache, cave-fluid and Streams compatibility fixes.</p>
+
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Verification</h2>
+
+<p>The NeoForge build, <strong>53 focused regression tests</strong> and <strong>25 flow/search checks</strong> passed. Dedicated-server testing on NeoForge 21.1.266 covered upgrading a saved 1.0.2 world with SkyLands and the TNK biome stack, native island generation, saving and reloading, and startup without optional mods.</p>
+
+<p>The sampled existing chunk and saved preset stayed unchanged, and a block at <strong>Y=527</strong> survived reload. Full graphical-client and original-server seed/preset verification remain outstanding.</p>
+
 </div>
