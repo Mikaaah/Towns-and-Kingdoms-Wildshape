@@ -194,12 +194,12 @@ def run_server(root, server, mode=None):
                                 "gamerule doDaylightCycle false", "forceload add 0 0"]:
                     rcon(command)
                 deadline = time.monotonic() + 180
-                while "BASELINE_READY" not in rcon("execute if loaded 8 90 8 run say BASELINE_READY"):
+                while "Test passed" not in rcon("execute if loaded 8 90 8"):
                     if time.monotonic() >= deadline:
                         raise TimeoutError("Existing baseline chunk")
                     time.sleep(1)
                 rcon("setblock 8 90 8 minecraft:diamond_block")
-                assert "MARKER_OK" in rcon("execute if block 8 90 8 minecraft:diamond_block run say MARKER_OK")
+                assert "Test passed" in rcon("execute if block 8 90 8 minecraft:diamond_block")
                 rcon("save-all flush")
                 rcon("stop")
                 process.wait(timeout=90)

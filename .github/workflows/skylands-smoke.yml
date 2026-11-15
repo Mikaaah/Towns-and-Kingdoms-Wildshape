@@ -2,6 +2,13 @@ name: SkyLands existing-world compatibility
 on:
   push:
     branches: ['compat/skylands-*']
+    paths:
+      - 'common/src/**'
+      - 'neoforge/src/**'
+      - 'tools/skylands-smoke.py'
+      - 'release.json'
+      - '**/build.gradle'
+      - 'gradle.properties'
   workflow_dispatch:
 
 permissions:
