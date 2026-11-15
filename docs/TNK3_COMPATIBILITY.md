@@ -1,6 +1,6 @@
 # Wildshape — TNK3 compatibility
 
-Minecraft **1.21.1**, NeoForge **21.1.262**, Java **21**. This describes **1.0.1**, preserving the renamed Wildshape identity and previously audited terrain/compatibility work.
+Minecraft **1.21.1**, Java **21**, NeoForge **21.1.262** build / **21.1.266** latest isolated runtime fixture. This describes **1.0.2**, preserving the renamed Wildshape identity and previously audited terrain/compatibility work.
 
 ## Evidence
 
@@ -10,6 +10,7 @@ The supplied **Beta 1.0** export contains 315 CurseForge entries and three bundl
 - [Current exact dependency hashes](audit/beta-1.0/verified-dependencies.csv)
 - [Beta 1.0 follow-up findings](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md)
 - [Historical initial audit](WILDSHAPE_AUDIT_2026-11-08.md)
+- [1.0.2 worldgen fixes and save/reload verification](WILDSHAPE_WORLDGEN_FIX_2026-11-15.md)
 
 ## Integration matrix
 
@@ -66,6 +67,8 @@ Path: `data/wildshape/tags/worldgen/biome/protected_cave_biomes.json`.
 
 ## Installation and migration
 
-Install one NeoForge 1.21.1 JAR. Remove the previous terrain JAR and superseded `utfstreams`, `tfacfix` and `utfoptimizer`; keep Flow Control. Version 1.0.0 retains `wildshape` for the FML ID, resource namespace, configuration folder and world type. Legacy settings import without overwriting current settings. Use a fresh world: old saves and exported world datapacks require a separate registry migration. See [identity migration](WILDSHAPE_IDENTITY.md).
+Install one NeoForge 1.21.1 JAR. Remove the previous terrain JAR and superseded `utfstreams`, `tfacfix` and `utfoptimizer`; keep Flow Control. Version 1.0.2 retains the `wildshape` FML ID, resource namespace, configuration folder and world type used in 1.0.0/1.0.1. Legacy settings import without overwriting current settings. Worlds and exported datapacks using `ultraterraforged` require a fresh world or separate registry migration. Generation corrections apply to new chunks. See [identity migration](WILDSHAPE_IDENTITY.md).
+
+For 1.0.2, 55 focused tests, the NeoForge build, release identity check and 25 pure flow/search checks passed. The packaged JAR generated, saved and reloaded the reported chunk coordinates in isolated fixtures with Streams 2.17.4, C2ME 0.124 and Nature's Spirit 2.3.2, and with Wildshape alone. These used seed `2031102026` and MEDIUM / 768-block Streams settings. The original server seed/preset and full graphical pack remain unverified; see the [1.0.2 audit](WILDSHAPE_WORLDGEN_FIX_2026-11-15.md).
 
 Historical 1.0.0 evidence includes its release build, 54 regressions and three completed dedicated-server fixtures. The separate 1.0.1 world-creation correction passed 41 focused registry/export tests; current packaging evidence is recorded in its fix report. The focused exported HIGH-accuracy Streams run reached the native habitat assertions but exceeded its total time budget during later current planning; the larger combined fixture was interrupted. These results and exact scope are recorded in the audit. Exhaustive visual checks of every dungeon, mob habitat, seed, custom preset and full client pack remain separate work; a clean compile is not evidence of those outcomes.

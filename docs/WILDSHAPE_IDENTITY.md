@@ -1,6 +1,6 @@
-# Wildshape identity — 1.0.0
+# Wildshape identity — 1.0.2
 
-Version 1.0.0 retains the complete rename introduced in 1.0.12-beta.2 and standardizes the release version. The older beta.1 JAR bundled in the Beta 1.0 pack changed display branding while retaining the former internal identity; replace it with the 1.0.0 artifact. Current verification is recorded in the [Beta 1.0 follow-up audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
+Version 1.0.2 keeps the `wildshape` identity used by 1.0.0 and 1.0.1. The complete rename was introduced in 1.0.12-beta.2; 1.0.0 standardized the release version. The older beta.1 JAR bundled in the Beta 1.0 pack changed display branding while retaining the former internal identity. Current verification is recorded in the [1.0.2 audit](WILDSHAPE_WORLDGEN_FIX_2026-11-15.md); earlier 1.0.0 results remain in the [Beta 1.0 follow-up audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
 
 | Component | Current identity |
 |---|---|
@@ -26,7 +26,7 @@ The former names occur only where needed to recognize imports, reject duplicate 
 
 ## World compatibility
 
-**Use a fresh world when replacing a JAR that registered `ultraterraforged`.** Version 1.0.0 does not rename registry identities again relative to the renamed beta.2 build. A saved world or exported datapack may contain the former namespace in registry keys, density-function codecs, preset resources and `level.dat`. Copying settings does not migrate these references. This release does not rewrite existing worlds or claim that replacing only the JAR migrates them. Keep the earlier JAR with existing saves until a separate registry migration has been prepared and verified on a copy.
+**Use a fresh world when replacing a JAR that registered `ultraterraforged`.** Version 1.0.2 does not rename registry identities again relative to 1.0.0, 1.0.1 or the renamed beta.2 build. A saved world or exported datapack may contain the former namespace in registry keys, density-function codecs, preset resources and `level.dat`. Copying settings does not migrate these references. This release does not rewrite existing worlds or claim that replacing only the JAR migrates them. Keep the earlier JAR with existing saves until a separate registry migration has been prepared and verified on a copy.
 
 Remove the previous terrain JAR before installing this one. The old terrain mod and superseded `utfstreams`, `tfacfix`, and `utfoptimizer` adapters are explicitly incompatible. Flow Control remains optional and supported; the exported Flow Control 0.2.2 uses Streams Reflowing 2.16.2, and the separate Flow Control 1.0.0 update uses Streams Reflowing 2.17.1.
 

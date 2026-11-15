@@ -1,6 +1,6 @@
 # Wildshape × Streams Reflowing
 
-**Built-in optional integration — Minecraft 1.21.1, Wildshape 1.0.0**
+**Built-in optional integration — Minecraft 1.21.1, Wildshape 1.0.2**
 
 Native river layers use the built-in terrain producer. NeoForge retains additional actual-water corrections derived from Mikaaah's own [Wildshape Streams Currents](https://github.com/Mikaaah/Wildshape-Streams-Currents). Streams Reflowing and its water-flow implementation remain a separate installed mod.
 
@@ -18,8 +18,8 @@ Native river layers use the built-in terrain producer. NeoForge retains addition
 | Component | Required? | Version |
 | --- | --- | --- |
 | Wildshape | Required | Minecraft 1.21.1 / NeoForge 21.1.x |
-| Streams Reflowing | **Optional** | Verified NeoForge releases **2.15.2**, **2.16.2**, **2.17.1** |
-| Streams Flow Control | Optional | Exported 0.2.2 with Streams 2.16.2; 1.0.0 with Streams 2.17.1 |
+| Streams Reflowing | **Optional** | Inspected NeoForge APIs **2.15.2**, **2.16.2**, **2.17.1**, **2.17.3**, **2.17.4**; 1.0.2 runtime fixture uses **2.17.4** |
+| Streams Flow Control | Optional | Earlier tested pairings: 0.2.2 with Streams 2.16.2; 1.0.0 with Streams 2.17.1. Later releases must support the selected Streams version themselves. |
 | Standalone Wildshape Streams Currents / `utfstreams` | **Do not install** | Included in Wildshape |
 
 Use the matching original Streams JAR from [Modrinth](https://modrinth.com/mod/streams-reflowing) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/streams-reflowing). Wildshape **does not redistribute it**, and still works with Streams absent.
@@ -40,11 +40,13 @@ On NeoForge, `config/wildshape/streams.toml` controls the additional actual-wate
 
 Neither command is registered if Streams Reflowing is missing.
 
-For developer verification only, start a disposable dedicated world with JVM flag `-Dwildshape.compatSmoke=true`. The live identity, generation and optional Streams checks write `wildshape-compat-results.json` in the game directory and stop the server afterward. Current artifact hashes and completed fixtures are recorded in the [1.0.0 audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
+For developer verification only, start a disposable dedicated world with JVM flag `-Dwildshape.compatSmoke=true`. The live identity, generation and optional Streams checks write `wildshape-compat-results.json` in the game directory and stop the server afterward. Current artifact hashes and generation/save/reload fixtures are recorded in the [1.0.2 audit](WILDSHAPE_WORLDGEN_FIX_2026-11-15.md). Earlier pairings and fixture scope remain recorded in the [1.0.0 audit](WILDSHAPE_BETA_1_AUDIT_2026-11-10.md).
 
 ## Loader and version boundaries
 
-This release targets **NeoForge 1.21.1 / Java 21**. It uses version-specific hooks for the verified Streams **2.15.2**, **2.16.2** and **2.17.1** APIs. The two baked-fluid classes renamed in 2.17.1 have separate hooks; unverified later versions are outside the supported ranges. Flow Control remains optional, and manual overrides retain priority over automatic downhill correction.
+This release targets **NeoForge 1.21.1 / Java 21**. It uses version-specific hooks for the inspected Streams **2.15.2**, **2.16.2**, **2.17.1**, **2.17.3** and **2.17.4** APIs. The two baked-fluid classes renamed in 2.17.1 have separate hooks; unknown releases do not fall through to the legacy actual-water adapter. Flow Control remains optional, and manual overrides retain priority over automatic downhill correction.
+
+Version 1.0.2 limits the carving guard to Wildshape's native raised-water volumes and restores its scope after nested calls or exceptions. Streams can clear its own water and obsolete sources outside those volumes. The live 2.17.4 fixture passed elevated native water, the public current grid, server physics, settings, eight headings and tile-free terrain surveys, followed by a clean save/reload. Full-pack graphical and original-world verification remain separate checks.
 
 **Never load both the old standalone addon and this integrated variant.** Wildshape marks the `utfstreams` mod ID as incompatible, because applying both sets of Mixins could corrupt river physics or crash during initialization.
 
