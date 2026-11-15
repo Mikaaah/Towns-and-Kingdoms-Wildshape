@@ -1,0 +1,65 @@
+[
+  {
+    "file": "cf-1044992-9326605.jar",
+    "bytes": 18677548,
+    "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7"
+  },
+  {
+    "file": "cf-220318-8288121.jar",
+    "bytes": 22338157,
+    "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b"
+  },
+  {
+    "file": "cf-388172-8893490.jar",
+    "bytes": 634531,
+    "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47"
+  },
+  {
+    "file": "cf-659110-9252522.jar",
+    "bytes": 6641783,
+    "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b"
+  },
+  {
+    "file": "cf-936015-9170709.jar",
+    "bytes": 1023751,
+    "sha256": "e0da669fa5facc61a09b9b7bae21b322993de1fcd1eb05787adffb7309598cca"
+  },
+  {
+    "file": "cf-940057-6054947.jar",
+    "bytes": 120364,
+    "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8"
+  },
+  {
+    "file": "cf-955399-8109792.jar",
+    "bytes": 90717,
+    "sha256": "d9ea421e7449a35cf3adc41c9f740156342b7b17a08b1be843660608af7b60f9"
+  },
+  {
+    "file": "skylands-0.9.4.jar",
+    "bytes": 25428632,
+    "sha256": "457a67022d025992b25739a25eaec77a66c4abe1dce766d0f0df1173c41c752e",
+    "nativeOverworldDimension": {
+      "ambient_light": 0.0,
+      "bed_works": true,
+      "coordinate_scale": 1.0,
+      "effects": "minecraft:overworld",
+      "has_ceiling": false,
+      "has_raids": true,
+      "has_skylight": true,
+      "height": 592,
+      "infiniburn": "#minecraft:infiniburn_overworld",
+      "logical_height": 560,
+      "min_y": -64,
+      "monster_spawn_block_light_limit": 0,
+      "monster_spawn_light_level": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 7,
+        "min_inclusive": 0
+      },
+      "natural": true,
+      "piglin_safe": false,
+      "respawn_anchor_works": false,
+      "ultrawarm": false
+    }
+  }
+]
