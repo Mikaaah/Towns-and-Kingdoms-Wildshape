@@ -1,0 +1,31 @@
+name: Publish verified Wildshape JAR to CurseForge
+on:
+  push:
+    branches: ['publish/curseforge-1.0.2']
+    paths:
+      - '.github/workflows/publish-verified-curseforge.yml'
+      - 'release-assets/1.0.2/**'
+permissions:
+  contents: read
+concurrency:
+  group: curseforge-wildshape-1792816
+  cancel-in-progress: false
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload existing verified JAR and HTML changelog
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.curseforge_token }}
+        run: python3 release-assets/1.0.2/publish.py
+      - name: Save upload receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wildshape-1.0.2-curseforge-receipt
+          path: |
+            release-assets/1.0.2/curseforge-upload-result.json
+            release-assets/1.0.2/CHANGELOG.html
+          if-no-files-found: warn

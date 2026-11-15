@@ -1,0 +1,23 @@
+<div style="font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif;font-size:16px;line-height:1.65">
+<p style="text-align:center"><img src="https://i.imgur.com/JGT2lvz.png" alt="Changelog" width="728" height="125" style="display:block;width:100%;height:auto;margin:auto"></p>
+<h2 style="font-family:'Arial Black',Impact,Arial,sans-serif;font-size:27px;color:#b88bdf;text-align:center"><strong>WILDSHAPE — 1.0.2</strong></h2>
+<p style="font-size:18px;text-align:center"><strong>More reliable world generation, cleaner caves and updated river compatibility.</strong></p>
+<p style="color:#b88bdf;text-align:center"><strong>Minecraft 1.21.1 · NeoForge · Java 21</strong></p>
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">World generation and stability</h2>
+<ul>
+<li>Fixed the concurrent terrain-cache eviction crash reported in <a href="https://github.com/Mikaaah/TownsAndKingdoms/issues/158">TNK3 issue #158</a>. Eviction now sorts fixed access-time snapshots, removes entries by identity and keeps published terrain data safe for readers still using it.</li>
+<li>Fixed underground aquifer sources and their clay beds surviving inside newly carved chambers as floating shelves. Surface water, authored cavern lakes, waterlogged blocks, structures and protected cave habitats retain their safeguards.</li>
+<li>Water and lava exposed by custom cave carving now receive normal fluid updates.</li>
+<li>Surface-height checks now use the chunk's actual solid ground, fixing missing topsoil when density shaping or structure adjustment differs from the predicted terrain height. Native biome materials, including Nature's Spirit highland terracotta, are preserved.</li>
+</ul>
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Streams Reflowing compatibility</h2>
+<ul>
+<li>Added explicit support for Streams Reflowing <strong>2.17.3 and 2.17.4</strong>, alongside the existing 2.15.2, 2.16.2 and 2.17.1 bindings.</li>
+<li>Restricted the Streams carving guard to Wildshape's native raised-water volumes. Streams can now clear its own water and obsolete sources outside those volumes.</li>
+<li>Carving state is restored after exceptions and nested features. Unrecognized Streams releases no longer activate the legacy actual-water hooks.</li>
+</ul>
+<h2 style="font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:23px;font-weight:800;color:#b88bdf">Updating and verification</h2>
+<p>Replace the previous Wildshape JAR and restart Minecraft. <strong>Terrain corrections affect newly generated chunks; saved terrain is not rewritten.</strong> The <code>wildshape</code> registry namespace is unchanged from 1.0.0 and 1.0.1.</p>
+<p><strong>Verification:</strong> The build, 55 focused regression tests and 25 flow checks passed. Isolated NeoForge 21.1.266 server fixtures passed generation, saving and reloading with Wildshape alone and with Streams 2.17.4, C2ME 0.124 and Nature's Spirit 2.3.2. Both reported chunks reached FULL and retained matching saved block palettes after reload.</p>
+<p>Full-pack graphical inspection and a replay using the original world's seed and preset remain unverified. See the <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/d2fee6741a03437b6513d2ee77c7a2e37ad5f0bd/docs/WILDSHAPE_WORLDGEN_FIX_2026-11-15.md">audit and verification record</a> for details.</p>
+</div>

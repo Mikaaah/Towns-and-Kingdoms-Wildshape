@@ -1,5 +1,8 @@
 name: Build
-on: [ pull_request, push ]
+on:
+  pull_request:
+  push:
+    branches-ignore: ['publish/curseforge-*']
 
 # a newer push to the same branch cancels the build still running for the older one
 concurrency:
