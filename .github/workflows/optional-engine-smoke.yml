@@ -2,6 +2,8 @@ name: Optional worldgen engine server verification
 on:
   push:
     branches: ['audit/structure-compat-*']
+  pull_request:
+    branches: ['fix/worldgen-performance-1.0.4']
   workflow_dispatch:
 permissions:
   contents: read

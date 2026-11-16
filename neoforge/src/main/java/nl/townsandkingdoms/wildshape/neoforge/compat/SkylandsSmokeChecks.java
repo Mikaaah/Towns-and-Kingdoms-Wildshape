@@ -152,6 +152,15 @@ public final class SkylandsSmokeChecks {
                 report.put("existingWorldMarkerPreserved", true);
                 report.put("chunk", List.of(chunk.getPos().x, chunk.getPos().z));
             }
+            if (ModList.get().isLoaded("world_preview")) verifyPreviewBridge(server, report);
+            if (ModList.get().isLoaded("generatoraccelerator2")) {
+                var runner = Class.forName("dev.denismasterherobrine.generatoraccelerator2.carver.CarverRunner");
+                long fast = counterValue(runner.getField("CHUNKS_FAST").get(null));
+                long vanilla = counterValue(runner.getField("CHUNKS_VANILLA").get(null));
+                report.put("ga2Carvers", Map.of("fastChunks", fast, "vanillaChunks", vanilla,
+                        "optimizedPathObserved", fast > 0,
+                        "observedPath", fast > 0 ? "optimized" : vanilla > 0 ? "safe_vanilla_fallback" : "not_exercised"));
+            }
             report.put("structurePlacement", nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementCoordinator.audit(level));
             report.put("passed", true);
         } catch (Throwable failure) {
@@ -168,6 +177,45 @@ public final class SkylandsSmokeChecks {
                 WildshapeCommon.LOGGER.error("Cannot save SkyLands verification report", failure);
             }
             server.halt(false);
+        }
+    }
+
+    private static long counterValue(Object counter) {
+        // The inspected GA2 release uses LongAdder; Number also covers AtomicLong
+        // and AtomicInteger without assuming the same representation in future releases.
+        if (counter instanceof java.util.concurrent.atomic.LongAdder adder) return adder.sum();
+        if (counter instanceof Number number) return number.longValue();
+        throw new IllegalArgumentException("Unexpected engine counter: " + counter.getClass().getName());
+    }
+
+    /** Exercise the actual relocated preview constructor, not just mod-presence metadata. */
+    private static void verifyPreviewBridge(net.minecraft.server.MinecraftServer server,
+            Map<String, Object> report) throws Exception {
+        Class<?> type;
+        try { type = Class.forName("com.caeruleusTait.world.preview.backend.worker.SampleUtils"); }
+        catch (ClassNotFoundException originalPackage) {
+            type = Class.forName("caeruleusTait.world.preview.backend.worker.SampleUtils");
+        }
+        var level = server.overworld();
+        var generator = level.getChunkSource().getGenerator();
+        var stem = server.registryAccess().registryOrThrow(Registries.LEVEL_STEM)
+                .getHolderOrThrow(net.minecraft.world.level.dimension.LevelStem.OVERWORLD).value();
+        var constructor = type.getConstructor(net.minecraft.server.MinecraftServer.class,
+                net.minecraft.world.level.biome.BiomeSource.class, net.minecraft.world.level.chunk.ChunkGenerator.class,
+                net.minecraft.world.level.levelgen.WorldOptions.class, net.minecraft.world.level.dimension.LevelStem.class,
+                net.minecraft.world.level.LevelHeightAccessor.class);
+        try (var preview = (AutoCloseable) constructor.newInstance(server, generator.getBiomeSource(), generator,
+                new net.minecraft.world.level.levelgen.WorldOptions(level.getSeed(), true, false), stem, level)) {
+            var field = type.getDeclaredField("randomState");
+            field.setAccessible(true);
+            var state = (WildshapeRandomState) field.get(preview);
+            var live = (WildshapeRandomState) (Object) level.getChunkSource().randomState();
+            require(state.generatorContext() != null && state.generatorContext() != live.generatorContext(),
+                    "World Preview did not create an independent initialized Wildshape context");
+            require(state.generatorContext().lookup.approximate(), "World Preview bridge did not enable preview sampling");
+            Object height = type.getMethod("doHeightSlow", BlockPos.class).invoke(preview, new BlockPos(8, 90, 8));
+            report.put("worldPreviewProbe", Map.of("class", type.getName(), "independentContext", true,
+                    "approximateSampling", true, "sampledHeight", height, "graphicalRenderingTested", false));
         }
     }
 }
