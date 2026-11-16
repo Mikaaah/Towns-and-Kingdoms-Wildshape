@@ -1,0 +1,414 @@
+{
+  "completedTrials": 6,
+  "runs": [
+    {
+      "name": "01-A",
+      "version": "A",
+      "firstColdChunkSeconds": 36.75009552799747,
+      "generationSeconds": 66.57917677299702,
+      "reloadSeconds": 2.8402721650054445,
+      "remainingAreaSeconds": 29.829076859008637,
+      "requestedChunksPerSecond": 1.2165965986057632,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 221.77,
+      "generationRssPeakMiB": 2115.21484375,
+      "reloadRssPeakMiB": 1446.99609375,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 38,
+        "gcPauseSeconds": 1.232774158,
+        "longestGcPauseSeconds": 0.198289502,
+        "observedHeapPeakMiBAtGc": 1492.0612564086914,
+        "lastObservedHeapAfterGcMiB": 948.0612564086914
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 0,
+        "gcPauseSeconds": 0,
+        "longestGcPauseSeconds": 0,
+        "observedHeapPeakMiBAtGc": 493.265625,
+        "lastObservedHeapAfterGcMiB": 493.265625
+      }
+    },
+    {
+      "name": "02-B",
+      "version": "B",
+      "firstColdChunkSeconds": 32.87986305600498,
+      "generationSeconds": 64.96702829499554,
+      "reloadSeconds": 4.897658546004095,
+      "remainingAreaSeconds": 32.08716136399016,
+      "requestedChunksPerSecond": 1.2467862872256308,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 219.2,
+      "generationRssPeakMiB": 2102.0234375,
+      "reloadRssPeakMiB": 1575.37109375,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 35,
+        "gcPauseSeconds": 1.109673805,
+        "longestGcPauseSeconds": 0.123114262,
+        "observedHeapPeakMiBAtGc": 1404.0612564086914,
+        "lastObservedHeapAfterGcMiB": 940.0612564086914
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 1,
+        "gcPauseSeconds": 0.025802913,
+        "longestGcPauseSeconds": 0.025802913,
+        "observedHeapPeakMiBAtGc": 1021.6708145141602,
+        "lastObservedHeapAfterGcMiB": 367.67081451416016
+      }
+    },
+    {
+      "name": "03-B",
+      "version": "B",
+      "firstColdChunkSeconds": 32.683367286997964,
+      "generationSeconds": 62.956854326999746,
+      "reloadSeconds": 3.695096516996273,
+      "remainingAreaSeconds": 30.27348300399899,
+      "requestedChunksPerSecond": 1.2865954130948734,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 215.94000000000003,
+      "generationRssPeakMiB": 2070.7109375,
+      "reloadRssPeakMiB": 1644.47265625,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 39,
+        "gcPauseSeconds": 1.224304809,
+        "longestGcPauseSeconds": 0.122996744,
+        "observedHeapPeakMiBAtGc": 1450.7755508422852,
+        "lastObservedHeapAfterGcMiB": 928.7755508422852
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 1,
+        "gcPauseSeconds": 0.057589526,
+        "longestGcPauseSeconds": 0.057589526,
+        "observedHeapPeakMiBAtGc": 1048.9951934814453,
+        "lastObservedHeapAfterGcMiB": 387.49312591552734
+      }
+    },
+    {
+      "name": "04-A",
+      "version": "A",
+      "firstColdChunkSeconds": 38.92896833100531,
+      "generationSeconds": 71.86733012300101,
+      "reloadSeconds": 3.745013084000675,
+      "remainingAreaSeconds": 32.93835878800019,
+      "requestedChunksPerSecond": 1.1270767936052224,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 238.55999999999997,
+      "generationRssPeakMiB": 2123.03125,
+      "reloadRssPeakMiB": 1579.57421875,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 38,
+        "gcPauseSeconds": 1.391931748,
+        "longestGcPauseSeconds": 0.17740883,
+        "observedHeapPeakMiBAtGc": 1476.0612564086914,
+        "lastObservedHeapAfterGcMiB": 940.0612564086914
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 1,
+        "gcPauseSeconds": 0.054093219,
+        "longestGcPauseSeconds": 0.054093219,
+        "observedHeapPeakMiBAtGc": 1003.6122665405273,
+        "lastObservedHeapAfterGcMiB": 405.45360565185547
+      }
+    },
+    {
+      "name": "05-A",
+      "version": "A",
+      "firstColdChunkSeconds": 33.370498800999485,
+      "generationSeconds": 65.9367435509921,
+      "reloadSeconds": 3.132535309996456,
+      "remainingAreaSeconds": 32.56624105499941,
+      "requestedChunksPerSecond": 1.2284501119980051,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 211.42,
+      "generationRssPeakMiB": 2132.8046875,
+      "reloadRssPeakMiB": 1588.09765625,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 33,
+        "gcPauseSeconds": 1.118992108,
+        "longestGcPauseSeconds": 0.104829047,
+        "observedHeapPeakMiBAtGc": 1503.0612564086914,
+        "lastObservedHeapAfterGcMiB": 944.7356414794922
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 3,
+        "gcPauseSeconds": 0.10397757499999999,
+        "longestGcPauseSeconds": 0.038925786,
+        "observedHeapPeakMiBAtGc": 1013.9375839233398,
+        "lastObservedHeapAfterGcMiB": 574.6615753173828
+      }
+    },
+    {
+      "name": "06-B",
+      "version": "B",
+      "firstColdChunkSeconds": 32.43567940099456,
+      "generationSeconds": 62.118834911991144,
+      "reloadSeconds": 3.197849293006584,
+      "remainingAreaSeconds": 29.683152026002062,
+      "requestedChunksPerSecond": 1.3039523377210689,
+      "chunksWithBlockSnapshotChangesOnReload": 0,
+      "generationCpuSeconds": 210.55,
+      "generationRssPeakMiB": 2067.5078125,
+      "reloadRssPeakMiB": 1417.26953125,
+      "structureStarts": {},
+      "generationGc": {
+        "gcEventsStartingInPhase": 33,
+        "gcPauseSeconds": 1.075135591,
+        "longestGcPauseSeconds": 0.12124087,
+        "observedHeapPeakMiBAtGc": 1454.0612564086914,
+        "lastObservedHeapAfterGcMiB": 918.7153167724609
+      },
+      "reloadGc": {
+        "gcEventsStartingInPhase": 1,
+        "gcPauseSeconds": 0.055485351,
+        "longestGcPauseSeconds": 0.055485351,
+        "observedHeapPeakMiBAtGc": 912.6665420532227,
+        "lastObservedHeapAfterGcMiB": 395.66654205322266
+      }
+    }
+  ],
+  "versions": {
+    "A": {
+      "firstColdChunkSeconds": {
+        "n": 3,
+        "median": 36.75009552799747,
+        "min": 33.370498800999485,
+        "max": 38.92896833100531,
+        "samples": [
+          36.75009552799747,
+          38.92896833100531,
+          33.370498800999485
+        ],
+        "populationCv": 0.06291128225822075
+      },
+      "generationSeconds": {
+        "n": 3,
+        "median": 66.57917677299702,
+        "min": 65.9367435509921,
+        "max": 71.86733012300101,
+        "samples": [
+          66.57917677299702,
+          71.86733012300101,
+          65.9367435509921
+        ],
+        "populationCv": 0.03900403600460466
+      },
+      "remainingAreaSeconds": {
+        "n": 3,
+        "median": 32.56624105499941,
+        "min": 29.829076859008637,
+        "max": 32.93835878800019,
+        "samples": [
+          29.829076859008637,
+          32.93835878800019,
+          32.56624105499941
+        ],
+        "populationCv": 0.04362684254687667
+      },
+      "reloadSeconds": {
+        "n": 3,
+        "median": 3.132535309996456,
+        "min": 2.8402721650054445,
+        "max": 3.745013084000675,
+        "samples": [
+          2.8402721650054445,
+          3.745013084000675,
+          3.132535309996456
+        ],
+        "populationCv": 0.11638147747632624
+      },
+      "requestedChunksPerSecond": {
+        "n": 3,
+        "median": 1.2165965986057632,
+        "min": 1.1270767936052224,
+        "max": 1.2284501119980051,
+        "samples": [
+          1.2165965986057632,
+          1.1270767936052224,
+          1.2284501119980051
+        ],
+        "populationCv": 0.03800548048858734
+      },
+      "generationCpuSeconds": {
+        "n": 3,
+        "median": 221.77,
+        "min": 211.42,
+        "max": 238.55999999999997,
+        "samples": [
+          221.77,
+          238.55999999999997,
+          211.42
+        ],
+        "populationCv": 0.049944257746980865
+      },
+      "generationRssPeakMiB": {
+        "n": 3,
+        "median": 2123.03125,
+        "min": 2115.21484375,
+        "max": 2132.8046875,
+        "samples": [
+          2115.21484375,
+          2123.03125,
+          2132.8046875
+        ],
+        "populationCv": 0.0033883689554034483
+      },
+      "reloadRssPeakMiB": {
+        "n": 3,
+        "median": 1579.57421875,
+        "min": 1446.99609375,
+        "max": 1588.09765625,
+        "samples": [
+          1446.99609375,
+          1579.57421875,
+          1588.09765625
+        ],
+        "populationCv": 0.04199697891691895
+      }
+    },
+    "B": {
+      "firstColdChunkSeconds": {
+        "n": 3,
+        "median": 32.683367286997964,
+        "min": 32.43567940099456,
+        "max": 32.87986305600498,
+        "samples": [
+          32.87986305600498,
+          32.683367286997964,
+          32.43567940099456
+        ],
+        "populationCv": 0.005563476511333942
+      },
+      "generationSeconds": {
+        "n": 3,
+        "median": 62.956854326999746,
+        "min": 62.118834911991144,
+        "max": 64.96702829499554,
+        "samples": [
+          64.96702829499554,
+          62.956854326999746,
+          62.118834911991144
+        ],
+        "populationCv": 0.0188664228068924
+      },
+      "remainingAreaSeconds": {
+        "n": 3,
+        "median": 30.27348300399899,
+        "min": 29.683152026002062,
+        "max": 32.08716136399016,
+        "samples": [
+          32.08716136399016,
+          30.27348300399899,
+          29.683152026002062
+        ],
+        "populationCv": 0.0333400256893348
+      },
+      "reloadSeconds": {
+        "n": 3,
+        "median": 3.695096516996273,
+        "min": 3.197849293006584,
+        "max": 4.897658546004095,
+        "samples": [
+          4.897658546004095,
+          3.695096516996273,
+          3.197849293006584
+        ],
+        "populationCv": 0.18156309297832648
+      },
+      "requestedChunksPerSecond": {
+        "n": 3,
+        "median": 1.2865954130948734,
+        "min": 1.2467862872256308,
+        "max": 1.3039523377210689,
+        "samples": [
+          1.2467862872256308,
+          1.2865954130948734,
+          1.3039523377210689
+        ],
+        "populationCv": 0.018708632293296026
+      },
+      "generationCpuSeconds": {
+        "n": 3,
+        "median": 215.94000000000003,
+        "min": 210.55,
+        "max": 219.2,
+        "samples": [
+          219.2,
+          215.94000000000003,
+          210.55
+        ],
+        "populationCv": 0.0165723026193243
+      },
+      "generationRssPeakMiB": {
+        "n": 3,
+        "median": 2070.7109375,
+        "min": 2067.5078125,
+        "max": 2102.0234375,
+        "samples": [
+          2102.0234375,
+          2070.7109375,
+          2067.5078125
+        ],
+        "populationCv": 0.007485692824647562
+      },
+      "reloadRssPeakMiB": {
+        "n": 3,
+        "median": 1575.37109375,
+        "min": 1417.26953125,
+        "max": 1644.47265625,
+        "samples": [
+          1575.37109375,
+          1644.47265625,
+          1417.26953125
+        ],
+        "populationCv": 0.06152394781968591
+      }
+    }
+  },
+  "note": "Independent parsing of raw trial JSON and JFR phase events. Fixed seed/area, three repeats/version max. GC metrics include events whose start lies inside measurement window. Heap peaks are observed at GC events, not true continuous peaks.",
+  "medianChange": {
+    "firstColdChunkSeconds": {
+      "baseline104": 36.75009552799747,
+      "beta105": 32.683367286997964,
+      "percentBetaLess": 11.06589842168257
+    },
+    "generationSeconds": {
+      "baseline104": 66.57917677299702,
+      "beta105": 62.956854326999746,
+      "percentBetaLess": 5.4406236627822055
+    },
+    "remainingAreaSeconds": {
+      "baseline104": 32.56624105499941,
+      "beta105": 30.27348300399899,
+      "percentBetaLess": 7.040290732750829
+    },
+    "reloadSeconds": {
+      "baseline104": 3.132535309996456,
+      "beta105": 3.695096516996273,
+      "percentBetaLess": -17.958654933739705
+    },
+    "generationCpuSeconds": {
+      "baseline104": 221.77,
+      "beta105": 215.94000000000003,
+      "percentBetaLess": 2.6288497091581293
+    },
+    "generationRssPeakMiB": {
+      "baseline104": 2123.03125,
+      "beta105": 2070.7109375,
+      "percentBetaLess": 2.4644155614760734
+    },
+    "reloadRssPeakMiB": {
+      "baseline104": 1579.57421875,
+      "beta105": 1575.37109375,
+      "percentBetaLess": 0.2660922766469406
+    },
+    "requestedChunksPerSecond": {
+      "baseline104": 1.2165965986057632,
+      "beta105": 1.2865954130948734,
+      "percentBetaMore": 5.753658572556408
+    }
+  }
+}

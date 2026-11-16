@@ -1,0 +1,3355 @@
+{
+  "complete": true,
+  "completedSuccessfulTrials": 6,
+  "expectedTrials": 6,
+  "actualOrder": [
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "failedTrials": [],
+  "environment": {
+    "dependencies": [
+      {
+        "file": "cf-388172-8893490.jar",
+        "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47",
+        "mods": [
+          {
+            "id": "geckolib",
+            "version": "4.9.3"
+          }
+        ]
+      },
+      {
+        "file": "cf-936015-9170709.jar",
+        "sha256": "e0da669fa5facc61a09b9b7bae21b322993de1fcd1eb05787adffb7309598cca",
+        "mods": [
+          {
+            "id": "lithostitched",
+            "version": "1.8.1"
+          }
+        ]
+      },
+      {
+        "file": "cf-1044992-9326605.jar",
+        "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7",
+        "mods": [
+          {
+            "id": "natures_spirit",
+            "version": "2.3.2-1.21.1"
+          }
+        ]
+      },
+      {
+        "file": "cf-940057-6054947.jar",
+        "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8",
+        "mods": [
+          {
+            "id": "terrablender",
+            "version": "${file.jarVersion}"
+          }
+        ]
+      },
+      {
+        "file": "cf-659110-9252522.jar",
+        "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b",
+        "mods": [
+          {
+            "id": "regions_unexplored",
+            "version": "0.6.3"
+          }
+        ]
+      },
+      {
+        "file": "cf-220318-8288121.jar",
+        "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b",
+        "mods": [
+          {
+            "id": "biomesoplenty",
+            "version": "21.1.0.14"
+          }
+        ]
+      },
+      {
+        "file": "cf-955399-8109792.jar",
+        "sha256": "d9ea421e7449a35cf3adc41c9f740156342b7b17a08b1be843660608af7b60f9",
+        "mods": [
+          {
+            "id": "glitchcore",
+            "version": "2.1.0.2"
+          }
+        ]
+      },
+      {
+        "file": "skylands-0.9.4.1.jar",
+        "sha256": "8d36b7f51672da8206e3df5ac90fec158316ac8444cceac1929c253296717309",
+        "mods": [
+          {
+            "id": "skylands",
+            "version": "0.9.4.1"
+          }
+        ]
+      },
+      {
+        "file": "StreamsReflowing-1.21.1-neoforge-2.17.3.jar",
+        "sha256": "cc84b39d122f30412e82978fd95e7a017622a915540f49dd34ae41f26f56a185",
+        "mods": [
+          {
+            "id": "streamsreflowing",
+            "version": "2.17.3"
+          }
+        ]
+      },
+      {
+        "file": "cf-551586-8931182.jar",
+        "sha256": "371956d0c2e3b56729ee93b955e936875d210e372fe734cdb74326d89ef79875",
+        "mods": [
+          {
+            "id": "cataclysm",
+            "version": "3.33"
+          }
+        ]
+      },
+      {
+        "file": "cf-817709-9151098.jar",
+        "sha256": "3621edbd54dec28b704e03b792cc392f6d37a2cecf832d7b11c485a1765d4a3d",
+        "mods": [
+          {
+            "id": "integrated_api",
+            "version": "1.9.1"
+          }
+        ]
+      },
+      {
+        "file": "cf-1015112-5954804.jar",
+        "sha256": "61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04",
+        "mods": [
+          {
+            "id": "betterdungeons",
+            "version": "1.21.1-NeoForge-5.1.4"
+          }
+        ]
+      },
+      {
+        "file": "cf-1015114-6276955.jar",
+        "sha256": "2c3191ad447092cc7873a06e92f16bd3e2ff9dc31e93268b8893d06dd89e1fd6",
+        "mods": [
+          {
+            "id": "betterdeserttemples",
+            "version": "1.21.1-NeoForge-4.1.5"
+          }
+        ]
+      },
+      {
+        "file": "cf-309927-6529130.jar",
+        "sha256": "a45df2125c26219974aba7507ffc9afe7b83acc941a386af3faacb1cc0056fde",
+        "mods": [
+          {
+            "id": "curios",
+            "version": "9.5.1+1.21.1"
+          }
+        ]
+      },
+      {
+        "file": "cf-1001614-8345326.jar",
+        "sha256": "aeebf0692650afbbc78259c0d4e3d5b7edf037707e8ae5d56045066d83a19cf6",
+        "mods": [
+          {
+            "id": "lionfishapi",
+            "version": "3.1"
+          }
+        ]
+      },
+      {
+        "file": "cf-1015100-8894736.jar",
+        "sha256": "375e0b2f988ab4f5bde182166c0f0b102377adc8f823660c24ade08b0b3cde56",
+        "mods": [
+          {
+            "id": "yungsapi",
+            "version": "1.21.1-NeoForge-5.1.9"
+          }
+        ]
+      }
+    ],
+    "artifacts": {
+      "A": {
+        "file": "wildshape-1.0.4-neoforge-1.21.1.jar",
+        "sha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0"
+      },
+      "B": {
+        "file": "wildshape-1.0.5-beta.1-neoforge-1.21.1.jar",
+        "sha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6"
+      }
+    },
+    "worldSeed": 2031102026,
+    "presetSha256": "db4745f9bf850de99b79fb9b6d64ed5c490cbb8ad2c55c012efb14eef8425d4c",
+    "neoForge": "21.1.266",
+    "java": "/workspace/scratch/8fcc0960d930/toolchain/zulu21.54.109-ca-crac-jdk21.0.13.0.3-linux_x64",
+    "javaVersion": "openjdk version \"21.0.13.0.3\" 2026-10-24 LTS\nOpenJDK Runtime Environment Zulu21.54+109-CRaC-CA (build 21.0.13.0.3+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.54+109-CRaC-CA (build 21.0.13.0.3+1-LTS, mixed mode, sharing)\n",
+    "requestedTargets": [
+      [
+        442,
+        352
+      ],
+      [
+        442,
+        353
+      ],
+      [
+        442,
+        354
+      ],
+      [
+        442,
+        355
+      ],
+      [
+        442,
+        356
+      ],
+      [
+        442,
+        357
+      ],
+      [
+        442,
+        358
+      ],
+      [
+        442,
+        359
+      ],
+      [
+        442,
+        360
+      ],
+      [
+        443,
+        352
+      ],
+      [
+        443,
+        353
+      ],
+      [
+        443,
+        354
+      ],
+      [
+        443,
+        355
+      ],
+      [
+        443,
+        356
+      ],
+      [
+        443,
+        357
+      ],
+      [
+        443,
+        358
+      ],
+      [
+        443,
+        359
+      ],
+      [
+        443,
+        360
+      ],
+      [
+        444,
+        352
+      ],
+      [
+        444,
+        353
+      ],
+      [
+        444,
+        354
+      ],
+      [
+        444,
+        355
+      ],
+      [
+        444,
+        356
+      ],
+      [
+        444,
+        357
+      ],
+      [
+        444,
+        358
+      ],
+      [
+        444,
+        359
+      ],
+      [
+        444,
+        360
+      ],
+      [
+        445,
+        352
+      ],
+      [
+        445,
+        353
+      ],
+      [
+        445,
+        354
+      ],
+      [
+        445,
+        355
+      ],
+      [
+        445,
+        356
+      ],
+      [
+        445,
+        357
+      ],
+      [
+        445,
+        358
+      ],
+      [
+        445,
+        359
+      ],
+      [
+        445,
+        360
+      ],
+      [
+        446,
+        352
+      ],
+      [
+        446,
+        353
+      ],
+      [
+        446,
+        354
+      ],
+      [
+        446,
+        355
+      ],
+      [
+        446,
+        356
+      ],
+      [
+        446,
+        357
+      ],
+      [
+        446,
+        358
+      ],
+      [
+        446,
+        359
+      ],
+      [
+        446,
+        360
+      ],
+      [
+        447,
+        352
+      ],
+      [
+        447,
+        353
+      ],
+      [
+        447,
+        354
+      ],
+      [
+        447,
+        355
+      ],
+      [
+        447,
+        356
+      ],
+      [
+        447,
+        357
+      ],
+      [
+        447,
+        358
+      ],
+      [
+        447,
+        359
+      ],
+      [
+        447,
+        360
+      ],
+      [
+        448,
+        352
+      ],
+      [
+        448,
+        353
+      ],
+      [
+        448,
+        354
+      ],
+      [
+        448,
+        355
+      ],
+      [
+        448,
+        356
+      ],
+      [
+        448,
+        357
+      ],
+      [
+        448,
+        358
+      ],
+      [
+        448,
+        359
+      ],
+      [
+        448,
+        360
+      ],
+      [
+        449,
+        352
+      ],
+      [
+        449,
+        353
+      ],
+      [
+        449,
+        354
+      ],
+      [
+        449,
+        355
+      ],
+      [
+        449,
+        356
+      ],
+      [
+        449,
+        357
+      ],
+      [
+        449,
+        358
+      ],
+      [
+        449,
+        359
+      ],
+      [
+        449,
+        360
+      ],
+      [
+        450,
+        352
+      ],
+      [
+        450,
+        353
+      ],
+      [
+        450,
+        354
+      ],
+      [
+        450,
+        355
+      ],
+      [
+        450,
+        356
+      ],
+      [
+        450,
+        357
+      ],
+      [
+        450,
+        358
+      ],
+      [
+        450,
+        359
+      ],
+      [
+        450,
+        360
+      ]
+    ],
+    "order": [
+      "A",
+      "B",
+      "B",
+      "A",
+      "A",
+      "B"
+    ],
+    "c2me": false,
+    "byePregen": false,
+    "generatorAccelerator": false,
+    "requestBatchSize": 9,
+    "requestBatchCount": 9,
+    "persistentRconConnection": true,
+    "threadsExposedToJava": 4,
+    "heap": "512M initial / 3G maximum",
+    "pollIntervalSeconds": 0.05,
+    "hostCpuAffinityCount": 9,
+    "harnessSha256": "5e14682466d916b08e55627af59ac45201dc18a70d266f1976a044c03bbd67e4"
+  },
+  "versions": {
+    "A": {
+      "label": "1.0.4",
+      "count": 3,
+      "metrics": {
+        "firstColdChunkSeconds": {
+          "count": 3,
+          "median": 36.75009552799747,
+          "minimum": 33.370498800999485,
+          "maximum": 38.92896833100531,
+          "samples": [
+            36.75009552799747,
+            38.92896833100531,
+            33.370498800999485
+          ]
+        },
+        "generationSeconds": {
+          "count": 3,
+          "median": 66.57917677299702,
+          "minimum": 65.9367435509921,
+          "maximum": 71.86733012300101,
+          "samples": [
+            66.57917677299702,
+            71.86733012300101,
+            65.9367435509921
+          ]
+        },
+        "remainingAreaSeconds": {
+          "count": 3,
+          "median": 32.56624105499941,
+          "minimum": 29.829076859008637,
+          "maximum": 32.93835878800019,
+          "samples": [
+            29.829076859008637,
+            32.93835878800019,
+            32.56624105499941
+          ]
+        },
+        "reloadSeconds": {
+          "count": 3,
+          "median": 3.132535309996456,
+          "minimum": 2.8402721650054445,
+          "maximum": 3.745013084000675,
+          "samples": [
+            2.8402721650054445,
+            3.745013084000675,
+            3.132535309996456
+          ]
+        },
+        "requestedChunksPerSecond": {
+          "count": 3,
+          "median": 1.2165965986057632,
+          "minimum": 1.1270767936052224,
+          "maximum": 1.2284501119980051,
+          "samples": [
+            1.2165965986057632,
+            1.1270767936052224,
+            1.2284501119980051
+          ]
+        },
+        "generationRssPeakMiB": {
+          "count": 3,
+          "median": 2123.03125,
+          "minimum": 2115.21484375,
+          "maximum": 2132.8046875,
+          "samples": [
+            2115.21484375,
+            2123.03125,
+            2132.8046875
+          ]
+        },
+        "generationCpuSeconds": {
+          "count": 3,
+          "median": 221.77,
+          "minimum": 211.42,
+          "maximum": 238.55999999999997,
+          "samples": [
+            221.77,
+            238.55999999999997,
+            211.42
+          ]
+        },
+        "generationGcPauseTotalMilliseconds": {
+          "count": 3,
+          "median": 1232.774158,
+          "minimum": 1118.9921080000001,
+          "maximum": 1391.931748,
+          "samples": [
+            1232.774158,
+            1391.931748,
+            1118.9921080000001
+          ]
+        },
+        "generationObservedAfterGcHeapMaximumMiB": {
+          "count": 3,
+          "median": 1268.0612564086914,
+          "minimum": 1259.0612564086914,
+          "maximum": 1284.0612564086914,
+          "samples": [
+            1259.0612564086914,
+            1268.0612564086914,
+            1284.0612564086914
+          ]
+        },
+        "reloadRssPeakMiB": {
+          "count": 3,
+          "median": 1579.57421875,
+          "minimum": 1446.99609375,
+          "maximum": 1588.09765625,
+          "samples": [
+            1446.99609375,
+            1579.57421875,
+            1588.09765625
+          ]
+        },
+        "reloadCpuSeconds": {
+          "count": 3,
+          "median": 12.219999999999999,
+          "minimum": 10.849999999999994,
+          "maximum": 12.880000000000024,
+          "samples": [
+            10.849999999999994,
+            12.880000000000024,
+            12.219999999999999
+          ]
+        },
+        "reloadGcPauseTotalMilliseconds": {
+          "count": 3,
+          "median": 54.093219,
+          "minimum": 0.0,
+          "maximum": 103.97757499999999,
+          "samples": [
+            0.0,
+            54.093219,
+            103.97757499999999
+          ]
+        },
+        "reloadObservedAfterGcHeapMaximumMiB": {
+          "count": 3,
+          "median": 493.265625,
+          "minimum": 405.45360565185547,
+          "maximum": 574.6615753173828,
+          "samples": [
+            493.265625,
+            405.45360565185547,
+            574.6615753173828
+          ]
+        }
+      }
+    },
+    "B": {
+      "label": "1.0.5-beta.1",
+      "count": 3,
+      "metrics": {
+        "firstColdChunkSeconds": {
+          "count": 3,
+          "median": 32.683367286997964,
+          "minimum": 32.43567940099456,
+          "maximum": 32.87986305600498,
+          "samples": [
+            32.87986305600498,
+            32.683367286997964,
+            32.43567940099456
+          ]
+        },
+        "generationSeconds": {
+          "count": 3,
+          "median": 62.956854326999746,
+          "minimum": 62.118834911991144,
+          "maximum": 64.96702829499554,
+          "samples": [
+            64.96702829499554,
+            62.956854326999746,
+            62.118834911991144
+          ]
+        },
+        "remainingAreaSeconds": {
+          "count": 3,
+          "median": 30.27348300399899,
+          "minimum": 29.683152026002062,
+          "maximum": 32.08716136399016,
+          "samples": [
+            32.08716136399016,
+            30.27348300399899,
+            29.683152026002062
+          ]
+        },
+        "reloadSeconds": {
+          "count": 3,
+          "median": 3.695096516996273,
+          "minimum": 3.197849293006584,
+          "maximum": 4.897658546004095,
+          "samples": [
+            4.897658546004095,
+            3.695096516996273,
+            3.197849293006584
+          ]
+        },
+        "requestedChunksPerSecond": {
+          "count": 3,
+          "median": 1.2865954130948734,
+          "minimum": 1.2467862872256308,
+          "maximum": 1.3039523377210689,
+          "samples": [
+            1.2467862872256308,
+            1.2865954130948734,
+            1.3039523377210689
+          ]
+        },
+        "generationRssPeakMiB": {
+          "count": 3,
+          "median": 2070.7109375,
+          "minimum": 2067.5078125,
+          "maximum": 2102.0234375,
+          "samples": [
+            2102.0234375,
+            2070.7109375,
+            2067.5078125
+          ]
+        },
+        "generationCpuSeconds": {
+          "count": 3,
+          "median": 215.94000000000003,
+          "minimum": 210.55,
+          "maximum": 219.2,
+          "samples": [
+            219.2,
+            215.94000000000003,
+            210.55
+          ]
+        },
+        "generationGcPauseTotalMilliseconds": {
+          "count": 3,
+          "median": 1109.673805,
+          "minimum": 1075.135591,
+          "maximum": 1197.386061,
+          "samples": [
+            1109.673805,
+            1197.386061,
+            1075.135591
+          ]
+        },
+        "generationObservedAfterGcHeapMaximumMiB": {
+          "count": 3,
+          "median": 1286.7748260498047,
+          "minimum": 1220.0612564086914,
+          "maximum": 1287.0612564086914,
+          "samples": [
+            1220.0612564086914,
+            1286.7748260498047,
+            1287.0612564086914
+          ]
+        },
+        "reloadRssPeakMiB": {
+          "count": 3,
+          "median": 1575.37109375,
+          "minimum": 1417.26953125,
+          "maximum": 1644.47265625,
+          "samples": [
+            1575.37109375,
+            1644.47265625,
+            1417.26953125
+          ]
+        },
+        "reloadCpuSeconds": {
+          "count": 3,
+          "median": 11.460000000000008,
+          "minimum": 10.840000000000003,
+          "maximum": 15.51000000000002,
+          "samples": [
+            15.51000000000002,
+            11.460000000000008,
+            10.840000000000003
+          ]
+        },
+        "reloadGcPauseTotalMilliseconds": {
+          "count": 3,
+          "median": 55.485351,
+          "minimum": 25.802913,
+          "maximum": 57.589526,
+          "samples": [
+            25.802913,
+            57.589526,
+            55.485351
+          ]
+        },
+        "reloadObservedAfterGcHeapMaximumMiB": {
+          "count": 3,
+          "median": 387.49312591552734,
+          "minimum": 367.67081451416016,
+          "maximum": 420.66654205322266,
+          "samples": [
+            367.67081451416016,
+            387.49312591552734,
+            420.66654205322266
+          ]
+        }
+      }
+    }
+  },
+  "medianComparisons": {
+    "firstColdChunkSeconds": {
+      "baseline": 36.75009552799747,
+      "candidate": 32.683367286997964,
+      "candidateChangePercent": -11.065898421682574,
+      "candidateReductionPercent": 11.065898421682574,
+      "observedRangesOverlap": false,
+      "everyCandidateBelowEveryBaseline": true,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "generationSeconds": {
+      "baseline": 66.57917677299702,
+      "candidate": 62.956854326999746,
+      "candidateChangePercent": -5.440623662782206,
+      "candidateReductionPercent": 5.440623662782206,
+      "observedRangesOverlap": false,
+      "everyCandidateBelowEveryBaseline": true,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "remainingAreaSeconds": {
+      "baseline": 32.56624105499941,
+      "candidate": 30.27348300399899,
+      "candidateChangePercent": -7.040290732750831,
+      "candidateReductionPercent": 7.040290732750831,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "reloadSeconds": {
+      "baseline": 3.132535309996456,
+      "candidate": 3.695096516996273,
+      "candidateChangePercent": 17.958654933739716,
+      "candidateReductionPercent": -17.958654933739716,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "requestedChunksPerSecond": {
+      "baseline": 1.2165965986057632,
+      "candidate": 1.2865954130948734,
+      "candidateChangePercent": 5.753658572556408,
+      "candidateReductionPercent": -5.753658572556408,
+      "observedRangesOverlap": false,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": true
+    },
+    "generationRssPeakMiB": {
+      "baseline": 2123.03125,
+      "candidate": 2070.7109375,
+      "candidateChangePercent": -2.4644155614760743,
+      "candidateReductionPercent": 2.4644155614760743,
+      "observedRangesOverlap": false,
+      "everyCandidateBelowEveryBaseline": true,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "generationCpuSeconds": {
+      "baseline": 221.77,
+      "candidate": 215.94000000000003,
+      "candidateChangePercent": -2.628849709158132,
+      "candidateReductionPercent": 2.628849709158132,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "generationGcPauseTotalMilliseconds": {
+      "baseline": 1232.774158,
+      "candidate": 1109.673805,
+      "candidateChangePercent": -9.985637044802498,
+      "candidateReductionPercent": 9.985637044802498,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "generationObservedAfterGcHeapMaximumMiB": {
+      "baseline": 1268.0612564086914,
+      "candidate": 1286.7748260498047,
+      "candidateChangePercent": 1.4757622746169652,
+      "candidateReductionPercent": -1.4757622746169652,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "reloadRssPeakMiB": {
+      "baseline": 1579.57421875,
+      "candidate": 1575.37109375,
+      "candidateChangePercent": -0.26609227664694535,
+      "candidateReductionPercent": 0.26609227664694535,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "reloadCpuSeconds": {
+      "baseline": 12.219999999999999,
+      "candidate": 11.460000000000008,
+      "candidateChangePercent": -6.219312602291249,
+      "candidateReductionPercent": 6.219312602291249,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "reloadGcPauseTotalMilliseconds": {
+      "baseline": 54.093219,
+      "candidate": 55.485351,
+      "candidateChangePercent": 2.573579509106305,
+      "candidateReductionPercent": -2.573579509106305,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    },
+    "reloadObservedAfterGcHeapMaximumMiB": {
+      "baseline": 493.265625,
+      "candidate": 387.49312591552734,
+      "candidateChangePercent": -21.443314458507558,
+      "candidateReductionPercent": 21.443314458507558,
+      "observedRangesOverlap": true,
+      "everyCandidateBelowEveryBaseline": false,
+      "everyCandidateAboveEveryBaseline": false
+    }
+  },
+  "adjacentPairedBlocks": [
+    {
+      "block": 1,
+      "baselineTrial": "01-A",
+      "candidateTrial": "02-B",
+      "metrics": {
+        "firstColdChunkSeconds": {
+          "baseline": 36.75009552799747,
+          "candidate": 32.87986305600498,
+          "candidateChangePercent": -10.531217446888054,
+          "candidateReductionPercent": 10.531217446888054
+        },
+        "generationSeconds": {
+          "baseline": 66.57917677299702,
+          "candidate": 64.96702829499554,
+          "candidateChangePercent": -2.4214004380049947,
+          "candidateReductionPercent": 2.4214004380049947
+        },
+        "remainingAreaSeconds": {
+          "baseline": 29.829076859008637,
+          "candidate": 32.08716136399016,
+          "candidateChangePercent": 7.570078402542202,
+          "candidateReductionPercent": -7.570078402542202
+        },
+        "reloadSeconds": {
+          "baseline": 2.8402721650054445,
+          "candidate": 4.897658546004095,
+          "candidateChangePercent": 72.43624066550349,
+          "candidateReductionPercent": -72.43624066550349
+        },
+        "requestedChunksPerSecond": {
+          "baseline": 1.2165965986057632,
+          "candidate": 1.2467862872256308,
+          "candidateChangePercent": 2.4814871794369253,
+          "candidateReductionPercent": -2.4814871794369253
+        },
+        "generationRssPeakMiB": {
+          "baseline": 2115.21484375,
+          "candidate": 2102.0234375,
+          "candidateChangePercent": -0.6236438009584622,
+          "candidateReductionPercent": 0.6236438009584622
+        },
+        "generationCpuSeconds": {
+          "baseline": 221.77,
+          "candidate": 219.2,
+          "candidateChangePercent": -1.1588582765928779,
+          "candidateReductionPercent": 1.1588582765928779
+        },
+        "generationGcPauseTotalMilliseconds": {
+          "baseline": 1232.774158,
+          "candidate": 1109.673805,
+          "candidateChangePercent": -9.985637044802498,
+          "candidateReductionPercent": 9.985637044802498
+        },
+        "generationObservedAfterGcHeapMaximumMiB": {
+          "baseline": 1259.0612564086914,
+          "candidate": 1220.0612564086914,
+          "candidateChangePercent": -3.097545874077834,
+          "candidateReductionPercent": 3.097545874077834
+        },
+        "reloadRssPeakMiB": {
+          "baseline": 1446.99609375,
+          "candidate": 1575.37109375,
+          "candidateChangePercent": 8.871827681808497,
+          "candidateReductionPercent": -8.871827681808497
+        },
+        "reloadCpuSeconds": {
+          "baseline": 10.849999999999994,
+          "candidate": 15.51000000000002,
+          "candidateChangePercent": 42.94930875576062,
+          "candidateReductionPercent": -42.94930875576062
+        },
+        "reloadGcPauseTotalMilliseconds": null,
+        "reloadObservedAfterGcHeapMaximumMiB": {
+          "baseline": 493.265625,
+          "candidate": 367.67081451416016,
+          "candidateChangePercent": -25.461902090955522,
+          "candidateReductionPercent": 25.461902090955522
+        }
+      }
+    },
+    {
+      "block": 2,
+      "baselineTrial": "04-A",
+      "candidateTrial": "03-B",
+      "metrics": {
+        "firstColdChunkSeconds": {
+          "baseline": 38.92896833100531,
+          "candidate": 32.683367286997964,
+          "candidateChangePercent": -16.043582226228637,
+          "candidateReductionPercent": 16.043582226228637
+        },
+        "generationSeconds": {
+          "baseline": 71.86733012300101,
+          "candidate": 62.956854326999746,
+          "candidateChangePercent": -12.398506777350683,
+          "candidateReductionPercent": 12.398506777350683
+        },
+        "remainingAreaSeconds": {
+          "baseline": 32.93835878800019,
+          "candidate": 30.27348300399899,
+          "candidateChangePercent": -8.090493522014953,
+          "candidateReductionPercent": 8.090493522014953
+        },
+        "reloadSeconds": {
+          "baseline": 3.745013084000675,
+          "candidate": 3.695096516996273,
+          "candidateChangePercent": -1.332880977576667,
+          "candidateReductionPercent": 1.332880977576667
+        },
+        "requestedChunksPerSecond": {
+          "baseline": 1.1270767936052224,
+          "candidate": 1.2865954130948734,
+          "candidateChangePercent": 14.153305293368067,
+          "candidateReductionPercent": -14.153305293368067
+        },
+        "generationRssPeakMiB": {
+          "baseline": 2123.03125,
+          "candidate": 2070.7109375,
+          "candidateChangePercent": -2.4644155614760743,
+          "candidateReductionPercent": 2.4644155614760743
+        },
+        "generationCpuSeconds": {
+          "baseline": 238.55999999999997,
+          "candidate": 215.94000000000003,
+          "candidateChangePercent": -9.481891348088512,
+          "candidateReductionPercent": 9.481891348088512
+        },
+        "generationGcPauseTotalMilliseconds": {
+          "baseline": 1391.931748,
+          "candidate": 1197.386061,
+          "candidateChangePercent": -13.976668560044947,
+          "candidateReductionPercent": 13.976668560044947
+        },
+        "generationObservedAfterGcHeapMaximumMiB": {
+          "baseline": 1268.0612564086914,
+          "candidate": 1286.7748260498047,
+          "candidateChangePercent": 1.4757622746169652,
+          "candidateReductionPercent": -1.4757622746169652
+        },
+        "reloadRssPeakMiB": {
+          "baseline": 1579.57421875,
+          "candidate": 1644.47265625,
+          "candidateChangePercent": 4.1086032381154824,
+          "candidateReductionPercent": -4.1086032381154824
+        },
+        "reloadCpuSeconds": {
+          "baseline": 12.880000000000024,
+          "candidate": 11.460000000000008,
+          "candidateChangePercent": -11.024844720496995,
+          "candidateReductionPercent": 11.024844720496995
+        },
+        "reloadGcPauseTotalMilliseconds": {
+          "baseline": 54.093219,
+          "candidate": 57.589526,
+          "candidateChangePercent": 6.4634848223767305,
+          "candidateReductionPercent": -6.4634848223767305
+        },
+        "reloadObservedAfterGcHeapMaximumMiB": {
+          "baseline": 405.45360565185547,
+          "candidate": 387.49312591552734,
+          "candidateChangePercent": -4.429725000830298,
+          "candidateReductionPercent": 4.429725000830298
+        }
+      }
+    },
+    {
+      "block": 3,
+      "baselineTrial": "05-A",
+      "candidateTrial": "06-B",
+      "metrics": {
+        "firstColdChunkSeconds": {
+          "baseline": 33.370498800999485,
+          "candidate": 32.43567940099456,
+          "candidateChangePercent": -2.801334812462941,
+          "candidateReductionPercent": 2.801334812462941
+        },
+        "generationSeconds": {
+          "baseline": 65.9367435509921,
+          "candidate": 62.118834911991144,
+          "candidateChangePercent": -5.790259623677629,
+          "candidateReductionPercent": 5.790259623677629
+        },
+        "remainingAreaSeconds": {
+          "baseline": 32.56624105499941,
+          "candidate": 29.683152026002062,
+          "candidateChangePercent": -8.852999104588854,
+          "candidateReductionPercent": 8.852999104588854
+        },
+        "reloadSeconds": {
+          "baseline": 3.132535309996456,
+          "candidate": 3.197849293006584,
+          "candidateChangePercent": 2.0850198496310757,
+          "candidateReductionPercent": -2.0850198496310757
+        },
+        "requestedChunksPerSecond": {
+          "baseline": 1.2284501119980051,
+          "candidate": 1.3039523377210689,
+          "candidateChangePercent": 6.14613690744541,
+          "candidateReductionPercent": -6.14613690744541
+        },
+        "generationRssPeakMiB": {
+          "baseline": 2132.8046875,
+          "candidate": 2067.5078125,
+          "candidateChangePercent": -3.0615496760061367,
+          "candidateReductionPercent": 3.0615496760061367
+        },
+        "generationCpuSeconds": {
+          "baseline": 211.42,
+          "candidate": 210.55,
+          "candidateChangePercent": -0.41150316904737805,
+          "candidateReductionPercent": 0.41150316904737805
+        },
+        "generationGcPauseTotalMilliseconds": {
+          "baseline": 1118.9921080000001,
+          "candidate": 1075.135591,
+          "candidateChangePercent": -3.9192874271817613,
+          "candidateReductionPercent": 3.9192874271817613
+        },
+        "generationObservedAfterGcHeapMaximumMiB": {
+          "baseline": 1284.0612564086914,
+          "candidate": 1287.0612564086914,
+          "candidateChangePercent": 0.2336337137365696,
+          "candidateReductionPercent": -0.2336337137365696
+        },
+        "reloadRssPeakMiB": {
+          "baseline": 1588.09765625,
+          "candidate": 1417.26953125,
+          "candidateChangePercent": -10.756777099172798,
+          "candidateReductionPercent": 10.756777099172798
+        },
+        "reloadCpuSeconds": {
+          "baseline": 12.219999999999999,
+          "candidate": 10.840000000000003,
+          "candidateChangePercent": -11.292962356792113,
+          "candidateReductionPercent": 11.292962356792113
+        },
+        "reloadGcPauseTotalMilliseconds": {
+          "baseline": 103.97757499999999,
+          "candidate": 55.485351,
+          "candidateChangePercent": -46.637194606625506,
+          "candidateReductionPercent": 46.637194606625506
+        },
+        "reloadObservedAfterGcHeapMaximumMiB": {
+          "baseline": 574.6615753173828,
+          "candidate": 420.66654205322266,
+          "candidateChangePercent": -26.797516987125757,
+          "candidateReductionPercent": 26.797516987125757
+        }
+      }
+    }
+  ],
+  "trials": [
+    {
+      "name": "01-A",
+      "version": "A",
+      "result": {
+        "name": "01-A",
+        "version": "A",
+        "jarSha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 36.75009552799747,
+        "firstColdChunkPolls": 211,
+        "generationSeconds": 66.57917677299702,
+        "generationPolls": 304,
+        "generationMetrics": {
+          "rssPeakMiB": 2115.21484375,
+          "cpuSeconds": 221.77,
+          "sampleCount": 652
+        },
+        "remainingAreaSeconds": 29.829076859008637,
+        "requestedChunksPerSecond": 1.2165965986057632,
+        "generateSaveSeconds": 0.36523055800353177,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 2.8402721650054445,
+        "reloadPolls": 22,
+        "reloadMetrics": {
+          "rssPeakMiB": 1446.99609375,
+          "cpuSeconds": 10.849999999999994,
+          "sampleCount": 28
+        },
+        "reloadSaveSeconds": 0.5464202909934102,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 66.57917785644531,
+          "gcCollectionsFullyWithinWindow": 38,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 1232.774158,
+          "gcLongestPauseMilliseconds": 198.289502,
+          "gcNames": {
+            "G1New": 29,
+            "G1Old": 9
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 38,
+            "median": 1010.5612564086914,
+            "minimum": 360.0658950805664,
+            "maximum": 1492.0612564086914,
+            "samples": [
+              460.0658950805664,
+              360.0658950805664,
+              846.0658950805664,
+              868.8390884399414,
+              869.0612564086914,
+              520.0612564086914,
+              876.0612564086914,
+              865.0612564086914,
+              859.0612564086914,
+              677.0612564086914,
+              873.0612564086914,
+              877.0612564086914,
+              1008.0612564086914,
+              1021.0612564086914,
+              755.0612564086914,
+              1013.0612564086914,
+              1031.0612564086914,
+              1181.0612564086914,
+              1195.2539367675781,
+              818.0612564086914,
+              1194.0612564086914,
+              1273.0612564086914,
+              1282.2204208374023,
+              846.0612564086914,
+              1284.0612564086914,
+              1325.7324981689453,
+              1339.0612564086914,
+              876.0612564086914,
+              1336.0612564086914,
+              1384.0612564086914,
+              1383.8385162353516,
+              919.0612564086914,
+              1379.0612564086914,
+              1438.0612564086914,
+              1433.0612564086914,
+              965.0612564086914,
+              1423.0612564086914,
+              1492.0612564086914
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 38,
+            "median": 824.6408386230469,
+            "minimum": 360.0658950805664,
+            "maximum": 1259.0612564086914,
+            "samples": [
+              360.0658950805664,
+              442.0658950805664,
+              446.8390884399414,
+              489.0612564086914,
+              520.0612564086914,
+              746.0612564086914,
+              579.0612564086914,
+              653.0612564086914,
+              677.0612564086914,
+              699.0612564086914,
+              713.0612564086914,
+              704.0612564086914,
+              707.0612564086914,
+              755.0612564086914,
+              779.0612564086914,
+              919.0612564086914,
+              783.0612564086914,
+              787.2539367675781,
+              818.0612564086914,
+              1084.0612564086914,
+              823.0612564086914,
+              826.2204208374023,
+              846.0612564086914,
+              1044.0612564086914,
+              863.7324981689453,
+              863.0612564086914,
+              876.0612564086914,
+              1208.0612564086914,
+              884.0612564086914,
+              891.8385162353516,
+              919.0612564086914,
+              1231.0612564086914,
+              930.0612564086914,
+              949.0612564086914,
+              965.0612564086914,
+              1259.0612564086914,
+              962.0612564086914,
+              948.0612564086914
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 76,
+            "median": 1300.0,
+            "minimum": 900.0,
+            "maximum": 1588.0,
+            "samples": [
+              900.0,
+              900.0,
+              900.0,
+              900.0,
+              900.0,
+              978.0,
+              978.0,
+              992.0,
+              992.0,
+              992.0,
+              992.0,
+              992.0,
+              992.0,
+              992.0,
+              992.0,
+              1000.0,
+              1000.0,
+              1000.0,
+              1000.0,
+              1000.0,
+              1000.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1150.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1368.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1414.0,
+              1460.0,
+              1460.0,
+              1460.0,
+              1460.0,
+              1460.0,
+              1460.0,
+              1462.0,
+              1462.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1588.0,
+              1588.0,
+              1588.0,
+              1588.0,
+              1588.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 2.8402717113494873,
+          "gcCollectionsFullyWithinWindow": 0,
+          "gcEventsStraddlingBoundaryExcluded": 1,
+          "gcPauseTotalMilliseconds": 0,
+          "gcLongestPauseMilliseconds": 0,
+          "gcNames": {},
+          "observedBeforeGcHeapMiB": {
+            "count": 0,
+            "median": null,
+            "minimum": null,
+            "maximum": null,
+            "samples": []
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 1,
+            "median": 493.265625,
+            "minimum": 493.265625,
+            "maximum": 493.265625,
+            "samples": [
+              493.265625
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 1,
+            "median": 1040.0,
+            "minimum": 1040.0,
+            "maximum": 1040.0,
+            "samples": [
+              1040.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 36.75009552799747,
+        "generationSeconds": 66.57917677299702,
+        "remainingAreaSeconds": 29.829076859008637,
+        "reloadSeconds": 2.8402721650054445,
+        "requestedChunksPerSecond": 1.2165965986057632,
+        "generationRssPeakMiB": 2115.21484375,
+        "generationCpuSeconds": 221.77,
+        "generationGcPauseTotalMilliseconds": 1232.774158,
+        "generationObservedAfterGcHeapMaximumMiB": 1259.0612564086914,
+        "reloadRssPeakMiB": 1446.99609375,
+        "reloadCpuSeconds": 10.849999999999994,
+        "reloadGcPauseTotalMilliseconds": 0,
+        "reloadObservedAfterGcHeapMaximumMiB": 493.265625
+      }
+    },
+    {
+      "name": "02-B",
+      "version": "B",
+      "result": {
+        "name": "02-B",
+        "version": "B",
+        "jarSha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 32.87986305600498,
+        "firstColdChunkPolls": 231,
+        "generationSeconds": 64.96702829499554,
+        "generationPolls": 317,
+        "generationMetrics": {
+          "rssPeakMiB": 2102.0234375,
+          "cpuSeconds": 219.2,
+          "sampleCount": 635
+        },
+        "remainingAreaSeconds": 32.08716136399016,
+        "requestedChunksPerSecond": 1.2467862872256308,
+        "generateSaveSeconds": 0.3676328159926925,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 4.897658546004095,
+        "reloadPolls": 30,
+        "reloadMetrics": {
+          "rssPeakMiB": 1575.37109375,
+          "cpuSeconds": 15.51000000000002,
+          "sampleCount": 47
+        },
+        "reloadSaveSeconds": 0.34808925399556756,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 64.96702837944031,
+          "gcCollectionsFullyWithinWindow": 35,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 1109.673805,
+          "gcLongestPauseMilliseconds": 123.114262,
+          "gcNames": {
+            "G1New": 27,
+            "G1Old": 8
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 35,
+            "median": 1016.0612564086914,
+            "minimum": 530.0612564086914,
+            "maximum": 1404.0612564086914,
+            "samples": [
+              980.9636001586914,
+              980.9636001586914,
+              992.2967987060547,
+              530.0612564086914,
+              986.0612564086914,
+              981.0612564086914,
+              994.0612564086914,
+              999.0612564086914,
+              678.0612564086914,
+              1010.0612564086914,
+              1012.0612487792969,
+              1016.0612564086914,
+              755.0612564086914,
+              1035.0612564086914,
+              1146.4826126098633,
+              1147.5971450805664,
+              1164.0612564086914,
+              794.0612564086914,
+              1180.0612564086914,
+              1247.0612564086914,
+              1242.6079940795898,
+              833.0612564086914,
+              1247.0612564086914,
+              1311.0135498046875,
+              1310.0612564086914,
+              848.0612564086914,
+              1310.0612564086914,
+              1344.897346496582,
+              1347.0612564086914,
+              898.0612564086914,
+              1338.0612564086914,
+              1393.0612564086914,
+              1404.0612564086914,
+              942.0612564086914,
+              1402.0612564086914
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 35,
+            "median": 822.6079940795898,
+            "minimum": 394.9636001586914,
+            "maximum": 1220.0612564086914,
+            "samples": [
+              394.9636001586914,
+              488.2967987060547,
+              530.0612564086914,
+              802.0612564086914,
+              583.0612564086914,
+              614.0612564086914,
+              657.0612564086914,
+              678.0612564086914,
+              788.0612564086914,
+              734.0612564086914,
+              748.0612564086914,
+              755.0612564086914,
+              1001.0612564086914,
+              760.4826126098633,
+              781.5971450805664,
+              790.0612564086914,
+              794.0612564086914,
+              1090.0612564086914,
+              807.0612564086914,
+              822.6079940795898,
+              833.0612564086914,
+              1143.0612564086914,
+              835.0135498046875,
+              840.0612564086914,
+              848.0612564086914,
+              1192.0612564086914,
+              870.897346496582,
+              877.0612564086914,
+              898.0612564086914,
+              1218.0612564086914,
+              927.0612564086914,
+              920.0612564086914,
+              942.0612564086914,
+              1220.0612564086914,
+              940.0612564086914
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 70,
+            "median": 1294.0,
+            "minimum": 1072.0,
+            "maximum": 1564.0,
+            "samples": [
+              1072.0,
+              1072.0,
+              1072.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1132.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1134.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1260.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1328.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1384.0,
+              1418.0,
+              1418.0,
+              1418.0,
+              1418.0,
+              1422.0,
+              1422.0,
+              1422.0,
+              1422.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1490.0,
+              1564.0,
+              1564.0,
+              1564.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 4.897658824920654,
+          "gcCollectionsFullyWithinWindow": 1,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 25.802913,
+          "gcLongestPauseMilliseconds": 25.802913,
+          "gcNames": {
+            "G1New": 1
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 1,
+            "median": 1021.6708145141602,
+            "minimum": 1021.6708145141602,
+            "maximum": 1021.6708145141602,
+            "samples": [
+              1021.6708145141602
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 1,
+            "median": 367.67081451416016,
+            "minimum": 367.67081451416016,
+            "maximum": 367.67081451416016,
+            "samples": [
+              367.67081451416016
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 2,
+            "median": 1154.0,
+            "minimum": 1154.0,
+            "maximum": 1154.0,
+            "samples": [
+              1154.0,
+              1154.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 32.87986305600498,
+        "generationSeconds": 64.96702829499554,
+        "remainingAreaSeconds": 32.08716136399016,
+        "reloadSeconds": 4.897658546004095,
+        "requestedChunksPerSecond": 1.2467862872256308,
+        "generationRssPeakMiB": 2102.0234375,
+        "generationCpuSeconds": 219.2,
+        "generationGcPauseTotalMilliseconds": 1109.673805,
+        "generationObservedAfterGcHeapMaximumMiB": 1220.0612564086914,
+        "reloadRssPeakMiB": 1575.37109375,
+        "reloadCpuSeconds": 15.51000000000002,
+        "reloadGcPauseTotalMilliseconds": 25.802913,
+        "reloadObservedAfterGcHeapMaximumMiB": 367.67081451416016
+      }
+    },
+    {
+      "name": "03-B",
+      "version": "B",
+      "result": {
+        "name": "03-B",
+        "version": "B",
+        "jarSha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 32.683367286997964,
+        "firstColdChunkPolls": 226,
+        "generationSeconds": 62.956854326999746,
+        "generationPolls": 316,
+        "generationMetrics": {
+          "rssPeakMiB": 2070.7109375,
+          "cpuSeconds": 215.94000000000003,
+          "sampleCount": 620
+        },
+        "remainingAreaSeconds": 30.27348300399899,
+        "requestedChunksPerSecond": 1.2865954130948734,
+        "generateSaveSeconds": 0.611397778004175,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 3.695096516996273,
+        "reloadPolls": 28,
+        "reloadMetrics": {
+          "rssPeakMiB": 1644.47265625,
+          "cpuSeconds": 11.460000000000008,
+          "sampleCount": 36
+        },
+        "reloadSaveSeconds": 0.2787947879987769,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 62.95685434341431,
+          "gcCollectionsFullyWithinWindow": 38,
+          "gcEventsStraddlingBoundaryExcluded": 1,
+          "gcPauseTotalMilliseconds": 1197.386061,
+          "gcLongestPauseMilliseconds": 122.996744,
+          "gcNames": {
+            "G1New": 29,
+            "G1Old": 9
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 39,
+            "median": 982.7755508422852,
+            "minimum": 475.77555084228516,
+            "maximum": 1450.7755508422852,
+            "samples": [
+              855.7755508422852,
+              861.1166534423828,
+              475.77555084228516,
+              885.7755508422852,
+              897.7755508422852,
+              883.7755508422852,
+              594.7755508422852,
+              890.7755508422852,
+              892.7755508422852,
+              904.7755508422852,
+              659.7755508422852,
+              913.7755508422852,
+              982.7755508422852,
+              986.7755508422852,
+              740.7755508422852,
+              998.7755508422852,
+              1141.303367614746,
+              1145.6694259643555,
+              776.1240005493164,
+              1148.1240005493164,
+              1216.7145233154297,
+              1224.5615539550781,
+              799.7691116333008,
+              1229.7691116333008,
+              1255.7691116333008,
+              1268.7755508422852,
+              835.7755508422852,
+              1259.7755508422852,
+              1316.5596084594727,
+              1314.7748260498047,
+              866.7748260498047,
+              1308.7748260498047,
+              1358.6542129516602,
+              1366.7755508422852,
+              921.7755508422852,
+              1349.7755508422852,
+              1440.7755508422852,
+              1450.7755508422852,
+              928.7755508422852
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 38,
+            "median": 799.272331237793,
+            "minimum": 397.1166534423828,
+            "maximum": 1286.7748260498047,
+            "samples": [
+              397.1166534423828,
+              475.77555084228516,
+              757.7755508422852,
+              503.77555084228516,
+              553.7755508422852,
+              594.7755508422852,
+              798.7755508422852,
+              638.7755508422852,
+              644.7755508422852,
+              659.7755508422852,
+              767.7755508422852,
+              696.7755508422852,
+              730.7755508422852,
+              740.7755508422852,
+              986.7755508422852,
+              741.3033676147461,
+              755.6694259643555,
+              776.1240005493164,
+              1010.1240005493164,
+              784.7145233154297,
+              790.5615539550781,
+              799.7691116333008,
+              1019.7691116333008,
+              827.7691116333008,
+              830.7755508422852,
+              835.7755508422852,
+              1199.7755508422852,
+              846.5596084594727,
+              844.7748260498047,
+              866.7748260498047,
+              1286.7748260498047,
+              890.6542129516602,
+              886.7755508422852,
+              921.7755508422852,
+              1233.7755508422852,
+              934.7755508422852,
+              924.7755508422852,
+              928.7755508422852
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 77,
+            "median": 1300.0,
+            "minimum": 900.0,
+            "maximum": 1534.0,
+            "samples": [
+              900.0,
+              932.0,
+              932.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1008.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1104.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1300.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1338.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0,
+              1534.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 3.695096969604492,
+          "gcCollectionsFullyWithinWindow": 1,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 57.589526,
+          "gcLongestPauseMilliseconds": 57.589526,
+          "gcNames": {
+            "G1New": 1
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 1,
+            "median": 1048.9951934814453,
+            "minimum": 1048.9951934814453,
+            "maximum": 1048.9951934814453,
+            "samples": [
+              1048.9951934814453
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 1,
+            "median": 387.49312591552734,
+            "minimum": 387.49312591552734,
+            "maximum": 387.49312591552734,
+            "samples": [
+              387.49312591552734
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 2,
+            "median": 1194.0,
+            "minimum": 1194.0,
+            "maximum": 1194.0,
+            "samples": [
+              1194.0,
+              1194.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 32.683367286997964,
+        "generationSeconds": 62.956854326999746,
+        "remainingAreaSeconds": 30.27348300399899,
+        "reloadSeconds": 3.695096516996273,
+        "requestedChunksPerSecond": 1.2865954130948734,
+        "generationRssPeakMiB": 2070.7109375,
+        "generationCpuSeconds": 215.94000000000003,
+        "generationGcPauseTotalMilliseconds": 1197.386061,
+        "generationObservedAfterGcHeapMaximumMiB": 1286.7748260498047,
+        "reloadRssPeakMiB": 1644.47265625,
+        "reloadCpuSeconds": 11.460000000000008,
+        "reloadGcPauseTotalMilliseconds": 57.589526,
+        "reloadObservedAfterGcHeapMaximumMiB": 387.49312591552734
+      }
+    },
+    {
+      "name": "04-A",
+      "version": "A",
+      "result": {
+        "name": "04-A",
+        "version": "A",
+        "jarSha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 38.92896833100531,
+        "firstColdChunkPolls": 237,
+        "generationSeconds": 71.86733012300101,
+        "generationPolls": 333,
+        "generationMetrics": {
+          "rssPeakMiB": 2123.03125,
+          "cpuSeconds": 238.55999999999997,
+          "sampleCount": 698
+        },
+        "remainingAreaSeconds": 32.93835878800019,
+        "requestedChunksPerSecond": 1.1270767936052224,
+        "generateSaveSeconds": 0.2999993470002664,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 3.745013084000675,
+        "reloadPolls": 24,
+        "reloadMetrics": {
+          "rssPeakMiB": 1579.57421875,
+          "cpuSeconds": 12.880000000000024,
+          "sampleCount": 37
+        },
+        "reloadSaveSeconds": 0.516514424001798,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 71.86733055114746,
+          "gcCollectionsFullyWithinWindow": 38,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 1391.931748,
+          "gcLongestPauseMilliseconds": 177.40883,
+          "gcNames": {
+            "G1New": 29,
+            "G1Old": 9
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 38,
+            "median": 1013.5612564086914,
+            "minimum": 493.0612564086914,
+            "maximum": 1476.0612564086914,
+            "samples": [
+              897.0612564086914,
+              904.0612564086914,
+              493.0612564086914,
+              899.0612564086914,
+              908.0612564086914,
+              884.0612564086914,
+              644.0612564086914,
+              890.0612564086914,
+              935.0612564086914,
+              944.0612564086914,
+              961.0612564086914,
+              730.0612564086914,
+              962.0612564086914,
+              1065.0612564086914,
+              1081.0612564086914,
+              770.0612564086914,
+              1100.0612564086914,
+              1164.7731399536133,
+              1174.7673645019531,
+              810.0612564086914,
+              1194.0612564086914,
+              1253.0612564086914,
+              1254.571159362793,
+              855.0612564086914,
+              1259.0612564086914,
+              1306.701919555664,
+              1314.0612564086914,
+              868.0612564086914,
+              1324.0612564086914,
+              1353.0612564086914,
+              1361.0612564086914,
+              912.0414810180664,
+              1362.0414810180664,
+              1418.0612564086914,
+              1422.0612564086914,
+              958.0612564086914,
+              1414.0612564086914,
+              1476.0612564086914
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 38,
+            "median": 853.3815879821777,
+            "minimum": 438.0612564086914,
+            "maximum": 1268.0612564086914,
+            "samples": [
+              438.0612564086914,
+              493.0612564086914,
+              873.0612564086914,
+              524.0612564086914,
+              584.0612564086914,
+              644.0612564086914,
+              661.0612564086914,
+              697.0612564086914,
+              690.0612564086914,
+              697.0612564086914,
+              730.0612564086914,
+              862.0612564086914,
+              757.0612564086914,
+              763.0612564086914,
+              770.0612564086914,
+              1028.0612564086914,
+              790.7731399536133,
+              806.7673645019531,
+              810.0612564086914,
+              1152.0612564086914,
+              819.0612564086914,
+              838.571159362793,
+              855.0612564086914,
+              1125.0612564086914,
+              852.7019195556641,
+              854.0612564086914,
+              868.0612564086914,
+              1268.0612564086914,
+              885.0612564086914,
+              887.0612564086914,
+              912.0414810180664,
+              1260.0414810180664,
+              928.0612564086914,
+              942.0612564086914,
+              958.0612564086914,
+              1238.0612564086914,
+              950.0612564086914,
+              940.0612564086914
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 76,
+            "median": 1288.0,
+            "minimum": 948.0,
+            "maximum": 1570.0,
+            "samples": [
+              948.0,
+              1020.0,
+              1020.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1032.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1078.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1218.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1288.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1354.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1420.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1450.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1520.0,
+              1570.0,
+              1570.0,
+              1570.0,
+              1570.0,
+              1570.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 3.7450132369995117,
+          "gcCollectionsFullyWithinWindow": 1,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 54.093219,
+          "gcLongestPauseMilliseconds": 54.093219,
+          "gcNames": {
+            "G1New": 1
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 1,
+            "median": 1003.6122665405273,
+            "minimum": 1003.6122665405273,
+            "maximum": 1003.6122665405273,
+            "samples": [
+              1003.6122665405273
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 1,
+            "median": 405.45360565185547,
+            "minimum": 405.45360565185547,
+            "maximum": 405.45360565185547,
+            "samples": [
+              405.45360565185547
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 2,
+            "median": 1126.0,
+            "minimum": 1126.0,
+            "maximum": 1126.0,
+            "samples": [
+              1126.0,
+              1126.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 38.92896833100531,
+        "generationSeconds": 71.86733012300101,
+        "remainingAreaSeconds": 32.93835878800019,
+        "reloadSeconds": 3.745013084000675,
+        "requestedChunksPerSecond": 1.1270767936052224,
+        "generationRssPeakMiB": 2123.03125,
+        "generationCpuSeconds": 238.55999999999997,
+        "generationGcPauseTotalMilliseconds": 1391.931748,
+        "generationObservedAfterGcHeapMaximumMiB": 1268.0612564086914,
+        "reloadRssPeakMiB": 1579.57421875,
+        "reloadCpuSeconds": 12.880000000000024,
+        "reloadGcPauseTotalMilliseconds": 54.093219,
+        "reloadObservedAfterGcHeapMaximumMiB": 405.45360565185547
+      }
+    },
+    {
+      "name": "05-A",
+      "version": "A",
+      "result": {
+        "name": "05-A",
+        "version": "A",
+        "jarSha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 33.370498800999485,
+        "firstColdChunkPolls": 232,
+        "generationSeconds": 65.9367435509921,
+        "generationPolls": 330,
+        "generationMetrics": {
+          "rssPeakMiB": 2132.8046875,
+          "cpuSeconds": 211.42,
+          "sampleCount": 648
+        },
+        "remainingAreaSeconds": 32.56624105499941,
+        "requestedChunksPerSecond": 1.2284501119980051,
+        "generateSaveSeconds": 0.31365246800123714,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 3.132535309996456,
+        "reloadPolls": 26,
+        "reloadMetrics": {
+          "rssPeakMiB": 1588.09765625,
+          "cpuSeconds": 12.219999999999999,
+          "sampleCount": 30
+        },
+        "reloadSaveSeconds": 0.3800583429983817,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 65.93674325942993,
+          "gcCollectionsFullyWithinWindow": 33,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 1118.9921080000001,
+          "gcLongestPauseMilliseconds": 104.82904699999999,
+          "gcNames": {
+            "G1New": 26,
+            "G1Old": 7
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 33,
+            "median": 1121.0612564086914,
+            "minimum": 553.0612564086914,
+            "maximum": 1503.0612564086914,
+            "samples": [
+              1069.0612564086914,
+              1069.0612564086914,
+              1086.0612564086914,
+              553.0612564086914,
+              1079.0612564086914,
+              1055.0612564086914,
+              1068.0612564086914,
+              1087.0612564086914,
+              760.0612564086914,
+              1092.0612564086914,
+              1104.0612564086914,
+              1121.0612564086914,
+              1140.017921447754,
+              1147.0612564086914,
+              831.5690078735352,
+              1159.5690078735352,
+              1293.3716049194336,
+              1304.1701889038086,
+              866.1701889038086,
+              1294.1701889038086,
+              1356.8638076782227,
+              1369.0612564086914,
+              879.0612564086914,
+              1367.0612564086914,
+              1388.0612564086914,
+              1390.0612564086914,
+              924.0612564086914,
+              1392.0612564086914,
+              1459.9935760498047,
+              1449.0612564086914,
+              967.0612564086914,
+              1435.0612564086914,
+              1503.0612564086914
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 33,
+            "median": 866.1701889038086,
+            "minimum": 399.0612564086914,
+            "maximum": 1284.0612564086914,
+            "samples": [
+              399.0612564086914,
+              502.0612564086914,
+              553.0612564086914,
+              733.0612564086914,
+              667.0612564086914,
+              686.0612564086914,
+              721.0612564086914,
+              760.0612564086914,
+              868.0612564086914,
+              798.0612564086914,
+              789.0612564086914,
+              796.0179214477539,
+              819.0612564086914,
+              831.5690078735352,
+              995.5690078735352,
+              835.3716049194336,
+              834.1701889038086,
+              866.1701889038086,
+              1216.1701889038086,
+              870.8638076782227,
+              865.0612564086914,
+              879.0612564086914,
+              1259.0612564086914,
+              888.0612564086914,
+              896.0612564086914,
+              924.0612564086914,
+              1284.0612564086914,
+              927.9935760498047,
+              953.0612564086914,
+              967.0612564086914,
+              1249.0612564086914,
+              959.0612564086914,
+              944.7356414794922
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 66,
+            "median": 1390.0,
+            "minimum": 1234.0,
+            "maximum": 1588.0,
+            "samples": [
+              1234.0,
+              1234.0,
+              1234.0,
+              1244.0,
+              1244.0,
+              1244.0,
+              1244.0,
+              1244.0,
+              1244.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1256.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1390.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1444.0,
+              1468.0,
+              1468.0,
+              1468.0,
+              1468.0,
+              1468.0,
+              1468.0,
+              1474.0,
+              1474.0,
+              1540.0,
+              1540.0,
+              1540.0,
+              1540.0,
+              1544.0,
+              1544.0,
+              1544.0,
+              1544.0,
+              1588.0,
+              1588.0,
+              1588.0,
+              1588.0,
+              1588.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 3.132534980773926,
+          "gcCollectionsFullyWithinWindow": 3,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 103.97757499999999,
+          "gcLongestPauseMilliseconds": 38.925785999999995,
+          "gcNames": {
+            "G1New": 2,
+            "G1Old": 1
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 3,
+            "median": 439.55440521240234,
+            "minimum": 386.6615753173828,
+            "maximum": 1013.9375839233398,
+            "samples": [
+              1013.9375839233398,
+              439.55440521240234,
+              386.6615753173828
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 3,
+            "median": 386.6615753173828,
+            "minimum": 381.55440521240234,
+            "maximum": 574.6615753173828,
+            "samples": [
+              381.55440521240234,
+              386.6615753173828,
+              574.6615753173828
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 6,
+            "median": 1128.0,
+            "minimum": 1128.0,
+            "maximum": 1128.0,
+            "samples": [
+              1128.0,
+              1128.0,
+              1128.0,
+              1128.0,
+              1128.0,
+              1128.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 33.370498800999485,
+        "generationSeconds": 65.9367435509921,
+        "remainingAreaSeconds": 32.56624105499941,
+        "reloadSeconds": 3.132535309996456,
+        "requestedChunksPerSecond": 1.2284501119980051,
+        "generationRssPeakMiB": 2132.8046875,
+        "generationCpuSeconds": 211.42,
+        "generationGcPauseTotalMilliseconds": 1118.9921080000001,
+        "generationObservedAfterGcHeapMaximumMiB": 1284.0612564086914,
+        "reloadRssPeakMiB": 1588.09765625,
+        "reloadCpuSeconds": 12.219999999999999,
+        "reloadGcPauseTotalMilliseconds": 103.97757499999999,
+        "reloadObservedAfterGcHeapMaximumMiB": 574.6615753173828
+      }
+    },
+    {
+      "name": "06-B",
+      "version": "B",
+      "result": {
+        "name": "06-B",
+        "version": "B",
+        "jarSha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6",
+        "requestedChunks": 81,
+        "firstColdChunkSeconds": 32.43567940099456,
+        "firstColdChunkPolls": 215,
+        "generationSeconds": 62.118834911991144,
+        "generationPolls": 315,
+        "generationMetrics": {
+          "rssPeakMiB": 2067.5078125,
+          "cpuSeconds": 210.55,
+          "sampleCount": 608
+        },
+        "remainingAreaSeconds": 29.683152026002062,
+        "requestedChunksPerSecond": 1.3039523377210689,
+        "generateSaveSeconds": 0.6994652169960318,
+        "generateCleanShutdown": true,
+        "generationSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "reloadSeconds": 3.197849293006584,
+        "reloadPolls": 27,
+        "reloadMetrics": {
+          "rssPeakMiB": 1417.26953125,
+          "cpuSeconds": 10.840000000000003,
+          "sampleCount": 31
+        },
+        "reloadSaveSeconds": 0.3143635419983184,
+        "reloadCleanShutdown": true,
+        "savedBlockSnapshotsIdenticalOnReload": true,
+        "chunksWithBlockSnapshotChangesOnReload": 0,
+        "reloadSavedData": {
+          "fullTargetChunks": 81,
+          "structureStarts": {},
+          "nativeSkylandsBlockTypes": [
+            "skylands:blow_flower",
+            "skylands:celestium_antenna",
+            "skylands:celestium_ore",
+            "skylands:celestium_spike",
+            "skylands:chiseled_skyrock",
+            "skylands:cloud_block",
+            "skylands:cobbled_skyrock",
+            "skylands:cobbled_skyrock_slab",
+            "skylands:cobbled_skyrock_stairs",
+            "skylands:cobbled_skyrock_wall",
+            "skylands:float_grape_plant",
+            "skylands:golden_fern",
+            "skylands:golden_grass",
+            "skylands:golden_grass_block",
+            "skylands:golden_leaves",
+            "skylands:golden_log",
+            "skylands:golden_mossy_skyrock",
+            "skylands:golden_mossy_tiled_skyrock",
+            "skylands:golden_short_grass",
+            "skylands:golden_wood",
+            "skylands:hot_radish_plant",
+            "skylands:polished_skyrock",
+            "skylands:polished_skyrock_slab",
+            "skylands:polished_skyrock_stairs",
+            "skylands:skyrock",
+            "skylands:skyrock_column",
+            "skylands:skyrock_column_base",
+            "skylands:skyrock_slab",
+            "skylands:skyrock_stairs",
+            "skylands:skyrock_wall",
+            "skylands:smoke_flower_plant",
+            "skylands:tiled_skyrock",
+            "skylands:tiled_skyrock_slab",
+            "skylands:tiled_skyrock_stairs"
+          ]
+        },
+        "savedPresetUnchanged": true,
+        "savedBiomesUnchangedOnReload": true,
+        "passed": true
+      },
+      "jfr": {
+        "generate": {
+          "available": true,
+          "measurementWallSeconds": 62.118834257125854,
+          "gcCollectionsFullyWithinWindow": 33,
+          "gcEventsStraddlingBoundaryExcluded": 0,
+          "gcPauseTotalMilliseconds": 1075.135591,
+          "gcLongestPauseMilliseconds": 121.24087,
+          "gcNames": {
+            "G1New": 25,
+            "G1Old": 8
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 33,
+            "median": 1068.0612564086914,
+            "minimum": 488.6684036254883,
+            "maximum": 1454.0612564086914,
+            "samples": [
+              1039.2428512573242,
+              1037.8264770507812,
+              488.6684036254883,
+              1042.6684036254883,
+              1046.0612564086914,
+              1035.0612564086914,
+              646.0612564086914,
+              1034.0612564086914,
+              1048.0612564086914,
+              1056.0612564086914,
+              742.0612564086914,
+              1068.0612564086914,
+              1113.0612564086914,
+              1126.0612564086914,
+              777.0612564086914,
+              1143.0612564086914,
+              1190.0612564086914,
+              1200.9981689453125,
+              825.867561340332,
+              1201.867561340332,
+              1270.0612564086914,
+              1280.8318252563477,
+              842.661247253418,
+              1290.661247253418,
+              1325.0612564086914,
+              1322.7087478637695,
+              893.3919143676758,
+              1319.3919143676758,
+              1397.0612564086914,
+              1385.0612564086914,
+              937.0612564086914,
+              1383.0612564086914,
+              1454.0612564086914
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 33,
+            "median": 828.8318252563477,
+            "minimum": 387.82647705078125,
+            "maximum": 1287.0612564086914,
+            "samples": [
+              387.82647705078125,
+              488.6684036254883,
+              820.6684036254883,
+              536.0612564086914,
+              597.0612564086914,
+              646.0612564086914,
+              800.0612564086914,
+              668.0612564086914,
+              726.0612564086914,
+              742.0612564086914,
+              1010.0612564086914,
+              749.0612564086914,
+              766.0612564086914,
+              777.0612564086914,
+              959.0612564086914,
+              788.0612564086914,
+              798.9981689453125,
+              825.867561340332,
+              1139.867561340332,
+              830.0612564086914,
+              828.8318252563477,
+              842.661247253418,
+              1182.661247253418,
+              849.0612564086914,
+              864.7087478637695,
+              893.3919143676758,
+              1237.3919143676758,
+              895.0612564086914,
+              919.0612564086914,
+              937.0612564086914,
+              1287.0612564086914,
+              936.0612564086914,
+              918.7153167724609
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 66,
+            "median": 1298.0,
+            "minimum": 1180.0,
+            "maximum": 1544.0,
+            "samples": [
+              1180.0,
+              1180.0,
+              1180.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1198.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1240.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1298.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1378.0,
+              1410.0,
+              1410.0,
+              1410.0,
+              1410.0,
+              1410.0,
+              1410.0,
+              1412.0,
+              1412.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1488.0,
+              1544.0,
+              1544.0,
+              1544.0,
+              1544.0,
+              1544.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        },
+        "reload": {
+          "available": true,
+          "measurementWallSeconds": 3.1978492736816406,
+          "gcCollectionsFullyWithinWindow": 1,
+          "gcEventsStraddlingBoundaryExcluded": 1,
+          "gcPauseTotalMilliseconds": 55.485351,
+          "gcLongestPauseMilliseconds": 55.485351,
+          "gcNames": {
+            "G1New": 1
+          },
+          "observedBeforeGcHeapMiB": {
+            "count": 1,
+            "median": 912.6665420532227,
+            "minimum": 912.6665420532227,
+            "maximum": 912.6665420532227,
+            "samples": [
+              912.6665420532227
+            ]
+          },
+          "observedAfterGcHeapMiB": {
+            "count": 2,
+            "median": 408.16654205322266,
+            "minimum": 395.66654205322266,
+            "maximum": 420.66654205322266,
+            "samples": [
+              420.66654205322266,
+              395.66654205322266
+            ]
+          },
+          "observedCommittedHeapMiB": {
+            "count": 3,
+            "median": 978.0,
+            "minimum": 978.0,
+            "maximum": 984.0,
+            "samples": [
+              978.0,
+              978.0,
+              984.0
+            ]
+          },
+          "note": "After-GC observations are not an absolute heap peak or full-GC retained/live heap. GC events straddling phase boundaries are conservatively excluded."
+        }
+      },
+      "metrics": {
+        "firstColdChunkSeconds": 32.43567940099456,
+        "generationSeconds": 62.118834911991144,
+        "remainingAreaSeconds": 29.683152026002062,
+        "reloadSeconds": 3.197849293006584,
+        "requestedChunksPerSecond": 1.3039523377210689,
+        "generationRssPeakMiB": 2067.5078125,
+        "generationCpuSeconds": 210.55,
+        "generationGcPauseTotalMilliseconds": 1075.135591,
+        "generationObservedAfterGcHeapMaximumMiB": 1287.0612564086914,
+        "reloadRssPeakMiB": 1417.26953125,
+        "reloadCpuSeconds": 10.840000000000003,
+        "reloadGcPauseTotalMilliseconds": 55.485351,
+        "reloadObservedAfterGcHeapMaximumMiB": 420.66654205322266
+      }
+    }
+  ],
+  "limitations": [
+    "Only three repetitions per version: medians/ranges are descriptive, not a robust confidence interval.",
+    "One fixed seed, preset, area and reduced dependency stack; not complete live-pack TPS or all-seed behavior.",
+    "Requested-target throughput includes FULL completion and request/poll overhead; Minecraft also generates neighbors.",
+    "RSS is sampled every 100ms process memory, not an absolute peak; it includes JVM heap policy, native buffers and metaspace, and differs from committed/reserved heap or post-GC heap use.",
+    "GC events spanning a measurement boundary are excluded because their individual pauses cannot be located precisely.",
+    "Changed placement policy/strata can change actual generated work; this is shipped-version comparison, not an isolated erosion microbenchmark.",
+    "No speed percentage should be presented as conclusive if the trial-to-trial range/order effects are comparable to it.",
+    "No native structure starts are recorded in these target chunks; this area primarily measures terrain/biome/island generation rather than completed dungeon construction."
+  ]
+}

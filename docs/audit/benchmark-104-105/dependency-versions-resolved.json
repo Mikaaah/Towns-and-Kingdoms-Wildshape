@@ -1,0 +1,163 @@
+[
+  {
+    "file": "cf-388172-8893490.jar",
+    "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47",
+    "mods": [
+      {
+        "id": "geckolib",
+        "version": "4.9.3"
+      }
+    ]
+  },
+  {
+    "file": "cf-936015-9170709.jar",
+    "sha256": "e0da669fa5facc61a09b9b7bae21b322993de1fcd1eb05787adffb7309598cca",
+    "mods": [
+      {
+        "id": "lithostitched",
+        "version": "1.8.1"
+      }
+    ]
+  },
+  {
+    "file": "cf-1044992-9326605.jar",
+    "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7",
+    "mods": [
+      {
+        "id": "natures_spirit",
+        "version": "2.3.2-1.21.1"
+      }
+    ]
+  },
+  {
+    "file": "cf-940057-6054947.jar",
+    "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8",
+    "mods": [
+      {
+        "id": "terrablender",
+        "version": "${file.jarVersion}",
+        "resolvedVersion": "4.1.0.8"
+      }
+    ]
+  },
+  {
+    "file": "cf-659110-9252522.jar",
+    "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b",
+    "mods": [
+      {
+        "id": "regions_unexplored",
+        "version": "0.6.3"
+      }
+    ]
+  },
+  {
+    "file": "cf-220318-8288121.jar",
+    "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b",
+    "mods": [
+      {
+        "id": "biomesoplenty",
+        "version": "21.1.0.14"
+      }
+    ]
+  },
+  {
+    "file": "cf-955399-8109792.jar",
+    "sha256": "d9ea421e7449a35cf3adc41c9f740156342b7b17a08b1be843660608af7b60f9",
+    "mods": [
+      {
+        "id": "glitchcore",
+        "version": "2.1.0.2"
+      }
+    ]
+  },
+  {
+    "file": "skylands-0.9.4.1.jar",
+    "sha256": "8d36b7f51672da8206e3df5ac90fec158316ac8444cceac1929c253296717309",
+    "mods": [
+      {
+        "id": "skylands",
+        "version": "0.9.4.1"
+      }
+    ]
+  },
+  {
+    "file": "StreamsReflowing-1.21.1-neoforge-2.17.3.jar",
+    "sha256": "cc84b39d122f30412e82978fd95e7a017622a915540f49dd34ae41f26f56a185",
+    "mods": [
+      {
+        "id": "streamsreflowing",
+        "version": "2.17.3"
+      }
+    ]
+  },
+  {
+    "file": "cf-551586-8931182.jar",
+    "sha256": "371956d0c2e3b56729ee93b955e936875d210e372fe734cdb74326d89ef79875",
+    "mods": [
+      {
+        "id": "cataclysm",
+        "version": "3.33"
+      }
+    ]
+  },
+  {
+    "file": "cf-817709-9151098.jar",
+    "sha256": "3621edbd54dec28b704e03b792cc392f6d37a2cecf832d7b11c485a1765d4a3d",
+    "mods": [
+      {
+        "id": "integrated_api",
+        "version": "1.9.1"
+      }
+    ]
+  },
+  {
+    "file": "cf-1015112-5954804.jar",
+    "sha256": "61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04",
+    "mods": [
+      {
+        "id": "betterdungeons",
+        "version": "1.21.1-NeoForge-5.1.4"
+      }
+    ]
+  },
+  {
+    "file": "cf-1015114-6276955.jar",
+    "sha256": "2c3191ad447092cc7873a06e92f16bd3e2ff9dc31e93268b8893d06dd89e1fd6",
+    "mods": [
+      {
+        "id": "betterdeserttemples",
+        "version": "1.21.1-NeoForge-4.1.5"
+      }
+    ]
+  },
+  {
+    "file": "cf-309927-6529130.jar",
+    "sha256": "a45df2125c26219974aba7507ffc9afe7b83acc941a386af3faacb1cc0056fde",
+    "mods": [
+      {
+        "id": "curios",
+        "version": "9.5.1+1.21.1"
+      }
+    ]
+  },
+  {
+    "file": "cf-1001614-8345326.jar",
+    "sha256": "aeebf0692650afbbc78259c0d4e3d5b7edf037707e8ae5d56045066d83a19cf6",
+    "mods": [
+      {
+        "id": "lionfishapi",
+        "version": "3.1"
+      }
+    ]
+  },
+  {
+    "file": "cf-1015100-8894736.jar",
+    "sha256": "375e0b2f988ab4f5bde182166c0f0b102377adc8f823660c24ade08b0b3cde56",
+    "mods": [
+      {
+        "id": "yungsapi",
+        "version": "1.21.1-NeoForge-5.1.9"
+      }
+    ]
+  }
+]

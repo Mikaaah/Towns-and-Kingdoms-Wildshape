@@ -1,0 +1,524 @@
+{
+  "dependencies": [
+    {
+      "file": "cf-388172-8893490.jar",
+      "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47",
+      "mods": [
+        {
+          "id": "geckolib",
+          "version": "4.9.3"
+        }
+      ]
+    },
+    {
+      "file": "cf-936015-9170709.jar",
+      "sha256": "e0da669fa5facc61a09b9b7bae21b322993de1fcd1eb05787adffb7309598cca",
+      "mods": [
+        {
+          "id": "lithostitched",
+          "version": "1.8.1"
+        }
+      ]
+    },
+    {
+      "file": "cf-1044992-9326605.jar",
+      "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7",
+      "mods": [
+        {
+          "id": "natures_spirit",
+          "version": "2.3.2-1.21.1"
+        }
+      ]
+    },
+    {
+      "file": "cf-940057-6054947.jar",
+      "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8",
+      "mods": [
+        {
+          "id": "terrablender",
+          "version": "${file.jarVersion}"
+        }
+      ]
+    },
+    {
+      "file": "cf-659110-9252522.jar",
+      "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b",
+      "mods": [
+        {
+          "id": "regions_unexplored",
+          "version": "0.6.3"
+        }
+      ]
+    },
+    {
+      "file": "cf-220318-8288121.jar",
+      "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b",
+      "mods": [
+        {
+          "id": "biomesoplenty",
+          "version": "21.1.0.14"
+        }
+      ]
+    },
+    {
+      "file": "cf-955399-8109792.jar",
+      "sha256": "d9ea421e7449a35cf3adc41c9f740156342b7b17a08b1be843660608af7b60f9",
+      "mods": [
+        {
+          "id": "glitchcore",
+          "version": "2.1.0.2"
+        }
+      ]
+    },
+    {
+      "file": "skylands-0.9.4.1.jar",
+      "sha256": "8d36b7f51672da8206e3df5ac90fec158316ac8444cceac1929c253296717309",
+      "mods": [
+        {
+          "id": "skylands",
+          "version": "0.9.4.1"
+        }
+      ]
+    },
+    {
+      "file": "StreamsReflowing-1.21.1-neoforge-2.17.3.jar",
+      "sha256": "cc84b39d122f30412e82978fd95e7a017622a915540f49dd34ae41f26f56a185",
+      "mods": [
+        {
+          "id": "streamsreflowing",
+          "version": "2.17.3"
+        }
+      ]
+    },
+    {
+      "file": "cf-551586-8931182.jar",
+      "sha256": "371956d0c2e3b56729ee93b955e936875d210e372fe734cdb74326d89ef79875",
+      "mods": [
+        {
+          "id": "cataclysm",
+          "version": "3.33"
+        }
+      ]
+    },
+    {
+      "file": "cf-817709-9151098.jar",
+      "sha256": "3621edbd54dec28b704e03b792cc392f6d37a2cecf832d7b11c485a1765d4a3d",
+      "mods": [
+        {
+          "id": "integrated_api",
+          "version": "1.9.1"
+        }
+      ]
+    },
+    {
+      "file": "cf-1015112-5954804.jar",
+      "sha256": "61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04",
+      "mods": [
+        {
+          "id": "betterdungeons",
+          "version": "1.21.1-NeoForge-5.1.4"
+        }
+      ]
+    },
+    {
+      "file": "cf-1015114-6276955.jar",
+      "sha256": "2c3191ad447092cc7873a06e92f16bd3e2ff9dc31e93268b8893d06dd89e1fd6",
+      "mods": [
+        {
+          "id": "betterdeserttemples",
+          "version": "1.21.1-NeoForge-4.1.5"
+        }
+      ]
+    },
+    {
+      "file": "cf-309927-6529130.jar",
+      "sha256": "a45df2125c26219974aba7507ffc9afe7b83acc941a386af3faacb1cc0056fde",
+      "mods": [
+        {
+          "id": "curios",
+          "version": "9.5.1+1.21.1"
+        }
+      ]
+    },
+    {
+      "file": "cf-1001614-8345326.jar",
+      "sha256": "aeebf0692650afbbc78259c0d4e3d5b7edf037707e8ae5d56045066d83a19cf6",
+      "mods": [
+        {
+          "id": "lionfishapi",
+          "version": "3.1"
+        }
+      ]
+    },
+    {
+      "file": "cf-1015100-8894736.jar",
+      "sha256": "375e0b2f988ab4f5bde182166c0f0b102377adc8f823660c24ade08b0b3cde56",
+      "mods": [
+        {
+          "id": "yungsapi",
+          "version": "1.21.1-NeoForge-5.1.9"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "A": {
+      "file": "wildshape-1.0.4-neoforge-1.21.1.jar",
+      "sha256": "a1838c6acdeb7492f0baccf050a4d257e9875efffccd9b6ff2a61d5d2dc469c0"
+    },
+    "B": {
+      "file": "wildshape-1.0.5-beta.1-neoforge-1.21.1.jar",
+      "sha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6"
+    }
+  },
+  "worldSeed": 2031102026,
+  "presetSha256": "db4745f9bf850de99b79fb9b6d64ed5c490cbb8ad2c55c012efb14eef8425d4c",
+  "neoForge": "21.1.266",
+  "java": "/workspace/scratch/8fcc0960d930/toolchain/zulu21.54.109-ca-crac-jdk21.0.13.0.3-linux_x64",
+  "javaVersion": "openjdk version \"21.0.13.0.3\" 2026-10-24 LTS\nOpenJDK Runtime Environment Zulu21.54+109-CRaC-CA (build 21.0.13.0.3+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.54+109-CRaC-CA (build 21.0.13.0.3+1-LTS, mixed mode, sharing)\n",
+  "requestedTargets": [
+    [
+      442,
+      352
+    ],
+    [
+      442,
+      353
+    ],
+    [
+      442,
+      354
+    ],
+    [
+      442,
+      355
+    ],
+    [
+      442,
+      356
+    ],
+    [
+      442,
+      357
+    ],
+    [
+      442,
+      358
+    ],
+    [
+      442,
+      359
+    ],
+    [
+      442,
+      360
+    ],
+    [
+      443,
+      352
+    ],
+    [
+      443,
+      353
+    ],
+    [
+      443,
+      354
+    ],
+    [
+      443,
+      355
+    ],
+    [
+      443,
+      356
+    ],
+    [
+      443,
+      357
+    ],
+    [
+      443,
+      358
+    ],
+    [
+      443,
+      359
+    ],
+    [
+      443,
+      360
+    ],
+    [
+      444,
+      352
+    ],
+    [
+      444,
+      353
+    ],
+    [
+      444,
+      354
+    ],
+    [
+      444,
+      355
+    ],
+    [
+      444,
+      356
+    ],
+    [
+      444,
+      357
+    ],
+    [
+      444,
+      358
+    ],
+    [
+      444,
+      359
+    ],
+    [
+      444,
+      360
+    ],
+    [
+      445,
+      352
+    ],
+    [
+      445,
+      353
+    ],
+    [
+      445,
+      354
+    ],
+    [
+      445,
+      355
+    ],
+    [
+      445,
+      356
+    ],
+    [
+      445,
+      357
+    ],
+    [
+      445,
+      358
+    ],
+    [
+      445,
+      359
+    ],
+    [
+      445,
+      360
+    ],
+    [
+      446,
+      352
+    ],
+    [
+      446,
+      353
+    ],
+    [
+      446,
+      354
+    ],
+    [
+      446,
+      355
+    ],
+    [
+      446,
+      356
+    ],
+    [
+      446,
+      357
+    ],
+    [
+      446,
+      358
+    ],
+    [
+      446,
+      359
+    ],
+    [
+      446,
+      360
+    ],
+    [
+      447,
+      352
+    ],
+    [
+      447,
+      353
+    ],
+    [
+      447,
+      354
+    ],
+    [
+      447,
+      355
+    ],
+    [
+      447,
+      356
+    ],
+    [
+      447,
+      357
+    ],
+    [
+      447,
+      358
+    ],
+    [
+      447,
+      359
+    ],
+    [
+      447,
+      360
+    ],
+    [
+      448,
+      352
+    ],
+    [
+      448,
+      353
+    ],
+    [
+      448,
+      354
+    ],
+    [
+      448,
+      355
+    ],
+    [
+      448,
+      356
+    ],
+    [
+      448,
+      357
+    ],
+    [
+      448,
+      358
+    ],
+    [
+      448,
+      359
+    ],
+    [
+      448,
+      360
+    ],
+    [
+      449,
+      352
+    ],
+    [
+      449,
+      353
+    ],
+    [
+      449,
+      354
+    ],
+    [
+      449,
+      355
+    ],
+    [
+      449,
+      356
+    ],
+    [
+      449,
+      357
+    ],
+    [
+      449,
+      358
+    ],
+    [
+      449,
+      359
+    ],
+    [
+      449,
+      360
+    ],
+    [
+      450,
+      352
+    ],
+    [
+      450,
+      353
+    ],
+    [
+      450,
+      354
+    ],
+    [
+      450,
+      355
+    ],
+    [
+      450,
+      356
+    ],
+    [
+      450,
+      357
+    ],
+    [
+      450,
+      358
+    ],
+    [
+      450,
+      359
+    ],
+    [
+      450,
+      360
+    ]
+  ],
+  "order": [
+    "A",
+    "B",
+    "B",
+    "A",
+    "A",
+    "B"
+  ],
+  "c2me": false,
+  "byePregen": false,
+  "generatorAccelerator": false,
+  "requestBatchSize": 9,
+  "requestBatchCount": 9,
+  "persistentRconConnection": true,
+  "threadsExposedToJava": 4,
+  "heap": "512M initial / 3G maximum",
+  "pollIntervalSeconds": 0.05,
+  "hostCpuAffinityCount": 9,
+  "harnessSha256": "5e14682466d916b08e55627af59ac45201dc18a70d266f1976a044c03bbd67e4"
+}

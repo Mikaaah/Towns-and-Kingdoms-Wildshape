@@ -1,0 +1,13 @@
+{
+  "comparison": "All six generated logical biome arrays vs01-A",
+  "baselineChunks": 81,
+  "biomeSectionsPerTrial": 2997,
+  "runs": {
+    "01-A": true,
+    "02-B": true,
+    "03-B": true,
+    "04-A": true,
+    "05-A": true,
+    "06-B": true
+  }
+}
