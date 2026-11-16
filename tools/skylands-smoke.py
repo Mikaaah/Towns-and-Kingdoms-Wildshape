@@ -11,6 +11,7 @@ import socket
 import struct
 import subprocess
 import time
+import tomllib
 import urllib.request
 import zipfile
 import zlib
@@ -56,6 +57,113 @@ def prepare(root):
     (root / "dependency-inspection.json").write_text(json.dumps(inspected, indent=2))
     return dependencies
 
+
+
+ENGINE_IDS = {
+    "none": None,
+    "ga1": "generator_accelerator",
+    "ga2": "generatoraccelerator2",
+    "byepregen": "byepregen",
+    "worldpreview": "world_preview",
+}
+
+
+def prepare_engine(root, selection, structure_fixture=False):
+    """Resolve only required dependencies declared by exact hash-locked fixture JARs."""
+    if selection == "none" and not structure_fixture:
+        return [], []
+    lock = json.loads(Path("docs/audit/full-compat-1.0.5/dependency-lock.json").read_text())
+    by_id = {row["mod_id"]: row for row in lock["artifacts"]}
+    # Supplement the full audit lock with exact hard-dependency artifacts from
+    # the previously verified pack export, rather than picking latest libraries.
+    for row in csv.DictReader(open("docs/audit/beta-1.0/verified-dependencies.csv")):
+        for provided in row["mods"].split(";"):
+            if "@" not in provided:
+                continue
+            mod_id, version = provided.split("@", 1)
+            _, project, file_id = row["jar"].removesuffix(".jar").split("-")
+            by_id.setdefault(mod_id, {"mod_id": mod_id, "version": version, "jar": row["jar"],
+                "url": f"https://www.cursemaven.com/curse/maven/fixture-{project}/{file_id}/fixture-{project}-{file_id}.jar",
+                "sha256": row["sha256"]})
+    supplied = {"minecraft", "neoforge", "java", "wildshape", "skylands", "lithostitched",
+                "geckolib", "terrablender", "glitchcore", "natures_spirit",
+                "biomesoplenty", "regions_unexplored"}
+    pending = [ENGINE_IDS[selection]] if selection != "none" else []
+    if structure_fixture:
+        pending += ["cataclysm", "integrated_api", "betterdungeons", "betterdeserttemples"]
+    inspected, files = [], []
+    while pending:
+        mod_id = pending.pop(0)
+        if mod_id in supplied:
+            continue
+        if mod_id not in by_id:
+            raise RuntimeError(f"No locked artifact for required fixture dependency {mod_id}")
+        row = by_id[mod_id]
+        path = root / "extra-dependencies" / row["jar"]
+        receipt = download(row["url"], path, row["sha256"])
+        with zipfile.ZipFile(path) as jar:
+            metadata = tomllib.loads(jar.read("META-INF/neoforge.mods.toml").decode())
+            manifest = jar.read("META-INF/MANIFEST.MF").decode() if "META-INF/MANIFEST.MF" in jar.namelist() else ""
+        provided = {mod["modId"]: str(mod["version"]) for mod in metadata["mods"]}
+        assert mod_id in provided, (mod_id, provided)
+        actual_version = provided[mod_id]
+        if actual_version == "${file.jarVersion}":
+            actual_version = next(line.split(": ", 1)[1].strip() for line in manifest.splitlines()
+                                  if line.startswith("Implementation-Version: "))
+        assert actual_version == row["version"], (mod_id, actual_version, row["version"])
+        supplied.update(provided)
+        required = [dependency for dependencies in metadata.get("dependencies", {}).values()
+                    for dependency in dependencies if dependency.get("type") == "required"]
+        pending.extend(dependency["modId"] for dependency in required
+                       if dependency["modId"] not in supplied)
+        receipt.update({"modId": mod_id, "version": actual_version, "requiredDependencies": required})
+        inspected.append(receipt)
+        files.append(path)
+    (root / "extra-dependency-inspection.json").write_text(json.dumps(inspected, indent=2))
+    return files, inspected
+
+
+def write_structure_fixture(world):
+    """Synthetic audit-only set exercises Integrated API's real native placement class.
+
+    This uses a vanilla village reference, not an IDAS dungeon or an IDAS install.
+    No artifact distributed to players contains this pack.
+    """
+    pack = world / "datapacks" / "wildshape-structure-audit"
+    pack.mkdir(parents=True, exist_ok=True)
+    (pack / "pack.mcmeta").write_text(json.dumps({"pack": {"pack_format": 48,
+        "description": "TEST ONLY: synthetic Integrated API placement audit; not IDAS content"}}))
+    placement = {"type": "integrated_api:advanced_random_spread", "salt": 169480670,
+                 "spacing": 21, "separation": 12, "super_exclusion_zone": {
+                     "chunk_count": 2, "other_set": "#idas:wildshape_audit_avoid"}}
+    resources = {
+        "data/idas/worldgen/structure_set/wildshape_audit_advanced_grid.json": {
+            "structures": [{"structure": "minecraft:village_plains", "weight": 1}], "placement": placement},
+        "data/idas/tags/worldgen/structure_set/wildshape_audit_avoid.json": {"replace": False, "values": []}}
+    for name, value in resources.items():
+        path = pack / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, indent=2))
+
+
+def require_structure_fixture(report):
+    loaded = {entry.split("@", 1)[0] for entry in report["mods"]}
+    assert {"cataclysm", "integrated_api", "betterdungeons", "betterdeserttemples",
+            "yungsapi", "curios", "lionfishapi"} <= loaded, sorted(loaded)
+    placement = report["structurePlacement"]
+    assert placement["withinBudget"] and placement["enabled"], placement
+    assert "idas:wildshape_audit_advanced_grid" in placement["indexedSets"], placement
+    assert placement["sampledNativeCandidates"] > 0 and placement["sampledAcceptedCandidates"] > 0, placement
+    assert placement["sampledClearanceViolations"] == 0 and placement["budgetBypasses"] == 0, placement
+
+
+def require_engine(report, selection, installed):
+    expected = ENGINE_IDS[selection]
+    loaded = {entry.split("@", 1)[0] for entry in report["mods"]}
+    if expected:
+        assert (expected in loaded) == installed, (selection, installed, sorted(loaded))
+    for other in set(ENGINE_IDS.values()) - {None, expected}:
+        assert other not in loaded, f"Unexpected second engine: {other}"
 
 def nbt_value(stream, tag):
     def number(fmt):
@@ -145,7 +253,7 @@ def rcon(command):
         response = read(size)
         assert struct.unpack("<i", response[:4])[0] != -1, "RCON auth failed"
         return response[8:-2].decode()
-    with socket.create_connection(("127.0.0.1", 25585), timeout=10) as sock:
+    with socket.create_connection(("127.0.0.1", 25585), timeout=120) as sock:
         packet(sock, 1, 3, "wildshape-test-only")
         return packet(sock, 2, 2, command)
 
@@ -162,13 +270,14 @@ rcon.port=25585
 rcon.password=wildshape-test-only
 view-distance=2
 simulation-distance=2
-max-tick-time=-1
+max-tick-time=60000
 spawn-protection=0
 """)
 
 
 def run_server(root, server, mode=None):
     phase = mode or "baseline-1.0.2"
+    started = time.monotonic()
     log = root / f"{phase}.log"
     env = os.environ.copy()
     if mode:
@@ -209,7 +318,8 @@ def run_server(root, server, mode=None):
             if mode:
                 report_file = server / ("skylands-generate.json" if mode == "generate" else f"skylands-{mode}.json")
                 report = json.loads(report_file.read_text())
-                shutil.copyfile(report_file, root / report_file.name)
+                report["testWallSeconds"] = time.monotonic() - started
+                (root / report_file.name).write_text(json.dumps(report, indent=2))
                 assert report["passed"], report
                 return report
         finally:
@@ -230,10 +340,14 @@ def main():
     parser.add_argument("--artifact", type=Path)
     parser.add_argument("--work", type=Path, default=Path("skylands-smoke"))
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--engine", choices=tuple(ENGINE_IDS), default="none")
+    parser.add_argument("--structure-fixture", action="store_true",
+                        help="Install exact Cataclysm/YUNG/Integrated API dependencies and a synthetic test-only placement set")
     args = parser.parse_args()
     root = args.work.resolve()
     root.mkdir(parents=True, exist_ok=True)
     deps = prepare(root)
+    engine_files, engine_inspection = prepare_engine(root, args.engine, args.structure_fixture)
     if args.prepare_only:
         return
     assert args.artifact and args.artifact.is_file(), "Pass the verified new JAR with --artifact"
@@ -269,7 +383,14 @@ def main():
     shutil.copyfile(args.artifact, mods / "wildshape.jar")
     for jar in deps.glob("*.jar"):
         shutil.copyfile(jar, mods / jar.name)
+    for jar in engine_files:
+        shutil.copyfile(jar, mods / jar.name)
+    if args.structure_fixture:
+        write_structure_fixture(world)
     generated = run_server(root, server, "generate")
+    require_engine(generated, args.engine, True)
+    if args.structure_fixture:
+        require_structure_fixture(generated)
     after = snapshot(world, 0, 0, baseline_info["maxYExclusive"] // 16)
     (root / "existing-chunk-after.json").write_text(json.dumps(after, indent=2))
     assert before == after, "Existing chunk blocks or biomes changed during upgrade"
@@ -278,6 +399,9 @@ def main():
     island_before = snapshot(world, x, z, 33)
     (root / "island-before-reload.json").write_text(json.dumps(island_before, indent=2))
     reloaded = run_server(root, server, "reload")
+    require_engine(reloaded, args.engine, True)
+    if args.structure_fixture:
+        require_structure_fixture(reloaded)
     island_after = snapshot(world, x, z, 33)
     (root / "island-after-reload.json").write_text(json.dumps(island_after, indent=2))
     assert island_before == island_after, "Saved island blocks or biomes changed after reload"
@@ -287,9 +411,19 @@ def main():
             jar.unlink()
     properties(server, "absent-world")
     absent = run_server(root, server, "absent")
+    require_engine(absent, args.engine, False)
     assert generated["otherDimensions"] == absent["otherDimensions"], "Other dimension heights changed"
     summary = {"passed": True, "baselineVersion": "1.0.2", "runtimeNeoForge": "21.1.266",
-               "skylands": "0.9.4", "existingChunkBlocksAndBiomesPreserved": True,
+               "skylands": "0.9.4", "engine": args.engine, "engineModId": ENGINE_IDS[args.engine],
+               "fixtureExtraArtifacts": engine_inspection, "structureFixture": args.structure_fixture,
+               "syntheticPlacementSet": "idas:wildshape_audit_advanced_grid" if args.structure_fixture else None,
+               "structurePlacement": generated["structurePlacement"], "watchdogMillis": 60000,
+               "phaseWallSeconds": {"generate": generated["testWallSeconds"],
+                                    "reload": reloaded["testWallSeconds"], "absent": absent["testWallSeconds"]},
+               "engineLoadedInUpgradeAndReload": args.engine != "none",
+               "engineRemovedForAbsenceCheck": True,
+               "clientPreviewRenderingTested": False,
+               "existingChunkBlocksAndBiomesPreserved": True,
                "savedPresetUnchanged": True, "savedPresetSha256": preset_hash,
                "islandBlocksAndBiomesSurviveReload": True, "withoutOptionalMods": True,
                "otherDimensionsUnchanged": True, "artifactSha256": hashlib.sha256(args.artifact.read_bytes()).hexdigest()}

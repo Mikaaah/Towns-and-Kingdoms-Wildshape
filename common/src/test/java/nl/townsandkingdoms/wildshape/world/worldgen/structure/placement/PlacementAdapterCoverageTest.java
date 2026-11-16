@@ -21,13 +21,13 @@ class PlacementAdapterCoverageTest {
     }
     @Test void nativeExclusionsAreScopedAndRestoredEvenAfterExceptions() {
         assertFalse(StructurePlacementCoordinator.nativeScopeActive());
-        assertFalse(StructurePlacementCoordinator.filterNative(null,null,0,0,() -> {
+        assertFalse(StructurePlacementCoordinator.filterNative(null,null,0,0,(args) -> {
             assertTrue(StructurePlacementCoordinator.nativeScopeActive());
-            assertTrue(StructurePlacementCoordinator.filterNative(null,null,0,0,() -> true));
+            assertTrue(StructurePlacementCoordinator.filterNative(null,null,0,0,(nestedArgs) -> true));
             return false;
         }));
         assertFalse(StructurePlacementCoordinator.nativeScopeActive());
-        assertThrows(IllegalStateException.class, () -> StructurePlacementCoordinator.filterNative(null,null,0,0,() -> { throw new IllegalStateException("native exclusion failed"); }));
+        assertThrows(IllegalStateException.class, () -> StructurePlacementCoordinator.filterNative(null,null,0,0,(args) -> { throw new IllegalStateException("native exclusion failed"); }));
         assertFalse(StructurePlacementCoordinator.nativeScopeActive());
     }
     @Test void indexedCandidatesMustHaveASymmetricGenerationHook() {

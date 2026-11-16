@@ -13,7 +13,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 abstract class MixinCataclysmStructurePlacement {
     @WrapMethod(method = "isStructureChunk", remap = false)
     private boolean wildshape$regionalClearance(ChunkGeneratorStructureState state, int x, int z, Operation<Boolean> original) {
-        return StructurePlacementCoordinator.filterNative((StructurePlacement)(Object)this, state, x, z,
-            () -> original.call(state, x, z));
+        return StructurePlacementCoordinator.filterNative((StructurePlacement)(Object)this, state, x, z, original);
     }
 }

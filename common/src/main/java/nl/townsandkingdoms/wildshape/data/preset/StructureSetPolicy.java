@@ -34,10 +34,16 @@ final class StructureSetPolicy {
     private StructureSetPolicy() {}
 
     static boolean selected(ResourceLocation id) {
-        return MINIMUM_SPACING.containsKey(id);
+        return !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementProfiles.settings().enabled() && MINIMUM_SPACING.containsKey(id);
     }
 
     static int spacing(ResourceLocation id, int nativeSpacing) {
-        return Math.max(nativeSpacing, MINIMUM_SPACING.getOrDefault(id, nativeSpacing));
+        return spacing(id, nativeSpacing, nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementProfiles.settings().enabled());
+    }
+
+    static int spacing(ResourceLocation id, int nativeSpacing, boolean unifiedScreening) {
+        // Cross-set arbitration already provides clearance. Compounding the old per-set density reductions creates holes.
+        // Explicit saved preset entries are applied separately and remain authoritative.
+        return unifiedScreening ? nativeSpacing : Math.max(nativeSpacing, MINIMUM_SPACING.getOrDefault(id, nativeSpacing));
     }
 }

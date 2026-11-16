@@ -27,10 +27,15 @@ class StructureSetPolicyTest {
         assertEquals(12, spacing("unknownmod:landmark", 12));
     }
 
-    @Test void selectedDungeonsSpreadWithoutUndoingPackOverrides() {
-        assertEquals(36, spacing("idas:idas_common", 21));
-        assertEquals(64, spacing("dungeons_arise:major_structures", 40));
-        assertEquals(40, spacing("integrated_villages:regular_villages", 26));
+    @Test void unifiedClearanceDoesNotAlsoInflateNativeSpacing() {
+        assertEquals(21, spacing("idas:idas_common", 21));
+        assertEquals(40, spacing("dungeons_arise:major_structures", 40));
+        assertEquals(26, spacing("integrated_villages:regular_villages", 26));
         assertEquals(80, spacing("idas:idas_common", 80));
     }
+    @Test void disablingUnifiedScreeningRetainsLegacyFloorWithoutUndoingHigherPackValues() {
+        assertEquals(36, StructureSetPolicy.spacing(ResourceLocation.parse("idas:idas_common"),21,false));
+        assertEquals(80, StructureSetPolicy.spacing(ResourceLocation.parse("idas:idas_common"),80,false));
+    }
+
 }

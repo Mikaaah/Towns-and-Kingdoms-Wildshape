@@ -8,7 +8,9 @@
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-**Current edition: Wildshape 1.0.3 · Minecraft 1.21.1 · NeoForge · Java 21.**
+**Audit preview: Wildshape 1.0.5-beta.1 · Minecraft 1.21.1 · NeoForge · Java 21.**
+
+This branch adds configurable cross-mod structure screening, current habitat bridges and concurrency fixes. See the [engineering report](docs/WORLDGEN_AUDIT_1.0.5.md) for scope, configuration, verification and remaining limits. This preview has not been certified against the complete live server pack.
 
 Wildshape is Mikaaah’s maintained fork of UltraTerraForged, ReTerraForged and TerraForged. Upstream authors and licenses remain credited below.
 

@@ -1,6 +1,7 @@
-## 1.0.5-beta.1 — structure and worldgen audit
+# 1.0.5-beta.1 — structure and worldgen audit
 
 - Added bounded deterministic cross-set candidate screening with configurable 256/112-block major/minor center clearance, linked-layout preservation and optional native placement hooks.
+- Retained native spacing defaults under unified screening to avoid compounded density reductions; explicit saved overrides remain unchanged.
 - Added explicit nine-point surface footprint screening and server-authoritative NeoForge config; native underground/ocean/sky placement remains in control.
 - Added 90 optional additive biome-tag overlays for current biome, crop, wildlife, dinosaur and aquatic habitats, including existing saves.
 - Fixed lazy value publication, Cell pool bookkeeping, density cache wrapper allocations and duplicated erosion brush memory.

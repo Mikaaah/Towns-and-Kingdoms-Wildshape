@@ -36,11 +36,11 @@ public final class StructurePlacementCoordinator {
 
     /** Keep the complete native call (including other-set exclusion checks) outside our arbitration. */
     public static boolean filterNative(StructurePlacement placement, ChunkGeneratorStructureState state, int x, int z,
-            java.util.function.BooleanSupplier nativeCall) {
+            com.llamalad7.mixinextras.injector.wrapoperation.Operation<Boolean> nativeCall) {
         boolean nested = NATIVE.get();
         NATIVE.set(true);
         boolean result;
-        try { result = nativeCall.getAsBoolean(); }
+        try { result = nativeCall.call(state, x, z); }
         finally { NATIVE.set(nested); }
         return result && (nested || accepts(placement, state, x, z));
     }
@@ -54,7 +54,7 @@ public final class StructurePlacementCoordinator {
         Site self = index.byPlacement.get(placement);
         if (self == null || self.profile.clearance() == 0) return true;
         if (index.settings.approximateBiomeScreening() && !eligible(self, state, index.biomeSource, wildshape.generatorContext(), new ChunkPos(x, z))) return false;
-        long priority = RegionalClearance.priority(state.getLevelSeed(), self.id.toString(), x, z);
+        long priority = RegionalClearance.priority(state.getLevelSeed(), self.rankKey, x, z);
         int checks = 0;
         for (Site other : index.sites) {
             if (!compatible(self.profile, other.profile)) continue;
@@ -68,8 +68,8 @@ public final class StructurePlacementCoordinator {
                 ChunkPos candidate = other.placement.getPotentialStructureChunk(state.getLevelSeed(), rx * spacing, rz * spacing);
                 if (self == other && candidate.x == x && candidate.z == z) continue;
                 if (!RegionalClearance.conflicts(x, z, self.profile.clearance(), candidate.x, candidate.z, other.profile.clearance())) continue;
-                long otherPriority = RegionalClearance.priority(state.getLevelSeed(), other.id.toString(), candidate.x, candidate.z);
-                if (RegionalClearance.wins(priority, self.id.toString(), x, z, otherPriority, other.id.toString(), candidate.x, candidate.z)) continue;
+                long otherPriority = RegionalClearance.priority(state.getLevelSeed(), other.rankKey, candidate.x, candidate.z);
+                if (RegionalClearance.wins(priority, self.rankKey, x, z, otherPriority, other.rankKey, candidate.x, candidate.z)) continue;
                 if (nativeCandidate(other.placement, state, candidate.x, candidate.z) && (!index.settings.approximateBiomeScreening() || eligible(other, state, index.biomeSource, wildshape.generatorContext(), candidate))) return false;
             }
         }
@@ -108,7 +108,7 @@ public final class StructurePlacementCoordinator {
     private static Index index(ChunkGeneratorStructureState state) {
         synchronized (INDEXES) { return INDEXES.computeIfAbsent(state, Index::new); }
     }
-    private record Site(ResourceLocation id, StructureSet set, RandomSpreadStructurePlacement placement, Profile profile) {}
+    private record Site(ResourceLocation id, String rankKey, StructureSet set, RandomSpreadStructurePlacement placement, Profile profile) {}
     private static final class Index {
         final StructurePlacementProfiles.Settings settings = StructurePlacementProfiles.settings();
         final List<Site> sites;
@@ -124,7 +124,7 @@ public final class StructurePlacementCoordinator {
                 if (id == null || !(holder.value().placement() instanceof RandomSpreadStructurePlacement random) || random.spacing() <= 0 || !supportsPlacement(random)) continue;
                 Profile profile = settings.set(id);
                 if (profile == null || profile.layer().equals("disabled") || profile.clearance() == 0) continue;
-                Site site = new Site(id, holder.value(), random, profile);
+                Site site = new Site(id, rankingKey(id, profile), holder.value(), random, profile);
                 // Two registered sets may deliberately share a placement object; keep their native pairing intact.
                 if (!byPlacement.containsKey(random)) { found.add(site); byPlacement.put(random, site); }
             }
@@ -148,6 +148,10 @@ public final class StructurePlacementCoordinator {
             }
         }
     }
+    static String rankingKey(ResourceLocation id, Profile profile) {
+        return profile.linkedGroup().isEmpty() ? id.toString() : profile.linkedGroup();
+    }
+
     public static boolean supportsPlacement(StructurePlacement placement) {
         String name = placement.getClass().getName();
         if (name.equals("com.craisinlord.integrated_api.world.structures.placements.AdvancedRandomSpread") || name.equals("com.github.L_Ender.cataclysm.world.structures.placements.CataclysmRandomSpread")) return true;

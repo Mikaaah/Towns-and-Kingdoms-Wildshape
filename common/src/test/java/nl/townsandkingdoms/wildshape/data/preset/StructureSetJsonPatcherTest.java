@@ -30,6 +30,7 @@ class StructureSetJsonPatcherTest {
     @Test void lateBindingKeepsNativeTypeWeightsAndExclusionZones() {
         TestBootstrap.init();
         var preset = BuiltinPresetRenderTest.presets().get("default").get();
+        preset.structures().getOrCreate(ResourceLocation.parse("idas:idas_common")).spacing = 36;
         var json = structure(); var before = json.deepCopy();
         assertTrue(StructureSetJsonPatcher.patch(preset, ResourceLocation.parse("idas:idas_common"), json));
         assertEquals(36, json.getAsJsonObject("placement").get("spacing").getAsInt());
@@ -60,4 +61,16 @@ class StructureSetJsonPatcherTest {
             assertEquals(before, json);
         }
     }
+    @Test void newDefaultPolicyPreservesNativeDensityButSavedSpacingIsNotMigrated() {
+        TestBootstrap.init();
+        var preset = BuiltinPresetRenderTest.presets().get("default").get();
+        var id = ResourceLocation.parse("idas:idas_common");
+        var json = structure(); var before = json.deepCopy();
+        assertFalse(StructureSetJsonPatcher.patch(preset,id,json));
+        assertEquals(before,json);
+        preset.structures().getOrCreate(id).spacing = 64;
+        assertTrue(StructureSetJsonPatcher.patch(preset,id,json));
+        assertEquals(64,json.getAsJsonObject("placement").get("spacing").getAsInt());
+    }
+
 }
