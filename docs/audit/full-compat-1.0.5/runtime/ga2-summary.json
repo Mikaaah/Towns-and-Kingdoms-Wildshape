@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "baselineVersion": "1.0.2",
+  "runtimeNeoForge": "21.1.266",
+  "skylands": "0.9.4",
+  "engine": "ga2",
+  "engineModId": "generatoraccelerator2",
+  "fixtureExtraArtifacts": [
+    {
+      "file": "cf-1323569-9551894.jar",
+      "bytes": 4020858,
+      "sha256": "b007fd6bad28580b0f9958909997166abb336c995102f77ba3c416863fb1e638",
+      "modId": "generatoraccelerator2",
+      "version": "1.21.1-2.0.21.259",
+      "requiredDependencies": [
+        {
+          "modId": "neoforge",
+          "type": "required",
+          "versionRange": "[21.1,)",
+          "ordering": "NONE",
+          "side": "BOTH"
+        },
+        {
+          "modId": "minecraft",
+          "type": "required",
+          "versionRange": "[1.21.1,1.21.2)",
+          "ordering": "NONE",
+          "side": "BOTH"
+        }
+      ]
+    }
+  ],
+  "structureFixture": false,
+  "syntheticPlacementSet": null,
+  "structurePlacement": {
+    "candidateUpperBound": 0,
+    "withinBudget": true,
+    "sampledAcceptedCandidates": 0,
+    "approximateBiomeScreening": false,
+    "indexedSets": [],
+    "registeredSets": 57,
+    "sampledClearanceViolations": 0,
+    "candidateBudget": 8192,
+    "sampledNativeCandidates": 0,
+    "budgetBypasses": 0,
+    "sampleMillis": 0,
+    "enabled": true
+  },
+  "watchdogMillis": 60000,
+  "phaseWallSeconds": {
+    "generate": 48.80802641400001,
+    "reload": 24.48599392,
+    "absent": 44.877806695999965
+  },
+  "engineLoadedInUpgradeAndReload": true,
+  "engineRemovedForAbsenceCheck": true,
+  "clientPreviewRenderingTested": false,
+  "existingChunkBlocksAndBiomesPreserved": true,
+  "savedPresetUnchanged": true,
+  "savedPresetSha256": "ecc68939e1facacd359f537c10e09f40fda81819d4ba5c764cddb2c22f012b5c",
+  "islandBlocksAndBiomesSurviveReload": true,
+  "withoutOptionalMods": true,
+  "otherDimensionsUnchanged": true,
+  "artifactSha256": "3ddef1fbea25c1d6b05f4acfc620d9e0e1042e9c8e768a4ed6be85bffebd052f"
+}

@@ -40,3 +40,7 @@ Deleting it could invalidate saved preset datapacks using that codec. It is not
 removed merely because static call-site searches do not find a current writer.
 The retained Streams ABIs and Mixin 0.17.3 annotation constraint likewise exist
 for inspected dependencies, rather than being unneeded old-port artifacts.
+
+## Completed installed-server outcomes
+
+Final code source `1e0cbc8bc48cd7a3fc6cfdcbaaeac643bac67cf4`: Bye Pregen1.1.3.4 and World Preview1.3.1 passed independent upgrade/generation/reload/absence fixtures. The relocated preview constructor/height sample ran with an independent approximate context. GA2 2.0.21.259 also passed, but counters showed FAST0/VANILLA25: safe fallback only, optimized CPU/GPU paths remain unverified. GA1 1.6.2 fails with Regions Unexplored0.6.3 at mixin application; its core WorldCarver overwrite cannot be disabled through supported configuration. See runtime/verification.json and the main engineering report. No universal utility compatibility is claimed.

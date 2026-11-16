@@ -1,0 +1,66 @@
+{
+  "mode": "generate",
+  "noiseHeight": 576,
+  "minY": -64,
+  "maxYExclusive": 528,
+  "previousMaxYExclusive": 512,
+  "mods": [
+    "apollib@1.2.0",
+    "biomesoplenty@21.1.0.14",
+    "geckolib@4.9.3",
+    "generatoraccelerator2@1.21.1-2.0.21.259",
+    "glitchcore@2.1.0.2",
+    "lithostitched@1.8.1",
+    "minecraft@1.21.1",
+    "natures_spirit@2.3.2-1.21.1",
+    "neoforge@21.1.266",
+    "regions_unexplored@0.6.3",
+    "skylands@0.9.4",
+    "terrablender@4.1.0.8",
+    "wildshape@1.0.5-beta.1"
+  ],
+  "otherDimensions": {
+    "minecraft:the_end": {
+      "minY": 0,
+      "height": 256
+    },
+    "minecraft:the_nether": {
+      "minY": 0,
+      "height": 256
+    }
+  },
+  "skyBiomes": 6,
+  "islandX": 7141,
+  "islandZ": 5709,
+  "newCeilingMarkerY": 527,
+  "skyBlocksInSkyLayer": 12026,
+  "skyBlockMinY": 320,
+  "skyBlockMaxY": 387,
+  "existingWorldMarkerPreserved": true,
+  "chunk": [
+    446,
+    356
+  ],
+  "ga2Carvers": {
+    "optimizedPathObserved": false,
+    "observedPath": "safe_vanilla_fallback",
+    "vanillaChunks": 25,
+    "fastChunks": 0
+  },
+  "structurePlacement": {
+    "candidateUpperBound": 0,
+    "withinBudget": true,
+    "sampledAcceptedCandidates": 0,
+    "approximateBiomeScreening": false,
+    "indexedSets": [],
+    "registeredSets": 57,
+    "sampledClearanceViolations": 0,
+    "candidateBudget": 8192,
+    "sampledNativeCandidates": 0,
+    "budgetBypasses": 0,
+    "sampleMillis": 0,
+    "enabled": true
+  },
+  "passed": true,
+  "testWallSeconds": 48.80802641400001
+}

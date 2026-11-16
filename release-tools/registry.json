@@ -699,7 +699,7 @@
       "artifact_id": "wildshape",
       "repository": "https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape",
       "development_ref": "fix/worldgen-performance-1.0.4",
-      "development_version": "1.0.4",
+      "development_version": "1.0.5-beta.1",
       "editions": [
         "standard"
       ],
@@ -785,6 +785,18 @@
           "payload_sha256": "ec0b4280316b1a5a1b099404e87c954f1ffb8e687f6c3e8c2e82f85e26af4a3e",
           "filename": "wildshape-1.0.4-neoforge-1.21.1.jar",
           "source_commit": "80607f57ddd176482cc7d48f12dafbc4804ecf8f",
+          "evidence": "Verified development artifact and release identity"
+        },
+        {
+          "role": "development",
+          "target": "neoforge-1.21.1",
+          "edition": "standard",
+          "mod_id": "wildshape",
+          "internal_version": "1.0.5-beta.1",
+          "sha256": "31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6",
+          "payload_sha256": "0ab39ae303866a4671d7ed7486b60f8b457badff68a426a085083ed3fe895fd9",
+          "filename": "wildshape-1.0.5-beta.1-neoforge-1.21.1.jar",
+          "source_commit": "1e0cbc8bc48cd7a3fc6cfdcbaaeac643bac67cf4",
           "evidence": "Verified development artifact and release identity"
         }
       ]

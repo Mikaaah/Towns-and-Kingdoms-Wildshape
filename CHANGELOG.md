@@ -8,6 +8,8 @@
 - Made newly generated strata deterministic across worker/initialization order; existing chunks remain untouched.
 - Added relocated World Preview target and separate Generator Accelerator 2 aquifer/carver lifecycle support; removed duplicate optional mixin registration.
 - Preserved native salts, weights, feature rates, saved presets and optional dependency isolation. Removed retired KnightQuest/Alex's Mobs habitat aliases.
+- Verified 115 regressions, 25 flow/search checks and installed-server upgrade/save/reload fixtures.
+- Identified an unresolved Generator Accelerator 1.6.2 / Regions Unexplored 0.6.3 startup conflict; GA2 ran through safe fallback only.
 - Audited 56 exact dependency JARs. This beta does not guarantee all structure foundations, eliminate every sparse region or certify full-pack TPS; see docs/WORLDGEN_AUDIT_1.0.5.md and verification evidence.
 
 # 1.0.4

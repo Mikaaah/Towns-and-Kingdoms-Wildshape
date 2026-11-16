@@ -1,0 +1,38 @@
+{
+  "mode": "absent",
+  "noiseHeight": 576,
+  "minY": -64,
+  "maxYExclusive": 512,
+  "previousMaxYExclusive": 512,
+  "mods": [
+    "minecraft@1.21.1",
+    "neoforge@21.1.266",
+    "wildshape@1.0.5-beta.1"
+  ],
+  "otherDimensions": {
+    "minecraft:the_end": {
+      "height": 256,
+      "minY": 0
+    },
+    "minecraft:the_nether": {
+      "height": 256,
+      "minY": 0
+    }
+  },
+  "structurePlacement": {
+    "indexedSets": [],
+    "registeredSets": 17,
+    "sampledClearanceViolations": 0,
+    "candidateBudget": 8192,
+    "sampledNativeCandidates": 0,
+    "budgetBypasses": 0,
+    "sampleMillis": 0,
+    "enabled": true,
+    "candidateUpperBound": 0,
+    "withinBudget": true,
+    "sampledAcceptedCandidates": 0,
+    "approximateBiomeScreening": false
+  },
+  "passed": true,
+  "testWallSeconds": 29.289026952
+}

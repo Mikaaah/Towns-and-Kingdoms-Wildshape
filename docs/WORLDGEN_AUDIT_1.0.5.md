@@ -61,6 +61,28 @@ Unused `LoadBalanceLongMap` and excluded Fabric port material are identified rat
 
 This is **1.0.5-beta.1**, not a stable full-pack certification. The machine-readable verification record contains actual completed build/test/runtime results; pending or failed checks must not be read as passed.
 
-Available evidence before CI: all 56 dependency hashes/resources parsed; all 90 overlays optional/additive with zero missing literal biome IDs; Java 21 habitat exporter compiled and ran; four standalone Java concurrency tests passed. The regression workflow includes clearance order/concurrency, exact erosion brush equivalence, lazy publication, pool lifetime, strata determinism, optional guards, old preset export, cave/water behavior and habitat parity. Installed-server checks exercise save upgrade, native SkyLands generation, ceiling persistence, reload and startup without optional mods. Additional full-modpack/player-teleport, pregeneration stress, visual structure placement and original-world TPS verification remain necessary before stable deployment.
+The pre-CI evidence was: all 56 dependency hashes/resources parsed; all 90 overlays optional/additive with zero missing literal biome IDs; Java 21 habitat exporter compiled and ran; four standalone Java concurrency tests passed. The regression workflow includes clearance order/concurrency, exact erosion brush equivalence, lazy publication, pool lifetime, strata determinism, optional guards, old preset export, cave/water behavior and habitat parity. Installed-server checks exercise save upgrade, native SkyLands generation, ceiling persistence, reload and startup without optional mods. Additional full-modpack/player-teleport, pregeneration stress, visual structure placement and original-world TPS verification remain necessary before stable deployment.
 
 Newly generated strata can differ from earlier versions because the race-prone random sequence was replaced. Existing chunks are not rewritten. Use a copy of the server world to evaluate the changed structure distribution and native foundations before adopting this beta on the live server.
+
+## Completed verification
+
+- Java 21 NeoForge build, **115 regression tests**, **18 flow rules**, **7 downhill-search checks**, and release identity validation passed for source commit `1e0cbc8bc48cd7a3fc6cfdcbaaeac643bac67cf4`.
+- Installed server on NeoForge 21.1.266 with the TNK biome stack, SkyLands 0.9.4, Cataclysm 3.33, Integrated API 1.9.1, Better Dungeons 5.1.4 and Better Desert Temples 4.1.5 passed upgrade, generation, save/reload and optional-mod-absence checks.
+- The fixture evaluated **117 native candidate sites**, accepted **27**, found **zero same-layer clearance violations** and **zero budget bypasses**. The bounded sampling took **5 ms** in that run. The Integrated API case uses a clearly marked test-only synthetic set with a vanilla village reference; it does not certify every IDAS template or dependency combination.
+- The sampled existing chunk's blocks/biomes, saved preset and other dimension heights remained unchanged. New sky island blocks and the Y=527 marker survived reload. These are server data assertions, not graphical or player-teleport validation.
+- Bye Pregen 1.1.3.4 independently passed the same upgrade/generation/reload/absence sequence.
+- **Generator Accelerator 1.6.2 + Regions Unexplored 0.6.3 fails at startup.** GA1's core `WorldCarver.carveBlock` overwrite prevents RU's `fixGrassQuery` injection. Its exposed configuration cannot disable that core overwrite; `chunkPipelineCarvers` does not resolve it. This conflict is upstream of Wildshape generation. Keep RU and leave GA1 out of this combination. GA2 has a separate API and its own runtime record; it is not assumed equivalent.
+
+The delivered JAR is the exact artifact used by the structure server fixture, SHA-256 `31d0dde5d20d67fb151a40240c1f074fafdbebe3235aa6857ab4b65a1fc722c6`. Its owned classes/data match the regression build; independent builds differ only in an Architectury-generated bridge UUID and access-transformer line ordering. See the machine-readable evidence under `docs/audit/full-compat-1.0.5/runtime/`.
+
+### Optional engine runtime outcomes
+
+| Utility | Exact inspected/tested version | Result |
+| --- | --- | --- |
+| Bye Pregen | 1.1.3.4 | Upgrade, native island generation, save/reload and optional absence passed. |
+| World Preview NeoForged | 1.3.1 | Upgrade/generation/reload/absence passed; the relocated `SampleUtils` constructor and slow-height sample actually ran with an independent approximate context (sample height 40). Graphical client preview remains untested. |
+| Generator Accelerator 2 | 1.21.1-2.0.21.259 | Upgrade/generation/reload/absence passed using its safe vanilla fallback: FAST=0, VANILLA=25 during generation. Optimized CPU and GPU carvers were not exercised, so their acceleration and optional aquifer bridge are not runtime-certified. |
+| Generator Accelerator 1 | 1.21.1-1.6.2 | Failed startup with Regions Unexplored 0.6.3 because of the third-party overwrite/injection conflict described above. |
+
+Fixture phase wall times include server startup and checks; they are not chunk-generation latency or a comparative TPS benchmark. The fixtures use isolated copies and preserve sampled saved data. They do not demonstrate complete interoperability of all 56 artifacts loaded simultaneously. `runtime/verification.json` records all outcomes and remaining limits.
