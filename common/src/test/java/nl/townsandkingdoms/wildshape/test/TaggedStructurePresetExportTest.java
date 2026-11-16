@@ -68,8 +68,9 @@ class TaggedStructurePresetExportTest {
         assertTrue(pack.errors().isEmpty(), String.join("\n", pack.errors()));
         assertFalse(pack.files().containsKey(path(CUSTOM_ID)), "The custom placement stays in its native resource");
         var nativeJson = nativeJson(source, CUSTOM_ID);
-        assertTrue(StructureSetJsonPatcher.patch(preset, CUSTOM_ID, nativeJson));
-        assertEquals(40, nativeJson.getAsJsonObject("placement").get("spacing").getAsInt());
+        assertFalse(StructureSetJsonPatcher.patch(preset, CUSTOM_ID, nativeJson),
+                "Unified screening must leave an unconfigured native placement unchanged");
+        assertEquals(26, nativeJson.getAsJsonObject("placement").get("spacing").getAsInt());
         assertNativeFields(nativeJson);
     }
 
