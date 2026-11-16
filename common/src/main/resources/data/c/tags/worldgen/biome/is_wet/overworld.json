@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:jungle_river", "required": false },
+    { "id": "bloomingnature:fen", "required": false },
+    { "id": "bloomingnature:marshland", "required": false }
+  ]
+}

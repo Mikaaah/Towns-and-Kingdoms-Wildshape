@@ -152,6 +152,7 @@ public final class SkylandsSmokeChecks {
                 report.put("existingWorldMarkerPreserved", true);
                 report.put("chunk", List.of(chunk.getPos().x, chunk.getPos().z));
             }
+            report.put("structurePlacement", nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementCoordinator.audit(level));
             report.put("passed", true);
         } catch (Throwable failure) {
             report.put("passed", false);

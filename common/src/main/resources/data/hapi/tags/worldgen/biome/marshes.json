@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:fen", "required": false },
+    { "id": "bloomingnature:marshland", "required": false }
+  ]
+}

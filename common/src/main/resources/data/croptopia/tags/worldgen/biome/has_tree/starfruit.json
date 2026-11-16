@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:flower_glade", "required": false },
+    { "id": "bloomingnature:forest_edge", "required": false },
+    { "id": "bloomingnature:golden_glade", "required": false },
+    { "id": "bloomingnature:aspen_forest", "required": false }
+  ]
+}

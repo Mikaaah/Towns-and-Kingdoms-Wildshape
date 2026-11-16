@@ -22,14 +22,6 @@ final class NativeSpawnHabitatBridge {
     }
 
     private static final List<Rule> RULES = List.of(
-            new Rule("knightquest:spawn_bad_patch", "c:is_jungle"),
-            new Rule("knightquest:spawn_eldbomb", "c:is_forest", "c:is_taiga", "c:is_snowy_plains"),
-            new Rule("knightquest:spawn_eldknight", "c:is_forest", "c:is_taiga", "c:is_snowy_plains"),
-            new Rule("knightquest:spawn_fallen_knight", "c:is_forest", "c:is_taiga", "c:is_desert"),
-            new Rule("knightquest:spawn_ghosty", "c:is_forest", "c:is_taiga", "c:is_badlands"),
-            new Rule("knightquest:spawn_lizzy", "c:is_forest", "c:is_taiga", "c:is_desert"),
-            new Rule("knightquest:spawn_ratman", "c:is_desert", "c:is_jungle"),
-            new Rule("knightquest:spawn_swampman", "c:is_beach", "minecraft:is_river", "c:is_jungle"),
             new Rule("legendary_monsters:bomber", "c:is_desert")
     );
     private static final TagKey<Biome> CAVE = TagKey.create(Registries.BIOME, ResourceLocation.parse("c:is_cave"));

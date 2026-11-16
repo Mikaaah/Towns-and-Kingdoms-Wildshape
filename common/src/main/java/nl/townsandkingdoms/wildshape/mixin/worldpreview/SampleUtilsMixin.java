@@ -26,7 +26,12 @@ import nl.townsandkingdoms.wildshape.WildshapeCommon;
 import nl.townsandkingdoms.wildshape.world.worldgen.WildshapeRandomState;
 
 @Pseudo
-@Mixin(targets = "caeruleusTait.world.preview.backend.worker.SampleUtils", remap = false)
+// Original World Preview and the inspected NeoForge 1.3.1 port use identical
+// constructors and fields, but the port moved its classes under the com package.
+@Mixin(targets = {
+        "caeruleusTait.world.preview.backend.worker.SampleUtils",
+        "com.caeruleusTait.world.preview.backend.worker.SampleUtils"
+}, remap = false)
 public class SampleUtilsMixin {
 	@Shadow
 	@Final

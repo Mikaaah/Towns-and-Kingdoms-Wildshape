@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:cypress_fields", "required": false },
+    { "id": "bloomingnature:brushland", "required": false },
+    { "id": "bloomingnature:baobab_savanna", "required": false },
+    { "id": "bloomingnature:desert_oasis", "required": false },
+    { "id": "bloomingnature:desert_river", "required": false }
+  ]
+}

@@ -30,7 +30,7 @@ import terrablender.worldgen.surface.NamespacedSurfaceRuleSource;
 @Implements(@Interface(iface = WildshapeSurfaceSystem.class, prefix = WildshapeCommon.MOD_ID + "$WildshapeSurfaceSystem$"))
 class MixinSurfaceSystem {
 	private static final ResourceLocation STRATA_RANDOM = WildshapeCommon.location("strata");
-	private RandomSource strataRandom;
+	private PositionalRandomFactory strataRandom;
     private RandomState wildshapeSurfaceState;
     private final Map<SurfaceRules.RuleSource, SurfaceRules.RuleSource> wildshapeModRules = new ConcurrentHashMap<>();
 	private Map<ResourceLocation, List<StrataStack>> strata;
@@ -41,7 +41,9 @@ class MixinSurfaceSystem {
 	)
     public void SurfaceSystem(RandomState randomState, BlockState blockState, int i, PositionalRandomFactory positionalRandomFactory, CallbackInfo callback) {
         this.wildshapeSurfaceState = randomState;
-    	this.strataRandom = randomState.random.fromHashOf(STRATA_RANDOM);
+        // Positional factories do not consume a shared mutable sequence. Each
+        // strata id gets the same private RNG regardless of worker/order.
+        this.strataRandom = randomState.random.fromHashOf(STRATA_RANDOM).forkPositional();
     	this.strata = new ConcurrentHashMap<>();
 	}
 	
@@ -64,7 +66,7 @@ class MixinSurfaceSystem {
 
 	public List<StrataStack> wildshape$WildshapeSurfaceSystem$getOrCreateStrata(ResourceLocation cacheId, Function<RandomSource, List<StrataStack>> factory) {
 		return this.strata.computeIfAbsent(cacheId, (k) -> {
-			return factory.apply(this.strataRandom.fork());
+			return factory.apply(this.strataRandom.fromHashOf(k));
 		});
 	}
 }

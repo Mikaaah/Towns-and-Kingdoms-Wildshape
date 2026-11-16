@@ -135,3 +135,7 @@ run-servertest/
 # Python helper caches
 __pycache__/
 *.py[cod]
+
+# Reproducible dependency inspection working files
+docs/audit/full-compat-1.0.5/dependencies/
+docs/audit/full-compat-1.0.5/resource-inventory.json

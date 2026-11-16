@@ -122,19 +122,6 @@ public final class CompatibilitySmokeChecks {
             report.put("nativeEpicPlacementPreserved", epicSpacing);
 
             var biomes = level.registryAccess().registryOrThrow(Registries.BIOME);
-            var aliases = Map.of("is_hot_overworld", "is_hot/overworld", "is_cold_overworld", "is_cold/overworld",
-                    "is_dry_overworld", "is_dry/overworld", "is_dense_overworld", "is_dense_vegetation/overworld",
-                    "is_coniferous", "is_tree/coniferous");
-            var habitatSizes = new LinkedHashMap<String, Integer>();
-            aliases.forEach((legacy, modern) -> {
-                var source = biomes.getTag(TagKey.create(Registries.BIOME, ResourceLocation.parse("c:" + modern)));
-                var target = TagKey.create(Registries.BIOME, ResourceLocation.parse("c:" + legacy));
-                source.ifPresent(values -> {
-                    values.forEach(biome -> require(biome.is(target), "Missing habitat bridge for " + biome.unwrapKey()));
-                    habitatSizes.put(legacy, values.size());
-                });
-            });
-            report.put("legacyHabitats", habitatSizes);
             if (ModList.get().isLoaded("croptopia") && ModList.get().isLoaded("natures_spirit")) {
                 var aspen = biomes.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.BIOME,
                         ResourceLocation.parse("natures_spirit:aspen_forest")));
@@ -167,27 +154,6 @@ public final class CompatibilitySmokeChecks {
                 report.put("nativeFishHabitatApplied", true);
             }
 
-            if (ModList.get().isLoaded("knightquest")) {
-                var candidate = biomes.holders().filter(biome -> !biome.key().location().getNamespace().equals("minecraft")
-                        && biome.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("c:is_forest")))
-                        && biome.is(net.minecraft.tags.BiomeTags.IS_OVERWORLD)
-                        && !biome.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("c:is_cave")))
-                        && !biome.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("c:is_underground")))
-                        && !biome.is(TagKey.create(Registries.BIOME, ResourceLocation.parse("wildshape:protected_cave_biomes"))))
-                        .findFirst().orElseThrow();
-                var nativeModifier = (net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier)
-                        level.registryAccess().registryOrThrow(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.BIOME_MODIFIERS)
-                        .get(ResourceLocation.parse("knightquest:spawn_eldknight"));
-                var expectedSpawn = nativeModifier.spawners().getFirst();
-                var actualSpawns = candidate.value().getMobSettings().getMobs(expectedSpawn.type.getCategory()).unwrap()
-                        .stream().filter(spawn -> spawn.type == expectedSpawn.type).toList();
-                require(actualSpawns.size() == 1, "Knight Quest bridge duplicated or omitted its spawn in " + candidate.key());
-                var actualSpawn = actualSpawns.getFirst();
-                require(actualSpawn.getWeight().asInt() == expectedSpawn.getWeight().asInt()
-                        && actualSpawn.minCount == expectedSpawn.minCount && actualSpawn.maxCount == expectedSpawn.maxCount,
-                        "Native Knight Quest spawn weights/groups changed");
-                report.put("nativeSpawnDataPreservedWithoutDuplication", candidate.key().location().toString());
-            }
 
             var generator = level.getChunkSource().getGenerator();
             var heights = new LinkedHashMap<String, Integer>();

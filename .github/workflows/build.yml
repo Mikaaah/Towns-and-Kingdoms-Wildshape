@@ -46,6 +46,11 @@ jobs:
           --tests '*SkylandsDimensionResourcesTest'
           --tests '*SkylandsProbeMixinTest' --tests '*MixinAnnotationsTest'
           --tests '*BiomeNoiseCacheTest'
+          --tests '*StructurePlacement*Test' --tests '*StructureTerrain*Test'
+          --tests '*ErosionBrush*Test' --tests '*ThreadLocalPool*Test'
+          --tests '*CellSamplerCache*Test' --tests '*OptionalEngine*Test'
+          --tests '*SurfaceStrataConcurrencyTest' --tests '*LazyCallableTest'
+          --tests '*RegionalClearanceTest' --tests '*structure.placement.*Test' --tests '*HabitatOverlayTest'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge

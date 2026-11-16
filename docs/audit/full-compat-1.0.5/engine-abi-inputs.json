@@ -1,0 +1,51 @@
+[
+  {
+    "modId": "terrablender",
+    "version": "4.1.0.8",
+    "jar": "cf-940057-6054947.jar",
+    "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "alexscaves",
+    "version": "2.0.10",
+    "jar": "cf-1420348-7981977.jar",
+    "sha256": "6fad35bf07fcb977aaa32d3fe05bf122150c6a30ed16b057385040207a3b788f",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "world_preview",
+    "version": "1.3.1",
+    "jar": "world_preview-1.3.1.jar",
+    "sha256": "f307f0a9be81dc5d95d5af94f230e8e3577b8c1125de7c519cadf2a39ee5bd86",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "byepregen",
+    "version": "1.1.3.4",
+    "jar": "cf-1567378-9353269.jar",
+    "sha256": "17a1f6aae52710f6b22f5cdbdf376a0f434ef01be5b7ebe5220fa5702e27a7d7",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "generator_accelerator",
+    "version": "1.21.1-1.6.2",
+    "jar": "cf-1323569-8168434.jar",
+    "sha256": "7f337140328f1207693c59e445236f537e7604ea14457662a45b59c1bb1e33cb",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "generatoraccelerator2",
+    "version": "1.21.1-2.0.21.259",
+    "jar": "cf-1323569-9551894.jar",
+    "sha256": "b007fd6bad28580b0f9958909997166abb336c995102f77ba3c416863fb1e638",
+    "verification": "bytecode entry-point inspection only"
+  },
+  {
+    "modId": "streamcontrol",
+    "version": "1.0.0",
+    "jar": "flow-control-1.0.0-neoforge-1.21.1.jar",
+    "sha256": "1df4e982328774df1517aa74ba61c77589badf6a4f11cf2a073b0e43ce3d97bd",
+    "verification": "javap FlowOverrides.at(BlockGetter,int,int,int)"
+  }
+]

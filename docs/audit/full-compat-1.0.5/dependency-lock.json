@@ -1,0 +1,501 @@
+{
+  "game": "1.21.1",
+  "loader": "neoforge",
+  "note": "Exact prior exported pack artifact IDs; no assertion these are current user installations. Additional explicitly chosen API releases tracked separately.",
+  "artifacts": [
+    {
+      "mod_id": "ae2",
+      "version": "19.2.18",
+      "jar": "cf-223794-8992605.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-223794/8992605/compat-223794-8992605.jar",
+      "sha256": "df15a07f86ca1ca93aa66373f9d5d84dd3d4586631fceb38f4fbc85dad591e39",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2"
+    },
+    {
+      "mod_id": "alexscaves",
+      "version": "2.0.10",
+      "jar": "cf-1420348-7981977.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1420348/7981977/compat-1420348-7981977.jar",
+      "sha256": "6fad35bf07fcb977aaa32d3fe05bf122150c6a30ed16b057385040207a3b788f",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/alexs-caves-unofficial-port"
+    },
+    {
+      "mod_id": "apotheosis",
+      "version": "8.9.0",
+      "jar": "cf-313970-8993983.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-313970/8993983/compat-313970-8993983.jar",
+      "sha256": "23a8b4a21d0d8744f097c77c8a96fcba14c4b95f3b1bb542412f40dab272872e",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/apotheosis"
+    },
+    {
+      "mod_id": "apple_cows",
+      "version": "1.0.0+1.21.1-neoforge",
+      "jar": "cf-1586838-8398146.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1586838/8398146/compat-1586838-8398146.jar",
+      "sha256": "3185ef7235e625d4a30162ed05bd36e44505de72d87222031e7e7552ded68bc4",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/modern-apple-cows"
+    },
+    {
+      "mod_id": "ars_nouveau",
+      "version": "5.13.4",
+      "jar": "cf-401955-9423156.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-401955/9423156/compat-401955-9423156.jar",
+      "sha256": "6bd42eae022c6b78fb907e24bede2601af32861e238dcce2573ede23c9aec86c",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/ars-nouveau"
+    },
+    {
+      "mod_id": "betterdeserttemples",
+      "version": "1.21.1-NeoForge-4.1.5",
+      "jar": "cf-1015114-6276955.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015114/6276955/compat-1015114-6276955.jar",
+      "sha256": "2c3191ad447092cc7873a06e92f16bd3e2ff9dc31e93268b8893d06dd89e1fd6",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/yungs-better-desert-temples-neoforge"
+    },
+    {
+      "mod_id": "betterdungeons",
+      "version": "1.21.1-NeoForge-5.1.4",
+      "jar": "cf-1015112-5954804.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015112/5954804/compat-1015112-5954804.jar",
+      "sha256": "61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04",
+      "source": "Prior Wildshape exact audited artifact"
+    },
+    {
+      "mod_id": "betterendisland",
+      "version": "1.21.1-NeoForge-3.1.2",
+      "jar": "cf-1015127-6300968.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015127/6300968/compat-1015127-6300968.jar",
+      "sha256": "8005f1ea798d09fc05dad07a21ed1f393a523a718197cdbd37b1ce6d9a17e4a4",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/yungs-better-end-island-neoforge"
+    },
+    {
+      "mod_id": "betterfortresses",
+      "version": "1.21.1-NeoForge-3.1.5",
+      "jar": "cf-1015118-6606621.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015118/6606621/compat-1015118-6606621.jar",
+      "sha256": "5450a64a7036237f449496837e08f3e5b3aa1d7974a10df43944172def75d8ff",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/yungs-better-nether-fortresses-neoforge"
+    },
+    {
+      "mod_id": "betterjungletemples",
+      "version": "1.21.1-NeoForge-3.1.2",
+      "jar": "cf-1015123-5924482.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015123/5924482/compat-1015123-5924482.jar",
+      "sha256": "a0d57b78c7a1891796f342b1f09c214bc27bedf0a3a894f029dfdb2db9f813d0",
+      "source": "Prior Wildshape exact audited artifact"
+    },
+    {
+      "mod_id": "bettermineshafts",
+      "version": "1.21.1-NeoForge-5.1.1",
+      "jar": "cf-1015096-5812193.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015096/5812193/compat-1015096-5812193.jar",
+      "sha256": "5625930dfb3240820d6e4ecf55fff0c39f70ce782fad117a4d418251184c7be0",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/yungs-better-mineshafts-neoforge"
+    },
+    {
+      "mod_id": "betteroceanmonuments",
+      "version": "1.21.1-NeoForge-4.1.2",
+      "jar": "cf-1015115-5924487.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015115/5924487/compat-1015115-5924487.jar",
+      "sha256": "cdcf8fe0e08c75261048d43c6ed4898972d23e096dd04a2524c136f06416ab02",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/yungs-better-ocean-monuments-neoforge"
+    },
+    {
+      "mod_id": "betterstrongholds",
+      "version": "1.21.1-NeoForge-5.1.3",
+      "jar": "YungsBetterStrongholds-1.21.1-NeoForge-5.1.3.jar",
+      "url": "https://cdn.modrinth.com/data/kidLKymU/versions/8U0dIfSM/YungsBetterStrongholds-1.21.1-NeoForge-5.1.3.jar",
+      "sha512": "385d67e07f2c67af5ea387d92d92949d8f671e8f99204457b6396dbe987ac3b14c2bff765df5fcbaa68016604f82a1fc6ec5a69c012ca22ad088d1a7c9bc135d",
+      "source": "Primary Modrinth API exact release 8U0dIfSM; selected audit release, installation version unknown",
+      "sha256": "a9cab2fc01538368862365691f7d215309801aed0b390351681b6b60a1db7b58"
+    },
+    {
+      "mod_id": "betterwitchhuts",
+      "version": "1.21.1-NeoForge-4.1.1",
+      "jar": "cf-1015144-5812532.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1015144/5812532/compat-1015144-5812532.jar",
+      "sha256": "888b1e6d1ada21982a75abfb4afb040c9bc2cc68777ec5fcd1199b978e3d4f8d",
+      "source": "Prior Wildshape exact audited artifact"
+    },
+    {
+      "mod_id": "biomesoplenty",
+      "version": "21.1.0.14",
+      "jar": "cf-220318-8288121.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-220318/8288121/compat-220318-8288121.jar",
+      "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty"
+    },
+    {
+      "mod_id": "block_factorys_bosses",
+      "version": "2.1.2",
+      "jar": "cf-1314084-8123167.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1314084/8123167/compat-1314084-8123167.jar",
+      "sha256": "9e230bd509e7aeb3af4c08125db0340734c0179d83483649a16e45c0ea085e8c",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/bossesrise"
+    },
+    {
+      "mod_id": "bloomingnature",
+      "version": "1.1.12",
+      "jar": "cf-962885-9097270.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-962885/9097270/compat-962885-9097270.jar",
+      "sha256": "6a10babe972c1b5628db58007e75973566f8d7105a872ee4b97b3020bf587628",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/lets-do-bloomingnature"
+    },
+    {
+      "mod_id": "byepregen",
+      "version": "1.1.3.4",
+      "jar": "cf-1567378-9353269.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1567378/9353269/compat-1567378-9353269.jar",
+      "source": "Exact selected primary CurseForge file https://www.curseforge.com/minecraft/mc-mods/bye-pregen/files/9353269; installation version unknown",
+      "sha256": "17a1f6aae52710f6b22f5cdbdf376a0f434ef01be5b7ebe5220fa5702e27a7d7"
+    },
+    {
+      "mod_id": "cataclysm",
+      "version": "3.33",
+      "jar": "cf-551586-8931182.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-551586/8931182/compat-551586-8931182.jar",
+      "sha256": "371956d0c2e3b56729ee93b955e936875d210e372fe734cdb74326d89ef79875",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/lendercataclysm"
+    },
+    {
+      "mod_id": "create",
+      "version": "6.0.10",
+      "jar": "cf-328085-7963363.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-328085/7963363/compat-328085-7963363.jar",
+      "sha256": "ef87fe5709f1ba1f5b8bb20a2925b5afb4669e178fd6d8bf10c167759eefe37a",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/create"
+    },
+    {
+      "mod_id": "createnuclear",
+      "version": "2.0.0",
+      "jar": "cf-989797-9056910.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-989797/9056910/compat-989797-9056910.jar",
+      "sha256": "d613a8e575d654fa9fbc14b4f5c0655dd1f89851c5bbdbc0ca95925252d70233",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/createnuclear"
+    },
+    {
+      "mod_id": "croptopia",
+      "version": "4.2.4",
+      "jar": "cf-415438-7958876.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-415438/7958876/compat-415438-7958876.jar",
+      "sha256": "6bbca7da92548a727abd29bc04fbd659dff87718ae24a1558d8ae83f654c6574",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/croptopia"
+    },
+    {
+      "mod_id": "ec_ad",
+      "version": "1.0.6",
+      "jar": "ec_ad-neoforge-1.21.1-1.0.6.jar",
+      "url": "https://www.cursemaven.com/curse/maven/archies-dinosaurs-1776195/9611961/archies-dinosaurs-1776195-9611961.jar",
+      "source": "Primary CurseForge file listing, https://www.curseforge.com/minecraft/mc-mods/archies-dinosaurs/files/9611961; selected audit release, installation version unknown",
+      "sha256": "bed0c9278c4d7492a5ce75f5d2de24690e010fa5521c3fc13a87268da60f1612"
+    },
+    {
+      "mod_id": "farmersdelight",
+      "version": "1.3.4",
+      "jar": "cf-398521-8765184.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-398521/8765184/compat-398521-8765184.jar",
+      "sha256": "139ad7696462c89c03eea463f805abffa552526c5dadaadae221dd9624cb197c",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/farmers-delight"
+    },
+    {
+      "mod_id": "generator_accelerator",
+      "version": "1.21.1-1.6.2",
+      "jar": "cf-1323569-8168434.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1323569/8168434/compat-1323569-8168434.jar",
+      "source": "Exact selected primary CurseForge file https://www.curseforge.com/minecraft/mc-mods/generator-accelerator/files/8168434; installation version unknown",
+      "sha256": "7f337140328f1207693c59e445236f537e7604ea14457662a45b59c1bb1e33cb"
+    },
+    {
+      "mod_id": "generatoraccelerator2",
+      "version": "1.21.1-2.0.21.259",
+      "jar": "cf-1323569-9551894.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1323569/9551894/compat-1323569-9551894.jar",
+      "source": "Exact selected primary CurseForge file https://www.curseforge.com/minecraft/mc-mods/generator-accelerator/files/9551894; installation version unknown",
+      "sha256": "b007fd6bad28580b0f9958909997166abb336c995102f77ba3c416863fb1e638"
+    },
+    {
+      "mod_id": "hapi",
+      "version": "1.1.3",
+      "jar": "cf-883374-9063597.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-883374/9063597/compat-883374-9063597.jar",
+      "sha256": "c134b74c8d9b9a449fda88d3ef4ad652a2ed394b5693a7e440a008bd1a33c937",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/hybrid-api"
+    },
+    {
+      "mod_id": "hybrid_aquatic",
+      "version": "1.7.4",
+      "jar": "cf-834427-9063977.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-834427/9063977/compat-834427-9063977.jar",
+      "sha256": "5403d0e643c8aae3e7db08de41ebf28e0ef538f252a0f0ef5b6b4f74d9b1b80e",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/hybrid-aquatic"
+    },
+    {
+      "mod_id": "idas",
+      "version": "1.13.7+1.21.1-neoforge",
+      "jar": "cf-605375-8232359.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-605375/8232359/compat-605375-8232359.jar",
+      "sha256": "7f5031dd90ae0b32d7fe5c6c47c877cac1eb95a178bc78d196cb24c17ce82522",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/idas"
+    },
+    {
+      "mod_id": "immersiveengineering",
+      "version": "12.4.2-194",
+      "jar": "cf-231951-6733669.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-231951/6733669/compat-231951-6733669.jar",
+      "sha256": "45942985a4a4aebf265b8e22a0c54a96208637471f36f2532ff5d4911322debc",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/immersive-engineering"
+    },
+    {
+      "mod_id": "integrated_api",
+      "version": "1.9.1",
+      "jar": "cf-817709-9151098.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-817709/9151098/compat-817709-9151098.jar",
+      "sha256": "3621edbd54dec28b704e03b792cc392f6d37a2cecf832d7b11c485a1765d4a3d",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-api"
+    },
+    {
+      "mod_id": "integrated_cataclysm",
+      "version": "1.0.6+1.21.1-neoforge",
+      "jar": "cf-1164949-7808552.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1164949/7808552/compat-1164949-7808552.jar",
+      "sha256": "18b71fc9f2cc2541e1f63dcd5862519fc433c6d7270f397e7afd4e08c56c1f1c",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-cataclysm"
+    },
+    {
+      "mod_id": "integrated_dungeons_arise",
+      "version": "2.1.3",
+      "jar": "cf-1325457-9015554.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1325457/9015554/compat-1325457-9015554.jar",
+      "sha256": "f4d0923b3238f6fad9a77f3faec02a30b9f5a357b73a3bd554a6e9594dfd56a0",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-dungeons-arise"
+    },
+    {
+      "mod_id": "integrated_mowzies_mobs",
+      "version": "1.3.2",
+      "jar": "cf-1587709-8960804.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1587709/8960804/compat-1587709-8960804.jar",
+      "sha256": "d66ffa5b71ac3f7a36a68571d0d26b20ab4bce416722abf550f85d74da222428",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-mowzies-mobs"
+    },
+    {
+      "mod_id": "integrated_seven_seas",
+      "version": "1.1.0",
+      "jar": "cf-1482366-8203979.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1482366/8203979/compat-1482366-8203979.jar",
+      "sha256": "08e0623dcd2175997b07fe231614b5a95e381750ab792a54af029c1e44f27790",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-seven-seas"
+    },
+    {
+      "mod_id": "integrated_stronghold",
+      "version": "1.1.4+1.21.1-neoforge",
+      "jar": "cf-815548-7802495.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-815548/7802495/compat-815548-7802495.jar",
+      "sha256": "c6ac6ad68de806524615238f8a7efe511c417b8cd56ffceb7dd62aad9c8b821b",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-stronghold"
+    },
+    {
+      "mod_id": "integrated_villages",
+      "version": "1.3.3+1.21.1-neoforge",
+      "jar": "cf-661376-8161672.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-661376/8161672/compat-661376-8161672.jar",
+      "sha256": "b53a485828da352b1a6a24cd2796aacf5d8360632b98c7dfba295f235d41ec00",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/integrated-villages"
+    },
+    {
+      "mod_id": "irons_spellbooks",
+      "version": "1.21.1-3.16.3",
+      "jar": "cf-855414-8680204.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-855414/8680204/compat-855414-8680204.jar",
+      "sha256": "13d644474ddba4f8478b4ce68294687fd509c994b3f344a224142b102dbe6f73",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/irons-spells-n-spellbooks"
+    },
+    {
+      "mod_id": "legendary_monsters",
+      "version": "1.21.1",
+      "jar": "cf-944035-9301784.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-944035/9301784/compat-944035-9301784.jar",
+      "sha256": "5a659453d7f439f36a1cdf0cb74eb29cfa98d2b6c693424157e2b67ecb16e136",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/legendary-monsters"
+    },
+    {
+      "mod_id": "mowziesmobs",
+      "version": "1.8.2",
+      "jar": "cf-250498-7760267.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-250498/7760267/compat-250498-7760267.jar",
+      "sha256": "b8e7e39fb6430326de7fbb193db56588ee8bd04d0054527924fe588f37131e4f",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/mowzies-mobs"
+    },
+    {
+      "mod_id": "mr_epic_structuresdungeons",
+      "version": "1.2.5",
+      "jar": "cf-1501318-8837503.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1501318/8837503/compat-1501318-8837503.jar",
+      "sha256": "52a4c665d40eb6fb21f91c2f06f8f4c270aced91ba0d9a82d55bbd0cf969848d",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/epic-structures-dungeons"
+    },
+    {
+      "mod_id": "mr_epic_structuresjungletemples",
+      "version": "1.0.1",
+      "jar": "cf-1600197-8611815.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1600197/8611815/compat-1600197-8611815.jar",
+      "sha256": "2cbec91d588216260b146aaaa4087ed6b157e84949c6455c137e338573300fdb",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/epic-structures-jungle-temples"
+    },
+    {
+      "mod_id": "mr_epic_structureswitchhuts",
+      "version": "1.3.0",
+      "jar": "cf-1335768-8383193.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1335768/8383193/compat-1335768-8383193.jar",
+      "sha256": "10969ae4e5a94c073dc3060e9af676cf194587ac588cbe1d01449f5b3b5cf749",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/epic-structures-witch-huts"
+    },
+    {
+      "mod_id": "naturalist",
+      "version": "2.0.7",
+      "jar": "naturalist-2.0.7-neoforge-1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/F8BQNPWX/versions/9Yn8ig4c/naturalist-2.0.7-neoforge-1.21.1.jar",
+      "sha512": "5d56ec2d1e5f994c9b63cf7578e9ed1be2cd4f58a055503e32bdd90c80d9802af04d3f6e1eec08394180e196ce32b2c2e71df8ba19d918e77df1694c9007e7e1",
+      "source": "Primary Modrinth API exact release 9Yn8ig4c; selected audit release, installation version unknown",
+      "sha256": "2740593710eba0a917f862e535f3e2ef06c39ccdd6441986da02f9dd4394f03a"
+    },
+    {
+      "mod_id": "natures_spirit",
+      "version": "2.3.2-1.21.1",
+      "jar": "cf-1044992-9326605.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1044992/9326605/compat-1044992-9326605.jar",
+      "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/natures-spirit"
+    },
+    {
+      "mod_id": "regions_unexplored",
+      "version": "0.6.3",
+      "jar": "cf-659110-9252522.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-659110/9252522/compat-659110-9252522.jar",
+      "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/regions-unexplored"
+    },
+    {
+      "mod_id": "skylands",
+      "version": "0.9.4.1",
+      "jar": "skylands-0.9.4.1.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1735016/9620733/compat-1735016-9620733.jar",
+      "sha256": "8d36b7f51672da8206e3df5ac90fec158316ac8444cceac1929c253296717309",
+      "source": "Exact primary CurseForge artifact 1735016/9620733; installation version unknown"
+    },
+    {
+      "mod_id": "starcatcher",
+      "version": "3.3.10-NEOFORGE-1.21.1",
+      "jar": "cf-1357603-9204486.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1357603/9204486/compat-1357603-9204486.jar",
+      "sha256": "231e4673ac5a148989ca0eac59efc9bcebb62a6c88830ea5237e1a62f54936b4",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/starcatcher"
+    },
+    {
+      "mod_id": "streamcontrol",
+      "version": "1.0.0",
+      "jar": "flow-control-1.0.0-neoforge-1.21.1.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1750740/9542485/compat-1750740-9542485.jar",
+      "sha256": "1df4e982328774df1517aa74ba61c77589badf6a4f11cf2a073b0e43ce3d97bd",
+      "source": "Exact primary CurseForge artifact 1750740/9542485; installation version unknown"
+    },
+    {
+      "mod_id": "streamsreflowing",
+      "version": "2.17.4",
+      "jar": "StreamsReflowing-1.21.1-neoforge-2.17.4.jar",
+      "url": "https://cdn.modrinth.com/data/oLS8HdJ1/versions/7KEOHG7c/StreamsReflowing-1.21.1-neoforge-2.17.4.jar",
+      "sha256": "e26d8d92c8e733f88e4b3d7371887f653103a40beb8c94883d5a69ee648cc030",
+      "sha512": "51c87a6011ee8fae6c29c695a5c11bdd6f160e820b2a1029a8fde242763368b2d2a505177fb4dba8f75293bce136bad9a93652c6861be09d0e3cfcc5cae17521",
+      "source": "Exact Modrinth release 7KEOHG7c; selected supported 2.17.4, not latest release"
+    },
+    {
+      "mod_id": "terrablender",
+      "version": "4.1.0.8",
+      "jar": "cf-940057-6054947.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-940057/6054947/compat-940057-6054947.jar",
+      "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/terrablender-neoforge"
+    },
+    {
+      "mod_id": "thaumaturge",
+      "version": "1.1.0",
+      "jar": "thaumaturge-1.21.1-NeoForge-1.1.0.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1628024/9452543/compat-1628024-9452543.jar",
+      "sha256": "2671390136fad5ac9abd36797cb0a5a938967a5c32399442589bb7720d463900",
+      "source": "Exact primary CurseForge artifact 1628024/9452543; installation version unknown"
+    },
+    {
+      "mod_id": "wildernature",
+      "version": "1.1.8",
+      "jar": "cf-1071657-9176454.jar",
+      "url": "https://www.cursemaven.com/curse/maven/compat-1071657/9176454/compat-1071657-9176454.jar",
+      "sha256": "06451eef2632618566a0a4886ef0d4e8d34187479611410e2e06dbfb949b02e9",
+      "source": "TNK Beta 1.0 exact manifest artifact",
+      "project_page": "https://www.curseforge.com/minecraft/mc-mods/lets-do-wildernature"
+    },
+    {
+      "mod_id": "world_preview",
+      "version": "1.3.1",
+      "jar": "world_preview-1.3.1.jar",
+      "url": "https://cdn.modrinth.com/data/7kyIwfie/versions/AQCgiv4K/world_preview-1.3.1.jar",
+      "sha512": "0b5bba44e7b4308f0245a3d8c5f57a9f31fbba6e168f6ff2186eca3b00bb21f128682b43622801ac00f7010456dac39119b2e1401c6aa096c31f61b046aa53b4",
+      "source": "Primary Modrinth API exact release AQCgiv4K; selected audit release, installation version unknown",
+      "sha256": "f307f0a9be81dc5d95d5af94f230e8e3577b8c1125de7c519cadf2a39ee5bd86"
+    },
+    {
+      "mod_id": "yungsbridges",
+      "version": "1.21.1-NeoForge-5.1.1",
+      "jar": "YungsBridges-1.21.1-NeoForge-5.1.1.jar",
+      "url": "https://cdn.modrinth.com/data/Ht4BfYp6/versions/urkCzBf6/YungsBridges-1.21.1-NeoForge-5.1.1.jar",
+      "sha512": "20b07ae4c08974980f976bcae32f18ccb885745d6cd50d4a5d0156eb5c51c29e49f8b2bf7dc2ae160d39b62f2332513bd9850efc5cba13697e36a2ac2848bc3b",
+      "source": "Primary Modrinth API exact release urkCzBf6; selected audit release, installation version unknown",
+      "sha256": "bf93a85422a6b457358c3b56352641a97ec09cc37dec18b2cedcac2bd1ff9bec"
+    },
+    {
+      "mod_id": "yungsextras",
+      "version": "1.21.1-NeoForge-5.1.1",
+      "jar": "YungsExtras-1.21.1-NeoForge-5.1.1.jar",
+      "url": "https://cdn.modrinth.com/data/ZYgyPyfq/versions/N2EpMhR7/YungsExtras-1.21.1-NeoForge-5.1.1.jar",
+      "sha512": "d4ef831a034977abdcaec40a7662adbc37c32cf141c68245250da501f6ada2ce193c5351166fbcf2ffb1c452b60bfca8ac578963332aa4a1b523e43912b8cb8c",
+      "source": "Primary Modrinth API exact release N2EpMhR7; selected audit release, installation version unknown",
+      "sha256": "0cd26474e514f5dc3114aaf5ec7e049bcd285f0c5db191bb45223193f35df70d"
+    }
+  ]
+}

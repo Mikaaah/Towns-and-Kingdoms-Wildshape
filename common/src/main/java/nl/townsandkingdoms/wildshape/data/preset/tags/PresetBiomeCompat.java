@@ -4,18 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Append-only habitat bridges, exported with the world's preset rather than applied to unrelated worlds.
+ * Append-only habitat bridges, exported with the world's preset. Current-pack additions also have
+ * packaged optional tag overlays for existing saves; the older complete bridge table remains preset-scoped.
  * All references are optional. Native modifiers still decide spawn weights, group sizes and placement checks.
  * Registry names were checked against the TNK3 dependency JARs; see the November 2026 audit.
  */
 final class PresetBiomeCompat {
     private static final Map<String, List<String>> BASE_BRIDGES = Map.ofEntries(
-            // Alex's Mobs 1.22.17 still queries these older flat common-tag names.
-            Map.entry("c:is_hot_overworld", List.of("#c:is_hot/overworld")),
-            Map.entry("c:is_cold_overworld", List.of("#c:is_cold/overworld")),
-            Map.entry("c:is_dry_overworld", List.of("#c:is_dry/overworld")),
-            Map.entry("c:is_dense_overworld", List.of("#c:is_dense_vegetation/overworld")),
-            Map.entry("c:is_coniferous", List.of("#c:is_tree/coniferous")),
             // Integrated API's older collections predate the current c:is_* convention.
             Map.entry("integrated_api:collections/any_forests", List.of("#c:is_forest")),
             Map.entry("integrated_api:collections/birch_forests", List.of("#c:is_birch_forest")),
@@ -72,6 +67,7 @@ final class PresetBiomeCompat {
     private static Map<String, List<String>> withBetaPackHabitats() {
         var bridges = new java.util.LinkedHashMap<>(BASE_BRIDGES);
         BetaPackHabitats.addTo(bridges);
+        CurrentPackHabitats.addTo(bridges);
         return Map.copyOf(bridges);
     }
 

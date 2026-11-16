@@ -87,10 +87,13 @@ class MixinNoiseBasedChunkGenerator {
 
     // Ceiling fittings and cave biomes belong after vanilla carvers, otherwise
     // a later cut can remove the anchor above a hanging chain or vine.
-    @Inject(method="applyCarvers", at=@At("TAIL"))
+    // A wrapping call also runs after an accelerator handles carving and cancels
+    // the vanilla body at HEAD. A TAIL injection is skipped by that early return.
+    @WrapMethod(method="applyCarvers")
     private void wildshape$decorateCaverns(WorldGenRegion region,long seed,RandomState randomState,
             net.minecraft.world.level.biome.BiomeManager biomeManager,StructureManager structures,
-            ChunkAccess chunk,net.minecraft.world.level.levelgen.GenerationStep.Carving step,CallbackInfo callback) {
+            ChunkAccess chunk,net.minecraft.world.level.levelgen.GenerationStep.Carving step,Operation<Void> original) {
+        original.call(region, seed, randomState, biomeManager, structures, chunk, step);
         if (step != net.minecraft.world.level.levelgen.GenerationStep.Carving.AIR) return;
         if ((Object)randomState instanceof WildshapeRandomState wildshape && wildshape.generatorContext()!=null) {
             wildshape.generatorContext().caveFeatures.decorate(chunk,region.registryAccess(),

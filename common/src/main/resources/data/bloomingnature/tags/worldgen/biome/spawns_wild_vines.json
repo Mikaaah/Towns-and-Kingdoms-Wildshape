@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "regions_unexplored:bayou", "required": false },
+    { "id": "regions_unexplored:old_growth_bayou", "required": false },
+    { "id": "natures_spirit:marsh", "required": false },
+    { "id": "#c:is_jungle", "required": false }
+  ]
+}

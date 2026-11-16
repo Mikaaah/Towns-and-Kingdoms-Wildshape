@@ -38,7 +38,12 @@
     "streams.MixinStreamsTerrainSampler",
     "alexscaves.MixinBiomeGenerationNoiseCondition",
     "alexscaves.MixinClimateSampler",
-    "generatoraccelerator.MixinNoiseBasedChunkGenerator"
+    "generatoraccelerator.MixinNoiseBasedChunkGenerator",
+    "MixinStructurePlacement",
+    "AccessorChunkGeneratorStructureState",
+    "structure.MixinIntegratedStructurePlacement",
+    "structure.MixinCataclysmStructurePlacement",
+    "generatoraccelerator.MixinCarverRunner"
   ],
   "client": [
     "ScreenInvoker",

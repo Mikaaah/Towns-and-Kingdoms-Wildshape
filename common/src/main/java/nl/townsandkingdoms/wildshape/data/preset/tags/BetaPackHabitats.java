@@ -12,23 +12,30 @@ final class BetaPackHabitats {
             "regions_unexplored:flower_fields",
             "regions_unexplored:poppy_fields",
             "natures_spirit:prairie",
-            "natures_spirit:shrubland");
+            "natures_spirit:shrubland",
+            "bloomingnature:forest_edge",
+            "bloomingnature:cold_grassland");
     private static final List<String> FOREST = List.of(
             "regions_unexplored:alpha_grove",
             "regions_unexplored:deciduous_forest",
             "regions_unexplored:maple_forest",
             "regions_unexplored:temperate_grove",
             "natures_spirit:aspen_forest",
-            "natures_spirit:maple_woodlands");
+            "natures_spirit:maple_woodlands",
+            "bloomingnature:forest_edge",
+            "bloomingnature:golden_glade",
+            "bloomingnature:aspen_forest");
     private static final List<String> FLOWER_FOREST = List.of(
             "regions_unexplored:wisteria_grove",
             "regions_unexplored:mauve_hills",
             "natures_spirit:lavender_fields",
             "natures_spirit:carnation_fields",
-            "natures_spirit:floral_ridges");
+            "natures_spirit:floral_ridges",
+            "bloomingnature:flower_glade");
     private static final List<String> BIRCH_FOREST = List.of(
             "regions_unexplored:silver_birch_forest",
-            "natures_spirit:aspen_forest");
+            "natures_spirit:aspen_forest",
+            "bloomingnature:aspen_forest");
     private static final List<String> DARK_FOREST = List.of(
             "regions_unexplored:old_growth_forest",
             "natures_spirit:coniferous_covert");
@@ -37,7 +44,9 @@ final class BetaPackHabitats {
             "regions_unexplored:boreal_taiga",
             "regions_unexplored:pine_taiga",
             "natures_spirit:boreal_taiga",
-            "natures_spirit:fir_forest");
+            "natures_spirit:fir_forest",
+            "bloomingnature:larch_forest",
+            "bloomingnature:highland_woods");
     private static final List<String> JUNGLE = List.of(
             "regions_unexplored:rainforest",
             "regions_unexplored:sparse_rainforest",
@@ -50,18 +59,23 @@ final class BetaPackHabitats {
             "regions_unexplored:fen",
             "regions_unexplored:old_growth_bayou",
             "natures_spirit:marsh",
-            "natures_spirit:cypress_fields");
+            "natures_spirit:cypress_fields",
+            "bloomingnature:marshland",
+            "bloomingnature:fen");
     private static final List<String> DESERT = List.of(
             "regions_unexplored:joshua_desert",
             "regions_unexplored:saguaro_desert",
             "natures_spirit:stratified_desert",
-            "natures_spirit:lively_dunes");
+            "natures_spirit:lively_dunes",
+            "bloomingnature:desert_oasis");
     private static final List<String> SAVANNA = List.of(
             "regions_unexplored:baobab_savanna",
             "regions_unexplored:steppe",
             "natures_spirit:arid_savanna",
             "natures_spirit:oak_savanna",
-            "natures_spirit:wooded_drylands");
+            "natures_spirit:wooded_drylands",
+            "bloomingnature:brushland",
+            "bloomingnature:baobab_savanna");
     private static final List<String> GROVE = List.of(
             "regions_unexplored:cold_boreal_taiga",
             "natures_spirit:snowy_fir_forest");

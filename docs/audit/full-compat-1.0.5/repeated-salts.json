@@ -1,0 +1,359 @@
+[
+  {
+    "salt": 2,
+    "sets": [
+      {
+        "set_id": "alexscaves:acid_pit",
+        "source_jar": "cf-1420348-7981977.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 2,
+        "spacing": 6,
+        "separation": 3,
+        "spread_type": "linear",
+        "structures": "alexscaves:acid_pit",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "alexscaves:ocean_trench",
+        "source_jar": "cf-1420348-7981977.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 2,
+        "spacing": 2,
+        "separation": 1,
+        "spread_type": "linear",
+        "structures": "alexscaves:ocean_trench",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 3,
+    "sets": [
+      {
+        "set_id": "alexscaves:cake_cave",
+        "source_jar": "cf-1420348-7981977.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 3,
+        "spacing": 6,
+        "separation": 5,
+        "spread_type": "linear",
+        "structures": "alexscaves:cake_cave",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "alexscaves:ferrocave",
+        "source_jar": "cf-1420348-7981977.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 3,
+        "spacing": 6,
+        "separation": 3,
+        "spread_type": "linear",
+        "structures": "alexscaves:ferrocave",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 784827271,
+    "sets": [
+      {
+        "set_id": "betterfortresses:fortress",
+        "source_jar": "cf-1015118-6606621.jar",
+        "placement_type": "yungsapi:enhanced_random_spread",
+        "salt": 784827271,
+        "spacing": 30,
+        "separation": 20,
+        "spread_type": "linear",
+        "structures": "betterfortresses:fortress",
+        "native_exclusion": "{\"enhanced_exclusion_zone\": {\"chunk_count\": 10, \"other_set\": \"#betterfortresses:fortress_avoid\"}}"
+      },
+      {
+        "set_id": "betteroceanmonuments:ocean_monument",
+        "source_jar": "cf-1015115-5924487.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 784827271,
+        "spacing": 50,
+        "separation": 20,
+        "spread_type": "linear",
+        "structures": "betteroceanmonuments:ocean_monument",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1982700828,
+    "sets": [
+      {
+        "set_id": "integrated_villages:air_villages",
+        "source_jar": "cf-661376-8161672.jar",
+        "placement_type": "integrated_api:advanced_random_spread",
+        "salt": 1982700828,
+        "spacing": 115,
+        "separation": 90,
+        "spread_type": "linear",
+        "structures": "integrated_villages:airship_village",
+        "native_exclusion": "{\"super_exclusion_zone\": {\"chunk_count\": 8, \"other_set\": \"#integrated_villages:air_village_avoid\"}}"
+      },
+      {
+        "set_id": "integrated_villages:regular_villages",
+        "source_jar": "cf-661376-8161672.jar",
+        "placement_type": "integrated_api:advanced_random_spread",
+        "salt": 1982700828,
+        "spacing": 26,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "integrated_villages:tavern_village;integrated_villages:pirate_village;integrated_villages:mediterranean_village;integrated_villages:kutcha_village;integrated_villages:oasis_village;integrated_villages:mossy_mounds;integrated_villages:cabin_village;integrated_villages:quark/minka_village;integrated_villages:marketstead_village;integrated_villages:clockwork_village;integrated_villages:sunken_village",
+        "native_exclusion": "{\"super_exclusion_zone\": {\"chunk_count\": 6, \"other_set\": \"#integrated_villages:village_avoid\"}}"
+      }
+    ]
+  },
+  {
+    "salt": 5792349,
+    "sets": [
+      {
+        "set_id": "legendary_monsters:ancient_stronghold",
+        "source_jar": "cf-944035-9301784.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 5792349,
+        "spacing": 65,
+        "separation": 35,
+        "spread_type": "linear",
+        "structures": "legendary_monsters:ancient_stronghold",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "legendary_monsters:ruined_pyramid",
+        "source_jar": "cf-944035-9301784.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 5792349,
+        "spacing": 40,
+        "separation": 30,
+        "spread_type": "linear",
+        "structures": "legendary_monsters:ruined_pyramid",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 3456745,
+    "sets": [
+      {
+        "set_id": "epic:large_dungeons",
+        "source_jar": "cf-1501318-8837503.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 3456745,
+        "spacing": 61,
+        "separation": 60,
+        "spread_type": "linear",
+        "structures": "epic:large_dungeon;epic:large_ice_dungeon;epic:large_sand_dungeon",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "epic:large_dungeons_obelisks",
+        "source_jar": "cf-1501318-8837503.jar",
+        "placement_type": "minecraft:random_spread",
+        "salt": 3456745,
+        "spacing": 61,
+        "separation": 60,
+        "spread_type": "linear",
+        "structures": "epic:ice_obelisk;epic:sand_obelisk;epic:plains_obelisk",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1252199249,
+    "sets": [
+      {
+        "set_id": "skylands:arid_archipelago",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1252199249,
+        "spacing": 27,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:arid_archipelago",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:arid_archipelago_outside",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1252199249,
+        "spacing": 27,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:arid_archipelago_outside",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:lavic_archipelago",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1252199249,
+        "spacing": 24,
+        "separation": 18,
+        "spread_type": "linear",
+        "structures": "skylands:lavic_archipelago",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1262199249,
+    "sets": [
+      {
+        "set_id": "skylands:glaciated_archipelago",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1262199249,
+        "spacing": 27,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:glaciated_archipelago",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:glaciated_archipelago_outside",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1262199249,
+        "spacing": 27,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:glaciated_archipelago_outside",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1361928249,
+    "sets": [
+      {
+        "set_id": "skylands:glaciated_sky_dung",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1361928249,
+        "spacing": 24,
+        "separation": 16,
+        "spread_type": "linear",
+        "structures": "skylands:glaciated_sky_dungeon",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:great_sky_island_ice",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1361928249,
+        "spacing": 14,
+        "separation": 9,
+        "spread_type": "linear",
+        "structures": "skylands:glaciated_great_sky_island",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1261199249,
+    "sets": [
+      {
+        "set_id": "skylands:golden_archipelago",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1261199249,
+        "spacing": 26,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:golden_archipelago",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:golden_archipelago_outside",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1261199249,
+        "spacing": 26,
+        "separation": 19,
+        "spread_type": "linear",
+        "structures": "skylands:golden_archipelago_outside",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 1361998249,
+    "sets": [
+      {
+        "set_id": "skylands:great_sky_island_cherry",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1361998249,
+        "spacing": 16,
+        "separation": 11,
+        "spread_type": "linear",
+        "structures": "skylands:great_sky_island_cherry",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:gsis",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1361998249,
+        "spacing": 19,
+        "separation": 11,
+        "spread_type": "linear",
+        "structures": "skylands:arid_great_sky_island",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:gsi_lava",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 1361998249,
+        "spacing": 18,
+        "separation": 12,
+        "spread_type": "linear",
+        "structures": "skylands:lavic_great_sky_island",
+        "native_exclusion": "{}"
+      }
+    ]
+  },
+  {
+    "salt": 493248522,
+    "sets": [
+      {
+        "set_id": "skylands:skyarena",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 493248522,
+        "spacing": 24,
+        "separation": 10,
+        "spread_type": "linear",
+        "structures": "skylands:skyarena",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:skyarenaice",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 493248522,
+        "spacing": 24,
+        "separation": 10,
+        "spread_type": "linear",
+        "structures": "skylands:skyarenaice",
+        "native_exclusion": "{}"
+      },
+      {
+        "set_id": "skylands:skyarenalavic",
+        "source_jar": "skylands-0.9.4.1.jar",
+        "placement_type": "skylands:density_spread",
+        "salt": 493248522,
+        "spacing": 30,
+        "separation": 18,
+        "spread_type": "linear",
+        "structures": "skylands:skyarenalavic",
+        "native_exclusion": "{}"
+      }
+    ]
+  }
+]

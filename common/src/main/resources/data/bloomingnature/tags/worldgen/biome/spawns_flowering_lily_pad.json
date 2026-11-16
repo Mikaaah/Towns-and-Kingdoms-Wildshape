@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "regions_unexplored:bayou", "required": false },
+    { "id": "regions_unexplored:old_growth_bayou", "required": false },
+    { "id": "regions_unexplored:fen", "required": false },
+    { "id": "natures_spirit:marsh", "required": false },
+    { "id": "natures_spirit:cypress_fields", "required": false }
+  ]
+}

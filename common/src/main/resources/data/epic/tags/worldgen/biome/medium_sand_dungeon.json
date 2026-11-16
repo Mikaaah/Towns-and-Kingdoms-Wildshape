@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:desert_oasis", "required": false }
+  ]
+}

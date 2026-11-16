@@ -31,6 +31,7 @@ public class WildshapeNeoForge {
             throw new IllegalStateException("Cannot initialize Wildshape configuration", e);
         }
 	WildshapeCommon.bootstrap();
+        StructurePlacementSettings.register(modContainer);
         if (Boolean.getBoolean("wildshape.compatSmoke")) {
             nl.townsandkingdoms.wildshape.neoforge.compat.CompatibilitySmokeChecks.register();
         }

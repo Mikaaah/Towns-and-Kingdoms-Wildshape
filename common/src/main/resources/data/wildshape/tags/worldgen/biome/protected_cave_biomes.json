@@ -2,7 +2,17 @@
   "replace": false,
   "values": [
     "minecraft:deep_dark",
-    { "id": "#alexscaves:alexs_caves_biomes", "required": false },
-    { "id": "#regions_unexplored:collection/caves", "required": false }
+    {
+      "id": "#alexscaves:alexs_caves_biomes",
+      "required": false
+    },
+    {
+      "id": "#regions_unexplored:collection/caves",
+      "required": false
+    },
+    {
+      "id": "thaumaturge:magical_forest_caves",
+      "required": false
+    }
   ]
 }

@@ -1,0 +1,908 @@
+{
+  "biomeTags/c:has_wolf_variant/ashen": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/black": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/chestnut": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/pale": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/rusty": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/snowy": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/spotted": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/striped": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:has_wolf_variant/woods": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_aquatic": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_aquatic_icy": {
+    "providers": [
+      "cf-1044992-9326605.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_beach": {
+    "providers": [
+      "cf-1044992-9326605.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_birch_forest": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_cave": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_cold": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_cold/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_dead": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_dense_vegetation/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_desert": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_dry": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_dry/nether": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_dry/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_floral": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_flower_forest": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_forest": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_hot": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_hot/nether": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_hot/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_icy": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_lush": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_magical": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_mountain": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_mountain/peak": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_mountain/slope": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_mushroom": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_old_growth": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_overworld": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_plains": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_plateau": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_rare": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_river": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_sandy": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_savanna": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_shallow_ocean": {
+    "providers": [
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_snowy": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_sparse_vegetation/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_spooky": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_swamp": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-231951-6733669.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_taiga": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_tree/coniferous": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_underground": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_wasteland": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_wet": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/c:is_wet/overworld": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:allows_surface_slime_spawns": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_closer_water_fog": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-883374-9063597.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/bastion_remnant": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/igloo": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/jungle_temple": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/mineshaft": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/pillager_outpost": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_desert": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_jungle": {
+    "providers": [
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_mountain": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_ocean": {
+    "providers": [
+      "cf-883374-9063597.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_standard": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/ruined_portal_swamp": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/swamp_hut": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/trial_chambers": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/village_desert": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/village_plains": {
+    "providers": [
+      "cf-401955-9423156.jar",
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/village_savanna": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/village_snowy": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/village_taiga": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:has_structure/woodland_mansion": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:increased_fire_burnout": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_badlands": {
+    "providers": [
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_beach": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_deep_ocean": {
+    "providers": [
+      "cf-1420348-7981977.jar",
+      "cf-883374-9063597.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_forest": {
+    "providers": [
+      "cf-401955-9423156.jar",
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "thaumaturge-1.21.1-NeoForge-1.1.0.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_hill": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_jungle": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_mountain": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_nether": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_ocean": {
+    "providers": [
+      "cf-883374-9063597.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_overworld": {
+    "providers": [
+      "cf-1420348-7981977.jar",
+      "cf-401955-9423156.jar",
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar",
+      "thaumaturge-1.21.1-NeoForge-1.1.0.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_river": {
+    "providers": [
+      "cf-962885-9097270.jar",
+      "cf-883374-9063597.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "StreamsReflowing-1.21.1-neoforge-2.17.4.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_savanna": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:is_taiga": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:mineshaft_blocking": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:snow_golem_melts": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:spawns_cold_variant_frogs": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:spawns_gold_rabbits": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:spawns_snow_foxes": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar",
+      "skylands-0.9.4.1.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:spawns_warm_variant_frogs": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-962885-9097270.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:spawns_white_rabbits": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:stronghold_biased_to": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:water_on_map_outlines": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-1044992-9326605.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:without_patrol_spawns": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "biomeTags/minecraft:without_zombie_sieges": {
+    "providers": [
+      "cf-220318-8288121.jar",
+      "cf-659110-9252522.jar"
+    ],
+    "identical_json": false
+  },
+  "structureSets/cataclysm:ancient_factory": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": false
+  },
+  "structureSets/cataclysm:burning_arena": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structureSets/cataclysm:cursed_pyramid": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structureSets/cataclysm:frosted_prison": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structureSets/cataclysm:ruined_citadel": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structureSets/cataclysm:sunken_city": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structureSets/mowziesmobs:wrought_chambers": {
+    "providers": [
+      "cf-1587709-8960804.jar",
+      "cf-250498-7760267.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/cataclysm:ancient_factory": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/cataclysm:burning_arena": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/cataclysm:cursed_pyramid": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structures/cataclysm:frosted_prison": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structures/cataclysm:ruined_citadel": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/cataclysm:soul_black_smith": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/cataclysm:sunken_city": {
+    "providers": [
+      "cf-551586-8931182.jar",
+      "cf-1164949-7808552.jar"
+    ],
+    "identical_json": true
+  },
+  "structures/mowziesmobs:frostmaw_spawn": {
+    "providers": [
+      "cf-1587709-8960804.jar",
+      "cf-250498-7760267.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/mowziesmobs:monastery": {
+    "providers": [
+      "cf-1587709-8960804.jar",
+      "cf-250498-7760267.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/mowziesmobs:umvuthana_grove": {
+    "providers": [
+      "cf-1587709-8960804.jar",
+      "cf-250498-7760267.jar"
+    ],
+    "identical_json": false
+  },
+  "structures/mowziesmobs:wrought_chamber": {
+    "providers": [
+      "cf-1587709-8960804.jar",
+      "cf-250498-7760267.jar"
+    ],
+    "identical_json": false
+  }
+}

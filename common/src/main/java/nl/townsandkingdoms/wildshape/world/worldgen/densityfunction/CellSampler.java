@@ -67,7 +67,9 @@ public record CellSampler(Supplier<GeneratorContext> generatorContext, CellField
 			if(this.lastPos != packedPos || this.lastLookup.get() != lookup || this.lastMode != mode) {
 				// Failed lookups must not leave a partially overwritten cell cached.
 				this.lastPos = Long.MAX_VALUE;
-				this.lastLookup = new WeakReference<>(null);
+				// Keep the weak world identity on a same-world miss. Invalidating
+                // lastPos already prevents a failed lookup from caching partial data.
+                // Replacing it here allocated two WeakReferences per quart column.
 				if (asGenerated) lookup.applyAsGenerated(this.cell.reset(), blockX, blockZ);
 				else lookup.apply(this.cell.reset(), blockX, blockZ);
 				this.lastPos = packedPos;

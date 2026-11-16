@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:jungle_river", "required": false },
+    { "id": "bloomingnature:desert_river", "required": false }
+  ]
+}

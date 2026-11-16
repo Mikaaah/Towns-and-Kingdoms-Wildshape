@@ -27,7 +27,8 @@ class OptionalHabitatDatapackTest {
         generated.addProvider(output -> new PresetBiomeTagsProvider(preset, output,
                 CompletableFuture.completedFuture(VanillaRegistries.createLookup())));
         generator.run();
-        for (String path : List.of("c/is_hot_overworld", "integrated_api/collections/swamps",
+        for (String path : List.of("c/is_hot/overworld", "c/is_wet/overworld", "thaumaturge/has_cinderpearl",
+                "bloomingnature/spawns_flowering_lily_pad", "integrated_api/collections/swamps",
                 "hapi/deep_temperate_oceans", "wildernature/spawns_scorpion",
                 "croptopia/has_crop/tomato", "croptopia/has_crop/rice", "croptopia/has_tree/apple",
                 "epic/large_dungeon", "epic/plains_obelisk", "epic/epic_temple",
@@ -48,6 +49,25 @@ class OptionalHabitatDatapackTest {
                     JsonParser.parseString(Files.readString(folder.resolve(pair.get(1) + ".json"))),
                     "linked dungeon and obelisk habitats must match");
         }
+        var data = directory.resolve("pack/data");
+        var tomato = JsonParser.parseString(Files.readString(data.resolve(
+                "croptopia/tags/worldgen/biome/has_crop/tomato.json"))).getAsJsonObject();
+        assertEquals(1, tomato.getAsJsonArray("values").asList().stream()
+                .filter(value -> value.getAsJsonObject().get("id").getAsString()
+                        .equals("bloomingnature:aspen_forest")).count(),
+                "Blooming Nature crops should inherit a single habitat reference, not duplicate modifiers");
+        var hot = JsonParser.parseString(Files.readString(data.resolve(
+                "c/tags/worldgen/biome/is_hot/overworld.json"))).getAsJsonObject();
+        assertTrue(hot.getAsJsonArray("values").asList().stream().allMatch(value ->
+                value.getAsJsonObject().get("id").getAsString().startsWith("bloomingnature:")),
+                "Scoped heat bridge must not admit Nether biomes through a broad c:is_hot alias");
+        var underground = JsonParser.parseString(Files.readString(data.resolve(
+                "c/tags/worldgen/biome/is_underground.json"))).getAsJsonObject();
+        assertTrue(underground.getAsJsonArray("values").asList().stream().anyMatch(value ->
+                value.getAsJsonObject().get("id").getAsString().equals("thaumaturge:magical_forest_caves")),
+                "Thaumaturge's overworld cave must support native underground feature exclusions");
+        assertFalse(Files.exists(data.resolve("c/tags/worldgen/biome/is_hot_overworld.json")),
+                "Retired Alex's Mobs legacy aliases are no longer exported");
         assertTrue(pack.files().keySet().stream().noneMatch(path -> path.contains("/biome_modifier/")
                 && !path.contains("/wildshape/")), "compatibility must not duplicate native spawn modifiers");
     }

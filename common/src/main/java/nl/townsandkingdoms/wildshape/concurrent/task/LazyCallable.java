@@ -18,34 +18,24 @@ public abstract class LazyCallable<T> implements Callable<T>, Future<T>, Supplie
 	}
 
 	@Override
-	public T call() {
-		long optRead = this.lock.tryOptimisticRead();
-		T result = this.value;
-		if (this.lock.validate(optRead) && this.initialized) {
-			return result;
-		}
-		long read = this.lock.readLock();
-		try {
-			result = this.value;
-			if (this.initialized) {
-				return result;
-			}
-		} finally {
-			this.lock.unlockRead(read);
-		}
-		long write = this.lock.writeLock();
-		try {
-			result = this.value;
-			if (!this.initialized) {
-				result = this.create();
-				this.value = result;
+    public T call() {
+        // Publish completion only after value, including a valid null result.
+        // Reading initialized first gives a completed reader the value published
+        // by that writer. A stamp validated before reading initialized could
+        // otherwise let a newly completed writer expose a stale local value.
+        if (this.initialized) return this.value;
+        long write = this.lock.writeLock();
+        try {
+            if (!this.initialized) {
+                T result = this.create();
+                this.value = result;
                 this.initialized = true;
-			}
-			return result;
-		} finally {
-			this.lock.unlockWrite(write);
-		}
-	}
+            }
+            return this.value;
+        } finally {
+            this.lock.unlockWrite(write);
+        }
+    }
 
 	@Override
 	public boolean cancel(boolean mayInterruptIfRunning) {
@@ -58,19 +48,9 @@ public abstract class LazyCallable<T> implements Callable<T>, Future<T>, Supplie
 	}
 
 	@Override
-	public boolean isDone() {
-		long optRead = this.lock.tryOptimisticRead();
-		boolean done = this.initialized;
-		if (this.lock.validate(optRead)) {
-			return done;
-		}
-		long read = this.lock.readLock();
-		try {
-			return this.initialized;
-		} finally {
-			this.lock.unlockRead(read);
-		}
-	}
+    public boolean isDone() {
+        return this.initialized;
+    }
 
 	@Override
 	public T get() {

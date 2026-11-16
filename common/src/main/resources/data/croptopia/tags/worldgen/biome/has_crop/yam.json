@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "bloomingnature:brushland", "required": false },
+    { "id": "bloomingnature:baobab_savanna", "required": false }
+  ]
+}

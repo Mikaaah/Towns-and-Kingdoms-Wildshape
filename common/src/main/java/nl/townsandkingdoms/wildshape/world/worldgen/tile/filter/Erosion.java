@@ -17,7 +17,9 @@ public class Erosion implements Filter {
     private float initialSpeed;
     private float initialWaterVolume;
     private int maxDropletLifetime;
-    private int[][] erosionBrushIndices;
+    // Relative kernels are immutable. Almost every column shares the interior
+    // kernel; only clipped edge kernels need their own arrays.
+    private int[][] erosionBrushOffsets;
     private float[][] erosionBrushWeights;
     private int seed;
     private int mapSize;
@@ -32,7 +34,7 @@ public class Erosion implements Filter {
         this.initialSpeed = settings.dropletVelocity;
         this.initialWaterVolume = settings.dropletVolume;
         this.maxDropletLifetime = settings.dropletLifetime;
-        this.erosionBrushIndices = new int[mapSize * mapSize][];
+        this.erosionBrushOffsets = new int[mapSize * mapSize][];
         this.erosionBrushWeights = new float[mapSize * mapSize][];
         this.initBrushes(mapSize, 4);
     }
@@ -116,8 +118,8 @@ public class Erosion implements Filter {
                 this.deposit(cells[dropletIndex + mapSize + 1], amountToDeposit * cellOffsetX * cellOffsetY);
             } else {
                 float amountToErode = Math.min((sedimentCapacity - sediment) * this.erodeSpeed, -deltaHeight);
-                for (int brushPointIndex = 0; brushPointIndex < this.erosionBrushIndices[dropletIndex].length; ++brushPointIndex) {
-                    int nodeIndex = this.erosionBrushIndices[dropletIndex][brushPointIndex];
+                for (int brushPointIndex = 0; brushPointIndex < this.erosionBrushOffsets[dropletIndex].length; ++brushPointIndex) {
+                    int nodeIndex = dropletIndex + this.erosionBrushOffsets[dropletIndex][brushPointIndex];
                     Cell cell = cells[nodeIndex];
                     float brushWeight = this.erosionBrushWeights[dropletIndex][brushPointIndex];
                     float weighedErodeAmount = amountToErode * brushWeight;
@@ -135,45 +137,58 @@ public class Erosion implements Filter {
     }
     
     private void initBrushes(int size, int radius) {
-        int[] xOffsets = new int[radius * radius * 4];
-        int[] yOffsets = new int[radius * radius * 4];
-        float[] weights = new float[radius * radius * 4];
-        float weightSum = 0.0f;
-        int addIndex = 0;
-        for (int i = 0; i < this.erosionBrushIndices.length; ++i) {
+        // Iterate and sum in the same order as the original kernel builder.
+        // This preserves floating-point weights and therefore existing terrain.
+        int kernelCount = radius * 2 + 1;
+        int[][][] offsetKernels = new int[kernelCount][kernelCount][];
+        float[][][] weightKernels = new float[kernelCount][kernelCount][];
+        for (int i = 0; i < this.erosionBrushOffsets.length; i++) {
             int centreX = i % size;
             int centreY = i / size;
-            if (centreY <= radius || centreY >= size - radius || centreX <= radius + 1 || centreX >= size - radius) {
-                weightSum = 0.0f;
-                addIndex = 0;
-                for (int y = -radius; y <= radius; ++y) {
-                    for (int x = -radius; x <= radius; ++x) {
-                        float sqrDst = (float)(x * x + y * y);
-                        if (sqrDst < radius * radius) {
-                            int coordX = centreX + x;
-                            int coordY = centreY + y;
-                            if (coordX >= 0 && coordX < size && coordY >= 0 && coordY < size) {
-                                float weight = 1.0f - (float) Math.sqrt(sqrDst) / radius;
-                                weightSum += weight;
-                                weights[addIndex] = weight;
-                                xOffsets[addIndex] = x;
-                                yOffsets[addIndex] = y;
-                                ++addIndex;
-                            }
+            // Equal distances to a clipped edge have equal relative kernels.
+            int kernelX = edgeKey(centreX, size, radius);
+            int kernelY = edgeKey(centreY, size, radius);
+            if (offsetKernels[kernelX][kernelY] != null) {
+                this.erosionBrushOffsets[i] = offsetKernels[kernelX][kernelY];
+                this.erosionBrushWeights[i] = weightKernels[kernelX][kernelY];
+                continue;
+            }
+            int[] offsets = new int[radius * radius * 4];
+            float[] weights = new float[radius * radius * 4];
+            float weightSum = 0.0F;
+            int count = 0;
+            for (int y = -radius; y <= radius; y++) {
+                for (int x = -radius; x <= radius; x++) {
+                    float squareDistance = x * x + y * y;
+                    if (squareDistance < radius * radius) {
+                        int targetX = centreX + x;
+                        int targetY = centreY + y;
+                        if (targetX >= 0 && targetX < size && targetY >= 0 && targetY < size) {
+                            float weight = 1.0F - (float) Math.sqrt(squareDistance) / radius;
+                            weightSum += weight;
+                            offsets[count] = y * size + x;
+                            weights[count] = weight;
+                            count++;
                         }
                     }
                 }
             }
-            int numEntries = addIndex;
-            this.erosionBrushIndices[i] = new int[numEntries];
-            this.erosionBrushWeights[i] = new float[numEntries];
-            for (int j = 0; j < numEntries; ++j) {
-                this.erosionBrushIndices[i][j] = (yOffsets[j] + centreY) * size + xOffsets[j] + centreX;
-                this.erosionBrushWeights[i][j] = weights[j] / weightSum;
-            }
+            int[] kernelOffsets = java.util.Arrays.copyOf(offsets, count);
+            float[] kernelWeights = new float[count];
+            for (int j = 0; j < count; j++) kernelWeights[j] = weights[j] / weightSum;
+            this.erosionBrushOffsets[i] = kernelOffsets;
+            this.erosionBrushWeights[i] = kernelWeights;
+            offsetKernels[kernelX][kernelY] = kernelOffsets;
+            weightKernels[kernelX][kernelY] = kernelWeights;
         }
     }
-    
+
+    private static int edgeKey(int coordinate, int size, int radius) {
+        if (coordinate < radius) return coordinate;
+        if (coordinate >= size - radius) return radius + 1 + coordinate - (size - radius);
+        return radius;
+    }
+
     private void deposit(Cell cell, float amount) {
         if (!cell.erosionMask) {
         	float change = this.modifier.modify(cell, amount);

@@ -1,0 +1,38 @@
+name: Full worldgen audit server verification
+on:
+  push:
+    branches: ['audit/structure-compat-*']
+  pull_request:
+    branches: ['fix/worldgen-performance-1.0.4']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: audit-smoke-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build production NeoForge JAR and verify identity
+        run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false --no-daemon
+      - name: Verify installed-server upgrade and optional-mod absence
+        run: python3 tools/skylands-smoke.py --artifact neoforge/build/libs/wildshape-1.0.5-beta.1-neoforge-1.21.1.jar
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-worldgen-server-evidence
+          path: |
+            neoforge/build/libs/*neoforge-1.21.1.jar
+            skylands-smoke/*.json
+            skylands-smoke/*.log
+            skylands-smoke/server/logs/
+            skylands-smoke/server/crash-reports/
+          if-no-files-found: warn

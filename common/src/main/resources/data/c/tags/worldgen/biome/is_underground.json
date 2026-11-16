@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "thaumaturge:magical_forest_caves", "required": false }
+  ]
+}

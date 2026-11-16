@@ -1,3 +1,14 @@
+## 1.0.5-beta.1 — structure and worldgen audit
+
+- Added bounded deterministic cross-set candidate screening with configurable 256/112-block major/minor center clearance, linked-layout preservation and optional native placement hooks.
+- Added explicit nine-point surface footprint screening and server-authoritative NeoForge config; native underground/ocean/sky placement remains in control.
+- Added 90 optional additive biome-tag overlays for current biome, crop, wildlife, dinosaur and aquatic habitats, including existing saves.
+- Fixed lazy value publication, Cell pool bookkeeping, density cache wrapper allocations and duplicated erosion brush memory.
+- Made newly generated strata deterministic across worker/initialization order; existing chunks remain untouched.
+- Added relocated World Preview target and separate Generator Accelerator 2 aquifer/carver lifecycle support; removed duplicate optional mixin registration.
+- Preserved native salts, weights, feature rates, saved presets and optional dependency isolation. Removed retired KnightQuest/Alex's Mobs habitat aliases.
+- Audited 56 exact dependency JARs. This beta does not guarantee all structure foundations, eliminate every sparse region or certify full-pack TPS; see docs/WORLDGEN_AUDIT_1.0.5.md and verification evidence.
+
 # 1.0.4
 
 - Fixed structure searches performing full river-network surveys on the server thread. Broad structure-locator checks now use a coarse terrain and climate estimate; actual chunk generation and ordinary biome searches retain their existing terrain paths.

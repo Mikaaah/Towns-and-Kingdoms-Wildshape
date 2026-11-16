@@ -2,7 +2,6 @@ package nl.townsandkingdoms.wildshape.mixin.plugin;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -29,6 +28,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	public static final List<String> STREAMS_MIXINS = ImmutableList.of(mixinClassName("streams.MixinStreamFlowGrid"), mixinClassName("streams.MixinRiverCarverFeature"), mixinClassName("streams.MixinWorldGenRegion"), mixinClassName("streams.MixinStreamsTerrainSampler"));
 	public static final List<String> AC_MIXINS = ImmutableList.of(mixinClassName("alexscaves.MixinBiomeGenerationNoiseCondition"), mixinClassName("alexscaves.MixinClimateSampler"));
 	public static final List<String> GA_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinNoiseBasedChunkGenerator"));
+	public static final List<String> GA2_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinCarverRunner"));
+	public static final List<String> INTEGRATED_PLACEMENT_MIXINS = ImmutableList.of(mixinClassName("structure.MixinIntegratedStructurePlacement"));
+	public static final List<String> CATACLYSM_PLACEMENT_MIXINS = ImmutableList.of(mixinClassName("structure.MixinCataclysmStructurePlacement"));
 	public static final List<String> SKYLANDS_MIXINS = ImmutableList.of(mixinClassName("skylands.MixinSkyTerrainFeature"), mixinClassName("skylands.MixinSkyTerrainStructureGuard"));
 
 	@Override
@@ -56,6 +58,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
 			   STREAMS_MIXINS.contains(mixinClassName) ? StreamsCompat.isEnabled() :
 			   AC_MIXINS.contains(mixinClassName) ? AlexsCavesCompat.isEnabled() :
 			   GA_MIXINS.contains(mixinClassName) ? GeneratorAcceleratorCompat.isEnabled() :
+			   GA2_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("generatoraccelerator2") :
+			   INTEGRATED_PLACEMENT_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("integrated_api") :
+			   CATACLYSM_PLACEMENT_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("cataclysm") :
 			   SKYLANDS_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("skylands") :
 			   true;
 	}
@@ -66,9 +71,10 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public List<String> getMixins() {
-		return Stream.of(TB_MIXINS, WP_MIXINS, C2ME_OPENCL_MIXINS, BYE_PREGEN_MIXINS, STREAMS_MIXINS, AC_MIXINS, GA_MIXINS, SKYLANDS_MIXINS).flatMap(List::stream).map((str) -> {
-			return str.replace(MIXIN_PACKAGE_PREFIX, "");
-		}).toList();
+		// The other optional families already appear in wildshape-common.mixins.json.
+		// Register them in exactly one place; only the sky probes are added dynamically.
+		return SKYLANDS_MIXINS.stream()
+			.map(name -> name.substring(MIXIN_PACKAGE_PREFIX.length())).toList();
 	}
 
 	@Override

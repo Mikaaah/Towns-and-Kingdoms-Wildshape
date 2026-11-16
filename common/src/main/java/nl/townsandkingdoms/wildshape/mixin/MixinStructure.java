@@ -33,6 +33,11 @@ public class MixinStructure {
 		}
 		RegistryAccess registry = generationContext.registryAccess();
 		Holder<Structure> structure = registry.registryOrThrow(Registries.STRUCTURE).wrapAsHolder((Structure) (Object) this);
+        var id = registry.registryOrThrow(Registries.STRUCTURE).getKey((Structure)(Object)this);
+        if (id != null && !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructureTerrainValidation.validAnchor(generationContext.randomState(), id, generationStub.get().position())) {
+            callback.setReturnValue(Optional.empty());
+            return;
+        }
 		for(StructureRule structureRule : registry.registryOrThrow(WildshapeRegistries.STRUCTURE_RULE)) {
 			if(structureRule.appliesTo(structure) && !structureRule.test(generationContext.randomState(), generationStub.get().position())) {
 				callback.setReturnValue(Optional.empty());
@@ -40,4 +45,19 @@ public class MixinStructure {
 			}
 		}
     }
+    // Inspect the completed native footprint; preserve each mod's own jigsaw offsets and terrain adaptation.
+    @Inject(method = "generate", at = @At("RETURN"), cancellable = true)
+    private void wildshape$validateFootprint(RegistryAccess registry, net.minecraft.world.level.chunk.ChunkGenerator generator,
+            net.minecraft.world.level.biome.BiomeSource source, net.minecraft.world.level.levelgen.RandomState state,
+            net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager templates, long seed,
+            net.minecraft.world.level.ChunkPos chunkPos, int references, net.minecraft.world.level.LevelHeightAccessor heights,
+            java.util.function.Predicate<Holder<net.minecraft.world.level.biome.Biome>> biomeTest,
+            CallbackInfoReturnable<net.minecraft.world.level.levelgen.structure.StructureStart> cir) {
+        var start = cir.getReturnValue();
+        if (!start.isValid()) return;
+        var id = registry.registryOrThrow(Registries.STRUCTURE).getKey((Structure)(Object)this);
+        if (id != null && !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructureTerrainValidation.valid(state, id, start.getBoundingBox()))
+            cir.setReturnValue(net.minecraft.world.level.levelgen.structure.StructureStart.INVALID_START);
+    }
+
 }

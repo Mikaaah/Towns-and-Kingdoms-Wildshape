@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "regions_unexplored:deciduous_forest", "required": false },
+    { "id": "regions_unexplored:temperate_grove", "required": false },
+    { "id": "regions_unexplored:maple_forest", "required": false },
+    { "id": "regions_unexplored:boreal_taiga", "required": false },
+    { "id": "regions_unexplored:pine_taiga", "required": false },
+    { "id": "natures_spirit:aspen_forest", "required": false },
+    { "id": "natures_spirit:maple_woodlands", "required": false },
+    { "id": "natures_spirit:boreal_taiga", "required": false },
+    { "id": "natures_spirit:fir_forest", "required": false },
+    { "id": "bloomingnature:forest_edge", "required": false },
+    { "id": "bloomingnature:aspen_forest", "required": false },
+    { "id": "bloomingnature:flower_glade", "required": false },
+    { "id": "bloomingnature:larch_forest", "required": false },
+    { "id": "bloomingnature:highland_woods", "required": false }
+  ]
+}
