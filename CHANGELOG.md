@@ -1,4 +1,4 @@
-# 1.0.5 — inland rivers, mushroom islands and giant caverns
+# 1.1.0 — inland rivers, mushroom islands and giant caverns
 
 - Increased candidate density for selected Overworld dungeon sets by roughly 25%. Native checks, linked layouts and explicit preset overrides still apply, so the number of placed dungeons varies by seed.
 - Kept deep and elevated inland river channels in river climate ranges, preventing their beds from being classified as marine habitat. Low coastal estuaries keep their native climate.
