@@ -24,7 +24,7 @@ if digest != EXPECTED_SHA256:
     raise SystemExit("JAR checksum does not match the verified release artifact.")
 
 headers = {"X-Api-Token": TOKEN, "User-Agent": "Wildshape-Verified-Release/1.1.0"}
-game_versions = [11779, 10150]  # Minecraft 1.21.1, NeoForge
+game_versions = [11779, 10150, 9638, 9639, 11135]  # Minecraft 1.21.1, NeoForge, client, server, Java 21
 
 metadata = {
     "changelog": (ROOT / "CHANGELOG.html").read_text(encoding="utf-8"),
