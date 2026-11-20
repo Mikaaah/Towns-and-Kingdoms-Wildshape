@@ -24,16 +24,7 @@ if digest != EXPECTED_SHA256:
     raise SystemExit("JAR checksum does not match the verified release artifact.")
 
 headers = {"X-Api-Token": TOKEN, "User-Agent": "Wildshape-Verified-Release/1.1.0"}
-request = urllib.request.Request(f"{API}/game/versions", headers=headers)
-with urllib.request.urlopen(request, timeout=60) as response:
-    versions = json.load(response)
-
-game_versions = []
-for name in ("1.21.1", "NeoForge"):
-    matches = [version for version in versions if version["name"] == name]
-    if len(matches) != 1:
-        raise SystemExit(f"Expected exactly one CurseForge version entry for {name!r}.")
-    game_versions.append(matches[0]["id"])
+game_versions = [11779, 10150]  # Minecraft 1.21.1, NeoForge
 
 metadata = {
     "changelog": (ROOT / "CHANGELOG.html").read_text(encoding="utf-8"),
