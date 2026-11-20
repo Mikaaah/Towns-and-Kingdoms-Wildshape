@@ -18,6 +18,8 @@ public final class StructureSetJsonPatcher {
         JsonObject placement = set.getAsJsonObject("placement");
         StructureSetEntry entry = preset.structures().entries.get(id);
         if (entry == null) {
+            if (nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.DungeonDensityPolicy.selected(id, preset.structures().entries.keySet()))
+                return nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.DungeonDensityPolicy.patch(id, set, preset.structures().entries.keySet());
             if (!placement.has("spacing")) return false;
             int current = placement.get("spacing").getAsInt();
             int wanted = StructureSetPolicy.spacing(id, current);

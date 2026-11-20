@@ -65,6 +65,13 @@ public final class CaveFeatures {
 		this.features = List.copyOf(features);
 	}
 
+    /** Inspect our own giant chambers only; native cave generators retain their placement rules. */
+    public boolean wouldCarveFoundation(int x, int y, int z, int bottom) {
+        for (Feature feature : this.features)
+            if (feature instanceof GiantCaverns giant && giant.wouldCarveFoundation(this.context, bottom, x, y, z)) return true;
+        return false;
+    }
+
 	public void carve(ChunkAccess chunk) {
         this.carve(chunk, null, null);
     }

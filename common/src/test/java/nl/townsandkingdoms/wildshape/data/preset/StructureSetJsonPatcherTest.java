@@ -54,7 +54,7 @@ class StructureSetJsonPatcherTest {
         TestBootstrap.init();
         var preset = BuiltinPresetRenderTest.presets().get("default").get();
         for (String id : new String[]{"ae2:meteorite", "alexscaves:acid_pit", "idas:idas_nether", "example:unknown",
-                "epic:large_dungeons", "epic:large_dungeons_obelisks", "epic:epic_temple",
+                "epic:witch_hut", "epic:epic_temple",
                 "deeperdarker:ancient_temples"}) {
             var json = structure(); var before = json.deepCopy();
             assertFalse(StructureSetJsonPatcher.patch(preset, ResourceLocation.parse(id), json));
@@ -71,6 +71,25 @@ class StructureSetJsonPatcherTest {
         preset.structures().getOrCreate(id).spacing = 64;
         assertTrue(StructureSetJsonPatcher.patch(preset,id,json));
         assertEquals(64,json.getAsJsonObject("placement").get("spacing").getAsInt());
+    }
+
+    @Test void densityTuningAppliesToExistingUnconfiguredResourcesButPreservesSavedEntries() {
+        TestBootstrap.init();
+        var preset = BuiltinPresetRenderTest.presets().get("default").get();
+        var id = ResourceLocation.parse("dungeons_arise:major_structures");
+        var json = structure(); json.getAsJsonObject("placement").addProperty("spacing",40);
+        json.getAsJsonObject("placement").addProperty("separation",30);
+        var before = json.deepCopy();
+        assertTrue(StructureSetJsonPatcher.patch(preset,id,json));
+        assertEquals(36,json.getAsJsonObject("placement").get("spacing").getAsInt());
+        assertEquals(27,json.getAsJsonObject("placement").get("separation").getAsInt());
+        assertEquals(before.getAsJsonObject("placement").get("super_exclusion_zone"), json.getAsJsonObject("placement").get("super_exclusion_zone"));
+        assertFalse(StructureSetJsonPatcher.patch(preset,id,json));
+        preset.structures().getOrCreate(id).spacing = 64;
+        var explicit = before.deepCopy();
+        assertTrue(StructureSetJsonPatcher.patch(preset,id,explicit));
+        assertEquals(64,explicit.getAsJsonObject("placement").get("spacing").getAsInt());
+        assertEquals(30,explicit.getAsJsonObject("placement").get("separation").getAsInt());
     }
 
 }

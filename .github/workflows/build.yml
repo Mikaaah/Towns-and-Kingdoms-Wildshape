@@ -51,12 +51,16 @@ jobs:
           --tests '*CellSamplerCache*Test' --tests '*OptionalEngine*Test'
           --tests '*SurfaceStrataConcurrencyTest' --tests '*LazyCallableTest'
           --tests '*RegionalClearanceTest' --tests '*structure.placement.*Test' --tests '*HabitatOverlayTest'
+          --tests '*MushroomIslandsTest' --tests '*SurfaceWaterBiomeClassificationTest'
+          --tests '*DungeonDensityPolicyTest' --tests '*LushPool*Test'
+          --tests '*CavernStyleTest' --tests '*CavernStructure*Test'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
       - name: Build NeoForge
         run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
       - name: Upload Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts

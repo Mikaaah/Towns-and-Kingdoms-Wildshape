@@ -152,6 +152,10 @@ public final class SkylandsSmokeChecks {
                 report.put("existingWorldMarkerPreserved", true);
                 report.put("chunk", List.of(chunk.getPos().x, chunk.getPos().z));
             }
+            if (Boolean.getBoolean("wildshape.verifyRiverBiome")) {
+                require(ModList.get().isLoaded("streamsreflowing"), "River fixture has no Streams Reflowing");
+                nl.townsandkingdoms.wildshape.compat.streams.StreamsSmokeChecks.verify(level, report);
+            }
             if (ModList.get().isLoaded("world_preview")) verifyPreviewBridge(server, report);
             if (ModList.get().isLoaded("generatoraccelerator2")) {
                 var runner = Class.forName("dev.denismasterherobrine.generatoraccelerator2.carver.CarverRunner");

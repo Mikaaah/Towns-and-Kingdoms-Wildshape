@@ -1,0 +1,67 @@
+{
+  "scope": "Static class/resource inspection of exact CB-1.1.4-pinned artifacts; live validation recorded separately.",
+  "minecraft": "1.21.1",
+  "preset": "GenOne",
+  "jarEvidence": [
+    {
+      "jar": "terrablender.jar",
+      "bytes": 120364,
+      "sha256": "edb34c388fe17ea88d0a7fd11174bbf8ae8f28a4c8ce886f1bf9a5cf0ebc36b8"
+    },
+    {
+      "jar": "bop.jar",
+      "bytes": 22338157,
+      "sha256": "99e4edeacfd7c9b0992144988df4f190dcb7955a7cc1e7323715505b3579bc9b"
+    },
+    {
+      "jar": "ru.jar",
+      "bytes": 6641783,
+      "sha256": "e7f2edd7bab869c2e566b1b251ea54c6b95834205276bf3a302859d72d9d0c9b"
+    },
+    {
+      "jar": "ns.jar",
+      "bytes": 18677548,
+      "sha256": "ec2b901b6707f2d0c56341135855302b74ccf5b095804fbcd17f7e42d24b7de7"
+    },
+    {
+      "jar": "blooming.jar",
+      "bytes": 3734129,
+      "sha256": "6a10babe972c1b5628db58007e75973566f8d7105a872ee4b97b3020bf587628"
+    }
+  ],
+  "terrablender": {
+    "file": "CF940057/6054947",
+    "behavior": "Selected region tree nearest-climate lookup; vanilla fallback only when chosen value is DEFERRED_PLACEHOLDER."
+  },
+  "naturesSpirit": {
+    "file": "CF1044992/9326605",
+    "classes": [
+      "TerraMaterParameters",
+      "TerraFlavaParameters",
+      "TerraLaetaParameters",
+      "TerraSolarisParameters",
+      "TerraFeraxParameters"
+    ],
+    "mushroomBand": [
+      -1.2,
+      -1.05
+    ],
+    "nativeFallback": "minecraft:mushroom_fields",
+    "fullTemperatureHumidityErosionWeirdnessCoverage": true
+  },
+  "biomesOPlenty": {
+    "file": "CF220318/8288121",
+    "class": "BOPOverworldBiomeBuilder",
+    "mushroomBand": [
+      -1.2,
+      -1.05
+    ],
+    "nativeFallback": "minecraft:mushroom_fields"
+  },
+  "hybridAquatic": {
+    "file": "CF834427/9063977",
+    "class": "HABiomeInjectors",
+    "behavior": "Lithostitched replacements target individual marine vanilla types and RIVER; preserves modded tropical-river replacement through corrected common climate."
+  },
+  "decision": "No speculative final biome override: correct generated shared climate tuple and actual mushroom-island provenance."
+}

@@ -32,4 +32,13 @@ class StructureTerrainValidationTest {
         assertTrue(StructureTerrainValidation.validAnchor(surface,100,64), "Disabled by default for unknown native anchor conventions");
     }
 
+    @Test void giantBuriedStartsHaveBoundedSupportSampling() {
+        var buried = new StructurePlacementProfiles.Profile(256, "underground", 0, false, "", 0, true);
+        var bounds = java.util.Collections.nCopies(10000, new BoundingBox(0, -30, 0, 15, -10, 15));
+        AtomicInteger probes = new AtomicInteger();
+        assertTrue(StructureTerrainValidation.validCavernSupport(buried, bounds,
+                (x, y, z) -> { probes.incrementAndGet(); return false; }));
+        assertEquals(64 * 9, probes.get());
+    }
+
 }

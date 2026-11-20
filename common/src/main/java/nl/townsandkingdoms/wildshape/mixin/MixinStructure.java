@@ -56,7 +56,9 @@ public class MixinStructure {
         var start = cir.getReturnValue();
         if (!start.isValid()) return;
         var id = registry.registryOrThrow(Registries.STRUCTURE).getKey((Structure)(Object)this);
-        if (id != null && !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructureTerrainValidation.valid(state, id, start.getBoundingBox()))
+        if (id != null && (!nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructureTerrainValidation.valid(state, id, start.getBoundingBox())
+                || !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructureTerrainValidation.validCavernSupport(
+                        state, id, start.getPieces(), heights.getMinBuildHeight())))
             cir.setReturnValue(net.minecraft.world.level.levelgen.structure.StructureStart.INVALID_START);
     }
 

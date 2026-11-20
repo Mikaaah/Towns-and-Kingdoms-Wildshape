@@ -1,7 +1,7 @@
 name: Full worldgen audit server verification
 on:
   push:
-    branches: ['audit/structure-compat-*']
+    branches: ['audit/structure-compat-*', 'fix/river-cavern-*']
   pull_request:
     branches: ['fix/worldgen-performance-1.0.4']
   workflow_dispatch:
@@ -24,7 +24,10 @@ jobs:
       - name: Build production NeoForge JAR and verify identity
         run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false --no-daemon
       - name: Verify installed-server upgrade and optional-mod absence
-        run: python3 tools/skylands-smoke.py --artifact neoforge/build/libs/wildshape-1.0.5-beta.1-neoforge-1.21.1.jar --structure-fixture
+        run: python3 tools/skylands-smoke.py --artifact neoforge/build/libs/wildshape-*-neoforge-1.21.1.jar --structure-fixture
+      - name: Verify an inland river with the pack's Streams Reflowing
+        if: startsWith(github.ref_name, 'fix/river-cavern-')
+        run: python3 tools/skylands-smoke.py --artifact neoforge/build/libs/wildshape-*-neoforge-1.21.1.jar --stream-river-check --work streams-river-smoke
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -35,4 +38,6 @@ jobs:
             skylands-smoke/*.log
             skylands-smoke/server/logs/
             skylands-smoke/server/crash-reports/
+            streams-river-smoke/*.json
+            streams-river-smoke/*.log
           if-no-files-found: warn
