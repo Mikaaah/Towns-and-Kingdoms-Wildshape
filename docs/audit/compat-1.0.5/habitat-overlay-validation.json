@@ -1,8 +1,0 @@
-{
-  "overlayFiles": 90,
-  "appendOnly": true,
-  "allOptional": true,
-  "duplicateReferences": 0,
-  "missingInstalledOptionalBiomes": [],
-  "scope": "Static JSON and exact downloaded JAR biome-ID validation; no runtime assertion."
-}

@@ -20,7 +20,7 @@ Minecraft 1.21.1 / NeoForge / Java 21. Terrain and structure changes apply as ne
 - Preserved native salts, weights, feature rates, saved presets and optional dependency isolation. Removed retired KnightQuest/Alex's Mobs habitat aliases.
 - Verified 115 regressions, 25 flow/search checks and installed-server upgrade/save/reload fixtures.
 - Identified an unresolved Generator Accelerator 1.6.2 / Regions Unexplored 0.6.3 startup conflict; GA2 ran through safe fallback only.
-- Audited 56 exact dependency JARs. This beta does not guarantee all structure foundations, eliminate every sparse region or certify full-pack TPS; see docs/WORLDGEN_AUDIT_1.0.5.md and verification evidence.
+- Audited 56 exact dependency JARs. This beta does not guarantee all structure foundations, eliminate every sparse region or certify full-pack TPS; see the [historical audit and test results](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/7c136fc44a215e82c56c5f7fcc0bcc2a85d578b6/docs/WORLDGEN_AUDIT_1.0.5.md).
 
 # 1.0.4
 
@@ -75,7 +75,7 @@ The mod ID remains `wildshape`. Replace the earlier terrain JAR; old `ultraterra
 - Completed the Wildshape rename: FML ID, registry/resource namespace, Java packages, config paths, commands, packets, translations, preset exports and developer/release tooling.
 - Added non-destructive import of earlier settings and custom presets into `config/wildshape/`. Existing share codes remain readable.
 - NeoForge 1.21.1 is the sole build/release target.
-- This changes serialized registry identity: use a fresh world. Existing worlds require a separate migration; see [identity details](docs/WILDSHAPE_IDENTITY.md).
+- This changes serialized registry identity: use a fresh world. Existing worlds require a separate migration; see [identity details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/7c136fc44a215e82c56c5f7fcc0bcc2a85d578b6/docs/WILDSHAPE_IDENTITY.md).
 
 ### Wildshape 1.0.12-beta.1 — 2026-11-08
 
