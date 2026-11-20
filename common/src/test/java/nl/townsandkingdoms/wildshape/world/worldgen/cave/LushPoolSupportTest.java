@@ -45,21 +45,22 @@ class LushPoolSupportTest {
 
     @Test void fluidAndWaterloggedSupportsDoNotBecomeNewClayTrays() {
         var level = floor(1000);
-        when(level.getBlockState(any())).thenReturn(Blocks.WATER.defaultBlockState());
+        doReturn(Blocks.WATER.defaultBlockState()).when(level).getBlockState(any());
         assertFalse(LushPoolSupport.supported(level,new BlockPos(8,-20,8),3));
-        when(level.getBlockState(any())).thenReturn(Blocks.OAK_SLAB.defaultBlockState()
-                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED,true));
+        doReturn(Blocks.OAK_SLAB.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED,true))
+                .when(level).getBlockState(any());
         assertFalse(LushPoolSupport.supported(level,new BlockPos(8,-20,8),3));
     }
 
     @Test void preflightReadsOnlyTheCandidateColumnAndHonorsWorldBottom() {
         var level = floor(1000);
-        when(level.getBlockState(any())).thenAnswer(call -> {
+        doAnswer(call -> {
             BlockPos pos=call.getArgument(0);
             assertEquals(-16,pos.getX()); assertEquals(31,pos.getZ());
             assertTrue(pos.getY()>=-64);
             return Blocks.STONE.defaultBlockState();
-        });
+        }).when(level).getBlockState(any());
         assertFalse(LushPoolSupport.supported(level,new BlockPos(-16,-62,31),3));
         assertTrue(LushPoolSupport.supported(level,new BlockPos(-16,-60,31),3));
     }
