@@ -1,3 +1,13 @@
+# 1.0.5-beta.2 — inland rivers, mushroom islands and giant caverns
+
+- Increased candidate density for selected Overworld dungeon sets by roughly 25%. Native checks, linked layouts and explicit preset overrides still apply, so the number of placed dungeons varies by seed.
+- Kept deep and elevated inland river channels in river climate ranges, preventing their beds from being classified as marine habitat. Low coastal estuaries keep their native climate.
+- Preserved Mushroom Fields across genuine mushroom island shores and later terrain classifications.
+- Checked the full depth and support of native lush clay pools before placement, avoiding floating water and clay on thin shelves in large caverns.
+- Screened Iron’s Spells ’n Spellbooks Catacombs foundations against Wildshape’s giant caverns before placing a start, reducing suspended terrain and structure fragments.
+
+Minecraft 1.21.1 / NeoForge / Java 21. Terrain and structure changes apply as new chunks generate.
+
 # 1.0.5-beta.1 — structure and worldgen audit
 
 - Added bounded deterministic cross-set candidate screening with configurable 256/112-block major/minor center clearance, linked-layout preservation and optional native placement hooks.

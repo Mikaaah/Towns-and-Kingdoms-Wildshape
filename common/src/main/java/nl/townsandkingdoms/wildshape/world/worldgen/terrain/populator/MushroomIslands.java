@@ -36,7 +36,10 @@ public record MushroomIslands(CellPopulator ocean, Levels levels, float deepOcea
                 float islandHeight = this.levels.water(18);
                 float height = cell.height + (islandHeight - cell.height) * rise;
                 if (height > cell.height) cell.height = height;
-                if (cell.height >= this.levels.water(2)) {
+                if (cell.height >= this.levels.water) {
+                    // Dry island shore is the same habitat as its interior. Later carving and
+                    // coastal labels may replace terrain, but must not erase where the island stands.
+                    cell.mushroomIsland = true;
                     cell.terrain = TerrainType.MUSHROOM_FIELDS;
                     cell.erosion = 0.4F;
                     cell.weirdness = 0.2F;

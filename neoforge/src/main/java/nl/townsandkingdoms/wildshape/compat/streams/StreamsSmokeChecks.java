@@ -42,6 +42,13 @@ public final class StreamsSmokeChecks {
         WildshapeStreams.LOG.info("Wildshape runtime smoke: generating river sample at {}", pos);
         level.getChunkAt(pos);
         if (!level.getFluidState(pos).is(FluidTags.WATER)) throw new AssertionError("Elevated river has no actual water");
+        if (Boolean.getBoolean("wildshape.verifyRiverBiome")) {
+            var biome = level.getBiome(pos);
+            var id = biome.unwrapKey().orElseThrow().location();
+            if (biome.is(net.minecraft.tags.BiomeTags.IS_OCEAN))
+                throw new AssertionError("Elevated inland river selected an ocean biome: " + id);
+            report.put("elevatedNativeRiverBiome", id.toString());
+        }
         var layers = RiverCurrents.INSTANCE.layers(level, null, sample.x() >> 4, sample.z() >> 4);
         if (layers.isEmpty()) throw new AssertionError("No native producer layer");
         var layer = layers.getFirst();

@@ -25,7 +25,8 @@ public final class PresetStructureResources {
     public static Resource patch(ResourceManager resources, ResourceLocation id, Resource original) throws IOException {
         var preset = preset(resources);
         if (preset.isEmpty()) return original;
-        if (!preset.get().structures().entries.containsKey(id) && !StructureSetPolicy.selected(id)) return original;
+        if (!preset.get().structures().entries.containsKey(id) && !StructureSetPolicy.selected(id)
+                && !nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.DungeonDensityPolicy.selected(id, preset.get().structures().entries.keySet())) return original;
         try (var reader = original.openAsReader()) {
             var json = JsonParser.parseReader(reader);
             if (!StructureSetJsonPatcher.patch(preset.get(), id, json)) return original;

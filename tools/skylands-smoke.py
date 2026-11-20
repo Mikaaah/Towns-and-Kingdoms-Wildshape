@@ -275,13 +275,15 @@ spawn-protection=0
 """)
 
 
-def run_server(root, server, mode=None):
+def run_server(root, server, mode=None, river_check=False):
     phase = mode or "baseline-1.0.2"
     started = time.monotonic()
     log = root / f"{phase}.log"
     env = os.environ.copy()
     if mode:
         env["JAVA_TOOL_OPTIONS"] = env.get("JAVA_TOOL_OPTIONS", "") + f" -Dwildshape.skylandsSmoke={mode}"
+    if river_check:
+        env["JAVA_TOOL_OPTIONS"] += " -Dwildshape.verifyRiverBiome=true"
     with log.open("w") as output:
         process = subprocess.Popen(["bash", "run.sh", "nogui"], cwd=server, env=env,
                                    stdin=subprocess.PIPE, stdout=output, stderr=subprocess.STDOUT)
@@ -343,11 +345,19 @@ def main():
     parser.add_argument("--engine", choices=tuple(ENGINE_IDS), default="none")
     parser.add_argument("--structure-fixture", action="store_true",
                         help="Install exact Cataclysm/YUNG/Integrated API dependencies and a synthetic test-only placement set")
+    parser.add_argument("--stream-river-check", action="store_true",
+                        help="Install the pinned Streams build and verify the biome and current of a generated inland river")
     args = parser.parse_args()
     root = args.work.resolve()
     root.mkdir(parents=True, exist_ok=True)
     deps = prepare(root)
     engine_files, engine_inspection = prepare_engine(root, args.engine, args.structure_fixture)
+    if args.stream_river_check:
+        artifact_lock = json.loads(Path("docs/audit/full-compat-1.0.5/dependency-lock.json").read_text())
+        streams = next(row for row in artifact_lock["artifacts"] if row["mod_id"] == "streamsreflowing")
+        streams_path = root / "extra-dependencies" / streams["jar"]
+        download(streams["url"], streams_path, streams["sha256"])
+        engine_files.append(streams_path)
     if args.prepare_only:
         return
     assert args.artifact and args.artifact.is_file(), "Pass the verified new JAR with --artifact"
@@ -387,7 +397,10 @@ def main():
         shutil.copyfile(jar, mods / jar.name)
     if args.structure_fixture:
         write_structure_fixture(world)
-    generated = run_server(root, server, "generate")
+    generated = run_server(root, server, "generate", river_check=args.stream_river_check)
+    if args.stream_river_check:
+        assert generated.get("elevatedNativeRiverBiome"), generated
+        assert generated.get("streamsNativeLayerAndWaterCorrection"), generated
     require_engine(generated, args.engine, True)
     if args.structure_fixture:
         require_structure_fixture(generated)

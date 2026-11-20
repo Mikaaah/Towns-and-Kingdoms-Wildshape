@@ -50,7 +50,8 @@ class MushroomIslandsTest {
                 cell.continentEdge = 0.0F;
                 islands.apply(cell, x, z);
                 if (cell.terrain != TerrainType.MUSHROOM_FIELDS) continue;
-                assertTrue(cell.height >= levels.water(2));
+                assertTrue(cell.height >= levels.water);
+                assertTrue(cell.mushroomIsland, "actual island provenance must survive downstream labels");
                 heightmap.applyPost(cell, x, z);
                 assertTrue(cell.continentalness >= Continentalness.MUSHROOM_FIELDS.min());
                 assertTrue(cell.continentalness < Continentalness.DEEP_OCEAN.min());

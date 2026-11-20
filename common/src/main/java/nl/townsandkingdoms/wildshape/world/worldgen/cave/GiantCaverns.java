@@ -35,12 +35,16 @@ final class GiantCaverns implements CaveFeatures.Feature {
 
     /** Return a stable active site, independent of the requesting chunk. */
     private Cavern active(int gx, int gz, CaveCarving carving) {
+        return this.active(gx, gz, carving.levels.waterY, (x, z) -> this.find(x, z, carving));
+    }
+
+    private Cavern active(int gx, int gz, int waterY, SiteCache.Finder<Cavern> finder) {
         float draw = CaveFeatures.random(this.seed, gx, gz, 0);
         if (draw >= this.frequency) return NONE;
-        Cavern c = this.caverns.get(gx, gz, (x, z) -> this.find(x, z, carving));
+        Cavern c = this.caverns.get(gx, gz, finder);
         if (c == NONE) return NONE;
         float highland = NoiseUtil.clamp(
-            (c.terrainHeight() - carving.levels.waterY - 18.0F) / 120.0F, 0.0F, 1.0F);
+            (c.terrainHeight() - waterY - 18.0F) / 120.0F, 0.0F, 1.0F);
         return draw < this.frequency * (0.42F + 0.58F * highland) ? c : NONE;
     }
 
@@ -178,10 +182,57 @@ final class GiantCaverns implements CaveFeatures.Feature {
                     boolean pillar=false;
                     for (Section section : sections[y-y0]) if (section.contains(x,z,ragged)) {pillar=true;break;}
                     if (pillar) {carving.protectPillar(x,y,z);continue;}
-                    carving.clear(x, y, z, lake);
+                    carving.clearGiantLake(x, y, z, lake);
                 }
             }
         }
+    }
+
+    /** Same seeded chamber layout as carving, without resolving or generating any chunks. */
+    boolean wouldCarveFoundation(nl.townsandkingdoms.wildshape.world.worldgen.GeneratorContext context,
+            int bottom, int x, int y, int z) {
+        if (y <= bottom + 2 || y > MAX_ROOF_Y) return false;
+        var cell = new nl.townsandkingdoms.wildshape.world.worldgen.cell.Cell();
+        TerrainHeight terrain = (bx, bz) -> {
+            context.lookup.compute(cell.reset(), (int)Math.floor(bx), (int)Math.floor(bz));
+            return context.levels.scale(cell.height);
+        };
+        int gx = Math.floorDiv(x, (int)GRID), gz = Math.floorDiv(z, (int)GRID);
+        for (int sx = gx - 1; sx <= gx + 1; sx++) for (int sz = gz - 1; sz <= gz + 1; sz++) {
+            Cavern cavern = this.active(sx, sz, context.levels.waterY,
+                    (a, b) -> this.find(a, b, bottom, terrain));
+            if (cavern != NONE && this.carvesAt(cavern, bottom, Integer.MAX_VALUE, x, y, z)
+                    && y <= terrain.at(x, z) - MIN_ROOF_COVER) return true;
+        }
+        return false;
+    }
+
+    /** A point this chamber removes; includes its native noisy wall and retained pillar shapes. */
+    boolean carvesAt(Cavern c, int bottom, int ground, int x, int y, int z) {
+        int low = Math.max(bottom + 3, (int)(c.y() - c.radiusY() * 1.12F));
+        int top = Math.min(Math.min(c.roof(), (int)(c.y() + c.radiusY() * 1.12F)), ground - MIN_ROOF_COVER);
+        if (y < low || y > top) return false;
+        float nx = (x - c.x()) / c.radiusX(), nz = (z - c.z()) / c.radiusZ();
+        float ny = (y - c.y()) / c.radiusY();
+        float shape = nx * nx + nz * nz + ny * ny;
+        if (shape >= 1.35F) return false;
+        float roughness = (this.walls.compute(x + y * 0.7F, z - y * 0.7F, 0) - 0.5F) * 0.7F;
+        if (shape + roughness >= 1.0F) return false;
+        int gx = Math.floorDiv(x, 64), gz = Math.floorDiv(z, 64);
+        for (int px = gx - 1; px <= gx + 1; px++) for (int pz = gz - 1; pz <= gz + 1; pz++) {
+            if (CaveFeatures.random(this.seed, px, pz, 30) > 0.72F) continue;
+            Pillar pillar = this.pillar(px, pz);
+            if (section(pillar, y, c).contains(x, z, roughness)) return false;
+        }
+        return true;
+    }
+
+    private Pillar pillar(int x, int z) {
+        return new Pillar(x * 64 + 16 + CaveFeatures.random(this.seed,x,z,31) * 32,
+                z * 64 + 16 + CaveFeatures.random(this.seed,x,z,32) * 32,
+                4 + CaveFeatures.random(this.seed,x,z,33)*5,
+                0.7F + CaveFeatures.random(this.seed,x,z,34)*0.7F,
+                CaveFeatures.random(this.seed,x,z,35)*NoiseUtil.PI2);
     }
 
     record Pillar(float x, float z, float waist, float aspect, float phase) {}
@@ -194,9 +245,7 @@ final class GiantCaverns implements CaveFeatures.Feature {
             float px = x * 64 + 16 + CaveFeatures.random(this.seed,x,z,31) * 32;
             float pz = z * 64 + 16 + CaveFeatures.random(this.seed,x,z,32) * 32;
             if (!carving.reaches(px-48,pz-48,px+48,pz+48)) continue;
-            result.add(new Pillar(px,pz,4 + CaveFeatures.random(this.seed,x,z,33)*5,
-                    0.7F + CaveFeatures.random(this.seed,x,z,34)*0.7F,
-                    CaveFeatures.random(this.seed,x,z,35)*NoiseUtil.PI2));
+            result.add(this.pillar(x, z));
         }
         return result;
     }
@@ -234,6 +283,12 @@ final class GiantCaverns implements CaveFeatures.Feature {
     }
 
     Cavern find(int gridX, int gridZ, CaveCarving carving) {
+        return this.find(gridX, gridZ, carving.bottom, carving::terrainHeight);
+    }
+
+    @FunctionalInterface private interface TerrainHeight { int at(float x, float z); }
+
+    private Cavern find(int gridX, int gridZ, int bottom, TerrainHeight terrain) {
         float margin = 185.0F;
         float x = gridX * GRID + margin + CaveFeatures.random(this.seed, gridX, gridZ, 1) * (GRID - 2 * margin);
         float z = gridZ * GRID + margin + CaveFeatures.random(this.seed, gridX, gridZ, 2) * (GRID - 2 * margin);
@@ -245,17 +300,17 @@ final class GiantCaverns implements CaveFeatures.Feature {
         for (int i = 0; i < 9; i++) {
             float angle = i * NoiseUtil.PI2 / 8.0F;
             float r = i == 8 ? 0.0F : 1.15F;
-            lowest = Math.min(lowest, carving.terrainHeight(x + NoiseUtil.cos(angle) * radiusX * r,
+            lowest = Math.min(lowest, terrain.at(x + NoiseUtil.cos(angle) * radiusX * r,
                                                                z + NoiseUtil.sin(angle) * radiusZ * r));
         }
         int roof = Math.min(MAX_ROOF_Y, lowest - MIN_ROOF_COVER);
         // On a vanilla -64 bottom, Y30 allows roughly 80 blocks of cavern;
         // deeper presets naturally support taller caverns up to ~130 blocks.
-        float maxRadiusY = (roof - carving.bottom - 9.0F) * 0.49F;
+        float maxRadiusY = (roof - bottom - 9.0F) * 0.49F;
         float radiusY = Math.min(desiredY, maxRadiusY);
         if (radiusY < 18.0F) return NONE;
         float y = roof - radiusY;
-        if (y - radiusY < carving.bottom + 5) return NONE;
+        if (y - radiusY < bottom + 5) return NONE;
         return new Cavern(x, y, z, radiusX, radiusY, radiusZ, roof, lowest);
     }
 }

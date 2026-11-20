@@ -48,6 +48,7 @@ public final class CaveCarving {
 	private final Cell cell = new Cell();
     private final BitSet carvedAir = new BitSet();
     private final BitSet authoredWater = new BitSet();
+    private final BitSet giantLakeWater = new BitSet();
     private final BitSet protectedPillars = new BitSet();
     // Cached biome quart samples avoid repeatedly decoding holders during huge caves.
     private final Map<Long, Boolean> protectedBiomeCache = new HashMap<>();
@@ -223,6 +224,15 @@ public final class CaveCarving {
         this.protectedPillars.set(((y-this.bottom)<<8)|((z-this.minZ)<<4)|(x-this.minX));
     }
 
+    // Only GiantCaverns calls this. Other authored pools/waterfalls keep their
+    // native policies, even when there is air below their source.
+    void clearGiantLake(int x, int y, int z, int water) {
+        this.clear(x, y, z, water);
+        if (!this.contains(x, z) || y < this.bottom || y >= this.chunk.getMaxBuildHeight() || y > water) return;
+        int bit = ((y - this.bottom) << 8) | ((z - this.minZ) << 4) | (x - this.minX);
+        if (this.authoredWater.get(bit)) this.giantLakeWater.set(bit);
+    }
+
 	public void clear(int x, int y, int z, int water) {
         if (!this.contains(x, z) || y < this.bottom || y >= this.chunk.getMaxBuildHeight()) return;
         if (y >= this.bottom && this.contains(x,z) && this.protectedPillars.get(
@@ -396,6 +406,7 @@ public final class CaveCarving {
      * Authored sea caves and cavern lakes already supply their own waterline.
      */
     public void reconcileWater() {
+        this.drainUnsupportedGiantLakeWater();
         BitSet scheduled = new BitSet();
         for (int bit = this.carvedAir.nextSetBit(0); bit >= 0; bit = this.carvedAir.nextSetBit(bit + 1)) {
             int x = this.minX + (bit & 15);
@@ -406,6 +417,26 @@ public final class CaveCarving {
             this.scheduleWater(x + 1, y, z, scheduled);
             this.scheduleWater(x, y, z - 1, scheduled);
             this.scheduleWater(x, y, z + 1, scheduled);
+        }
+    }
+
+    /**
+     * A later cut, or an already-open cave, can leave part of an authored lake
+     * hanging above air. Only drain GiantCaverns lake sources written by this
+     * carving pass; sea caves and all other authored water are outside scope.
+     * Bottom-up bit order propagates an opening through its giant-lake column.
+     * Supported basins, natural aquifers, lava and waterlogged blocks are kept.
+     */
+    private void drainUnsupportedGiantLakeWater() {
+        for (int bit = this.giantLakeWater.nextSetBit(0); bit >= 0; bit = this.giantLakeWater.nextSetBit(bit + 1)) {
+            int x = this.minX + (bit & 15), z = this.minZ + ((bit >>> 4) & 15);
+            int y = this.bottom + (bit >>> 8);
+            if (y <= this.bottom) continue;
+            if (!this.chunk.getBlockState(this.pos.set(x, y, z)).is(Blocks.WATER)) continue;
+            if (!this.chunk.getBlockState(this.pos.set(x, y - 1, z)).isAir()) continue;
+            this.chunk.setBlockState(this.pos.set(x, y, z), AIR, false);
+            this.authoredWater.clear(bit);
+            this.carvedAir.set(bit);
         }
     }
 

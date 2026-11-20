@@ -181,7 +181,9 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 	}
 	
 	public void applyPost(Cell cell, float x, float z) {
-		if (cell.terrain == TerrainType.MUSHROOM_FIELDS && cell.height >= this.levels.water(2)) {
+		if (cell.mushroomIsland || cell.terrain == TerrainType.MUSHROOM_FIELDS && cell.height >= this.levels.water) {
+            // Habitat follows the actual island footprint, not the last river/coast terrain label.
+            // Unraised submerged slopes have no provenance and retain their ocean climate.
 			cell.continentalness = Continentalness.MUSHROOM_FIELDS.lerp(0.5F);
 			return;
 		}
@@ -233,6 +235,16 @@ public record Heightmap(CellSampler.Provider cellProvider, CellPopulator terrain
 			float alpha = NoiseUtil.map(cell.height, this.levels.water, this.levels.water(ISLAND_INLAND));
 			cell.continentalness = NoiseUtil.lerp(Continentalness.COAST.lerp(0.5F), Continentalness.NEAR_INLAND.lerp(0.5F), alpha);
 		}
+
+        // A carved inland channel is not an ocean because its bed lies below sea level or its
+        // broad continent-noise mask falls in an ocean band. Both vanilla and TerraBlender
+        // sample this climate tuple. Keep genuine low coastal mouths/estuaries on their native
+        // coastal/ocean tuple; raised channels and channels landward of the beach retain rivers.
+        if (cell.terrain.isRiver() && (cell.waterLevel > this.levels.water(1)
+                || cell.continentEdge >= this.controlPoints.beach)) {
+            cell.continentalness = Math.max(cell.continentalness, Continentalness.NEAR_INLAND.lerp(0.5F));
+            cell.weirdness = 0.0F;
+        }
 	}
 	
 	public static Heightmap make(GeneratorContext ctx) {

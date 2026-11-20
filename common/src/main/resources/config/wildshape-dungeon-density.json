@@ -1,0 +1,46 @@
+{
+  "_comment": "Exact dungeon set allowlist. Inherit placement.candidateOpportunityMultiplier from structures.toml, or set candidateOpportunityMultiplier per set; 1.0 keeps its native grid. Explicit saved preset entries take priority for the entire linked group. Only spacing and separation change; salts, weights, native exclusions, layers and built structures remain native.",
+  "placementTypes": [
+    "minecraft:random_spread",
+    "integrated_api:advanced_random_spread",
+    "cataclysm:cataclysm_random_spread"
+  ],
+  "sets": {
+    "idas:idas_rare": {},
+    "idas:idas_underground": {},
+    "idas:idas_underground_rare": {},
+    "dungeons_arise:major_structures": {},
+    "epic:large_dungeons": {},
+    "epic:large_dungeons_obelisks": {},
+    "epic:medium_dungeons": {},
+    "epic:small_dungeons": {},
+    "betterdungeons:small_dungeons": {},
+    "betterdungeons:skeleton_dungeons": {},
+    "betterdungeons:spider_dungeons": {},
+    "betterdungeons:zombie_dungeons": {},
+    "mowziesmobs:monasteries": {},
+    "mowziesmobs:wrought_chambers": {},
+    "cataclysm:frosted_prison": {},
+    "cataclysm:cursed_pyramid": {},
+    "cataclysm:ancient_factory": {},
+    "cataclysm:small_integrated_cataclysm": {},
+    "cataclysm:sunken_city": {},
+    "irons_spellbooks:catacombs": {},
+    "irons_spellbooks:evoker_fort": {},
+    "block_factorys_bosses:dragon_tower": {},
+    "block_factorys_bosses:sandworm_nest": {},
+    "block_factorys_bosses:yeti_hideout": {},
+    "legendary_monsters:ancient_stronghold": {},
+    "legendary_monsters:collapsed_kingdom": {},
+    "legendary_monsters:frostbitten_temple": {},
+    "legendary_monsters:mossy_temple": {},
+    "legendary_monsters:ruined_pyramid": {},
+    "thaumaturge:mounds": {}
+  },
+  "linkedGroups": {
+    "epic:large_dungeon_and_obelisk": [
+      "epic:large_dungeons",
+      "epic:large_dungeons_obelisks"
+    ]
+  }
+}

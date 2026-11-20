@@ -76,6 +76,41 @@ class CavernStyleTest {
         assertTrue(world.get(6,-29,5).isAir(),"stacked authored pool did not drain");
     }
 
+    @Test void authoredLakeColumnAboveOlderCaveAirDrainsWithoutTouchingSupportedPool() {
+        var world=world();
+        var carving=new CaveCarving(world.chunk(0,0),world.context);
+        // A pre-existing open cave beneath the proposed lake floor.
+        carving.clear(5,-40,5,CaveCarving.DRY);
+        for(int y=-39;y<=-35;y++) carving.clearGiantLake(5,y,5,-35);
+        // This basin still has its real rock floor beneath the lake.
+        for(int y=-39;y<=-35;y++) carving.clearGiantLake(7,y,7,-35);
+        carving.reconcileWater();
+        for(int y=-39;y<=-35;y++) assertTrue(world.get(5,y,5).isAir(),"hanging authored source at "+y);
+        for(int y=-39;y<=-35;y++) assertTrue(world.get(7,y,7).is(Blocks.WATER),"supported basin drained at "+y);
+    }
+
+    @Test void unsupportedNonGiantAuthoredWaterRemainsOutsideTheLakePolicy() {
+        var world=world();
+        var carving=new CaveCarving(world.chunk(0,0),world.context);
+        carving.clear(9,-40,5,CaveCarving.DRY);
+        for(int y=-39;y<=-35;y++) carving.clear(9,y,5,-35);
+        carving.reconcileWater();
+        for(int y=-39;y<=-35;y++) assertTrue(world.get(9,y,5).is(Blocks.WATER),
+                "another cave feature's authored water was drained at "+y);
+    }
+
+    @Test void orphanDrainDoesNotDeleteNaturalWaterOrLavaSources() {
+        var world=world();
+        var chunk=world.chunk(0,0);
+        var carving=new CaveCarving(chunk,world.context);
+        for(int x=3;x<=4;x++) carving.clear(x,-40,5,CaveCarving.DRY);
+        chunk.setBlockState(new net.minecraft.core.BlockPos(3,-39,5),Blocks.WATER.defaultBlockState(),false);
+        chunk.setBlockState(new net.minecraft.core.BlockPos(4,-39,5),Blocks.LAVA.defaultBlockState(),false);
+        carving.reconcileWater();
+        assertTrue(world.get(3,-39,5).is(Blocks.WATER));
+        assertTrue(world.get(4,-39,5).is(Blocks.LAVA));
+    }
+
     @Test void neighboringStructureStartProtectsItsPiecesInThisChunk() {
         var world=world();
         var chunk=world.chunk(0,0);

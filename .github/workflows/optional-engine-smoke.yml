@@ -30,7 +30,7 @@ jobs:
       - name: Verify one optional engine with upgrade, generation, reload and absence
         run: >-
           python3 tools/skylands-smoke.py
-          --artifact neoforge/build/libs/wildshape-1.0.5-beta.1-neoforge-1.21.1.jar
+          --artifact neoforge/build/libs/wildshape-*-neoforge-1.21.1.jar
           --engine ${{ matrix.engine }}
       - uses: actions/upload-artifact@v4
         if: always()

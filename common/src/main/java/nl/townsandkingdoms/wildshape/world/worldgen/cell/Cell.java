@@ -34,6 +34,8 @@ public class Cell {
     public float continentNoise;
     public float continentEdge;
     public float continentalness;
+    // Provenance of actual raised mushroom-island land, retained across later river/coast terrain labels.
+    public boolean mushroomIsland;
     public float terrainRegionId;
     public float terrainRegionEdge;
     public long terrainRegionCenter;
@@ -99,6 +101,7 @@ public class Cell {
         this.continentNoise = other.continentNoise;
         this.continentEdge = other.continentEdge;
         this.continentalness = other.continentalness;
+        this.mushroomIsland = other.mushroomIsland;
         this.terrainRegionId = other.terrainRegionId;
         this.terrainRegionEdge = other.terrainRegionEdge;
         this.terrainRegionCenter = other.terrainRegionCenter;

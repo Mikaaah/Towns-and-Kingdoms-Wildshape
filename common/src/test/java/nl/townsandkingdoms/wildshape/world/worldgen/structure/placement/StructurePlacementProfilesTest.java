@@ -24,4 +24,19 @@ class StructurePlacementProfilesTest {
         assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString("{\"namespaces\":{\"example\":{\"clearance\":99999}}}").getAsJsonObject(),256,112,8192));
         assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString("{\"sets\":{\"example:bad\":{\"layer\":\"typo\"}}}").getAsJsonObject(),256,112,8192));
     }
+    @Test void oldCopiedPolicyGetsTargetedCatacombSafetyWithoutReplacingOtherProfiles() {
+        var old = StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"namespaces\":{\"irons_spellbooks\":{}},\"structures\":{\"example:den\":{\"layer\":\"underground\"}}}")
+                .getAsJsonObject(), 256, 112, 8192);
+        assertTrue(old.structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
+        assertFalse(old.structure(ResourceLocation.parse("example:den")).rejectCavernVoid());
+        assertNull(old.structure(ResourceLocation.parse("irons_spellbooks:ice_spider_den")));
+        var explicit = StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"structures\":{\"irons_spellbooks:catacombs\":{\"layer\":\"underground\",\"rejectCavernVoid\":false}}}")
+                .getAsJsonObject(), 256, 112, 8192);
+        assertFalse(explicit.structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
+        var disabled = StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"namespaces\":{\"irons_spellbooks\":{\"layer\":\"disabled\"}}}").getAsJsonObject(), 256, 112, 8192);
+        assertNull(disabled.structure(ResourceLocation.parse("irons_spellbooks:catacombs")));
+    }
 }

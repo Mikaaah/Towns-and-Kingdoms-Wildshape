@@ -13,8 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 /** Immutable startup policy. No dependency classes or optional registry references are resolved here. */
 public final class StructurePlacementProfiles {
-    public record Profile(int clearance, String layer, int maxSlopeDelta, boolean rejectWater, String linkedGroup, int maxAnchorOffset) {
-        public Profile(int clearance, String layer, int maxSlopeDelta, boolean rejectWater, String linkedGroup) { this(clearance,layer,maxSlopeDelta,rejectWater,linkedGroup,0); }
+    public record Profile(int clearance, String layer, int maxSlopeDelta, boolean rejectWater, String linkedGroup, int maxAnchorOffset, boolean rejectCavernVoid) {
+        public Profile(int clearance, String layer, int maxSlopeDelta, boolean rejectWater, String linkedGroup) { this(clearance,layer,maxSlopeDelta,rejectWater,linkedGroup,0,false); }
+        public Profile(int clearance, String layer, int maxSlopeDelta, boolean rejectWater, String linkedGroup, int maxAnchorOffset) { this(clearance,layer,maxSlopeDelta,rejectWater,linkedGroup,maxAnchorOffset,false); }
         public boolean surface() { return layer.equals("surface"); }
     }
     public record Settings(boolean enabled, int maxCandidateChecks, boolean approximateBiomeScreening, Map<String, Profile> namespaces,
@@ -25,8 +26,17 @@ public final class StructurePlacementProfiles {
         public Profile set(ResourceLocation id) {
             return sets.getOrDefault(id.toString(), namespaces.get(id.getNamespace()));
         }
-        public Profile structure(ResourceLocation id) { return structures.get(id.toString()); }
+        public Profile structure(ResourceLocation id) {
+            Profile explicit = structures.get(id.toString());
+            if (explicit != null) return explicit;
+            Profile namespace = namespaces.get(id.getNamespace());
+            if (namespace != null && namespace.layer().equals("disabled")) return null;
+            // Existing installations keep their copied JSON. Apply the new narrowly
+            // scoped safety default when that older file has no catacombs entry.
+            return id.toString().equals("irons_spellbooks:catacombs") ? CATACOMBS_FOUNDATION : null;
+        }
     }
+    private static final Profile CATACOMBS_FOUNDATION = new Profile(256, "underground", 0, false, "", 0, true);
     private static volatile Settings settings = bundled(256, 112, 8192);
     private StructurePlacementProfiles() {}
     public static Settings settings() { return settings; }
@@ -84,7 +94,9 @@ public final class StructurePlacementProfiles {
             String group = value.has("linkedGroup") ? value.get("linkedGroup").getAsString() : "";
             int anchor = value.has("maxAnchorOffset") ? value.get("maxAnchorOffset").getAsInt() : 0;
             if (anchor < 0 || anchor > 256) throw new IllegalArgumentException("Unbounded anchor offset " + id);
-            entries.put(id, new Profile(clearance, layer, slope, water, group, anchor));
+            boolean cavern = value.has("rejectCavernVoid") ? value.get("rejectCavernVoid").getAsBoolean()
+                    : section.equals("structures") && id.equals("irons_spellbooks:catacombs");
+            entries.put(id, new Profile(clearance, layer, slope, water, group, anchor, cavern));
         }
         return entries;
     }
