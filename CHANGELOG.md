@@ -42,7 +42,7 @@ The mod ID remains `wildshape`. Replace the earlier terrain JAR; old `ultraterra
 - Completed the Wildshape rename: FML ID, registry/resource namespace, Java packages, config paths, commands, packets, translations, preset exports and developer/release tooling.
 - Added non-destructive import of earlier settings and custom presets into `config/wildshape/`. Existing share codes remain readable.
 - NeoForge 1.21.1 is the sole build/release target.
-- This changes serialized registry identity: use a fresh world. Existing worlds require a separate migration; see [identity details](docs/WILDSHAPE_IDENTITY.md).
+- This changes serialized registry identity: use a fresh world. Existing worlds require a separate migration; see [identity details](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/7c136fc44a215e82c56c5f7fcc0bcc2a85d578b6/docs/WILDSHAPE_IDENTITY.md).
 
 ### Wildshape 1.0.12-beta.1 — 2026-11-08
 

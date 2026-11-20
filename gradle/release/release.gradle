@@ -14,9 +14,9 @@ def target = release.targets.find { it.id == targetId }
 if (target == null) throw new GradleException('Choose a registered release target with -PtnkTarget=<loader>-<minecraft>')
 def selectedProject = providers.gradleProperty('tnkArtifactProject').orElse(':').get()
 def selectedTask = providers.gradleProperty('tnkArtifactTask').orElse('jar').get()
-def toolsRoot = rootProject.file('release-tools')
+def toolsRoot = rootProject.file('gradle/release')
 def checker = new File(toolsRoot, 'tnk_versions.py')
-if (!checker.isFile()) throw new GradleException('Copy release-system into release-tools first.')
+if (!checker.isFile()) throw new GradleException('Missing Gradle release verifier.')
 
 // Finalize version after loader plugins and any legacy version expressions have configured.
 gradle.projectsEvaluated {

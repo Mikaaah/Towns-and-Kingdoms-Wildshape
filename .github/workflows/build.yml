@@ -1,5 +1,9 @@
 name: Build
-on: [ pull_request, push ]
+on:
+  push:
+    branches: [main, 'release/**']
+  pull_request:
+  workflow_dispatch:
 
 # a newer push to the same branch cancels the build still running for the older one
 concurrency:
@@ -30,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Check terrain and compatibility regressions
+      - name: Run tests
         run: >-
           ./gradlew :common:test -Pwildshape.perfMods=false
           --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
@@ -49,7 +53,7 @@ jobs:
       - name: Build NeoForge
         run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
-      - name: Upload Artifacts
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts

@@ -1,4 +1,4 @@
-name: Publish project wiki
+name: Wiki
 
 on:
   push:
@@ -35,5 +35,5 @@ jobs:
             echo "Wiki is already current."
             exit 0
           fi
-          git commit -m "docs: publish project guides and community links"
+          git commit -m "Updated wiki"
           git push origin HEAD

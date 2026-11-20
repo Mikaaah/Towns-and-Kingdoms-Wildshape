@@ -83,7 +83,7 @@ dependencies {
     shadowBundle(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 
     // Performance mods, in the dev runs only: the ones PerformanceMods lists for NeoForge on this version. -Pwildshape.perfMods=false
-    // leaves them out. See docs/porting/performance-mods.md and unpackDevMods below.
+    // leaves them out. See unpackDevMods below.
     def unpacked = []
     if (project.findProperty("wildshape.perfMods") != "false") {
         unpacked += [

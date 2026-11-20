@@ -52,7 +52,7 @@ allprojects {
         maven { url = "https://maven.shedaniel.me" }
         maven { url = "https://jitpack.io" }
         maven { url = "https://maven.minecraftforge.net/" }
-        // performance mods for the dev runs, see docs/porting/performance-mods.md
+        // Optional performance mods for development runs.
         exclusiveContent {
             forRepository { maven { url = "https://api.modrinth.com/maven" } }
             filter { includeGroup "maven.modrinth" }
@@ -84,4 +84,4 @@ allprojects {
 }
 
 // Enforce identity on the final NeoForge remapped artifact.
-apply from: 'release-tools/gradle/release.gradle'
+apply from: 'gradle/release/release.gradle'

@@ -2,13 +2,9 @@
 
 # Towns & Kingdoms — Wildshape
 
-Terrain-generation fork for TNK3. Based on UltraTerraForged, ReTerraForged and TerraForged; upstream authors and licenses remain credited. In the current 1.0.3 edition, the FML mod ID, resources and world type use `wildshape`, and configuration uses `config/wildshape/`.
+Wildshape adds large landscapes, rivers, and connected caverns to Minecraft 1.21.1 on NeoForge. Choose Wildshape when creating a world to use its terrain.
 
-Version **1.0.3** adds optional [SkyLands compatibility](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/SKYLANDS_COMPATIBILITY.md), including extra build space for existing Wildshape worlds. Native islands generate in new chunks; saved chunks and terrain presets are retained.
-
-Version **1.0.2** fixes concurrent cache eviction, suspended cave-fluid/clay remnants and surface-height checks, and adds Streams Reflowing 2.17.3/2.17.4 support. The 1.0.1 world-creation fix remains included. Terrain corrections apply to new chunks; the `wildshape` registry identity is unchanged.
-
-[Changelog](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/CHANGELOG.md) · [1.0.2 audit and verification](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/main/docs/WILDSHAPE_WORLDGEN_FIX_2026-11-15.md)
+[Changelog](https://github.com/Mikaaah/Towns-and-Kingdoms-Wildshape/blob/release/wildshape-1.1.0/CHANGELOG.md)
 
 ## Guides
 
