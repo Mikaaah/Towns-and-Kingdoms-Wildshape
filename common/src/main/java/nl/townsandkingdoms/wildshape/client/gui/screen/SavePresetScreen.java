@@ -87,7 +87,6 @@ public class SavePresetScreen extends Screen {
 
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		// enter saves
 		if ((keyCode == 257 || keyCode == 335) && this.save.active) {
 			this.save();
 			return true;

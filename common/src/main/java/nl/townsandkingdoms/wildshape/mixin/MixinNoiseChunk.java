@@ -94,12 +94,7 @@ class MixinNoiseChunk {
 		if((Object) this.randomState instanceof WildshapeRandomState wildshapeRandomState && (generatorContext = wildshapeRandomState.generatorContext()) != null) {
 			boolean cache = !generatorContext.lookup.approximate() || CellSampler.isCachedNoiseChunk(cellCountXZ);
 
-//			if(beardifierOrMarker instanceof Beardifier beardifier && (beardifier.pieceIterator.hasNext() || beardifier.junctionIterator.hasNext())) {
-//				this.generationHeight = noiseSettings.height();
-//				System.out.println(this.generationHeight);
-//			} else {
-				this.generationHeight = cache ? generatorContext.lookup.getGenerationHeight(this.chunkX, this.chunkZ, noiseGeneratorSettings, true) : noiseSettings.height();
-//			}
+			this.generationHeight = cache ? generatorContext.lookup.getGenerationHeight(this.chunkX, this.chunkZ, noiseGeneratorSettings, true) : noiseSettings.height();
 
 			this.cellCountY = Math.min(this.cellCountY, this.generationHeight / this.cellHeight);
 			this.cache2d = new CellSampler.Cache2d();

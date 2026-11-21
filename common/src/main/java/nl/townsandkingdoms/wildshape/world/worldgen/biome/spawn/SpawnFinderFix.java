@@ -31,23 +31,23 @@ public class SpawnFinderFix {
 		float i = g;
 		BlockPos blockPos = this.result.location();
 		while (i <= f) {
-			int j = blockPos.getX() + (int) (Math.sin(h) * (double) i);
+			int j = blockPos.getX() + (int) (Math.sin(h) * i);
 			Result result = SpawnFinderFix.getSpawnPositionAndFitness(list, sampler, j,
-					blockPos.getZ() + (int) (Math.cos(h) * (double) i));
+					blockPos.getZ() + (int) (Math.cos(h) * i));
 			if (result.fitness() < this.result.fitness()) {
 				this.result = result;
 			}
-			if (!((double) (h += g / i) > Math.PI * 2))
-				continue;
-			h = 0.0f;
-			i += g;
+			if ((h += g / i) > Math.PI * 2) {
+				h = 0.0f;
+				i += g;
+			}
 		}
 	}
 
 	private static Result getSpawnPositionAndFitness(List<ParameterPoint> list, Sampler sampler, int i, int j) {
 		double d = Mth.square(2500.0);
-		long l = (long) ((double) Mth.square(10000.0f)
-				* Math.pow((double) (Mth.square((long) i) + Mth.square((long) j)) / d, 2.0));
+		long l = (long) (Mth.square(10000.0f)
+				* Math.pow((Mth.square((long) i) + Mth.square((long) j)) / d, 2.0));
 		TargetPoint targetPoint = sampler.sample(QuartPos.fromBlock(i), 0, QuartPos.fromBlock(j));
 		TargetPoint targetPoint2 = new TargetPoint(targetPoint.temperature(), targetPoint.humidity(),
 				targetPoint.continentalness(), targetPoint.erosion(), 0L, targetPoint.weirdness());

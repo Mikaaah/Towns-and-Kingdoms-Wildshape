@@ -131,12 +131,10 @@ public class FeatureTemplate {
                 continue;
             }
 
-            // ignore air in the template
             if (!config.pasteAir() && block.state().getBlock() == Blocks.AIR) {
                 continue;
             }
 
-            // don't replace existing solids
             if (!config.replaceSolid() && !placement.canReplaceAt(world, pos1)) {
                 continue;
             }
@@ -201,7 +199,6 @@ public class FeatureTemplate {
                 placed = true;
                 setter.setBlock(pos1, block.state(), 2);
             } else {
-                // if failed to place mark the pos as invalid
                 buffer.exclude(i);
             }
         }
@@ -273,13 +270,11 @@ public class FeatureTemplate {
         BlockState state1 = world.getBlockState(pos1);
         BlockState state2 = world.getBlockState(pos2);
 
-        // update state at pos1 - the input position
         BlockState result1 = state1.updateShape(direction, state2, world, pos1, pos2);
         if (result1 != state1) {
         	setter.setBlock(pos1, result1, PASTE_FLAG);
         }
 
-        // update state at pos2 - the neighbour
         BlockState result2 = state2.updateShape(direction.getOpposite(), result1, world, pos2, pos1);
         if (result2 != state2) {
         	setter.setBlock(pos2, result2, PASTE_FLAG);
@@ -376,7 +371,6 @@ public class FeatureTemplate {
             return Arrays.asList(blocks);
         }
 
-        // relativize all blocks to the origin
         List<BlockInfo> list = new ArrayList<>(blocks.length);
         for (BlockInfo in : blocks) {
             BlockPos pos = in.pos().subtract(origin);

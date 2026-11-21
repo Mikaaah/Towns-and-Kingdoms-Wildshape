@@ -24,7 +24,7 @@ public record Landforms(List<Landform> landforms) implements Landform {
 		int buttesSeed = seed.next();
 		int canyonsSeed = seed.next();
 		int seaCliffsSeed = seed.next();
-		int fjordsSeed = seed.next();
+		seed.next(); // Keep the old fjord slot so the following landforms keep their seeds.
 		int atollsSeed = seed.next();
 		int dunesSeed = seed.next();
 		int torsSeed = seed.next();

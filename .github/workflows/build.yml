@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
 
       # Gradle, Loom and the mod run on Java 21
-      - name: Setup JDK 21
+      - name: setup java
         uses: actions/setup-java@v4
         with:
           java-version: 21
@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Run tests
+      - name: test
         run: >-
           ./gradlew :common:test -Pwildshape.perfMods=false
           --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
@@ -50,10 +50,10 @@ jobs:
           --tests '*SkylandsDimensionResourcesTest'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers
-      - name: Build NeoForge
+      - name: build
         run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
-      - name: Upload build
+      - name: upload jar
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts

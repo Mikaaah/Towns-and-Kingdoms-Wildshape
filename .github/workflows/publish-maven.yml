@@ -19,10 +19,10 @@ jobs:
       group: publish-maven
       cancel-in-progress: false
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: setup java
         uses: actions/setup-java@v4
         with:
           java-version: 21
@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
 
       # adds to the maven branch rather than replacing it: every branch (1.20.1, 1.21.1, ...) publishes there
-      - name: Get the maven branch
+      - name: get maven branch
         run: |
           url="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           rm -rf maven-out
@@ -49,12 +49,12 @@ jobs:
             git -C maven-out remote add origin "$url"
           fi
 
-      - name: Publish into it
+      - name: publish jar
         env:
           RELEASE: true
         run: ./gradlew :neoforge:publish -Pwildshape.perfMods=false -PmavenUrl=file://$PWD/maven-out
 
-      - name: Push the maven branch
+      - name: push maven branch
         run: |
           cd maven-out
           git config user.name "github-actions[bot]"

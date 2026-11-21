@@ -26,13 +26,13 @@ public final class PresetBiomeModifier implements BiomeModifier {
 	@Override
 	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-        if (server == null) return;
-        if (phase == Phase.ADD && server.registryAccess().registry(WildshapeRegistries.BIOME_MODIFIER)
-                .map(modifiers -> modifiers.size() > 0).orElse(false)) {
-            // Run in ADD so datapack/pack REMOVE phases retain priority.
-            NativeSpawnHabitatBridge.apply(server, biome, builder);
-        }
-        if (phase != Phase.AFTER_EVERYTHING) return;
+		if (server == null) return;
+		if (phase == Phase.ADD && server.registryAccess().registry(WildshapeRegistries.BIOME_MODIFIER)
+				.map(modifiers -> modifiers.size() > 0).orElse(false)) {
+			// Run in ADD so datapack/pack REMOVE phases retain priority.
+			NativeSpawnHabitatBridge.apply(server, biome, builder);
+		}
+		if (phase != Phase.AFTER_EVERYTHING) return;
 		server.registryAccess().registry(WildshapeRegistries.BIOME_MODIFIER).ifPresent((modifiers) -> {
 			if (reported.get() != server) {
 				reported = new WeakReference<>(server);

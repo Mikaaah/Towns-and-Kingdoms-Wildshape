@@ -2,7 +2,6 @@ package nl.townsandkingdoms.wildshape.data.preset;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import nl.townsandkingdoms.wildshape.data.preset.settings.MiscellaneousSettings;
 import nl.townsandkingdoms.wildshape.data.preset.settings.Preset;
 import nl.townsandkingdoms.wildshape.data.preset.settings.SurfaceSettings;
 import nl.townsandkingdoms.wildshape.data.preset.settings.WorldSettings;
@@ -57,8 +56,6 @@ public class PresetSurfaceNoise {
 		
 		SurfaceSettings surfaceSettings = preset.surface();
 		SurfaceSettings.Erosion erosion = surfaceSettings.erosion();
-		
-		MiscellaneousSettings miscellaneousSettings = preset.miscellaneous();
 		
 		Scaling scaling = Scaling.make(properties.terrainScaler(), properties.seaLevel);
 

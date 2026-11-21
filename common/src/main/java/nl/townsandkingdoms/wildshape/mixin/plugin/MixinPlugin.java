@@ -81,10 +81,10 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	}
 
 	private static void log(boolean isModLoaded, String modName) {
-		if(isModLoaded) {
-			WildshapeCommon.LOGGER.info("Enabling {} compat", modName);
+		if (isModLoaded) {
+			WildshapeCommon.LOGGER.debug("Enabling {} compat", modName);
 		} else {
-			WildshapeCommon.LOGGER.info("Disabling {} compat", modName);
+			WildshapeCommon.LOGGER.debug("Disabling {} compat", modName);
 		}
 	}
 }

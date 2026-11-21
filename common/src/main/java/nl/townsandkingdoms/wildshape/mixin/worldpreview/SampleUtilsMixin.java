@@ -22,7 +22,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.WorldOptions;
-import nl.townsandkingdoms.wildshape.WildshapeCommon;
 import nl.townsandkingdoms.wildshape.world.worldgen.WildshapeRandomState;
 
 @Pseudo
@@ -30,7 +29,7 @@ import nl.townsandkingdoms.wildshape.world.worldgen.WildshapeRandomState;
 public class SampleUtilsMixin {
 	@Shadow
 	@Final
-    private RandomState randomState;
+	private RandomState randomState;
 	@Shadow
 	@Final
 	private RegistryAccess registryAccess;
@@ -64,15 +63,13 @@ public class SampleUtilsMixin {
 	}
 
 	private void initUTF() {
-		if((Object) this.randomState instanceof WildshapeRandomState wildshapeRandomState) {
+		if ((Object) this.randomState instanceof WildshapeRandomState wildshapeRandomState) {
 			wildshapeRandomState.initialize(this.registryAccess);
 			// the preview reads every section: its own world isn't culled, and no other is touched
-			if(wildshapeRandomState.generatorContext() != null) {
+			if (wildshapeRandomState.generatorContext() != null) {
 				wildshapeRandomState.generatorContext().lookup.setCullNoiseSections(false);
 				wildshapeRandomState.generatorContext().lookup.setApproximateColumns(true);
 			}
-
-			WildshapeCommon.LOGGER.info("initialized wildshape data");
 		} else {
 			throw new IllegalStateException();
 		}

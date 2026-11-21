@@ -67,14 +67,10 @@ public class BushFeature extends Feature<BushFeature.Config> {
 	}
 
     private boolean place(LevelAccessor world, BlockPos.MutableBlockPos center, BlockPos.MutableBlockPos pos, RandomSource random, Config config) {
-//        center.setY(world.getHeight(Heightmap.Types.WORLD_SURFACE, center.getX(), center.getZ()));
-
-        // don't replace solid blocks
         if (!BlockUtils.canTreeReplace(world, center)) {
             return false;
         }
 
-        // only place on dirt/grass/natural-stone
         center.move(Direction.DOWN, 1);
         if (!BlockUtils.isSoilOrRock(world, center)) {
             return false;
@@ -86,7 +82,6 @@ public class BushFeature extends Feature<BushFeature.Config> {
         BlockState leaves = config.leavesWithDistance(1);
         BlockState leavesExtra = config.leavesWithDistance(2);
         for (Vec3i neighbour : BushFeature.LEAF_POSITIONS) {
-            // randomly skip NESW neighbours
             if (neighbour.getY() == 0 && random.nextFloat() < config.airChance) {
                 continue;
             }
@@ -97,7 +92,6 @@ public class BushFeature extends Feature<BushFeature.Config> {
             if (BlockUtils.canTreeReplace(world, pos)) {
                 world.setBlock(pos, leaves, 2);
 
-                // randomly place extra leaves below if non-solid
                 if (neighbour.getY() == 0 && random.nextFloat() < config.leafChance) {
                     pos.move(Direction.DOWN, 1);
                     if (BlockUtils.canTreeReplace(world, pos)) {
@@ -106,7 +100,6 @@ public class BushFeature extends Feature<BushFeature.Config> {
                     pos.move(Direction.UP, 1);
                 }
 
-                // randomly place extra leaves above
                 if (neighbour.getY() == 0 && random.nextFloat() < config.leafChance) {
                     pos.move(Direction.UP, 1);
                     if (BlockUtils.canTreeReplace(world, pos)) {

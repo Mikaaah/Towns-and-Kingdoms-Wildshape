@@ -25,18 +25,9 @@ class MixinParameterList<T> {
 		at = @At("HEAD"),
 		method = "initializeForTerraBlender"
 	)
-    public void initializeForTerraBlender(RegistryAccess registryAccess, RegionType regionType, long seed, CallbackInfo callback) {
-    	this.maxIndex = Regions.getCount(regionType) - 1;
-//
-//    	registryAccess.lookup(WildshapeRegistries.PRESET).flatMap((registry) -> {
-//    		return registry.get(Preset.KEY);
-//    	}).ifPresent((holder) -> {
-//    		Preset preset = holder.value();
-//        	TBCompat.setSurfaceRules(preset, (defaultRules) -> {
-//        		return WildshapeSurfaceRuleData.overworld(preset, registryAccess.lookupOrThrow(Registries.DENSITY_FUNCTION), registryAccess.lookupOrThrow(WildshapeRegistries.NOISE), defaultRules);
-//            });
-//    	});
-    }
+	public void initializeForTerraBlender(RegistryAccess registryAccess, RegionType regionType, long seed, CallbackInfo callback) {
+		this.maxIndex = Regions.getCount(regionType) - 1;
+	}
 
 	@Redirect(
 		method = "findValuePositional",
@@ -45,20 +36,20 @@ class MixinParameterList<T> {
 			target = "Lnet/minecraft/world/level/biome/Climate$ParameterList;getUniqueness(III)I"
 		)
 	)
-    public int getUniqueness(Climate.ParameterList<T> parameterList, int x, int y, int z, Climate.TargetPoint targetPoint) {
-		if((Object) targetPoint instanceof TBTargetPoint tbTargetPoint) {
+	public int getUniqueness(Climate.ParameterList<T> parameterList, int x, int y, int z, Climate.TargetPoint targetPoint) {
+		if ((Object) targetPoint instanceof TBTargetPoint tbTargetPoint) {
 			double uniqueness = tbTargetPoint.getUniqueness();
-			if(Double.isNaN(uniqueness)) {
+			if (Double.isNaN(uniqueness)) {
 				return this.getUniqueness(x, y, z);
 			}
 			return NoiseUtil.round(this.maxIndex * (float) uniqueness);
 		} else {
 			throw new IllegalStateException();
 		}
-    }
+	}
 
 	@Shadow
-    public int getUniqueness(int x, int y, int z) {
-    	throw new UnsupportedOperationException();
-    }
+	public int getUniqueness(int x, int y, int z) {
+		throw new UnsupportedOperationException();
+	}
 }

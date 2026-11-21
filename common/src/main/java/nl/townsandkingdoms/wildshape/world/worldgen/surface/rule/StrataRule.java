@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.SurfaceRules.Context;
-import nl.townsandkingdoms.wildshape.WildshapeCommon;
 import nl.townsandkingdoms.wildshape.world.worldgen.WildshapeRandomState;
 import nl.townsandkingdoms.wildshape.world.worldgen.noise.module.Noise;
 import nl.townsandkingdoms.wildshape.world.worldgen.surface.WildshapeSurfaceSystem;
@@ -83,7 +82,6 @@ public record StrataRule(ResourceLocation cacheId, Holder<Noise> selector, Holde
 
 	private List<StrataStack> generate(RandomSource random, int height) {
 		List<BlockState> materials = this.findMaterials();
-		WildshapeCommon.LOGGER.info("Rock layers ({}, on {}) use {}", this.cacheId, BuiltInRegistries.BLOCK.getKey(this.base), materials.stream().map((state) -> BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString()).toList());
 		List<StrataStack> stacks = new ArrayList<>(this.variants);
 		for (int i = 0; i < this.variants; i++) {
 			// layers can be stretched to half their thickness at the least, see PresetStrataNoise

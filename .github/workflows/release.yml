@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: setup java
         uses: actions/setup-java@v4
         with:
           java-version: 21
@@ -39,7 +39,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Read release identity
+      - name: read version
         id: identity
         run: |
           python3 - <<'PYID'
@@ -52,12 +52,12 @@ jobs:
               output.write(f"version={version}\nfilename={filename}\nminecraft={target['minecraft']}\n")
           PYID
 
-      - name: Build NeoForge
+      - name: build
         env:
           RELEASE: true
         run: ./gradlew :neoforge:build tnkReleaseCheck -Pwildshape.perfMods=false
 
-      - name: Create GitHub release
+      - name: create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.identity.outputs.version }}
@@ -71,7 +71,7 @@ jobs:
 
       # mc-publish skips a platform whose token is empty, so the upload below
       # only run once MODRINTH_TOKEN / CURSEFORGE_TOKEN exist as repository secrets.
-      - name: Publish NeoForge to Modrinth and CurseForge
+      - name: publish jar
         if: ${{ false }} # Fork release safety: configure own project IDs before enabling.
         uses: Kira-NT/mc-publish@v3.3.1
         with:

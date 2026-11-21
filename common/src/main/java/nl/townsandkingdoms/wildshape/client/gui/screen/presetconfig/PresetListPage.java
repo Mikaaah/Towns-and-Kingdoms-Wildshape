@@ -79,7 +79,7 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 		
 		this.input = PresetWidgets.createEditBox(this.screen.font, (text) -> {
 			boolean isValid = this.isValidPresetName(text);
-			final int white = 14737632;
+			final int white = 0xE0E0E0;
 			final int red = 0xFFFF3F30;
 			this.createPreset.active = isValid;
 			this.input.setTextColor(isValid ? white : red);
