@@ -1,0 +1,44 @@
+name: curseforge push 1.1.1
+run-name: curseforge push 1.1.1
+
+on:
+  push:
+    branches: ['publish/curseforge-1.1.1']
+    paths:
+      - '.github/workflows/publish-verified-curseforge.yml'
+      - 'release-assets/1.1.1/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: curseforge-wildshape-1792816
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check JAR
+        run: |
+          jar=wildshape-1.1.1-neoforge-1.21.1.jar
+          cat release-assets/1.1.1/jar/part-{00,01,02,03} > "release-assets/1.1.1/$jar"
+          python3 gradle/release/tnk_versions.py verify --release release.json \
+            --jar "release-assets/1.1.1/$jar" --target neoforge-1.21.1 \
+            --expected-commit 15f5fc725b8b1f7b86ad010cfdbde981c78739b4
+      - name: Upload to CurseForge
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: python3 release-assets/1.1.1/publish.py
+      - name: Save receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: wildshape-1.1.1-curseforge-receipt
+          path: |
+            release-assets/1.1.1/curseforge-upload-result.json
+            release-assets/1.1.1/CHANGELOG.html
+          if-no-files-found: error
