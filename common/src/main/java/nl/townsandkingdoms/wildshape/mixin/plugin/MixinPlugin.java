@@ -29,8 +29,6 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	public static final List<String> AC_MIXINS = ImmutableList.of(mixinClassName("alexscaves.MixinBiomeGenerationNoiseCondition"), mixinClassName("alexscaves.MixinClimateSampler"));
 	public static final List<String> GA_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinNoiseBasedChunkGenerator"));
 	public static final List<String> GA2_MIXINS = ImmutableList.of(mixinClassName("generatoraccelerator.MixinCarverRunner"));
-	public static final List<String> INTEGRATED_PLACEMENT_MIXINS = ImmutableList.of(mixinClassName("structure.MixinIntegratedStructurePlacement"));
-	public static final List<String> CATACLYSM_PLACEMENT_MIXINS = ImmutableList.of(mixinClassName("structure.MixinCataclysmStructurePlacement"));
 	public static final List<String> SKYLANDS_MIXINS = ImmutableList.of(mixinClassName("skylands.MixinSkyTerrainFeature"), mixinClassName("skylands.MixinSkyTerrainStructureGuard"));
 
 	@Override
@@ -59,8 +57,6 @@ public class MixinPlugin implements IMixinConfigPlugin {
 			   AC_MIXINS.contains(mixinClassName) ? AlexsCavesCompat.isEnabled() :
 			   GA_MIXINS.contains(mixinClassName) ? GeneratorAcceleratorCompat.isEnabled() :
 			   GA2_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("generatoraccelerator2") :
-			   INTEGRATED_PLACEMENT_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("integrated_api") :
-			   CATACLYSM_PLACEMENT_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("cataclysm") :
 			   SKYLANDS_MIXINS.contains(mixinClassName) ? ModLoaderUtil.isLoaded("skylands") :
 			   true;
 	}

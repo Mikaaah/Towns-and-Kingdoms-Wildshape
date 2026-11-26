@@ -7,11 +7,15 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.io.file.PathUtils;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import nl.townsandkingdoms.wildshape.WildshapeCommon;
 import nl.townsandkingdoms.wildshape.data.preset.settings.Preset;
 
@@ -25,6 +29,35 @@ public final class PresetPacks {
 	public static boolean isPresetPack(String packId) {
 		return packId.startsWith("file/" + WORLD_PACK_PREFIX)
             && packId.endsWith(".zip");
+	}
+
+	/** Older generated preset packs could override structure sets. Reveal the next pack in priority order. */
+	public static Map<ResourceLocation, Resource> withoutLegacyStructureSets(
+		ResourceManager resources, Map<ResourceLocation, Resource> selected
+	) {
+		Map<ResourceLocation, Resource> restored = null;
+		for (var entry : selected.entrySet()) {
+			if (!isPresetPack(entry.getValue().sourcePackId())) {
+				continue;
+			}
+			if (restored == null) {
+				restored = new LinkedHashMap<>(selected);
+			}
+			ResourceLocation file = entry.getKey();
+			Resource fallback = null;
+			for (Resource candidate : resources.getResourceStack(file).reversed()) {
+				if (!isPresetPack(candidate.sourcePackId())) {
+					fallback = candidate;
+					break;
+				}
+			}
+			if (fallback == null) {
+				restored.remove(file);
+			} else {
+				restored.put(file, fallback);
+			}
+		}
+		return restored == null ? selected : restored;
 	}
 
 	/**

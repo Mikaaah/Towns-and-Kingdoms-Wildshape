@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.*;
 class CavernStructureSupportTest {
     private static final GiantCaverns.Cavern CHAMBER = new GiantCaverns.Cavern(8, -10, 8, 140, 40, 135, 30, 100);
     private static final StructurePlacementProfiles.Profile BURIED =
-            new StructurePlacementProfiles.Profile(256, "underground", 0, false, "", 0, true);
+            new StructurePlacementProfiles.Profile("underground", 0, false, 0, true);
     @BeforeAll static void bootstrap() { TestBootstrap.init(); }
 
     private static final class Slice {
@@ -107,7 +107,7 @@ class CavernStructureSupportTest {
     }
 
     @Test void otherNativeUndergroundStructuresKeepTheirOwnCavePlacement() {
-        var nativeCave = new StructurePlacementProfiles.Profile(256, "underground", 0, true, "");
+        var nativeCave = new StructurePlacementProfiles.Profile("underground", 0, true);
         assertTrue(StructureTerrainValidation.validCavernSupport(nativeCave,
                 java.util.List.of(new BoundingBox(0, -40, 0, 15, 20, 15)),
                 (x, y, z) -> { fail("unrelated native cave structure was screened"); return true; }));

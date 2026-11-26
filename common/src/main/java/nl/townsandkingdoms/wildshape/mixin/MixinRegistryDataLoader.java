@@ -1,6 +1,7 @@
 package nl.townsandkingdoms.wildshape.mixin;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,10 +10,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.google.gson.JsonElement;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import nl.townsandkingdoms.wildshape.data.preset.PresetStructureResources;
 import nl.townsandkingdoms.wildshape.compat.skylands.SkylandsDimensionResources;
 import nl.townsandkingdoms.wildshape.platform.ModLoaderUtil;
 import com.mojang.serialization.Decoder;
@@ -34,6 +36,21 @@ class MixinRegistryDataLoader {
 		throw new AssertionError();
 	}
 
+	@ModifyExpressionValue(
+		method = "loadContentsFromManager",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/resources/FileToIdConverter;listMatchingResources(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;"
+		)
+	)
+	private static Map<ResourceLocation, Resource> wildshape$restoreStructureSets(
+		Map<ResourceLocation, Resource> selected, @Local(argsOnly = true) ResourceManager resources,
+		@Local(argsOnly = true) WritableRegistry<?> registry
+	) {
+		return registry.key().equals(Registries.STRUCTURE_SET)
+			? PresetPacks.withoutLegacyStructureSets(resources, selected) : selected;
+	}
+
 	/*
 	 * Vanilla treats worldgen from any pack that isn't built in as experimental and asks for confirmation when such
 	 * a world is created. A Wildshape world's preset pack lives in its datapacks folder like a user pack, but
@@ -49,8 +66,6 @@ class MixinRegistryDataLoader {
 		require = 1
 	)
 	private static <E> void wildshape$loadElement(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> key, Resource resource, RegistrationInfo info, @Local(argsOnly = true) ResourceManager resources) throws IOException {
-        if (registry.key().equals(Registries.STRUCTURE_SET))
-            resource = PresetStructureResources.patch(resources, key.location(), resource);
         if (registry.key().equals(Registries.DIMENSION_TYPE))
             resource = SkylandsDimensionResources.patch(resources, key.location(), resource,
                     ModLoaderUtil.isLoaded("skylands"));

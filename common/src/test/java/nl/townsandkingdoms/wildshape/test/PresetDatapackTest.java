@@ -13,9 +13,9 @@ import org.junit.jupiter.api.TestFactory;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.resources.ResourceLocation;
 import nl.townsandkingdoms.wildshape.data.preset.settings.Preset;
 import nl.townsandkingdoms.wildshape.preset.option.PresetOptions;
 
@@ -24,7 +24,6 @@ public class PresetDatapackTest {
 	private static final String PRESET_FILE = "data/wildshape/wildshape/worldgen/preset/preset.json";
 	private static final String NOISE_SETTINGS = "data/minecraft/worldgen/noise_settings/overworld.json";
 	private static final String CAVE_CARVER = "data/minecraft/worldgen/configured_carver/cave.json";
-	private static final String VILLAGES = "data/minecraft/worldgen/structure_set/villages.json";
 
 	@BeforeAll
 	static void bootstrap() {
@@ -97,30 +96,26 @@ public class PresetDatapackTest {
 	}
 
 	@Test
-	void structuresAreOnlyOverriddenWhenChanged() {
+	void defaultsDoNotExportStructureSets() {
 		assertTrue(PresetDatapack.generate(defaultPreset()).files().keySet().stream().noneMatch((file) -> file.contains("/worldgen/structure_set/")));
 	}
 
 	@Test
-	void structureSpacingAndDisablingReachTheStructureSets() {
-		Preset preset = defaultPreset();
-		ResourceLocation villages = ResourceLocation.parse("villages");
-		preset.structures().getOrCreate(villages).spacing = 20;
-		preset.structures().getOrCreate(villages).separation = 25;
-		preset.structures().getOrCreate(ResourceLocation.parse("pillager_outposts")).enabled = false;
-
+	void legacyStructureOverridesAreIgnored() {
+		JsonObject defaults = PresetOptionsTest.encode(defaultPreset());
+		JsonObject json = defaults.deepCopy();
+		json.add("structures", JsonParser.parseString("""
+				{
+				  "minecraft:villages": {"spacing": 20, "separation": 25},
+				  "minecraft:pillager_outposts": {"enabled": false},
+				  "dungeons_arise:major_structures": {"spacing": 32, "separation": 24}
+				}
+				"""));
+		Preset preset = Preset.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 		PresetDatapack.Result pack = PresetDatapack.generate(preset);
 		assertTrue(pack.errors().isEmpty(), String.join("\n", pack.errors()));
-		JsonObject placement = pack.files().get(VILLAGES).getAsJsonObject().getAsJsonObject("placement");
-		assertEquals(20, placement.get("spacing").getAsInt());
-		// separation must stay below spacing or vanilla rejects the placement
-		assertEquals(19, placement.get("separation").getAsInt());
-		assertTrue(pack.files().get(VILLAGES).getAsJsonObject().getAsJsonArray("structures").size() > 0);
-
-		JsonObject outposts = pack.files().get("data/minecraft/worldgen/structure_set/pillager_outposts.json").getAsJsonObject();
-		assertEquals(0, outposts.getAsJsonArray("structures").size());
-		// the exclusion zone that keeps outposts away from villages still points at the village set
-		assertEquals("minecraft:villages", outposts.getAsJsonObject("placement").getAsJsonObject("exclusion_zone").get("other_set").getAsString());
+		assertEquals(defaults, pack.files().get(PRESET_FILE));
+		assertTrue(pack.files().keySet().stream().noneMatch((file) -> file.contains("/worldgen/structure_set/")));
 	}
 
 	private static JsonElement file(Preset preset, String path) {

@@ -1,3 +1,10 @@
+# 1.1.1 — restored dungeon placement
+
+- Removed Wildshape's dungeon spacing, density and cross-structure overlap rules. Structure mods use their own placement settings again.
+- Removed structure overrides from the preset editor. Existing Wildshape worlds also ignore those overrides when loading older presets.
+
+Minecraft 1.21.1 / NeoForge / Java 21. The placement change applies to newly generated chunks.
+
 # 1.1.0 — inland rivers, mushroom islands and giant caverns
 
 - Increased candidate density for selected Overworld dungeon sets by roughly 25%. Native checks, linked layouts and explicit preset overrides still apply, so the number of placed dungeons varies by seed.

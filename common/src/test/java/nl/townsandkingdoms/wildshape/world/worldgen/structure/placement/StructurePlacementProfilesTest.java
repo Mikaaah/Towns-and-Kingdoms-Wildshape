@@ -2,41 +2,81 @@ package nl.townsandkingdoms.wildshape.world.worldgen.structure.placement;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonParser;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import net.minecraft.resources.ResourceLocation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class StructurePlacementProfilesTest {
-    @Test void bundledPairsKeepNativeCompanionOrigins() {
+    @Test void bundledProfilesOnlyValidateNamedStructuresAndKeepCatacombProtection() {
         var settings = StructurePlacementProfiles.settings();
-        assertFalse(settings.approximateBiomeScreening(), "Native biome validators must remain authoritative by default");
-        assertEquals(settings.set(ResourceLocation.parse("epic:large_dungeons")).linkedGroup(), settings.set(ResourceLocation.parse("epic:large_dungeons_obelisks")).linkedGroup());
-        assertFalse(settings.set(ResourceLocation.parse("epic:large_dungeons")).linkedGroup().isEmpty());
-        String dungeonKey = StructurePlacementCoordinator.rankingKey(ResourceLocation.parse("epic:large_dungeons"), settings.set(ResourceLocation.parse("epic:large_dungeons")));
-        String obeliskKey = StructurePlacementCoordinator.rankingKey(ResourceLocation.parse("epic:large_dungeons_obelisks"), settings.set(ResourceLocation.parse("epic:large_dungeons_obelisks")));
-        assertEquals(dungeonKey, obeliskKey, "Companions must also win/lose together against external sets");
-        assertEquals(RegionalClearance.priority(123,dungeonKey,10,20), RegionalClearance.priority(123,obeliskKey,10,20));
-        assertEquals("underground", settings.set(ResourceLocation.parse("mowziesmobs:wrought_chambers")).layer());
-        assertEquals("ocean", settings.set(ResourceLocation.parse("cataclysm:sunken_city")).layer());
-        assertNull(settings.set(ResourceLocation.parse("ec_ad:coralosaur_nest")));
+        assertTrue(settings.structure(ResourceLocation.parse("mowziesmobs:monastery")).surface());
+        assertTrue(settings.structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
+        assertNull(settings.structure(ResourceLocation.parse("idas:unlisted_dungeon")));
+        assertNull(settings.structure(ResourceLocation.parse("cataclysm:sunken_city")));
+        assertThrows(UnsupportedOperationException.class, () -> settings.structures().clear());
     }
-    @Test void settingsAreImmutableAndBounded() {
-        assertThrows(UnsupportedOperationException.class, () -> StructurePlacementProfiles.settings().sets().clear());
-        assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString("{\"namespaces\":{\"example\":{\"clearance\":99999}}}").getAsJsonObject(),256,112,8192));
-        assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString("{\"sets\":{\"example:bad\":{\"layer\":\"typo\"}}}").getAsJsonObject(),256,112,8192));
+
+    @Test void terrainBoundsAndLayerNamesStillRejectInvalidAuthoredProfiles() {
+        assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"structures\":{\"example:bad\":{\"maxSlopeDelta\":99999}}}").getAsJsonObject()));
+        assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"structures\":{\"example:bad\":{\"maxAnchorOffset\":-1}}}").getAsJsonObject()));
+        assertThrows(IllegalArgumentException.class, () -> StructurePlacementProfiles.parse(JsonParser.parseString(
+                "{\"structures\":{\"example:bad\":{\"layer\":\"typo\"}}}").getAsJsonObject()));
     }
-    @Test void oldCopiedPolicyGetsTargetedCatacombSafetyWithoutReplacingOtherProfiles() {
+
+    @Test void oldSpacingProfilesAreIgnoredWhileTheirTerrainChoicesSurvive() {
         var old = StructurePlacementProfiles.parse(JsonParser.parseString(
-                "{\"namespaces\":{\"irons_spellbooks\":{}},\"structures\":{\"example:den\":{\"layer\":\"underground\"}}}")
-                .getAsJsonObject(), 256, 112, 8192);
+                "{\"approximateBiomeScreening\":true,\"namespaces\":{\"irons_spellbooks\":{\"clearance\":99999}},"
+                + "\"sets\":{\"idas:idas_common\":{\"layer\":\"retired\",\"clearance\":99999}},"
+                + "\"structures\":{\"example:den\":{\"layer\":\"surface\",\"size\":\"retired\",\"clearance\":99999,"
+                + "\"linkedGroup\":\"old\",\"maxSlopeDelta\":18,\"maxAnchorOffset\":6,\"rejectWater\":true}}}")
+                .getAsJsonObject());
+        var den = old.structure(ResourceLocation.parse("example:den"));
+        assertEquals(18, den.maxSlopeDelta()); assertEquals(6, den.maxAnchorOffset()); assertTrue(den.rejectWater());
         assertTrue(old.structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
-        assertFalse(old.structure(ResourceLocation.parse("example:den")).rejectCavernVoid());
-        assertNull(old.structure(ResourceLocation.parse("irons_spellbooks:ice_spider_den")));
+        assertNull(old.structure(ResourceLocation.parse("idas:idas_common")));
+    }
+
+    @Test void explicitCatacombOptOutAndLegacyFallbackNamespaceDisableArePreserved() {
         var explicit = StructurePlacementProfiles.parse(JsonParser.parseString(
                 "{\"structures\":{\"irons_spellbooks:catacombs\":{\"layer\":\"underground\",\"rejectCavernVoid\":false}}}")
-                .getAsJsonObject(), 256, 112, 8192);
+                .getAsJsonObject());
         assertFalse(explicit.structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
         var disabled = StructurePlacementProfiles.parse(JsonParser.parseString(
-                "{\"namespaces\":{\"irons_spellbooks\":{\"layer\":\"disabled\"}}}").getAsJsonObject(), 256, 112, 8192);
+                "{\"namespaces\":{\"irons_spellbooks\":{\"layer\":\"disabled\"}}}").getAsJsonObject());
         assertNull(disabled.structure(ResourceLocation.parse("irons_spellbooks:catacombs")));
+    }
+
+    @Test void legacyEnabledSwitchIsRetainedWithoutOverwritingExistingJson(@TempDir Path directory) throws Exception {
+        Path file = directory.resolve("structure-placement.json");
+        String original = "{\"sets\":{\"idas:idas_common\":{\"clearance\":256}},\"structures\":{}}";
+        Files.writeString(file, original);
+        try {
+            StructurePlacementProfiles.configure(false, file);
+            assertFalse(StructurePlacementProfiles.settings().enabled());
+            assertEquals(original, Files.readString(file));
+            assertTrue(StructurePlacementProfiles.settings().structure(ResourceLocation.parse("irons_spellbooks:catacombs")).rejectCavernVoid());
+        } finally {
+            StructurePlacementProfiles.configure(true, null);
+        }
+    }
+
+    @Test void newCopiedDefaultsContainOnlyTerrainProfiles(@TempDir Path directory) throws Exception {
+        Path file = directory.resolve("structure-placement.json");
+        try {
+            StructurePlacementProfiles.configure(true, file);
+            var json = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+            assertTrue(json.has("structures"));
+            assertFalse(json.has("sets")); assertFalse(json.has("namespaces"));
+            for (var entry : json.getAsJsonObject("structures").entrySet()) {
+                assertFalse(entry.getValue().getAsJsonObject().has("clearance"));
+                assertFalse(entry.getValue().getAsJsonObject().has("linkedGroup"));
+            }
+        } finally {
+            StructurePlacementProfiles.configure(true, null);
+        }
     }
 }

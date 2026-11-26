@@ -62,7 +62,7 @@ public class PerformanceBenchmarkTest {
 	}
 
 	private static Preset replace(Preset p, LandformSettings landforms, CoastSettings coasts, CaveFeatureSettings caves, OceanSettings oceans) {
-		return new Preset(p.world(), p.surface(), p.caves(), p.climate(), p.terrain(), p.rivers(), p.filters(), p.structures(), p.miscellaneous(), landforms, coasts, caves, oceans);
+		return new Preset(p.world(), p.surface(), p.caves(), p.climate(), p.terrain(), p.rivers(), p.filters(), p.miscellaneous(), landforms, coasts, caves, oceans);
 	}
 
 	private static Preset change(String name, UnaryOperator<Preset> change) {

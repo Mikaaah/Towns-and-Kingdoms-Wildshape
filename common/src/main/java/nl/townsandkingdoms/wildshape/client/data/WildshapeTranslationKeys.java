@@ -25,7 +25,6 @@ public class WildshapeTranslationKeys {
 	public static final String GUI_TERRAIN_SETTINGS_TITLE = resolve("gui.terrainSettings.title");
 	public static final String GUI_RIVER_SETTINGS_TITLE = resolve("gui.riverSettings.title");
 	public static final String GUI_FILTER_SETTINGS_TITLE = resolve("gui.filterSettings.title");
-	public static final String GUI_STRUCTURE_SETTINGS_TITLE = resolve("gui.structureSettings.title");
 	public static final String GUI_MISCELLANEOUS_SETTINGS_TITLE = resolve("gui.miscellaneousSettings.title");
 	public static final String GUI_LANDFORM_SETTINGS_TITLE = resolve("gui.landformSettings.title");
 	public static final String GUI_LABEL_BUTTES = resolve("gui.label.buttes");
@@ -198,8 +197,6 @@ public class WildshapeTranslationKeys {
 	public static final String GUI_BUTTON_TERRAIN_SEED_OFFSET = resolve("gui.button.terrainSeedOffset");
 	public static final String GUI_BUTTON_FANCY_MOUNTAINS = resolve("gui.button.fancyMountains");
 	public static final String GUI_BUTTON_RIVER_SEED_OFFSET = resolve("gui.button.riverSeedOffset");
-	public static final String GUI_BUTTON_SALT = resolve("gui.button.salt");
-	public static final String GUI_BUTTON_DISABLED = resolve("gui.button.disabled");
 	public static final String GUI_BUTTON_SMOOTH_LAYER_DECORATOR = resolve("gui.button.smoothLayerDecorator");
 	public static final String GUI_BUTTON_STRATA_DECORATOR = resolve("gui.button.strataDecorator");
 	public static final String GUI_BUTTON_ORE_COMPATIBLE_STONE_ONLY = resolve("gui.button.oreCompatibleStoneOnly");
@@ -306,13 +303,6 @@ public class WildshapeTranslationKeys {
 	public static final String GUI_SLIDER_SMOOTHING_ITERATIONS = resolve("gui.slider.smoothing.iterations");
 	public static final String GUI_SLIDER_SMOOTHING_RADIUS = resolve("gui.slider.smoothing.radius");
 	public static final String GUI_SLIDER_SMOOTHING_RATE = resolve("gui.slider.smoothing.rate");
-	public static final String GUI_SLIDER_SPACING = resolve("gui.slider.spacing");
-	public static final String GUI_SLIDER_SEPARATION = resolve("gui.slider.separation");
-	public static final String GUI_BUTTON_STRUCTURE_ENABLED = resolve("gui.button.structureEnabled");
-	public static final String GUI_SLIDER_STRUCTURE_FREQUENCY = resolve("gui.slider.structureFrequency");
-	public static final String GUI_SLIDER_STRUCTURE_DISTANCE = resolve("gui.slider.structureDistance");
-	public static final String GUI_SLIDER_STRUCTURE_SPREAD = resolve("gui.slider.structureSpread");
-	public static final String GUI_SLIDER_STRUCTURE_COUNT = resolve("gui.slider.structureCount");
 	public static final String GUI_SLIDER_STRATA_REGION_SIZE = resolve("gui.slider.strataRegionSize");
 	public static final String GUI_LABEL_STRATA = resolve("gui.label.strata");
 	public static final String GUI_SLIDER_MOUNTAIN_BIOME_USAGE = resolve("gui.slider.mountainBiomeUsage");

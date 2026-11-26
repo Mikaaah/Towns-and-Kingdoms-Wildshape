@@ -60,7 +60,6 @@ public class WildshapeLanguageProvider {
 			this.add(WildshapeTranslationKeys.GUI_TERRAIN_SETTINGS_TITLE, "Terrain Settings");
 			this.add(WildshapeTranslationKeys.GUI_RIVER_SETTINGS_TITLE, "River Settings");
 			this.add(WildshapeTranslationKeys.GUI_FILTER_SETTINGS_TITLE, "Filter Settings");
-			this.add(WildshapeTranslationKeys.GUI_STRUCTURE_SETTINGS_TITLE, "Structure Settings");
 			this.add(WildshapeTranslationKeys.GUI_MISCELLANEOUS_SETTINGS_TITLE, "Miscellaneous Settings");
 			this.add(WildshapeTranslationKeys.GUI_LANDFORM_SETTINGS_TITLE, "Landforms");
 			this.add(WildshapeTranslationKeys.GUI_LABEL_BUTTES, "Buttes & Mesas");
@@ -334,8 +333,6 @@ public class WildshapeLanguageProvider {
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_TERRAIN_SEED_OFFSET, "Terrain Seed Offset");
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_FANCY_MOUNTAINS, "Fancy Mountains");
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_RIVER_SEED_OFFSET, "Seed Offset");
-			this.add(WildshapeTranslationKeys.GUI_BUTTON_SALT, "Salt");
-			this.add(WildshapeTranslationKeys.GUI_BUTTON_DISABLED, "Disabled");
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_SMOOTH_LAYER_DECORATOR, "Smooth Layer Decorator");
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_STRATA_DECORATOR, "Rock Layers");
 			this.add(WildshapeTranslationKeys.GUI_BUTTON_ORE_COMPATIBLE_STONE_ONLY, "Only Ore-Bearing Rock");
@@ -445,18 +442,6 @@ public class WildshapeLanguageProvider {
 			this.add(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_ITERATIONS, "Smoothing Iterations");
 			this.add(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_RADIUS, "Smoothing Radius");
 			this.add(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_RATE, "Smoothing Rate");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_SPACING, "Spacing");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_SEPARATION, "Separation");
-			this.add(WildshapeTranslationKeys.GUI_BUTTON_STRUCTURE_ENABLED, "Generate");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_FREQUENCY, "Frequency");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_DISTANCE, "Ring Distance");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_SPREAD, "Ring Spread");
-			this.add(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_COUNT, "Count");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_STRUCTURE_ENABLED), "Whether this structure set generates at all");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_FREQUENCY), "Chance that a placement attempt actually generates a structure");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_DISTANCE), "Spacing of the rings; the first ring is about 4 times this many chunks from the world origin");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_SPREAD), "How many structures go in the first ring; each later ring holds more");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_STRUCTURE_COUNT), "Total number of structures placed in rings");
 			this.add(WildshapeTranslationKeys.GUI_LABEL_STRATA, "Rock Layers");
 			this.add(WildshapeTranslationKeys.GUI_SLIDER_STRATA_REGION_SIZE, "Rock Layer Region Size");
 			this.add(WildshapeTranslationKeys.GUI_SLIDER_MOUNTAIN_BIOME_USAGE, "Mountain Biome Usage");
@@ -627,8 +612,6 @@ public class WildshapeLanguageProvider {
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_TERRAIN_SEED_OFFSET), "A seed offset used to randomise terrain distribution");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_FANCY_MOUNTAINS), "Carries out extra processing on mountains to make them look even nicer. Can be disabled to improve performance slightly.");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_RIVER_SEED_OFFSET), "A seed offset used to randomise river distribution");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_SALT), "A random seed value for the structure.");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_DISABLED), "Prevent this structure from generating.");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_SMOOTH_LAYER_DECORATOR), "Modifies layer block levels (ie snow) to fit the terrain");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_STRATA_DECORATOR), "Fills the underground with bands of stone, granite, diorite, andesite and other mods' natural stones that show in cliffs, caves and ravines, like layers in a canyon wall. Replaces vanilla's scattered blobs of those rocks");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_BUTTON_ORE_COMPATIBLE_STONE_ONLY), "Only use rocks that ores can generate in. When off, rocks such as tuff, calcite and other mods' decorative stones are layered too, and those hold no ores");
@@ -731,18 +714,6 @@ public class WildshapeLanguageProvider {
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_ITERATIONS), "Controls the number of smoothing iterations");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_RADIUS), "Controls the smoothing radius");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_SMOOTHING_RATE), "Controls how strongly smoothing is applied");
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_SPACING),
-				  "Controls the size of the grid used to generate the structure. "
-				+ "Structures will attempt to generate once per grid cell. Larger "
-				+ "spacing values will make the structure appear less frequently."
-			);
-			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_SEPARATION),
-				  "Controls the minimum distance between instances of the structure. "
-				+ "Larger values guarantee larger distances between structures of the "
-				+ "same type but cause them to generate more 'grid-aligned'. "
-				+ "Lower values will produce a more random distribution but may allow "
-				+ "instances to generate closer together."
-			);
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_MOUNTAIN_BIOME_USAGE), "The probability that mountainous terrain will be set to a mountain biome type.\nThis may help improve compatibility with mods that rely exclusively on mountain biomes.");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_VOLCANO_BIOME_USAGE), "The probability that volcano terrain will be set to a volcano biome type.\nThis may help improve compatibility with mods that rely exclusively on volcano biomes.");
 			this.add(Tooltips.translationKey(WildshapeTranslationKeys.GUI_SLIDER_STRATA_REGION_SIZE), "How far apart the areas with different sequences of rock layers are, in blocks");

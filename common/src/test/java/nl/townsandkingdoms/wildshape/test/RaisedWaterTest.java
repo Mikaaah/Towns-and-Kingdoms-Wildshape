@@ -118,7 +118,7 @@ public class RaisedWaterTest {
 	void waterLiesBelowTheLandAroundIt() {
 		Preset preset = preset();
 		// landforms raise land of their own (buttes, dunes); the rivers don't depend on them
-		Preset bare = new Preset(preset.world(), preset.surface(), preset.caves(), preset.climate(), preset.terrain(), preset.rivers(), preset.filters(), preset.structures(), preset.miscellaneous(), LandformSettings.makeNone(), preset.coasts(), preset.caveFeatures(), preset.oceans());
+		Preset bare = new Preset(preset.world(), preset.surface(), preset.caves(), preset.climate(), preset.terrain(), preset.rivers(), preset.filters(), preset.miscellaneous(), LandformSettings.makeNone(), preset.coasts(), preset.caveFeatures(), preset.oceans());
 		// the places from the issues: seed 1111, and the seed of #6 as the game passes it on
 		int[] reported = survey(bare, 1111, 5236.0F, 2514.0F);
 		int[] lake = survey(bare, (int) -5371518255054548833L, 1864.0F, 1150.0F);

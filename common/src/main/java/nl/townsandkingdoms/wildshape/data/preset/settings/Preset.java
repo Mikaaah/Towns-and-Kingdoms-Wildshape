@@ -26,12 +26,11 @@ import nl.townsandkingdoms.wildshape.data.preset.PresetNoiseParameters;
 import nl.townsandkingdoms.wildshape.data.preset.PresetNoiseRouterData;
 import nl.townsandkingdoms.wildshape.data.preset.PresetPlacedFeatures;
 import nl.townsandkingdoms.wildshape.data.preset.PresetStructureRuleData;
-import nl.townsandkingdoms.wildshape.data.preset.PresetStructureSets;
 import nl.townsandkingdoms.wildshape.data.preset.PresetSurfaceLayerData;
 import nl.townsandkingdoms.wildshape.registries.WildshapeRegistries;
 
 //TODO make this actually immutable when we rework the gui
-public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings caves, ClimateSettings climate, TerrainSettings terrain, RiverSettings rivers, FilterSettings filters, StructureSettings structures, MiscellaneousSettings miscellaneous, LandformSettings landforms, CoastSettings coasts, CaveFeatureSettings caveFeatures, OceanSettings oceans) {
+public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings caves, ClimateSettings climate, TerrainSettings terrain, RiverSettings rivers, FilterSettings filters, MiscellaneousSettings miscellaneous, LandformSettings landforms, CoastSettings coasts, CaveFeatureSettings caveFeatures, OceanSettings oceans) {
 	private static final Codec<Preset> UNVERSIONED_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		WorldSettings.CODEC.fieldOf("world").forGetter(Preset::world),
 		// presets are mutable, so a missing section must get its own default instance rather than a shared one
@@ -41,7 +40,6 @@ public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings 
 		TerrainSettings.CODEC.fieldOf("terrain").forGetter(Preset::terrain),
 		RiverSettings.CODEC.fieldOf("rivers").forGetter(Preset::rivers),
 		FilterSettings.CODEC.fieldOf("filters").forGetter(Preset::filters),
-		StructureSettings.CODEC.optionalFieldOf("structures").xmap((structures) -> structures.orElseGet(StructureSettings::new), Optional::of).forGetter(Preset::structures),
 		MiscellaneousSettings.CODEC.fieldOf("miscellaneous").forGetter(Preset::miscellaneous),
 		// added after the first releases; older presets get today's landforms
 		LandformSettings.CODEC.optionalFieldOf("landforms").xmap((landforms) -> landforms.orElseGet(LandformSettings::makeDefault), Optional::of).forGetter(Preset::landforms),
@@ -58,7 +56,7 @@ public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings 
 	}
 	
 	public Preset copy() {
-		return new Preset(this.world.copy(), this.surface.copy(), this.caves.copy(), this.climate.copy(), this.terrain.copy(), this.rivers.copy(), this.filters.copy(), this.structures.copy(), this.miscellaneous.copy(), this.landforms.copy(), this.coasts.copy(), this.caveFeatures.copy(), this.oceans.copy());
+		return new Preset(this.world.copy(), this.surface.copy(), this.caves.copy(), this.climate.copy(), this.terrain.copy(), this.rivers.copy(), this.filters.copy(), this.miscellaneous.copy(), this.landforms.copy(), this.coasts.copy(), this.caveFeatures.copy(), this.oceans.copy());
 	}
 
 	public HolderLookup.Provider buildPatch(HolderLookup.Provider registries) {
@@ -74,7 +72,6 @@ public record Preset(WorldSettings world, SurfaceSettings surface, CaveSettings 
 		this.addPatch(builder, Registries.CONFIGURED_CARVER, (preset, ctx) -> {
 			PresetConfiguredCarvers.bootstrap(preset, ctx);	
 		});
-		this.addPatch(builder, Registries.STRUCTURE_SET, (preset, ctx) -> PresetStructureSets.bootstrap(preset, ctx, registries));
 		this.addPatch(builder, Registries.PLACED_FEATURE, PresetPlacedFeatures::bootstrap);
 		this.addPatch(builder, Registries.BIOME, PresetBiomeData::bootstrap);
 		this.addPatch(builder, Registries.DIMENSION_TYPE, PresetDimensionTypes::bootstrap);

@@ -7,6 +7,7 @@ import nl.townsandkingdoms.wildshape.client.gui.createworld.TerrainPreview;
 import nl.townsandkingdoms.wildshape.client.gui.screen.presetconfig.PresetListPage.PresetEntry;
 import nl.townsandkingdoms.wildshape.data.preset.settings.Preset;
 import nl.townsandkingdoms.wildshape.preset.option.Page;
+import nl.townsandkingdoms.wildshape.preset.option.PresetOptions;
 
 /**
  * One visit to the advanced editor: the preset being edited, what it looked like when the editor opened, and the
@@ -24,7 +25,7 @@ final class EditorSession implements PreviewSource {
 		this.screen = screen;
 		this.entry = entry;
 		this.baseline = baseline;
-		this.pages = OptionPage.pages(screen.getSettings());
+		this.pages = PresetOptions.PAGES;
 		this.preview = new TerrainPreview(this);
 	}
 

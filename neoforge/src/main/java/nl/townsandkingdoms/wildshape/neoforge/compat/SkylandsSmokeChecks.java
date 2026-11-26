@@ -165,7 +165,8 @@ public final class SkylandsSmokeChecks {
                         "optimizedPathObserved", fast > 0,
                         "observedPath", fast > 0 ? "optimized" : vanilla > 0 ? "safe_vanilla_fallback" : "not_exercised"));
             }
-            report.put("structurePlacement", nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementCoordinator.audit(level));
+            report.put("structurePlacement", Map.of("mode", "native", "runtimeClearanceApplied", false,
+                    "terrainValidationEnabled", nl.townsandkingdoms.wildshape.world.worldgen.structure.placement.StructurePlacementProfiles.settings().enabled()));
             report.put("passed", true);
         } catch (Throwable failure) {
             report.put("passed", false);

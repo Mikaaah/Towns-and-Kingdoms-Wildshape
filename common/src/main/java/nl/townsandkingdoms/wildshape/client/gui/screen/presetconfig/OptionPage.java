@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.IntStream;
 
 import com.mojang.datafixers.util.Pair;
@@ -18,13 +17,8 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.structure.StructureSet;
 import nl.townsandkingdoms.wildshape.WildshapeCommon;
 import nl.townsandkingdoms.wildshape.client.data.WildshapeTranslationKeys;
 import nl.townsandkingdoms.wildshape.client.gui.PresetSharing;
@@ -36,8 +30,6 @@ import nl.townsandkingdoms.wildshape.mixin.ScreenInvoker;
 import nl.townsandkingdoms.wildshape.preset.option.Category;
 import nl.townsandkingdoms.wildshape.preset.option.Option;
 import nl.townsandkingdoms.wildshape.preset.option.Page;
-import nl.townsandkingdoms.wildshape.preset.option.PresetOptions;
-import nl.townsandkingdoms.wildshape.preset.option.StructureOptions;
 
 /**
  * An editor page generated from option declarations: the options on the left, and on the right a page picker,
@@ -58,21 +50,6 @@ public class OptionPage implements LinkedPageScreen.Page {
 	OptionPage(EditorSession session, int index) {
 		this.session = session;
 		this.index = index;
-	}
-
-	// the declared pages plus one for the structure sets of the world being created, before miscellaneous
-	public static List<Page> pages(WorldCreationContext settings) {
-		List<Page> pages = new ArrayList<>(PresetOptions.PAGES);
-		Set<Holder<Biome>> overworldBiomes = settings.selectedDimensions().overworld().getBiomeSource().possibleBiomes();
-		Page structures = StructureOptions.page(settings.worldgenLoadContext().lookupOrThrow(Registries.STRUCTURE_SET), (holder) -> generatesIn(holder.value(), overworldBiomes));
-		if (!structures.categories().isEmpty()) {
-			pages.add(pages.indexOf(PresetOptions.MISCELLANEOUS), structures);
-		}
-		return List.copyOf(pages);
-	}
-
-	private static boolean generatesIn(StructureSet set, Set<Holder<Biome>> biomes) {
-		return set.structures().stream().anyMatch((entry) -> entry.structure().value().biomes().stream().anyMatch(biomes::contains));
 	}
 
 	private Page page() {

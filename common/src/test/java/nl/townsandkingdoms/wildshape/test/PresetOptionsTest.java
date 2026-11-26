@@ -47,9 +47,7 @@ public class PresetOptionsTest {
 		"surface.erosion.snowHeight",
         // Legacy water-tunnel fields still decode, but TNK3 no longer generates this feature.
         "caveFeatures.undergroundRivers.enabled",
-        "caveFeatures.undergroundRivers.frequency",
-		// structure options are generated per structure set from the registry, see StructureOptionsTest
-		"structures"
+        "caveFeatures.undergroundRivers.frequency"
 	);
 
 	@BeforeAll

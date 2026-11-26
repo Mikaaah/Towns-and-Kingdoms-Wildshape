@@ -38,8 +38,8 @@ jobs:
         run: >-
           ./gradlew :common:test -Pwildshape.perfMods=false
           --tests '*BiomeExclusionsTest' --tests '*CaveBiomeProtectionTest'
-          --tests '*StructureSet*Test' --tests '*OptionalHabitatDatapackTest'
-          --tests '*TaggedStructurePresetExportTest' --tests '*PresetDatapackTest'
+          --tests '*LegacyPresetStructureSetsTest' --tests '*OptionalHabitatDatapackTest'
+          --tests '*PresetDatapackTest'
           --tests '*StrataMaterialsTest' --tests '*FastPoissonContextTest'
           --tests '*SkerriesWaterTest' --tests '*WorldGenLookupTest'
           --tests '*TileCacheTest' --tests '*StructureRuleTest'
@@ -54,9 +54,9 @@ jobs:
           --tests '*ErosionBrush*Test' --tests '*ThreadLocalPool*Test'
           --tests '*CellSamplerCache*Test' --tests '*OptionalEngine*Test'
           --tests '*SurfaceStrataConcurrencyTest' --tests '*LazyCallableTest'
-          --tests '*RegionalClearanceTest' --tests '*structure.placement.*Test' --tests '*HabitatOverlayTest'
+          --tests '*HabitatOverlayTest'
           --tests '*MushroomIslandsTest' --tests '*SurfaceWaterBiomeClassificationTest'
-          --tests '*DungeonDensityPolicyTest' --tests '*LushPool*Test'
+          --tests '*LushPool*Test'
           --tests '*CavernStyleTest' --tests '*CavernStructure*Test'
 
       # the performance mods are only for the dev games; leaving them out keeps CI off their Maven servers

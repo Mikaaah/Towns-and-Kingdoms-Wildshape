@@ -1,8 +1,5 @@
 package nl.townsandkingdoms.wildshape.data.preset.settings;
 
-import java.util.List;
-import java.util.function.Consumer;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
@@ -14,25 +11,13 @@ import com.mojang.serialization.JsonOps;
 /**
  * Versioning for serialized presets, both preset files and the preset stored in a world's datapack.
  *
- * Encoded presets carry a "version" field. When decoding, older versions are upgraded one step at a time before
- * the preset is parsed, so the settings classes only ever have to understand the current layout. Files written
+ * Encoded presets carry a "version" field. Older layouts are upgraded before decoding so the settings classes
+ * only have to understand the current layout. Files written
  * before versioning existed (Wildshape 0.0.7 and earlier) count as version 0.
  */
 public final class PresetFormat {
 	public static final int CURRENT_VERSION = 2;
 	public static final String VERSION_KEY = "version";
-
-	// UPGRADES.get(n) turns a version n preset into version n + 1
-	private static final List<Consumer<JsonObject>> UPGRADES = List.of(
-		PresetFormat::renameMushroomIslandPoints,
-		PresetFormat::flattenLegacyStructures
-	);
-
-	static {
-		if (UPGRADES.size() != CURRENT_VERSION) {
-			throw new IllegalStateException("Expected " + CURRENT_VERSION + " preset upgrades but found " + UPGRADES.size());
-		}
-	}
 
 	public static Codec<Preset> versioned(Codec<Preset> codec) {
 		return new Codec<>() {
@@ -89,9 +74,10 @@ public final class PresetFormat {
 		if (version > CURRENT_VERSION) {
 			return DataResult.error(() -> "Preset version " + version + " was made with a newer Wildshape (this version reads up to " + CURRENT_VERSION + ")");
 		}
-		for (int i = version; i < CURRENT_VERSION; i++) {
-			UPGRADES.get(i).accept(object);
+		if (version == 0) {
+			renameMushroomIslandPoints(object);
 		}
+		object.remove("structures");
 		return DataResult.success(object);
 	}
 
@@ -102,32 +88,6 @@ public final class PresetFormat {
 			rename(controlPoints, "mushroomFieldsInland", "islandInland");
 			rename(controlPoints, "mushroomFieldsCoast", "islandCoast");
 		}
-	}
-
-	// 1 -> 2: 0.0.6 nested structure sets as structures.structures and stored "disabled"; the settings were never applied
-	// back then, but keep what the user chose now that they are
-	private static void flattenLegacyStructures(JsonObject preset) {
-		JsonObject structures = getObject(preset, "structures");
-		if (structures == null) {
-			return;
-		}
-		JsonObject legacy = getObject(structures, "structures");
-		if (legacy == null) {
-			return;
-		}
-		JsonObject flattened = new JsonObject();
-		legacy.entrySet().forEach((entry) -> {
-			if (!entry.getValue().isJsonObject()) {
-				return;
-			}
-			JsonObject set = entry.getValue().getAsJsonObject().deepCopy();
-			JsonElement disabled = set.remove("disabled");
-			if (disabled != null && disabled.isJsonPrimitive() && disabled.getAsBoolean()) {
-				set.addProperty("enabled", false);
-			}
-			flattened.add(entry.getKey(), set);
-		});
-		preset.add("structures", flattened);
 	}
 
 	private static void rename(JsonObject object, String from, String to) {

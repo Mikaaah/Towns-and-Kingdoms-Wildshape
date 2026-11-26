@@ -29,9 +29,7 @@ class OptionalEngineMixinsTest {
             new Family(MixinPlugin.AC_MIXINS, "alexscaves"),
             new Family(MixinPlugin.GA_MIXINS, "generator_accelerator"),
             new Family(MixinPlugin.GA2_MIXINS, "generatoraccelerator2"),
-            new Family(MixinPlugin.SKYLANDS_MIXINS, "skylands"),
-            new Family(MixinPlugin.INTEGRATED_PLACEMENT_MIXINS, "integrated_api"),
-            new Family(MixinPlugin.CATACLYSM_PLACEMENT_MIXINS, "cataclysm"));
+            new Family(MixinPlugin.SKYLANDS_MIXINS, "skylands"));
 
     @Test void absentEnginesDisableAllTheirMixins() {
         var plugin = new MixinPlugin();
@@ -68,6 +66,10 @@ class OptionalEngineMixinsTest {
         }
         new MixinPlugin().getMixins().forEach(name -> registered.add(prefix + name));
         assertEquals(registered.size(), new HashSet<>(registered).size(), "duplicate Mixin registrations");
+        for (String retired : List.of("MixinStructurePlacement", "AccessorChunkGeneratorStructureState",
+                "structure.MixinIntegratedStructurePlacement", "structure.MixinCataclysmStructurePlacement"))
+            assertFalse(registered.contains(prefix + retired), "native placements must not be intercepted: " + retired);
+        assertTrue(registered.contains(prefix + "MixinStructure"), "independent terrain suitability checks remain");
         for (Family family : FAMILIES)
             for (String mixin : family.mixins())
                 assertTrue(registered.contains(mixin), "unregistered optional mixin: " + mixin);

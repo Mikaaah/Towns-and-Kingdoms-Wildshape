@@ -1,109 +1,5 @@
 {
-  "_comment": "Restart required. Clearance is radial distance between candidate chunk centers, in blocks. Native placements, weights, salts, terrain adaptation and linked custom algorithms are retained. Surface profiles are explicit; caves/ocean/sky are not globally flattened.",
-  "namespaces": {
-    "idas": {},
-    "dungeons_arise": {},
-    "integrated_villages": {},
-    "betterdungeons": {},
-    "bettermineshafts": {
-      "layer": "underground"
-    },
-    "betterdeserttemples": {},
-    "betterjungletemples": {},
-    "betterwitchhuts": {
-      "size": "minor"
-    },
-    "betteroceanmonuments": {
-      "layer": "ocean"
-    },
-    "yungsbridges": {
-      "size": "minor"
-    },
-    "yungsextras": {
-      "size": "minor"
-    },
-    "cataclysm": {},
-    "mowziesmobs": {},
-    "legendary_monsters": {},
-    "bossesrise": {},
-    "irons_spellbooks": {},
-    "ars_nouveau": {},
-    "thaumaturge": {},
-    "apotheosis": {
-      "size": "minor"
-    },
-    "epic": {},
-    "dungeons_arise_seven_seas": {
-      "layer": "ocean"
-    },
-    "block_factorys_bosses": {}
-  },
-  "sets": {
-    "idas:idas_small": {
-      "size": "minor"
-    },
-    "idas:idas_underground": {
-      "layer": "underground"
-    },
-    "idas:idas_underground_rare": {
-      "layer": "underground"
-    },
-    "idas:idas_ocean": {
-      "layer": "ocean"
-    },
-    "dungeons_arise:minor_structures": {
-      "size": "minor"
-    },
-    "integrated_villages:air_villages": {
-      "layer": "sky"
-    },
-    "betterdungeons:small_dungeons": {
-      "size": "minor",
-      "layer": "underground"
-    },
-    "betterdungeons:skeleton_dungeons": {
-      "layer": "underground"
-    },
-    "betterdungeons:spider_dungeons": {
-      "layer": "underground"
-    },
-    "betterdungeons:zombie_dungeons": {
-      "layer": "underground"
-    },
-    "cataclysm:sunken_city": {
-      "layer": "ocean"
-    },
-    "cataclysm:amethyst_nest": {
-      "layer": "underground"
-    },
-    "mowziesmobs:wrought_chambers": {
-      "layer": "underground"
-    },
-    "irons_spellbooks:catacombs": {
-      "layer": "underground"
-    },
-    "irons_spellbooks:mangrove_hut": {
-      "size": "minor"
-    },
-    "epic:large_dungeons": {
-      "linkedGroup": "epic:large_dungeon_and_obelisk"
-    },
-    "epic:large_dungeons_obelisks": {
-      "linkedGroup": "epic:large_dungeon_and_obelisk"
-    },
-    "epic:witch_hut": {
-      "size": "minor"
-    },
-    "epic:epic_temple_ruin": {
-      "size": "minor"
-    },
-    "block_factorys_bosses:kraken_ship": {
-      "layer": "ocean"
-    },
-    "block_factorys_bosses:underworld_arena": {
-      "layer": "disabled"
-    }
-  },
+  "_comment": "Restart required. Per-structure terrain suitability only. Profiles do not change native structure spacing, density, salts, exclusions or linked layouts. Existing placement.enabled controls these independent checks.",
   "structures": {
     "mowziesmobs:monastery": {
       "layer": "surface",
@@ -116,7 +12,6 @@
       "rejectWater": true
     },
     "betterwitchhuts:witch_hut": {
-      "size": "minor",
       "layer": "surface",
       "maxSlopeDelta": 24,
       "rejectWater": false
@@ -160,6 +55,5 @@
       "layer": "underground",
       "rejectCavernVoid": true
     }
-  },
-  "approximateBiomeScreening": false
+  }
 }

@@ -40,10 +40,6 @@
     "alexscaves.MixinBiomeGenerationNoiseCondition",
     "alexscaves.MixinClimateSampler",
     "generatoraccelerator.MixinNoiseBasedChunkGenerator",
-    "MixinStructurePlacement",
-    "AccessorChunkGeneratorStructureState",
-    "structure.MixinIntegratedStructurePlacement",
-    "structure.MixinCataclysmStructurePlacement",
     "generatoraccelerator.MixinCarverRunner"
   ],
   "client": [

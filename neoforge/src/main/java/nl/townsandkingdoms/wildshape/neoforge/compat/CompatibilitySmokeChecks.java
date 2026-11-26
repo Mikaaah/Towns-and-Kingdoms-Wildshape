@@ -75,7 +75,7 @@ public final class CompatibilitySmokeChecks {
 
             var sets = level.registryAccess().registryOrThrow(Registries.STRUCTURE_SET);
             var spacing = new LinkedHashMap<String, Integer>();
-            Map<String, Integer> expected = Map.of("idas:idas_common", 36, "dungeons_arise:major_structures", 64,
+            Map<String, Integer> expected = Map.of("idas:idas_common", 21, "dungeons_arise:major_structures", 40,
                     "ae2:meteorite", 32, "alexscaves:acid_pit", 6, "hybrid_aquatic:whale_falls", 16,
                     "betterfortresses:fortress", 30);
             expected.forEach((id, wanted) -> sets.getOptional(ResourceLocation.parse(id)).ifPresent(set -> {
